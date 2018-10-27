@@ -2,7 +2,7 @@ import "./date";
 
 var app = getApp();
 
-var host = "https://demo5.thinkcmf.com";
+var host = "http://168.168.4.20/sign_online/admin/public";
 
 var tryingLogin = false;
 
