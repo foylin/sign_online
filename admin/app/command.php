@@ -13,7 +13,7 @@ $apps = cmf_scan_dir(APP_PATH . '*', GLOB_ONLYDIR);
 
 $returnCommands = [];
 
-//test
+//test...
 
 foreach ($apps as $app) {
     $commandFile = APP_PATH . $app . '/command.php';
