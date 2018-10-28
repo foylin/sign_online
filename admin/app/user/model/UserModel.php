@@ -153,9 +153,9 @@ class UserModel extends Model
 
         $userStatus = 1;
 
-        if (cmf_is_open_registration()) {
-            $userStatus = 2;
-        }
+        // if (cmf_is_open_registration()) {
+        //     $userStatus = 2;
+        // }
 
         if (empty($result)) {
             $data   = [
