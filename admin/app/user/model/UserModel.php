@@ -19,6 +19,58 @@ class UserModel extends Model
         'more' => 'array',
     ];
 
+    /**
+     * 关联部门分类表
+     */
+    public function frame()
+    {
+        return $this->belongsToMany('FrameCategoryModel', 'frame_category_post', 'category_id', 'post_id');
+    }
+
+    /**
+     * 关联模糊岗位分类表
+     */
+    public function vague()
+    {
+        return $this->belongsToMany('VagueCategoryModel', 'vague_category_post', 'category_id', 'post_id');
+    }
+
+    /**
+     * 关联身份分类表
+     */
+    public function identity()
+    {
+        return $this->belongsToMany('IdentityCategoryModel', 'identity_category_post', 'category_id', 'post_id');
+    }
+
+    /**
+     * 关联角色分类表
+     */
+    public function role()
+    {
+        return $this->belongsToMany('RoleCategoryModel', 'role_category_post', 'category_id', 'post_id');
+    }
+
+    /**
+     * post_content 自动转化
+     * @param $value
+     * @return string
+     */
+    public function getUserContentAttr($value)
+    {
+        return cmf_replace_content_file_url(htmlspecialchars_decode($value));
+    }
+
+    /**
+     * post_content 自动转化
+     * @param $value
+     * @return string
+     */
+    public function setUserContentAttr($value)
+    {
+        return htmlspecialchars(cmf_replace_content_file_url(htmlspecialchars_decode($value), true));
+    }
+
     public function doMobile($user)
     {
         $result = $this->where('mobile', $user['mobile'])->find();
@@ -307,5 +359,110 @@ class UserModel extends Model
         $userInfo = Db::name("user")->where('id', $userId)->find();
         cmf_update_current_user($userInfo);
         return 0;
+    }
+
+    /**
+     * 
+     */
+    public function adminEditUser($user, $frame = null, $vague = null, $identity = null, $role = null){
+        $nowuser = Db::name("user")->where('id', $user['id'])->find();
+        
+        $result = Db::name("user")->where('mobile', $user['mobile'])->find();
+        // 修改的手机号码已存在
+        if($result && $result['mobile'] != $nowuser['mobile']){
+            return 1;
+        }
+
+        $result = Db::name("user")->where('user_login', $user['user_login'])->find();
+        // 修改的员工姓名已存在
+        if($result && $result['user_login'] != $nowuser['user_login']){
+            return 2;
+        }
+
+        // $data   = [
+        //     'user_login'      => $user['user_login'],
+        //     'user_email'      => $user['user_email'],
+        //     'mobile'          => $user['mobile'],
+        //     'user_nickname'   => '',
+        //     'user_pass'       => cmf_password($user['user_pass']),
+        //     'last_login_ip'   => get_client_ip(0, true),
+        //     'create_time'     => time(),
+        //     'last_login_time' => time(),
+        //     'user_status'     => $userStatus,
+        //     "user_type"       => 2,//会员
+        // ];
+        if (!empty($user['avatar'])) {
+            $user['avatar'] = cmf_asset_relative_url($user['avatar']);
+        }
+        $this->allowField(true)->isUpdate(true)->data($user, true)->save();
+        dump($this->getLastSql());
+        //部门分类
+        if (is_string($frame)) {
+            $frame = explode(',', $frame);
+        }
+        
+        $oldCategoryIds        = $this->frame()->column('category_id');
+        $sameCategoryIds       = array_intersect($frame, $oldCategoryIds);
+        $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
+        $newCategoryIds        = array_diff($frame, $sameCategoryIds);
+
+        if (!empty($needDeleteCategoryIds)) {
+            $this->frame()->detach($needDeleteCategoryIds);
+        }
+
+        if (!empty($newCategoryIds)) {
+            $this->frame()->attach(array_values($newCategoryIds));
+        }
+
+        //模糊岗位分类
+        if (is_string($vague)) {
+            $vague = explode(',', $vague);
+        }
+        $oldCategoryIds        = $this->vague()->column('category_id');
+        $sameCategoryIds       = array_intersect($vague, $oldCategoryIds);
+        $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
+        $newCategoryIds        = array_diff($vague, $sameCategoryIds);
+
+        if (!empty($needDeleteCategoryIds)) {
+            $this->vague()->detach($needDeleteCategoryIds);
+        }
+
+        if (!empty($newCategoryIds)) {
+            $this->vague()->attach(array_values($newCategoryIds));
+        }
+
+        // 身份分类
+        if (is_string($identity)) {
+            $identity = explode(',', $identity);
+        }
+        $oldCategoryIds        = $this->identity()->column('category_id');
+        $sameCategoryIds       = array_intersect($identity, $oldCategoryIds);
+        $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
+        $newCategoryIds        = array_diff($identity, $sameCategoryIds);
+
+        if (!empty($needDeleteCategoryIds)) {
+            $this->identity()->detach($needDeleteCategoryIds);
+        }
+
+        if (!empty($newCategoryIds)) {
+            $this->identity()->attach(array_values($newCategoryIds));
+        }
+
+        // 角色分类
+        if (is_string($role)) {
+            $role = explode(',', $role);
+        }
+        $oldCategoryIds        = $this->role()->column('category_id');
+        $sameCategoryIds       = array_intersect($role, $oldCategoryIds);
+        $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
+        $newCategoryIds        = array_diff($role, $sameCategoryIds);
+
+        if (!empty($needDeleteCategoryIds)) {
+            $this->role()->detach($needDeleteCategoryIds);
+        }
+
+        if (!empty($newCategoryIds)) {
+            $this->role()->attach(array_values($newCategoryIds));
+        }
     }
 }

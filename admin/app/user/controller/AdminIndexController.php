@@ -283,19 +283,37 @@ class AdminIndexController extends AdminBaseController
         //     return $content;
         // }
 
-        // $id = $this->request->param('id', 0, 'intval');
-
+        $id = $this->request->param('id', 0, 'intval');
+        $userModel = new UserModel();
+        
         // $portalPostModel = new PortalPostModel();
-        // $post            = $portalPostModel->where('id', $id)->find();
-        // $postCategories  = $post->categories()->alias('a')->column('a.name', 'a.id');
-        // $postCategoryIds = implode(',', array_keys($postCategories));
+        $post            = $userModel->where('id', $id)->find();
+        // var_dump($post);
+        $postCategories  = $post->frame()->alias('a')->column('a.name', 'a.id');
+        $postCategoryIds = implode(',', array_keys($postCategories));
+        
+        $this->assign('post_categories', $postCategories);
+        $this->assign('post_category_ids', $postCategoryIds);
 
-        // $themeModel        = new ThemeModel();
-        // $articleThemeFiles = $themeModel->getActionThemeFiles('portal/Article/index');
-        // $this->assign('article_theme_files', $articleThemeFiles);
-        // $this->assign('post', $post);
-        // $this->assign('post_categories', $postCategories);
-        // $this->assign('post_category_ids', $postCategoryIds);
+        $postCategories_vague  = $post->vague()->alias('a')->column('a.name', 'a.id');
+        $postCategoryIds_vague = implode(',', array_keys($postCategories_vague));
+        
+        $this->assign('post_categories_vague', $postCategories_vague);
+        $this->assign('post_category_ids_vague', $postCategoryIds_vague);
+
+        $postCategories_identity  = $post->identity()->alias('a')->column('a.name', 'a.id');
+        $postCategoryIds_identity = implode(',', array_keys($postCategories_identity));
+        
+        $this->assign('post_categories_identity', $postCategories_identity);
+        $this->assign('post_category_ids_identity', $postCategoryIds_identity);
+
+        $postCategories_role  = $post->role()->alias('a')->column('a.name', 'a.id');
+        $postCategoryIds_role = implode(',', array_keys($postCategories_role));
+        
+        $this->assign('post_categories_role', $postCategories_role);
+        $this->assign('post_category_ids_role', $postCategoryIds_role);
+        
+        $this->assign('post', $post);
 
         return $this->fetch();
     }
@@ -320,35 +338,42 @@ class AdminIndexController extends AdminBaseController
             $data = $this->request->param();
 
             //需要抹除发布、置顶、推荐的修改。
-            unset($data['post']['post_status']);
-            unset($data['post']['is_top']);
-            unset($data['post']['recommended']);
+            // unset($data['post']['post_status']);
+            // unset($data['post']['is_top']);
+            // unset($data['post']['recommended']);
 
             $post   = $data['post'];
-            $result = $this->validate($post, 'AdminArticle');
-            if ($result !== true) {
-                $this->error($result);
+            // $result = $this->validate($post, 'AdminArticle');
+            // if ($result !== true) {
+            //     $this->error($result);
+            // }
+
+            // $portalPostModel = new PortalPostModel();
+            $userModel = new UserModel();
+
+            // if (!empty($data['photo_names']) && !empty($data['photo_urls'])) {
+            //     $data['post']['more']['photos'] = [];
+            //     foreach ($data['photo_urls'] as $key => $url) {
+            //         $photoUrl = cmf_asset_relative_url($url);
+            //         array_push($data['post']['more']['photos'], ["url" => $photoUrl, "name" => $data['photo_names'][$key]]);
+            //     }
+            // }
+
+            // if (!empty($data['file_names']) && !empty($data['file_urls'])) {
+            //     $data['post']['more']['files'] = [];
+            //     foreach ($data['file_urls'] as $key => $url) {
+            //         $fileUrl = cmf_asset_relative_url($url);
+            //         array_push($data['post']['more']['files'], ["url" => $fileUrl, "name" => $data['file_names'][$key]]);
+            //     }
+            // }
+            if(empty($post['user_pass'])){
+                // $user['user_pass'] = '123456';
+                unset($post['user_pass']);
+            }else{
+                $post['user_pass'] = cmf_password($post['user_pass']);
             }
-
-            $portalPostModel = new PortalPostModel();
-
-            if (!empty($data['photo_names']) && !empty($data['photo_urls'])) {
-                $data['post']['more']['photos'] = [];
-                foreach ($data['photo_urls'] as $key => $url) {
-                    $photoUrl = cmf_asset_relative_url($url);
-                    array_push($data['post']['more']['photos'], ["url" => $photoUrl, "name" => $data['photo_names'][$key]]);
-                }
-            }
-
-            if (!empty($data['file_names']) && !empty($data['file_urls'])) {
-                $data['post']['more']['files'] = [];
-                foreach ($data['file_urls'] as $key => $url) {
-                    $fileUrl = cmf_asset_relative_url($url);
-                    array_push($data['post']['more']['files'], ["url" => $fileUrl, "name" => $data['file_names'][$key]]);
-                }
-            }
-
-            $portalPostModel->adminEditArticle($data['post'], $data['post']['categories']);
+            dump($post);
+            $userModel->adminEditUser($data['post'], $data['post']['categories'], $data['post']['categories_vague'], $data['post']['categories_identity'], $data['post']['categories_role']);
 
             $hookParam = [
                 'is_add'  => false,
