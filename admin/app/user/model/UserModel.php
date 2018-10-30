@@ -394,8 +394,8 @@ class UserModel extends Model
         if (!empty($user['avatar'])) {
             $user['avatar'] = cmf_asset_relative_url($user['avatar']);
         }
-        $this->allowField(true)->isUpdate(true)->data($user, true)->save();
-        dump($this->getLastSql());
+        $this->allowField(true)->isUpdate(true)->save($user);
+        // dump($this->getLastSql());
         //部门分类
         if (is_string($frame)) {
             $frame = explode(',', $frame);

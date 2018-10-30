@@ -81,6 +81,9 @@ class AdminIndexController extends AdminBaseController
         $usersQuery = Db::name('user');
 
         $list = $usersQuery->whereOr($keywordComplex)->where($where)->order("create_time DESC")->paginate(10);
+        foreach ($list as $value) {
+            # code...
+        }
         // 获取分页显示
         $page = $list->render();
         $this->assign('list', $list);
@@ -372,8 +375,8 @@ class AdminIndexController extends AdminBaseController
             }else{
                 $post['user_pass'] = cmf_password($post['user_pass']);
             }
-            dump($post);
-            $userModel->adminEditUser($data['post'], $data['post']['categories'], $data['post']['categories_vague'], $data['post']['categories_identity'], $data['post']['categories_role']);
+            // dump($post);
+            $userModel->adminEditUser($post, $post['categories'], $post['categories_vague'], $post['categories_identity'], $post['categories_role']);
 
             $hookParam = [
                 'is_add'  => false,
