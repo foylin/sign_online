@@ -12,15 +12,12 @@ namespace app\protocol\controller;
 
 use app\admin\model\RouteModel;
 use cmf\controller\AdminBaseController;
-use app\protocol\model\ProtocolCategoryModel;
+use app\protocol\model\ProtocolCategoryUserModel;
 use think\Db;
 use app\admin\model\ThemeModel;
 
-use app\protocol\model\SealCategoryModel;
-// use app\protocol\model\UserCategoryModel;
-use app\protocol\model\UserModel;
 
-class AdminCategoryController extends AdminBaseController
+class AdminCategoryUserController extends AdminBaseController
 {
     /**
      * 文章分类列表
@@ -43,14 +40,14 @@ class AdminCategoryController extends AdminBaseController
             return $content;
         }
 
-        $protocolCategoryModel = new ProtocolCategoryModel();
+        $protocolCategoryUserModel = new ProtocolCategoryUserModel();
         $keyword             = $this->request->param('keyword');
 
         if (empty($keyword)) {
-            $categoryTree = $protocolCategoryModel->adminCategoryTableTree();
+            $categoryTree = $protocolCategoryUserModel->adminCategoryTableTree();
             $this->assign('category_tree', $categoryTree);
         } else {
-            $categories = $protocolCategoryModel->where('name', 'like', "%{$keyword}%")
+            $categories = $protocolCategoryUserModel->where('name', 'like', "%{$keyword}%")
                 ->where('delete_time', 0)->select();
             $this->assign('categories', $categories);
         }
@@ -82,8 +79,8 @@ class AdminCategoryController extends AdminBaseController
         }
 
         $parentId            = $this->request->param('parent', 0, 'intval');
-        $protocolCategoryModel = new ProtocolCategoryModel();
-        $categoriesTree      = $protocolCategoryModel->adminCategoryTree($parentId);
+        $protocolCategoryUserModel = new ProtocolCategoryUserModel();
+        $categoriesTree      = $protocolCategoryUserModel->adminCategoryTree($parentId);
 
         $themeModel        = new ThemeModel();
         $listThemeFiles    = $themeModel->getActionThemeFiles('protocol/List/index');
@@ -110,7 +107,7 @@ class AdminCategoryController extends AdminBaseController
      */
     public function addPost()
     {
-        $protocolCategoryModel = new ProtocolCategoryModel();
+        $protocolCategoryUserModel = new ProtocolCategoryUserModel();
 
         $data = $this->request->param();
 
@@ -120,7 +117,7 @@ class AdminCategoryController extends AdminBaseController
             $this->error($result);
         }
 
-        $result = $protocolCategoryModel->addCategory($data);
+        $result = $protocolCategoryUserModel->addCategory($data);
 
         if ($result === false) {
             $this->error('添加失败!');
@@ -154,15 +151,10 @@ class AdminCategoryController extends AdminBaseController
 
         $id = $this->request->param('id', 0, 'intval');
         if ($id > 0) {
-            // $category = protocolCategoryModel::get($id)->toArray();
+            $category = protocolCategoryUserModel::get($id)->toArray();
 
-            
-
-            $protocolCategoryModel = new ProtocolCategoryModel();
-
-            $category = $protocolCategoryModel->where('id', $id)->find();
-            // dump($category);
-            $categoriesTree      = $protocolCategoryModel->adminCategoryTree($category['parent_id'], $id);
+            $protocolCategoryUserModel = new ProtocolCategoryUserModel();
+            $categoriesTree      = $protocolCategoryUserModel->adminCategoryTree($category['parent_id'], $id);
 
             $themeModel        = new ThemeModel();
             $listThemeFiles    = $themeModel->getActionThemeFiles('protocol/List/index');
@@ -172,7 +164,7 @@ class AdminCategoryController extends AdminBaseController
             $alias      = $routeModel->getUrl('protocol/List/index', ['id' => $id]);
 
             $category['alias'] = $alias;
-            $this->assign('category', $category);
+            $this->assign($category);
             $this->assign('list_theme_files', $listThemeFiles);
             $this->assign('article_theme_files', $articleThemeFiles);
             $this->assign('categories_tree', $categoriesTree);
@@ -206,9 +198,9 @@ class AdminCategoryController extends AdminBaseController
             $this->error($result);
         }
 
-        $protocolCategoryModel = new ProtocolCategoryModel();
+        $protocolCategoryUserModel = new ProtocolCategoryUserModel();
 
-        $result = $protocolCategoryModel->editCategory($data);
+        $result = $protocolCategoryUserModel->editCategory($data);
 
         if ($result === false) {
             $this->error('保存失败!');
@@ -234,7 +226,7 @@ class AdminCategoryController extends AdminBaseController
     {
         $ids                 = $this->request->param('ids');
         $selectedIds         = explode(',', $ids);
-        $protocolCategoryModel = new ProtocolCategoryModel();
+        $protocolCategoryUserModel = new ProtocolCategoryUserModel();
 
         $tpl = <<<tpl
 <tr class='data-item-tr'>
@@ -247,70 +239,14 @@ class AdminCategoryController extends AdminBaseController
 </tr>
 tpl;
 
-        $categoryTree = $protocolCategoryModel->adminCategoryTableTree($selectedIds, $tpl);
+        $categoryTree = $protocolCategoryUserModel->adminCategoryTableTree($selectedIds, $tpl);
 
         $where      = ['delete_time' => 0];
-        $categories = $protocolCategoryModel->where($where)->select();
+        $categories = $protocolCategoryUserModel->where($where)->select();
 
         $this->assign('categories', $categories);
         $this->assign('selectedIds', $selectedIds);
         $this->assign('categories_tree', $categoryTree);
-        return $this->fetch();
-    }
-
-    public function select_seal()
-    {
-        $ids                 = $this->request->param('ids');
-        $selectedIds         = explode(',', $ids);
-        $sealCategoryModel = new SealCategoryModel();
-
-        $tpl = <<<tpl
-<tr class='data-item-tr'>
-    <td>
-        <input type='checkbox' class='js-check' data-yid='js-check-y' data-xid='js-check-x' name='ids[]'
-               value='\$id' data-name='\$name' \$checked>
-    </td>
-    <td>\$id</td>
-    <td>\$spacer <a href='\$url' target='_blank'>\$name</a></td>
-</tr>
-tpl;
-
-        $categoryTree = $sealCategoryModel->adminCategoryTableTree($selectedIds, $tpl);
-
-        $where      = ['delete_time' => 0];
-        $categories = $sealCategoryModel->where($where)->select();
-
-        $this->assign('categories', $categories);
-        $this->assign('selectedIds', $selectedIds);
-        $this->assign('categories_tree', $categoryTree);
-        return $this->fetch();
-    }
-
-    public function select_user()
-    {
-        $ids                 = $this->request->param('ids');
-        $selectedIds         = explode(',', $ids);
-        $userModel = new UserModel();
-
-        $tpl = <<<tpl
-<tr class='data-item-tr'>
-    <td>
-        <input type='checkbox' class='js-check' data-yid='js-check-y' data-xid='js-check-x' name='ids[]'
-               value='\$id' data-name='\$name' \$checked>
-    </td>
-    <td>\$id</td>
-    <td>\$spacer <a href='\$url' target='_blank'>\$name</a></td>
-</tr>
-tpl;
-
-        // $categoryTree = $userModel->adminCategoryTableTree($selectedIds, $tpl);
-
-        $where      = ['user_status' => 1];
-        $categories = $userModel->where($where)->select();
-
-        $this->assign('categories', $categories);
-        $this->assign('selectedIds', $selectedIds);
-        // $this->assign('categories_tree', $categoryTree);
         return $this->fetch();
     }
 
@@ -349,17 +285,17 @@ tpl;
     public function toggle()
     {
         $data                = $this->request->param();
-        $protocolCategoryModel = new ProtocolCategoryModel();
+        $protocolCategoryUserModel = new ProtocolCategoryUserModel();
 
         if (isset($data['ids']) && !empty($data["display"])) {
             $ids = $this->request->param('ids/a');
-            $protocolCategoryModel->where(['id' => ['in', $ids]])->update(['status' => 1]);
+            $protocolCategoryUserModel->where(['id' => ['in', $ids]])->update(['status' => 1]);
             $this->success("更新成功！");
         }
 
         if (isset($data['ids']) && !empty($data["hide"])) {
             $ids = $this->request->param('ids/a');
-            $protocolCategoryModel->where(['id' => ['in', $ids]])->update(['status' => 0]);
+            $protocolCategoryUserModel->where(['id' => ['in', $ids]])->update(['status' => 0]);
             $this->success("更新成功！");
         }
 
@@ -380,16 +316,16 @@ tpl;
      */
     public function delete()
     {
-        $protocolCategoryModel = new ProtocolCategoryModel();
+        $protocolCategoryUserModel = new ProtocolCategoryUserModel();
         $id                  = $this->request->param('id');
         //获取删除的内容
-        $findCategory = $protocolCategoryModel->where('id', $id)->find();
+        $findCategory = $protocolCategoryUserModel->where('id', $id)->find();
 
         if (empty($findCategory)) {
             $this->error('分类不存在!');
         }
 //判断此分类有无子分类（不算被删除的子分类）
-        $categoryChildrenCount = $protocolCategoryModel->where(['parent_id' => $id,'delete_time' => 0])->count();
+        $categoryChildrenCount = $protocolCategoryUserModel->where(['parent_id' => $id,'delete_time' => 0])->count();
 
         if ($categoryChildrenCount > 0) {
             $this->error('此分类有子类无法删除!');
@@ -407,7 +343,7 @@ tpl;
             'table_name'  => 'protocol_category',
             'name'        => $findCategory['name']
         ];
-        $result = $protocolCategoryModel
+        $result = $protocolCategoryUserModel
             ->where('id', $id)
             ->update(['delete_time' => time()]);
         if ($result) {

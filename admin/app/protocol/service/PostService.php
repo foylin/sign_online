@@ -8,9 +8,9 @@
 // +----------------------------------------------------------------------
 // | Author: 老猫 <thinkcmf@126.com>
 // +----------------------------------------------------------------------
-namespace app\portal\service;
+namespace app\protocol\service;
 
-use app\portal\model\PortalPostModel;
+use app\protocol\model\ProtocolPostModel;
 
 class PostService
 {
@@ -43,7 +43,7 @@ class PostService
         if (!empty($category)) {
             $where['b.category_id'] = ['eq', $category];
             array_push($join, [
-                '__PORTAL_CATEGORY_POST__ b', 'a.id = b.post_id'
+                '__protocol_CATEGORY_POST__ b', 'a.id = b.post_id'
             ]);
             $field = 'a.*,b.id AS post_category_id,b.list_order,b.category_id,u.user_login,u.user_nickname,u.user_email';
         }
@@ -72,8 +72,8 @@ class PostService
             $where['a.post_type'] = 1;
         }
 
-        $portalPostModel = new PortalPostModel();
-        $articles        = $portalPostModel->alias('a')->field($field)
+        $protocolPostModel = new ProtocolPostModel();
+        $articles        = $protocolPostModel->alias('a')->field($field)
             ->join($join)
             ->where($where)
             ->order('update_time', 'DESC')
@@ -85,7 +85,7 @@ class PostService
 
     public function publishedArticle($postId, $categoryId = 0)
     {
-        $portalPostModel = new PortalPostModel();
+        $protocolPostModel = new ProtocolPostModel();
 
         if (empty($categoryId)) {
 
@@ -97,7 +97,7 @@ class PostService
                 'post.id'             => $postId
             ];
 
-            $article = $portalPostModel->alias('post')->field('post.*')
+            $article = $protocolPostModel->alias('post')->field('post.*')
                 ->where($where)
                 ->find();
         } else {
@@ -111,9 +111,9 @@ class PostService
             ];
 
             $join    = [
-                ['__PORTAL_CATEGORY_POST__ relation', 'post.id = relation.post_id']
+                ['__protocol_CATEGORY_POST__ relation', 'post.id = relation.post_id']
             ];
-            $article = $portalPostModel->alias('post')->field('post.*')
+            $article = $protocolPostModel->alias('post')->field('post.*')
                 ->join($join)
                 ->where($where)
                 ->find();
@@ -126,7 +126,7 @@ class PostService
     //上一篇文章
     public function publishedPrevArticle($postId, $categoryId = 0)
     {
-        $portalPostModel = new PortalPostModel();
+        $protocolPostModel = new ProtocolPostModel();
 
         if (empty($categoryId)) {
 
@@ -138,7 +138,7 @@ class PostService
                 'post.id '            => ['<', $postId]
             ];
 
-            $article = $portalPostModel->alias('post')->field('post.*')
+            $article = $protocolPostModel->alias('post')->field('post.*')
                 ->where($where)
                 ->order('id', 'DESC')
                 ->find();
@@ -154,9 +154,9 @@ class PostService
             ];
 
             $join    = [
-                ['__PORTAL_CATEGORY_POST__ relation', 'post.id = relation.post_id']
+                ['__protocol_CATEGORY_POST__ relation', 'post.id = relation.post_id']
             ];
-            $article = $portalPostModel->alias('post')->field('post.*')
+            $article = $protocolPostModel->alias('post')->field('post.*')
                 ->join($join)
                 ->where($where)
                 ->order('id', 'DESC')
@@ -170,7 +170,7 @@ class PostService
     //下一篇文章
     public function publishedNextArticle($postId, $categoryId = 0)
     {
-        $portalPostModel = new PortalPostModel();
+        $protocolPostModel = new ProtocolPostModel();
 
         if (empty($categoryId)) {
 
@@ -182,7 +182,7 @@ class PostService
                 'post.id'             => ['>', $postId]
             ];
 
-            $article = $portalPostModel->alias('post')->field('post.*')
+            $article = $protocolPostModel->alias('post')->field('post.*')
                 ->where($where)
                 ->order('id', 'ASC')
                 ->find();
@@ -197,9 +197,9 @@ class PostService
             ];
 
             $join    = [
-                ['__PORTAL_CATEGORY_POST__ relation', 'post.id = relation.post_id']
+                ['__protocol_CATEGORY_POST__ relation', 'post.id = relation.post_id']
             ];
-            $article = $portalPostModel->alias('post')->field('post.*')
+            $article = $protocolPostModel->alias('post')->field('post.*')
                 ->join($join)
                 ->where($where)
                 ->order('id', 'ASC')
@@ -221,8 +221,8 @@ class PostService
             'id'             => $pageId
         ];
 
-        $portalPostModel = new PortalPostModel();
-        $page            = $portalPostModel
+        $protocolPostModel = new ProtocolPostModel();
+        $page            = $protocolPostModel
             ->where($where)
             ->find();
 

@@ -14,32 +14,12 @@ use app\admin\model\RouteModel;
 use think\Model;
 use tree\Tree;
 
-class ProtocolCategoryModel extends Model
+class SealCategoryModel extends Model
 {
 
     protected $type = [
         'more' => 'array',
     ];
-
-    /**
-     * post_content 自动转化
-     * @param $value
-     * @return string
-     */
-    public function getDescriptionAttr($value)
-    {
-        return cmf_replace_content_file_url(htmlspecialchars_decode($value));
-    }
-
-    /**
-     * post_content 自动转化
-     * @param $value
-     * @return string
-     */
-    public function setDescriptionAttr($value)
-    {
-        return htmlspecialchars(cmf_replace_content_file_url(htmlspecialchars_decode($value), true));
-    }
 
     /**
      * 生成分类 select树形结构

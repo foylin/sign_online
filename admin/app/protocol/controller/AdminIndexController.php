@@ -11,9 +11,9 @@
 namespace app\protocol\controller;
 
 use cmf\controller\AdminBaseController;
-use app\portal\model\PortalPostModel;
-use app\portal\service\PostService;
-use app\portal\model\PortalCategoryModel;
+use app\protocol\model\ProtocolPostModel;
+use app\protocol\service\PostService;
+use app\protocol\model\ProtocolCategoryModel;
 use think\Db;
 use app\admin\model\ThemeModel;
 
@@ -23,7 +23,7 @@ class AdminIndexController extends AdminBaseController
      * 文章列表
      * @adminMenu(
      *     'name'   => '文章管理',
-     *     'parent' => 'portal/AdminIndex/default',
+     *     'parent' => 'protocol/AdminIndex/default',
      *     'display'=> true,
      *     'hasView'=> true,
      *     'order'  => 10000,
@@ -34,7 +34,7 @@ class AdminIndexController extends AdminBaseController
      */
     public function index()
     {
-        $content = hook_one('portal_admin_article_index_view');
+        $content = hook_one('protocol_admin_article_index_view');
 
         if (!empty($content)) {
             return $content;
@@ -49,8 +49,8 @@ class AdminIndexController extends AdminBaseController
 
         $data->appends($param);
 
-        $portalCategoryModel = new PortalCategoryModel();
-        $categoryTree        = $portalCategoryModel->adminCategoryTree($categoryId);
+        $protocolCategoryModel = new ProtocolCategoryModel();
+        $categoryTree        = $protocolCategoryModel->adminCategoryTree($categoryId);
 
         $this->assign('start_time', isset($param['start_time']) ? $param['start_time'] : '');
         $this->assign('end_time', isset($param['end_time']) ? $param['end_time'] : '');
@@ -79,14 +79,14 @@ class AdminIndexController extends AdminBaseController
      */
     public function add()
     {
-        $content = hook_one('portal_admin_article_add_view');
+        $content = hook_one('protocol_admin_article_add_view');
 
         if (!empty($content)) {
             return $content;
         }
 
         $themeModel        = new ThemeModel();
-        $articleThemeFiles = $themeModel->getActionThemeFiles('portal/Article/index');
+        $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
         $this->assign('article_theme_files', $articleThemeFiles);
         return $this->fetch();
     }
@@ -116,12 +116,12 @@ class AdminIndexController extends AdminBaseController
 
             $post = $data['post'];
 
-            $result = $this->validate($post, 'AdminArticle');
+            $result = $this->validate($post, 'AdminIndex');
             if ($result !== true) {
                 $this->error($result);
             }
 
-            $portalPostModel = new PortalPostModel();
+            $protocolPostModel = new ProtocolPostModel();
 
             if (!empty($data['photo_names']) && !empty($data['photo_urls'])) {
                 $data['post']['more']['photos'] = [];
@@ -140,17 +140,17 @@ class AdminIndexController extends AdminBaseController
             }
 
 
-            $portalPostModel->adminAddArticle($data['post'], $data['post']['categories']);
+            $protocolPostModel->adminAddArticle($data['post'], $data['post']['categories']);
 
-            $data['post']['id'] = $portalPostModel->id;
+            $data['post']['id'] = $protocolPostModel->id;
             $hookParam          = [
                 'is_add'  => true,
                 'article' => $data['post']
             ];
-            hook('portal_admin_after_save_article', $hookParam);
+            hook('protocol_admin_after_save_article', $hookParam);
 
 
-            $this->success('添加成功!', url('AdminArticle/edit', ['id' => $portalPostModel->id]));
+            $this->success('添加成功!', url('AdminIndex/edit', ['id' => $protocolPostModel->id]));
         }
 
     }
@@ -170,7 +170,7 @@ class AdminIndexController extends AdminBaseController
      */
     public function edit()
     {
-        $content = hook_one('portal_admin_article_edit_view');
+        $content = hook_one('protocol_admin_article_edit_view');
 
         if (!empty($content)) {
             return $content;
@@ -178,18 +178,34 @@ class AdminIndexController extends AdminBaseController
 
         $id = $this->request->param('id', 0, 'intval');
 
-        $portalPostModel = new PortalPostModel();
-        $post            = $portalPostModel->where('id', $id)->find();
+        $protocolPostModel = new ProtocolPostModel();
+        $post            = $protocolPostModel->where('id', $id)->find();
         $postCategories  = $post->categories()->alias('a')->column('a.name', 'a.id');
         $postCategoryIds = implode(',', array_keys($postCategories));
-
-        $themeModel        = new ThemeModel();
-        $articleThemeFiles = $themeModel->getActionThemeFiles('portal/Article/index');
-        $this->assign('article_theme_files', $articleThemeFiles);
-        $this->assign('post', $post);
         $this->assign('post_categories', $postCategories);
         $this->assign('post_category_ids', $postCategoryIds);
 
+        $postCategories_seal  = $post->categories_seal()->alias('a')->column('a.name', 'a.id');
+        $postCategoryIds_seal = implode(',', array_keys($postCategories_seal));
+        $this->assign('post_categories_seal', $postCategories_seal);
+        $this->assign('post_category_ids_seal', $postCategoryIds_seal);
+
+        $postCategories_user  = $post->categories_user()->alias('a')->column('a.user_login', 'a.id');
+        $postCategoryIds_user = implode(',', array_keys($postCategories_user));
+        $this->assign('post_categories_user', $postCategories_user);
+        $this->assign('post_category_ids_user', $postCategoryIds_user);
+
+        $themeModel        = new ThemeModel();
+        $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
+        $this->assign('article_theme_files', $articleThemeFiles);
+        $this->assign('post', $post);
+        
+
+        $filename = '/home/lin/下载/四书模板/四书模板/xxxx保密工作责任书（通用部门）.doc';
+
+        $content = shell_exec('/usr/local/bin/antiword -m UTF-8.txt '.$filename);  
+        // dump($content);
+        $this->assign('content', $content);
         return $this->fetch();
     }
 
@@ -218,12 +234,12 @@ class AdminIndexController extends AdminBaseController
             unset($data['post']['recommended']);
 
             $post   = $data['post'];
-            $result = $this->validate($post, 'AdminArticle');
+            $result = $this->validate($post, 'AdminIndex');
             if ($result !== true) {
                 $this->error($result);
             }
 
-            $portalPostModel = new PortalPostModel();
+            $protocolPostModel = new ProtocolPostModel();
 
             if (!empty($data['photo_names']) && !empty($data['photo_urls'])) {
                 $data['post']['more']['photos'] = [];
@@ -241,13 +257,13 @@ class AdminIndexController extends AdminBaseController
                 }
             }
 
-            $portalPostModel->adminEditArticle($data['post'], $data['post']['categories']);
+            $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user']);
 
             $hookParam = [
                 'is_add'  => false,
                 'article' => $data['post']
             ];
-            hook('portal_admin_after_save_article', $hookParam);
+            hook('protocol_admin_after_save_article', $hookParam);
 
             $this->success('保存成功!');
 
@@ -270,24 +286,24 @@ class AdminIndexController extends AdminBaseController
     public function delete()
     {
         $param           = $this->request->param();
-        $portalPostModel = new PortalPostModel();
+        $protocolPostModel = new ProtocolPostModel();
 
         if (isset($param['id'])) {
             $id           = $this->request->param('id', 0, 'intval');
-            $result       = $portalPostModel->where(['id' => $id])->find();
+            $result       = $protocolPostModel->where(['id' => $id])->find();
             $data         = [
                 'object_id'   => $result['id'],
                 'create_time' => time(),
-                'table_name'  => 'portal_post',
+                'table_name'  => 'protocol_post',
                 'name'        => $result['post_title'],
                 'user_id'     => cmf_get_current_admin_id()
             ];
-            $resultPortal = $portalPostModel
+            $resultprotocol = $protocolPostModel
                 ->where(['id' => $id])
                 ->update(['delete_time' => time()]);
-            if ($resultPortal) {
-                Db::name('portal_category_post')->where(['post_id' => $id])->update(['status' => 0]);
-                Db::name('portal_tag_post')->where(['post_id' => $id])->update(['status' => 0]);
+            if ($resultprotocol) {
+                Db::name('protocol_category_post')->where(['post_id' => $id])->update(['status' => 0]);
+                Db::name('protocol_tag_post')->where(['post_id' => $id])->update(['status' => 0]);
 
                 Db::name('recycleBin')->insert($data);
             }
@@ -297,16 +313,16 @@ class AdminIndexController extends AdminBaseController
 
         if (isset($param['ids'])) {
             $ids     = $this->request->param('ids/a');
-            $recycle = $portalPostModel->where(['id' => ['in', $ids]])->select();
-            $result  = $portalPostModel->where(['id' => ['in', $ids]])->update(['delete_time' => time()]);
+            $recycle = $protocolPostModel->where(['id' => ['in', $ids]])->select();
+            $result  = $protocolPostModel->where(['id' => ['in', $ids]])->update(['delete_time' => time()]);
             if ($result) {
-                Db::name('portal_category_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
-                Db::name('portal_tag_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
+                Db::name('protocol_category_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
+                Db::name('protocol_tag_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
                 foreach ($recycle as $value) {
                     $data = [
                         'object_id'   => $value['id'],
                         'create_time' => time(),
-                        'table_name'  => 'portal_post',
+                        'table_name'  => 'protocol_post',
                         'name'        => $value['post_title'],
                         'user_id'     => cmf_get_current_admin_id()
                     ];
@@ -333,12 +349,12 @@ class AdminIndexController extends AdminBaseController
     public function publish()
     {
         $param           = $this->request->param();
-        $portalPostModel = new PortalPostModel();
+        $protocolPostModel = new ProtocolPostModel();
 
         if (isset($param['ids']) && isset($param["yes"])) {
             $ids = $this->request->param('ids/a');
 
-            $portalPostModel->where(['id' => ['in', $ids]])->update(['post_status' => 1, 'published_time' => time()]);
+            $protocolPostModel->where(['id' => ['in', $ids]])->update(['post_status' => 1, 'published_time' => time()]);
 
             $this->success("发布成功！", '');
         }
@@ -346,7 +362,7 @@ class AdminIndexController extends AdminBaseController
         if (isset($param['ids']) && isset($param["no"])) {
             $ids = $this->request->param('ids/a');
 
-            $portalPostModel->where(['id' => ['in', $ids]])->update(['post_status' => 0]);
+            $protocolPostModel->where(['id' => ['in', $ids]])->update(['post_status' => 0]);
 
             $this->success("取消发布成功！", '');
         }
@@ -369,12 +385,12 @@ class AdminIndexController extends AdminBaseController
     public function top()
     {
         $param           = $this->request->param();
-        $portalPostModel = new PortalPostModel();
+        $protocolPostModel = new ProtocolPostModel();
 
         if (isset($param['ids']) && isset($param["yes"])) {
             $ids = $this->request->param('ids/a');
 
-            $portalPostModel->where(['id' => ['in', $ids]])->update(['is_top' => 1]);
+            $protocolPostModel->where(['id' => ['in', $ids]])->update(['is_top' => 1]);
 
             $this->success("置顶成功！", '');
 
@@ -383,7 +399,7 @@ class AdminIndexController extends AdminBaseController
         if (isset($_POST['ids']) && isset($param["no"])) {
             $ids = $this->request->param('ids/a');
 
-            $portalPostModel->where(['id' => ['in', $ids]])->update(['is_top' => 0]);
+            $protocolPostModel->where(['id' => ['in', $ids]])->update(['is_top' => 0]);
 
             $this->success("取消置顶成功！", '');
         }
@@ -405,12 +421,12 @@ class AdminIndexController extends AdminBaseController
     public function recommend()
     {
         $param           = $this->request->param();
-        $portalPostModel = new PortalPostModel();
+        $protocolPostModel = new ProtocolPostModel();
 
         if (isset($param['ids']) && isset($param["yes"])) {
             $ids = $this->request->param('ids/a');
 
-            $portalPostModel->where(['id' => ['in', $ids]])->update(['recommended' => 1]);
+            $protocolPostModel->where(['id' => ['in', $ids]])->update(['recommended' => 1]);
 
             $this->success("推荐成功！", '');
 
@@ -418,7 +434,7 @@ class AdminIndexController extends AdminBaseController
         if (isset($param['ids']) && isset($param["no"])) {
             $ids = $this->request->param('ids/a');
 
-            $portalPostModel->where(['id' => ['in', $ids]])->update(['recommended' => 0]);
+            $protocolPostModel->where(['id' => ['in', $ids]])->update(['recommended' => 0]);
 
             $this->success("取消推荐成功！", '');
 
@@ -440,7 +456,7 @@ class AdminIndexController extends AdminBaseController
      */
     public function listOrder()
     {
-        parent::listOrders(Db::name('portal_category_post'));
+        parent::listOrders(Db::name('protocol_category_post'));
         $this->success("排序更新成功！", '');
     }
 

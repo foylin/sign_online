@@ -29,15 +29,24 @@
 <body>
 <div class="wrap js-check-wrap">
     <ul class="nav nav-tabs">
-        <li><a href="{:url('AdminArticle/index')}">文章管理</a></li>
-        <li class="active"><a href="{:url('AdminArticle/add')}">添加文章</a></li>
+        <li><a href="{:url('AdminIndex/index')}">协议管理</a></li>
+        <li class="active"><a href="{:url('AdminIndex/add')}">添加协议</a></li>
     </ul>
-    <form action="{:url('AdminArticle/addPost')}" method="post" class="form-horizontal js-ajax-form margin-top-20">
+    <form action="{:url('AdminIndex/addPost')}" method="post" class="form-horizontal js-ajax-form margin-top-20">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <table class="table table-bordered">
+                    
                     <tr>
-                        <th width="100">分类<span class="form-required">*</span></th>
+                        <th>标题<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="text" name="post[post_title]"
+                                   id="title" required value="" placeholder="请输入标题"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th width="100">类型<span class="form-required">*</span></th>
                         <td>
                             <input class="form-control" type="text" style="width:400px;" required value=""
                                    placeholder="请选择分类" onclick="doSelectCategory();" id="js-categories-name-input"
@@ -46,14 +55,7 @@
                                    id="js-categories-id-input"/>
                         </td>
                     </tr>
-                    <tr>
-                        <th>标题<span class="form-required">*</span></th>
-                        <td>
-                            <input class="form-control" type="text" name="post[post_title]"
-                                   id="title" required value="" placeholder="请输入标题"/>
-                        </td>
-                    </tr>
-                    <tr>
+                    <!-- <tr>
                         <th>关键词</th>
                         <td>
                             <input class="form-control" type="text" name="post[post_keywords]" id="keywords" value=""
@@ -78,17 +80,42 @@
                         <td>
                             <script type="text/plain" id="content" name="post[post_content]"></script>
                         </td>
+                    </tr> -->
+                    <tr>
+                        <th width="100">行政公章<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="text" style="width:400px;" required value=""
+                                   placeholder="请选择分类" onclick="doSelectCategory_seal();" id="js-categories-name-input-seal"
+                                   readonly/>
+                            <input class="form-control" type="hidden" value="" name="post[categories_seal]"
+                                   id="js-categories-id-input-seal"/>
+                        </td>
                     </tr>
                     <tr>
+                        <th width="100">签约用户<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="text" style="width:400px;" required value=""
+                                   placeholder="请选择分类" onclick="doSelectCategory_user();" id="js-categories-name-input-user"
+                                   readonly/>
+                            <input class="form-control" type="hidden" value="" name="post[categories_user]"
+                                   id="js-categories-id-input-user"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>签约数量</th>
+                        <td><input class="form-control" type="text" name="post[post_count]" id="source" value=""
+                                   placeholder=""></td>
+                    </tr>
+                    <!-- <tr>
                         <th>相册</th>
                         <td>
                             <ul id="photos" class="pic-list list-unstyled form-inline"></ul>
                             <a href="javascript:uploadMultiImage('图片上传','#photos','photos-item-tpl');"
                                class="btn btn-default btn-sm">选择图片</a>
                         </td>
-                    </tr>
+                    </tr> -->
                     <tr>
-                        <th>附件</th>
+                        <th>协议书</th>
                         <td>
                             <ul id="files" class="pic-list list-unstyled form-inline">
                             </ul>
@@ -96,7 +123,7 @@
                                class="btn btn-sm btn-default">选择文件</a>
                         </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <th>音频</th>
                         <td class="form-inline">
                             <input id="file-audio" class="form-control" type="text" name="post[more][audio]"
@@ -120,17 +147,17 @@
                             </notempty>
                             <a href="javascript:uploadOne('文件上传','#file-video','video');">上传</a>
                         </td>
-                    </tr>
+                    </tr> -->
                 </table>
                 <hook name="portal_admin_article_edit_view_main"/>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
-                        <a class="btn btn-default" href="{:url('AdminArticle/index')}">{:lang('BACK')}</a>
+                        <a class="btn btn-default" href="{:url('AdminIndex/index')}">{:lang('BACK')}</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <!-- <div class="col-md-3">
                 <table class="table table-bordered">
                     <tr>
                         <th><b>缩略图</b></th>
@@ -175,7 +202,7 @@
                 </table>
 
                 <hook name="portal_admin_article_edit_view_right_sidebar"/>
-            </div>
+            </div> -->
         </div>
     </form>
 </div>
@@ -219,6 +246,50 @@
                 }
                 $('#js-categories-id-input').val(selectedCategories.selectedCategoriesId.join(','));
                 $('#js-categories-name-input').val(selectedCategories.selectedCategoriesName.join(' '));
+                //console.log(layer.getFrameIndex(index));
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            }
+        });
+    }
+
+    function doSelectCategory_seal() {
+        var selectedCategoriesId = $('#js-categories-id-input-seal').val();
+        openIframeLayer("{:url('AdminCategory/select_seal')}?ids=" + selectedCategoriesId, '请选择分类', {
+            area: ['700px', '400px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //do something
+
+                var iframeWin          = window[layero.find('iframe')[0]['name']];
+                var selectedCategories = iframeWin.confirm();
+                if (selectedCategories.selectedCategoriesId.length == 0) {
+                    layer.msg('请选择分类');
+                    return;
+                }
+                $('#js-categories-id-input-seal').val(selectedCategories.selectedCategoriesId.join(','));
+                $('#js-categories-name-input-seal').val(selectedCategories.selectedCategoriesName.join(' '));
+                //console.log(layer.getFrameIndex(index));
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            }
+        });
+    }
+
+    function doSelectCategory_user() {
+        var selectedCategoriesId = $('#js-categories-id-input-user').val();
+        openIframeLayer("{:url('AdminCategory/select_user')}?ids=" + selectedCategoriesId, '请选择分类', {
+            area: ['700px', '400px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //do something
+
+                var iframeWin          = window[layero.find('iframe')[0]['name']];
+                var selectedCategories = iframeWin.confirm();
+                if (selectedCategories.selectedCategoriesId.length == 0) {
+                    layer.msg('请选择分类');
+                    return;
+                }
+                $('#js-categories-id-input-user').val(selectedCategories.selectedCategoriesId.join(','));
+                $('#js-categories-name-input-user').val(selectedCategories.selectedCategoriesName.join(' '));
                 //console.log(layer.getFrameIndex(index));
                 layer.close(index); //如果设定了yes回调，需进行手工关闭
             }

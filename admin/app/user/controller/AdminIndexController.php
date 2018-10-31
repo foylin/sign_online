@@ -82,7 +82,7 @@ class AdminIndexController extends AdminBaseController
 
         $list = $usersQuery->whereOr($keywordComplex)->where($where)->order("create_time DESC")->paginate(10);
         foreach ($list as $value) {
-            # code...
+            
         }
         // 获取分页显示
         $page = $list->render();

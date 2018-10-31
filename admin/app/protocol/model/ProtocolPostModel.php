@@ -8,13 +8,13 @@
 // +----------------------------------------------------------------------
 // | Author: 老猫 <thinkcmf@126.com>
 // +----------------------------------------------------------------------
-namespace app\portal\model;
+namespace app\protocol\model;
 
 use app\admin\model\RouteModel;
 use think\Model;
 use think\Db;
 
-class PortalPostModel extends Model
+class ProtocolPostModel extends Model
 {
 
     protected $type = [
@@ -38,7 +38,17 @@ class PortalPostModel extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany('PortalCategoryModel', 'portal_category_post', 'category_id', 'post_id');
+        return $this->belongsToMany('protocolCategoryModel', 'protocol_category_post', 'category_id', 'post_id');
+    }
+
+    public function categories_seal()
+    {
+        return $this->belongsToMany('SealCategoryModel', 'protocol_category_seal_post', 'category_id', 'post_id');
+    }
+
+    public function categories_user()
+    {
+        return $this->belongsToMany('UserModel', 'protocol_category_user_post', 'category_id', 'post_id');
     }
 
     /**
@@ -46,7 +56,7 @@ class PortalPostModel extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('PortalTagModel', 'portal_tag_post', 'tag_id', 'post_id');
+        return $this->belongsToMany('protocolTagModel', 'protocol_tag_post', 'tag_id', 'post_id');
     }
 
     /**
@@ -126,7 +136,7 @@ class PortalPostModel extends Model
      * @param array|string $categories 文章分类 id
      * @return $this
      */
-    public function adminEditArticle($data, $categories)
+    public function adminEditArticle($data, $categories, $categories_seal, $categories_user)
     {
 
         unset($data['user_id']);
@@ -163,12 +173,48 @@ class PortalPostModel extends Model
             $this->categories()->attach(array_values($newCategoryIds));
         }
 
+        // 行政公章
+        if (is_string($categories_seal)) {
+            $categories_seal = explode(',', $categories_seal);
+        }
 
-        $data['post_keywords'] = str_replace('，', ',', $data['post_keywords']);
+        $oldCategoryIds_seal        = $this->categories_seal()->column('category_id');
+        $sameCategoryIds_seal       = array_intersect($categories_seal, $oldCategoryIds_seal);
+        $needDeleteCategoryIds_seal = array_diff($oldCategoryIds_seal, $sameCategoryIds_seal);
+        $newCategoryIds_seal        = array_diff($categories_seal, $sameCategoryIds_seal);
 
-        $keywords = explode(',', $data['post_keywords']);
+        if (!empty($needDeleteCategoryIds_seal)) {
+            $this->categories_seal()->detach($needDeleteCategoryIds_seal);
+        }
 
-        $this->addTags($keywords, $data['id']);
+        if (!empty($newCategoryIds_seal)) {
+            $this->categories_seal()->attach(array_values($newCategoryIds_seal));
+        }
+
+        // 签约用户
+        if (is_string($categories_user)) {
+            $categories_user = explode(',', $categories_user);
+        }
+
+        $oldCategoryIds_user        = $this->categories_user()->column('category_id');
+        $sameCategoryIds_user       = array_intersect($categories_user, $oldCategoryIds_user);
+        $needDeleteCategoryIds_user = array_diff($oldCategoryIds_user, $sameCategoryIds_user);
+        $newCategoryIds_user        = array_diff($categories_user, $sameCategoryIds_user);
+
+        if (!empty($needDeleteCategoryIds_user)) {
+            $this->categories_user()->detach($needDeleteCategoryIds_user);
+        }
+
+        if (!empty($newCategoryIds_user)) {
+            $this->categories_user()->attach(array_values($newCategoryIds_user));
+        }
+
+
+        // $data['post_keywords'] = str_replace('，', ',', $data['post_keywords']);
+
+        // $keywords = explode(',', $data['post_keywords']);
+
+        // $this->addTags($keywords, $data['id']);
 
         return $this;
 
@@ -176,7 +222,7 @@ class PortalPostModel extends Model
 
     public function addTags($keywords, $articleId)
     {
-        $portalTagModel = new PortalTagModel();
+        $protocolTagModel = new protocolTagModel();
 
         $tagIds = [];
 
@@ -184,14 +230,14 @@ class PortalPostModel extends Model
 
         if (!empty($keywords)) {
 
-            $oldTagIds = Db::name('portal_tag_post')->where('post_id', $articleId)->column('tag_id');
+            $oldTagIds = Db::name('protocol_tag_post')->where('post_id', $articleId)->column('tag_id');
 
             foreach ($keywords as $keyword) {
                 $keyword = trim($keyword);
                 if (!empty($keyword)) {
-                    $findTag = $portalTagModel->where('name', $keyword)->find();
+                    $findTag = $protocolTagModel->where('name', $keyword)->find();
                     if (empty($findTag)) {
-                        $tagId = $portalTagModel->insertGetId([
+                        $tagId = $protocolTagModel->insertGetId([
                             'name' => $keyword
                         ]);
                     } else {
@@ -209,7 +255,7 @@ class PortalPostModel extends Model
 
 
             if (empty($tagIds) && !empty($oldTagIds)) {
-                Db::name('portal_tag_post')->where('post_id', $articleId)->delete();
+                Db::name('protocol_tag_post')->where('post_id', $articleId)->delete();
             }
 
             $sameTagIds = array_intersect($oldTagIds, $tagIds);
@@ -217,16 +263,16 @@ class PortalPostModel extends Model
             $shouldDeleteTagIds = array_diff($oldTagIds, $sameTagIds);
 
             if (!empty($shouldDeleteTagIds)) {
-                Db::name('portal_tag_post')->where(['post_id' => $articleId, 'tag_id' => ['in', $shouldDeleteTagIds]])->delete();
+                Db::name('protocol_tag_post')->where(['post_id' => $articleId, 'tag_id' => ['in', $shouldDeleteTagIds]])->delete();
             }
 
             if (!empty($data)) {
-                Db::name('portal_tag_post')->insertAll($data);
+                Db::name('protocol_tag_post')->insertAll($data);
             }
 
 
         } else {
-            Db::name('portal_tag_post')->where('post_id', $articleId)->delete();
+            Db::name('protocol_tag_post')->where('post_id', $articleId)->delete();
         }
     }
 
@@ -244,7 +290,7 @@ class PortalPostModel extends Model
                 $recycleData = [
                     'object_id'   => $res['id'],
                     'create_time' => time(),
-                    'table_name'  => 'portal_post#page',
+                    'table_name'  => 'protocol_post#page',
                     'name'        => $res['post_title'],
 
                 ];
@@ -252,7 +298,7 @@ class PortalPostModel extends Model
                 Db::startTrans(); //开启事务
                 $transStatus = false;
                 try {
-                    Db::name('portal_post')->where(['id' => $id])->update([
+                    Db::name('protocol_post')->where(['id' => $id])->update([
                         'delete_time' => time()
                     ]);
                     Db::name('recycle_bin')->insert($recycleData);
@@ -282,7 +328,7 @@ class PortalPostModel extends Model
                 foreach ($res as $key => $value) {
                     $recycleData[$key]['object_id']   = $value['id'];
                     $recycleData[$key]['create_time'] = time();
-                    $recycleData[$key]['table_name']  = 'portal_post';
+                    $recycleData[$key]['table_name']  = 'protocol_post';
                     $recycleData[$key]['name']        = $value['post_title'];
 
                 }
@@ -290,7 +336,7 @@ class PortalPostModel extends Model
                 Db::startTrans(); //开启事务
                 $transStatus = false;
                 try {
-                    Db::name('portal_post')->where(['id' => ['in', $ids]])
+                    Db::name('protocol_post')->where(['id' => ['in', $ids]])
                         ->update([
                             'delete_time' => time()
                         ]);
@@ -360,7 +406,7 @@ class PortalPostModel extends Model
         $this->allowField(true)->isUpdate(true)->data($data, true)->save();
 
         $routeModel = new RouteModel();
-        $routeModel->setRoute($data['post_alias'], 'portal/Page/index', ['id' => $data['id']], 2, 5000);
+        $routeModel->setRoute($data['post_alias'], 'protocol/Page/index', ['id' => $data['id']], 2, 5000);
 
         $routeModel->getRoutes(true);
         return $this;
