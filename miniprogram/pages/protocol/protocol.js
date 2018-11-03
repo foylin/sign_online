@@ -18,7 +18,7 @@ Page({
         if (params.id) {
             wx.showNavigationBarLoading();
             api.get({
-                url: 'portal/articles/' + params.id,
+                url: 'protocol/articles/' + params.id,
                 data: {},
                 success: data => {
                     wx.hideNavigationBarLoading();

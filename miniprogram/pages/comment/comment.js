@@ -8,36 +8,16 @@ Page({
         total: 0,
         loadingMore: false,
         noMoreData: false,
-        searchInputShowed: false,
-        searchInputVal: "",
-        searchingResult: false,
-        searchKeyword: ""
+        commentContent: '',
+        commentBoxFocus: false
     },
     currentPageNumber: 1,
-    onLoad() {
-        api.checkLogin();
-
-        this.setData({
-            _api: api,
-        });
-
+    commentParentId: 0,
+    onLoad(params) {
+        this.params = params;
     },
     onShow() {
-        console.log(app.pagesNeedUpdate);
-        if (app.pagesNeedUpdate['pages/index/index'] == 1) {
-            let newItems = api.updatePageList('id');
-            console.log(newItems);
-            this.setData({
-                list: newItems
-            });
-        }
-
-        if (app.pagesNeedUpdate['pages/index/index'] == 'refresh') {
-            this.onPullDownRefresh();
-        }
         this.pullUpLoad();
-
-        api.pageNeedUpdate('pages/index/index', 0);
     },
 
     /**
@@ -50,10 +30,10 @@ Page({
             noData: false
         });
         api.get({
-            url: 'protocol/lists',
+            url: 'user/comments',
             data: {
-                order:'-published_time',
-                token: wx.getStorageSync('token')
+                object_id: this.params.object_id,
+                table_name: this.params.table_name
             },
             success: data => {
                 let newItems = api.updatePageList('id', data.data.list, this.formatListItem, true);
@@ -63,7 +43,7 @@ Page({
                 });
 
                 if (data.data.list.length > 0) {
-                    this.currentPageNumber++;
+
                 } else {
                     this.setData({
                         noMoreData: true
@@ -92,11 +72,11 @@ Page({
         wx.showNavigationBarLoading();
 
         api.get({
-            url: 'protocol/lists',
+            url: 'user/comments',
             data: {
                 page: this.currentPageNumber,
-                order:'-published_time',
-                token: wx.getStorageSync('token')
+                object_id: this.params.object_id,
+                table_name: this.params.table_name
             },
             success: data => {
                 let newItems = api.updatePageList('id', data.data.list, this.formatListItem);
@@ -127,77 +107,66 @@ Page({
         });
     },
     formatListItem(item) {
-        if (item.Thumbnail) {
-            item.Thumbnail = api.getUploadUrl(item.Thumbnail);
+        let createDate = new Date();
+        createDate.setTime(item.create_time * 1000);
+        item.create_date = createDate.format('yyyy-MM-dd hh:mm');
+        console.log(item.create_date);
+
+        if (item.to_user_id > 0) {
+            let userNickname = item.to_user.user_nickname ? item.to_user.user_nickname : item.to_user.id ;
+            item.content     = "@" + userNickname + " " + item.content;
         }
+
+        item.user.user_nickname = item.user.user_nickname ? item.user.user_nickname :  item.user.id;
         return item;
     },
     onReachBottom() {
         this.pullUpLoad();
     },
     onListItemTap(e) {
-        let id = e.currentTarget.dataset.id;
-
-        wx.navigateTo({
-            url: '/pages/protocol/protocol?id=' + id
-        });
-
-    },
-    onListItemMoreTap(e) {
-        let id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: '/pages/protocol/protocol?id=' + id
-        });
-    },
-    showSearchInput() {
+        this.commentParentId = e.currentTarget.dataset.id;
         this.setData({
-            searchInputShowed: true,
-            searchingResult: false
+            commentBoxFocus: true
         });
     },
-    hideSearchInput() {
+    bindCommentInput(e) {
         this.setData({
-            searchInputVal: "",
-            searchKeyword: "",
-            searchInputShowed: false,
-            searchingResult: false
-        });
-        this.onPullDownRefresh();
-    },
-    clearSearchInput() {
-        this.setData({
-            searchInputVal: "",
-            searchKeyword: "",
-            searchingResult: false
-        });
-        this.onPullDownRefresh();
-    },
-    searchInputTyping(e) {
-        this.setData({
-            searchInputVal: e.detail.value,
-            searchKeyword: "",
-            searchingResult: false
+            commentContent: e.detail.value
         });
     },
-    searchSubmit() {
-        this.setData({
-            searchingResult: true,
-            searchKeyword: this.data.searchInputVal
-        });
-        this.onPullDownRefresh();
-    },
-    previewImage(e) {
-        wx.previewImage({
-            current: '', // 当前显示图片的http链接
-            urls: [e.currentTarget.dataset.previewUrl] // 需要预览的图片http链接列表
-        });
-
-    },
-    onShareAppMessage() {
-        return {
-            title: '好玩的,都在这儿~~',
-            path: '/pages/index/index'
+    onCommentSubmitTab(e) {
+        if (this.data.commentContent == '') {
+            return;
         }
-    }
+        api.post({
+            url: 'user/comments',
+            data: {
+                object_id: this.params.object_id,
+                table_name: this.params.table_name,
+                url: JSON.stringify({"action": "portal/Article/index", "param": {"id": this.params.object_id}}),
+                content: this.data.commentContent,
+                parent_id: this.commentParentId
+            },
+            success: data => {
+                if (data.code) {
+                    wx.showToast({
+                        title: '评论成功!',
+                        icon: 'success',
+                        duration: 1000
+                    });
+                } else {
+                    wx.showToast({
+                        title: data.msg,
+                        icon: 'error',
+                        duration: 1000
+                    });
+                }
+            },
+            complete: () => {
+            }
+        });
+
+        this.commentParentId = 0;
+    },
 
 });

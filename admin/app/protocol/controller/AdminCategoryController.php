@@ -417,4 +417,32 @@ tpl;
             $this->error('删除失败');
         }
     }
+
+
+    public function getmodel()
+    {
+        // $ids                 = $this->request->param('ids');
+        // $selectedIds         = explode(',', $ids);
+        $protocolCategoryModel = new ProtocolCategoryModel();
+
+        $id = $this->request->param('id', 0, 'intval');
+
+        $where      = ['delete_time' => 0, 'id' => $id];
+        $model = $protocolCategoryModel->where($where)->find();
+
+        // $this->assign('categories', $categories);
+        // $this->assign('selectedIds', $selectedIds);
+        // $this->assign('categories_tree', $categoryTree);
+        // return $this->fetch();
+        if($model){
+            $result['data'] = $model;
+            $result['code'] = 200;
+        }else{
+            $result['code'] = -1;
+            $result['msg'] = '模板数据错误';
+        }
+
+        return json($result);
+        
+    }
 }

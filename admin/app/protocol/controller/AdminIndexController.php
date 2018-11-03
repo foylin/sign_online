@@ -184,6 +184,12 @@ class AdminIndexController extends AdminBaseController
         $postCategoryIds = implode(',', array_keys($postCategories));
         $this->assign('post_categories', $postCategories);
         $this->assign('post_category_ids', $postCategoryIds);
+        // dump($postCategoryIds);
+        $protocolCategoryModel = new ProtocolCategoryModel();
+        $where      = ['delete_time' => 0];
+        $categories_model = $protocolCategoryModel->field('id, name')->where($where)->select();
+        $this->assign('categories_model', $categories_model);
+        // dump($categories);
 
         $postCategories_seal  = $post->categories_seal()->alias('a')->column('a.name', 'a.id');
         $postCategoryIds_seal = implode(',', array_keys($postCategories_seal));
@@ -201,11 +207,11 @@ class AdminIndexController extends AdminBaseController
         $this->assign('post', $post);
         
 
-        $filename = '/home/lin/下载/四书模板/四书模板/xxxx保密工作责任书（通用部门）.doc';
+        // $filename = '/home/lin/下载/四书模板/四书模板/xxxx保密工作责任书（通用部门）.doc';
 
-        $content = shell_exec('/usr/local/bin/antiword -m UTF-8.txt '.$filename);  
+        // $content = shell_exec('/usr/local/bin/antiword -m UTF-8.txt '.$filename);  
         // dump($content);
-        $this->assign('content', $content);
+        // $this->assign('content', $content);
         return $this->fetch();
     }
 

@@ -125,7 +125,7 @@ class ProtocolCategoryModel extends Model
                         <td><input name='list_orders[\$id]' type='text' size='3' value='\$list_order' class='input-order'></td>
                         <td>\$id</td>
                         <td>\$spacer <a href='\$url' target='_blank'>\$name</a></td>
-                        <td>\$description</td>
+                       
                         <td>\$status_text</td>
                         <td>\$str_action</td>
                     </tr>";

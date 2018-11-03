@@ -1,6 +1,6 @@
 <import src="../../wxParse/wxParse.wxml"/>
 <view class="page">
-    <view class="page__bd_spacing">
+    <!-- <view class="page__bd_spacing">
         <view class="page__title">{{article.post_title}}</view>
         <view class="hr mtb-5"></view>
         <view class="article-info">
@@ -11,7 +11,7 @@
             <view class="fa fa-thumbs-up"></view>
             {{article.post_like}}
         </view>
-    </view>
+    </view> -->
     <view class="page__bd">
         <view class="weui-article">
             <view class="wxParse">

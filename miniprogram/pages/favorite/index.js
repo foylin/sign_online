@@ -7,31 +7,26 @@ Page({
         list: [],
         total: 0,
         loadingMore: false,
-        noMoreData: false,
-        searchInputShowed: false,
-        searchInputVal: "",
-        searchingResult: false,
-        searchKeyword: "",
-        stockOutActionShow: false
+        noMoreData: false
     },
     currentPageNumber: 1,
-    currentAssetUc: "",
     onLoad() {
         try {
             var isLogin = wx.getStorageSync('login');
+            console.log(isLogin+123);
             if (!isLogin) {
-                api.login();
+                // api.login();
+                wx.navigateTo({
+                    url: '/pages/login/login'
+                });
                 return;
             }
         } catch (e) {
             // Do something when catch error
         }
 
-        let categories = app.stockOutCategories.join(',') + ',.,.,.,.,.,.,.,.';
-
         this.setData({
             _api: api,
-            stockOutCategories: categories.split(',', 9)
         });
 
     },
@@ -66,13 +61,13 @@ Page({
             url: 'user/favorites/my',
             data: {},
             success: data => {
-                let newItems = api.updatePageList('id', data.data, this.formatListItem, true);
+                let newItems = api.updatePageList('id', data.data.list, this.formatListItem, true);
                 console.log(newItems);
                 this.setData({
                     list: newItems
                 });
 
-                if (data.data.length > 0) {
+                if (data.data.list.length > 0) {
                     this.currentPageNumber++;
                 } else {
                     this.setData({
@@ -107,12 +102,12 @@ Page({
                 page: this.currentPageNumber
             },
             success: data => {
-                let newItems = api.updatePageList('id', data.data, this.formatListItem);
+                let newItems = api.updatePageList('id', data.data.list, this.formatListItem);
                 console.log(newItems);
                 this.setData({
                     list: newItems
                 });
-                if (data.data.length > 0) {
+                if (data.data.list.length > 0) {
                     this.currentPageNumber++;
                 } else {
                     this.setData({

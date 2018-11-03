@@ -2,14 +2,14 @@ import "./date";
 
 var app = getApp();
 
-var host = "http://168.168.4.20/sign_online/admin/public";
+var host = "http://signonline.net";
 
 var tryingLogin = false;
 
 module.exports = {
     HOST: host,
     API_ROOT: host + '/api/',
-    API_VERSION: '1.0.0',
+    API_VERSION: '1.1.0',
     post(options) {
         this.request(options);
     },
@@ -75,16 +75,16 @@ module.exports = {
 
                     }
                     // 登录注册
-                    // let currentPages = getCurrentPages();
-                    //
-                    // console.log('-------no login!---------');
-                    //
-                    // let currentRoute = currentPages.pop()['__route__'];
-                    // if (currentRoute != 'pages/login/login') {
-                    //     wx.navigateTo({
-                    //         url: '/pages/login/login'
-                    //     });
-                    // }
+                    let currentPages = getCurrentPages();
+
+                    console.log('-------no login!---------');
+
+                    let currentRoute = currentPages.pop()['__route__'];
+                    if (currentRoute != 'pages/login/login') {
+                        wx.navigateTo({
+                            url: '/pages/login/login'
+                        });
+                    }
 
                 } else {
                     options.success(data);
@@ -182,18 +182,20 @@ module.exports = {
 
         options.url = this.API_ROOT + options.url;
 
-        var token = this.getToken();
+        let token = this.getToken();
 
-        var oldSuccess  = options.success;
+        let that = this;
+
+        let oldSuccess  = options.success;
         options.success = function (res) {
             console.log(res.data);
-            var data = JSON.parse(res.data);
-            ;
+            let data = JSON.parse(res.data);
             console.log(data);
             if (data.code == 0 && data.data && data.data.code && data.data.code == 10001) {
-                wx.navigateTo({
-                    url: '/pages/login/login'
-                });
+                // wx.navigateTo({
+                //     url: '/pages/login/login'
+                // });
+                that.login();
             } else {
                 oldSuccess(data);
             }
@@ -410,6 +412,20 @@ module.exports = {
             return file;
         }
         return this.HOST + '/upload/' + file;
+    },
+    checkLogin(){
+        try {
+            var isLogin = wx.getStorageSync('login');
+            if (!isLogin) {
+                // api.login();
+                wx.navigateTo({
+                    url: '/pages/login/login'
+                });
+                return;
+            }
+        } catch (e) {
+            // Do something when catch error
+        }
     }
 
 };
