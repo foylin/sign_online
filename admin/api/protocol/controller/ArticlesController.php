@@ -13,7 +13,7 @@ use cmf\controller\RestBaseController;
 use cmf\controller\RestUserBaseController;
 use api\protocol\model\ProtocolPostModel;
 
-//123123123123
+
 
 class ArticlesController extends RestUserBaseController
 {
