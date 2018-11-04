@@ -11,7 +11,7 @@ Page({
     formSubmit: function (e) {
         //console.log(api.json2Form(e.detail.value));
         console.log(e.detail.value);
-        e.detail.value.device_type = 'mobile';
+        e.detail.value.device_type = 'wxapp';
         api.post({
             url: 'user/public/login',
             data: e.detail.value,

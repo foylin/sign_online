@@ -416,6 +416,7 @@ module.exports = {
     checkLogin(){
         try {
             var isLogin = wx.getStorageSync('login');
+            // console.log(isLogin);
             if (!isLogin) {
                 // api.login();
                 wx.navigateTo({

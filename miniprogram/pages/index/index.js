@@ -15,7 +15,7 @@ Page({
     },
     currentPageNumber: 1,
     onLoad() {
-        api.checkLogin();
+        // api.checkLogin();
 
         this.setData({
             _api: api,

@@ -121,6 +121,8 @@ class RestBaseController
             ->join('__USER__ b', 'a.user_id = b.id')
             ->find();
 
+            // dump(Db::name('user_token')->getLastSql());
+
         if (!empty($user)) {
             $this->user     = $user;
             $this->userId   = $user['id'];
