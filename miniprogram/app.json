@@ -9,7 +9,8 @@
         "pages/favorite/index",
         "pages/comment/comment",
         "pages/login/login",
-        "pages/protocol/protocol"
+        "pages/protocol/protocol",
+        "pages/sign/sign"
     ],
     "window": {
         "backgroundTextStyle": "white",

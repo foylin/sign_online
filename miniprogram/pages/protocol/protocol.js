@@ -1,13 +1,32 @@
 var api     = require('../../utils/api.js');
 var WxParse = require('../../wxParse/wxParse.js');
 var app     = getApp();
+
+
 Page({
 
-    data: {},
+    data: {
+        'countdown': 30,
+        'countdowndes': '请阅读协议内容'
+    },
 
     onLoad(params) {
         //console.log(options);
         this.params = params;
+        let count = 3;
+        let that = this;
+        let interval = setInterval(function(){
+            count--;
+            console.log(count);
+            that.setData({countdown : count});
+
+            if(count <= 0){
+                clearInterval(interval);
+                that.setData({countdowndes: ''});
+            }
+        }, 1000)
+
+        
     },
 
     onReady() {
@@ -107,6 +126,14 @@ Page({
             title: this.data.article.post_title,
             path: '/pages/article/article?id=' + this.params.id
         }
+    },
+    onsign(){
+        if (this.data.countdown) return !1
+
+        // console.log(this.data.countdown);
+        wx.navigateTo({
+            url: '/pages/sign/sign'
+        });
     }
 
 });

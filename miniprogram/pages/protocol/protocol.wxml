@@ -20,7 +20,7 @@
         </view>
     </view>
     <view class="weui-flex article-footer-action-bar" style="">
-        <view class="weui-flex__item text-center" hover-class="action-bar-item-active" bindtap="onFavoriteTap">
+        <!-- <view class="weui-flex__item text-center" hover-class="action-bar-item-active" bindtap="onFavoriteTap">
             <view class="fa fa-star"></view>
         </view>
         <view class="weui-flex__item text-center" hover-class="action-bar-item-active" bindtap="onLikeTap">
@@ -39,6 +39,7 @@
             <button open-type="share">
                 <view class="fa fa-share"></view>
             </button>
-        </view>
+        </view> -->
+        <view bindtap="onsign">{{ countdowndes }}{{ countdown || '签约' }}</view>
     </view>
 </view>
