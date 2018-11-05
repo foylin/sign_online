@@ -46,13 +46,16 @@
                     </tr>
 
                     <tr>
-                        <th width="100">类型<span class="form-required">*</span></th>
+                        <th width="100">协议模板<span class="form-required">*</span></th>
                         <td>
-                            <input class="form-control" type="text" style="width:400px;" required value=""
-                                   placeholder="请选择分类" onclick="doSelectCategory();" id="js-categories-name-input"
-                                   readonly/>
-                            <input class="form-control" type="hidden" value="" name="post[categories]"
-                                   id="js-categories-id-input"/>
+                            <div class="">
+                                <select class="form-control valid" name="post[categories]" id="categories-model-sel" aria-invalid="false">
+                                    <option value="0">请选择协议模板</option>
+                                    <volist name="categories_model" id="vo">
+                                    <option value="{$vo.id}" >{$vo.name}</option>
+                                    </volist>
+                                </select>
+                            </div>
                         </td>
                     </tr>
                     <!-- <tr>
@@ -115,12 +118,9 @@
                         </td>
                     </tr> -->
                     <tr>
-                        <th>协议书</th>
+                        <th>协议内容</th>
                         <td>
-                            <ul id="files" class="pic-list list-unstyled form-inline">
-                            </ul>
-                            <a href="javascript:uploadMultiFile('附件上传','#files','files-item-tpl','file');"
-                               class="btn btn-sm btn-default">选择文件</a>
+                            <script type="text/plain" id="content" name="post[post_content]"></script>
                         </td>
                     </tr>
                     <!-- <tr>
@@ -227,6 +227,28 @@
             $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
             $('#thumbnail').val('');
         });
+
+        $('#categories-model-sel').change(function(){
+            var model_seled = $(this).val();
+            // console.log(model_seled);
+            editorcontent.execCommand('cleardoc');
+            $.ajax({
+                method: 'POST',
+                url: "{:url('AdminCategory/getmodel')}",
+                data: {
+                    id: model_seled
+                },
+                success: function(data, status){
+                    console.log(data);
+                    if(data.code == 200){
+                        editorcontent.execCommand('inserthtml', data.data.description);
+                    }else{
+                        alert(data.msg);
+                    }
+                }
+            })
+            
+        })
 
     });
 

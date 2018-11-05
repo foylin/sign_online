@@ -95,7 +95,7 @@ class ProtocolPostModel extends Model
      * @param array|string $categories 文章分类 id
      * @return $this
      */
-    public function adminAddArticle($data, $categories)
+    public function adminAddArticle($data, $categories, $categories_seal, $categories_user)
     {
         $data['user_id'] = cmf_get_current_admin_id();
 
@@ -120,11 +120,25 @@ class ProtocolPostModel extends Model
 
         $this->categories()->save($categories);
 
-        $data['post_keywords'] = str_replace('，', ',', $data['post_keywords']);
+        // 行政公章
+        if (is_string($categories_seal)) {
+            $categories_seal = explode(',', $categories_seal);
+        }
 
-        $keywords = explode(',', $data['post_keywords']);
+        $this->categories_seal()->save($categories_seal);
 
-        $this->addTags($keywords, $this->id);
+        // 签约用户
+        if (is_string($categories_user)) {
+            $categories_user = explode(',', $categories_user);
+        }
+
+        $this->categories_user()->save($categories_user);
+
+        // $data['post_keywords'] = str_replace('，', ',', $data['post_keywords']);
+
+        // $keywords = explode(',', $data['post_keywords']);
+
+        // $this->addTags($keywords, $this->id);
 
         return $this;
 

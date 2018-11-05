@@ -18,25 +18,6 @@
         "navigationBarTitleText": "协议书任务",
         "navigationBarTextStyle": "black"
     },
-    "tabBar": {
-        "color": "#666666",
-        "selectedColor": "#333333",
-        "backgroundColor": "#ffffff",
-        "borderStyle": "#eeeeee",
-        "list": [
-            {
-                "text": "首页",
-                "pagePath": "pages/index/index",
-                "iconPath": "images/icons/home.png",
-                "selectedIconPath": "images/icons/home_selected.png"
-            },
-            {
-                "text": "我的",
-                "pagePath": "pages/my/my",
-                "iconPath": "images/icons/my.png",
-                "selectedIconPath": "images/icons/my_selected.png"
-            }
-        ]
-    },
+    
     "debug": false
 }

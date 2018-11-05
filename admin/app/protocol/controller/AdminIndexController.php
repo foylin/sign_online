@@ -85,6 +85,11 @@ class AdminIndexController extends AdminBaseController
             return $content;
         }
 
+        $protocolCategoryModel = new ProtocolCategoryModel();
+        $where      = ['delete_time' => 0];
+        $categories_model = $protocolCategoryModel->field('id, name')->where($where)->select();
+        $this->assign('categories_model', $categories_model);
+
         $themeModel        = new ThemeModel();
         $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
         $this->assign('article_theme_files', $articleThemeFiles);
@@ -110,9 +115,10 @@ class AdminIndexController extends AdminBaseController
             $data = $this->request->param();
 
             //状态只能设置默认值。未发布、未置顶、未推荐
-            $data['post']['post_status'] = 0;
+            $data['post']['post_status'] = 1;
             $data['post']['is_top']      = 0;
             $data['post']['recommended'] = 0;
+            $data['post']['published_time'] = time();
 
             $post = $data['post'];
 
@@ -140,7 +146,7 @@ class AdminIndexController extends AdminBaseController
             }
 
 
-            $protocolPostModel->adminAddArticle($data['post'], $data['post']['categories']);
+            $protocolPostModel->adminAddArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user']);
 
             $data['post']['id'] = $protocolPostModel->id;
             $hookParam          = [

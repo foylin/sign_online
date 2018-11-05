@@ -50,6 +50,22 @@ Page({
                         wx.setNavigationBarTitle({
                             title: data.data.post_title
                         });
+                    }else{
+
+
+                        setTimeout(function(){
+                            wx.navigateBack({
+                                delta: 1
+                            })
+                        }, 1300)
+
+                        wx.showToast({
+                            title: data.msg,
+                            icon: 'loading',
+                            duration: 1000,
+                            
+                          })
+                        
                     }
                 },
                 fail: err => {

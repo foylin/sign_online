@@ -44,20 +44,20 @@ class ArticlesController extends RestUserBaseController
     }
 
     /**
-     * 获取指定的文章
+     * 获取指定的协议书
      * @param int $id
      */
     public function read($id)
     {
         if (intval($id) === 0) {
-            $this->error('无效的文章id！');
+            $this->error('无效id！');
         } else {
             $params                       = $this->request->get();
             $params['where']['post_type'] = 1;
             $params['id']                 = $id;
             $data                         = $this->postModel->getDatas($params);
             if (empty($data)) {
-                $this->error('文章不存在！');
+                $this->error('协议书不存在！');
             } else {
                 $this->postModel->where('id', $id)->setInc('post_hits');
                 $this->success('请求成功!', $data);

@@ -30,9 +30,17 @@ class ListsController extends RestUserBaseController
      */
     public function index(){
         $params                       = $this->request->get();
-        $params['where']['post_type'] = 1;
-        $data                         = $this->postModel->getDatas($params);
+        // $params['where']['post_type'] = 1;
+        $userId = $this->getUserId();
 
+        $data                         = $this->postModel->setCondition($params)->alias('a')
+        ->join('__PROTOCOL_CATEGORY_USER_POST__ tp', 'a.id = tp.post_id')->field('a.*')
+        ->where(['post_status' => 1, 'tp.category_id' => $userId])->select();
+
+        // $articles = $postModel->setCondition($params)->alias('a')->join('__PORTAL_TAG_POST__ tp', 'a.id = tp.post_id')
+        //         ->where(['post_status' => 1])->select();
+
+        // dump($this->postModel->getLastSql());
         if (isset($this->apiVersion)) {
             $response = ['list' => $data,];
         } else {
