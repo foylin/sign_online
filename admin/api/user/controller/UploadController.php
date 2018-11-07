@@ -10,13 +10,27 @@ namespace api\user\controller;
 
 use cmf\controller\RestUserBaseController;
 use think\Db;
-
+use think\Validate;
 class UploadController extends RestUserBaseController
 {
-    // 用户密码修改
+    // 签名图片上传
     public function one()
     {
+        $validate = new Validate([
+            'protocol_id'          => 'require'
+        ]);
+
+        $validate->message([
+            'protocol_id.require'          => '协议不存在！'
+        ]);
+
+        $param = $this->request->param();
+        if (!$validate->check($param)) {
+            $this->error($validate->getError());
+        }
+
         $file = $this->request->file('file');
+
         // 移动到框架应用根目录/public/upload/ 目录下
         $info     = $file->validate([
             /*'size' => 15678,*/
@@ -28,7 +42,7 @@ class UploadController extends RestUserBaseController
         $findFile = Db::name("asset")->where('file_md5', $fileMd5)->where('file_sha1', $fileSha1)->find();
 
         if (!empty($findFile)) {
-            $this->success("上传成功!", ['url' => $findFile['file_path'], 'filename' => $findFile['filename']]);
+            $this->success("请勿重复上传!", ['url' => $findFile['file_path'], 'filename' => $findFile['filename']]);
         }
         $info = $info->move(ROOT_PATH . 'public' . DS . 'upload');
         if ($info) {
@@ -52,6 +66,16 @@ class UploadController extends RestUserBaseController
                 'suffix'      => $suffix
             ]);
 
+            
+
+            $signdata = array(
+                'sign_status' => 0,
+                'sign_url'    => $saveName
+            );
+            $where['post_id'] = $param['protocol_id'];
+            $where['category_id'] = $this->userId;
+            Db::name('protocol_category_user_post')->where($where)->update($signdata);
+            // dump(Db::name('protocol_category_user_post')->getLastSql());
             $this->success("上传成功!", ['url' => $saveName, 'filename' => $originalName]);
         } else {
             // 上传失败获取错误信息

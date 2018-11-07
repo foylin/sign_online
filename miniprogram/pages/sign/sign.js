@@ -131,7 +131,7 @@ Page({
       this.linePrack.unshift(this.currentLine);
       this.currentLine = []
     },
-    onLoad () {
+    onLoad (params) {
       this.ctx = wx.createCanvasContext(this.canvasName, this)
       var query = wx.createSelectorQuery();
       query.select('.handCenter').boundingClientRect(rect => {
@@ -139,6 +139,9 @@ Page({
         this.canvasWidth = rect.width;
         this.canvasHeight = rect.height;
       }).exec();
+
+      this.params = params;
+      console.log(params);
     },
     retDraw () {
       this.ctx.clearRect(0, 0, 700, 730)
@@ -339,15 +342,11 @@ Page({
     },
     subCanvas() {
         // let ctx = wx.createCanvasContext('handwriting');
+        var params = this.params;
+        console.log(params);
         this.ctx.rotate(Math.PI/2);
         this.ctx.draw(true, function () {
             wx.canvasToTempFilePath({
-                // x: 20,
-                // y: 20,
-                // width: 150,
-                // height: 100,
-                // destWidth: 150,
-                // destHeight: 100,
                 canvasId: 'handWriting',
                 quality: 1,
                 // fileType: 'jpg',
@@ -359,10 +358,34 @@ Page({
                         url: 'user/upload/one',
                         filePath: res.tempFilePath,
                         name: 'file',
+                        formData: {
+                          'protocol_id': params.protocol_id
+                        },
                         success : data => {
-                            // const data = res.data
-                            //do something
-                            console.log(res);
+                            // console.log(data);
+                            if(data.code == 0){
+                              wx.showToast({
+                                  title: data.msg,
+                                  icon: 'loading',
+                                  duration:1000
+                              });
+
+                              
+
+                            }else{
+                              wx.showToast({
+                                  title: data.msg,
+                                  icon: 'success',
+                                  duration:1000
+                              });
+
+                              setTimeout(function(){
+                                wx.reLaunch({
+                                  url: '/pages/index/index'
+                                })
+                              }, 1000)
+                            }
+                            
                         }
 
                     })

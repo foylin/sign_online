@@ -50,3 +50,23 @@ image {
 .share-btn button:after {
     border: none;
 }
+
+.wxParse{
+    font-size: 20rpx;
+}
+
+.onsign{
+    text-align: center;
+    font-size: 30rpx;
+    display: block;
+    width: 100%;
+    
+}
+
+/* .countdown text{
+    background: blue; 
+    border-radius: 50%;
+    width: 30rpx;
+    height: 30rpx;
+    
+} */

@@ -24,11 +24,11 @@
 }
 
 .asset-media-box{
-    padding: 15px 15px 15px 15px;
+    padding: 4px 15px 4px 15px;
 }
 
 .total-media-box{
-    padding: 10px 15px 10px 15px;
+    padding: 6px 15px 6px 15px;
 }
 
 .total-media-box .weui-media-box__bd_in-appmsg{
@@ -58,6 +58,10 @@
 
 .weui-panel:before{
     border-top: none;
+}
+
+.weui-media-box__title{
+    font-size: 30rpx;
 }
 
 

@@ -7,13 +7,14 @@ Page({
 
     data: {
         'countdown': 30,
-        'countdowndes': '请阅读协议内容'
+        'countdowndes': '请阅读协议内容',
+        
     },
 
     onLoad(params) {
-        //console.log(options);
+        console.log(params);
         this.params = params;
-        let count = 3;
+        let count = 5;
         let that = this;
         let interval = setInterval(function(){
             count--;
@@ -147,8 +148,9 @@ Page({
         if (this.data.countdown) return !1
 
         // console.log(this.data.countdown);
+        var params = this.params;
         wx.navigateTo({
-            url: '/pages/sign/sign'
+            url: '/pages/sign/sign?protocol_id='+params.id
         });
     }
 

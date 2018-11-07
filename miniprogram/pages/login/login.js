@@ -40,7 +40,7 @@ Page({
                         wx.setStorageSync('token', data.data.token);
                         console.log("success");
                         wx.navigateBack({
-                            delta: 2
+                            delta: 1
                         });
                     } catch (e) {
                         console.log(e);

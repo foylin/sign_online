@@ -73,7 +73,8 @@ page {
     left: -3rpx;
     display: inline-flex;
     transform: rotate(90deg);
-    background: #008ef6;
+    /* background: #008ef6; */
+    background: #00796a;
     color: #fff;
     margin-bottom: 30rpx;
     text-align: center;

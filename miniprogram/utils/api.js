@@ -2,7 +2,8 @@ import "./date";
 
 var app = getApp();
 
-var host = "http://signonline.net";
+// var host = "http://signonline.net";
+var host = "http://192.168.0.107/sign_online/admin/public";
 
 var tryingLogin = false;
 

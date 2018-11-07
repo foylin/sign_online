@@ -40,6 +40,13 @@
                 <view class="fa fa-share"></view>
             </button>
         </view> -->
-        <view bindtap="onsign">{{ countdowndes }}{{ countdown || '签约' }}</view>
+        <view bindtap="onsign" class="onsign">
+            
+
+            <view wx:if="{{ countdown }}" class="countdown"> {{ countdowndes }} <text>{{ countdown }} </text></view>
+
+            <view wx:else> 签约 </view>
+
+        </view>
     </view>
 </view>
