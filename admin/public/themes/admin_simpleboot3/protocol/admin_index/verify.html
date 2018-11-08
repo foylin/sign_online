@@ -1,0 +1,409 @@
+<include file="public@header"/>
+<style type="text/css">
+    .pic-list li {
+        margin-bottom: 5px;
+    }
+    .sign-user .name{
+        line-height: 34px;
+        text-align: left;
+    }
+
+    .sign-user .name-icon{
+        margin-left: 4px;
+        /* background: #18BC9C; */
+        color: #18BC9C;
+    }
+
+    .sign-user .name-icon-error{
+        margin-left: 4px;
+        /* background: #18BC9C; */
+        color: red;
+    }
+
+    .sign-user .sign-pic{
+        line-height: 34px;
+        text-align: center;
+        background: #18BC9C;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+<script type="text/html" id="photos-item-tpl">
+    <li id="saved-image{id}">
+        <input id="photo-{id}" type="hidden" name="photo_urls[]" value="{filepath}">
+        <input class="form-control" id="photo-{id}-name" type="text" name="photo_names[]" value="{name}"
+               style="width: 200px;" title="图片名称">
+        <img id="photo-{id}-preview" src="{url}" style="height:36px;width: 36px;"
+             onclick="imagePreviewDialog(this.src);">
+        <a href="javascript:uploadOneImage('图片上传','#photo-{id}');">替换</a>
+        <a href="javascript:(function(){$('#saved-image{id}').remove();})();">移除</a>
+    </li>
+</script>
+<script type="text/html" id="files-item-tpl">
+    <li id="saved-file{id}">
+        <input id="file-{id}" type="hidden" name="file_urls[]" value="{filepath}">
+        <input class="form-control" id="file-{id}-name" type="text" name="file_names[]" value="{name}"
+               style="width: 200px;" title="文件名称">
+        <a id="file-{id}-preview" href="{preview_url}" target="_blank">下载</a>
+        <a href="javascript:uploadOne('文件上传','#file-{id}','file');">替换</a>
+        <a href="javascript:(function(){$('#saved-file{id}').remove();})();">移除</a>
+    </li>
+</script>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('AdminIndex/index')}">协议管理</a></li>
+        <li>
+            <a href="{:url('AdminIndex/add')}">添加协议</a>
+        </li>
+        <!-- <li class="active"><a href="#">编辑协议</a></li> -->
+
+        <li class="active"><a href="#">签约用户审核</a></li>
+    </ul>
+    <form action="{:url('AdminIndex/verifyPost')}" method="post" class="form-horizontal js-ajax-form margin-top-20">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    
+                    <tr>
+                        <th width="100">标题<span class="form-required">*</span></th>
+                        <td>
+                            <input id="post-id" type="hidden" name="post[post_id]" value="{$post.id}">
+                            <input class="form-control" type="text" name="post[post_title]"
+                                   required value="{$post.post_title}" placeholder="请输入标题"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th width="100" rowspan="{$sign_user_count}">签约用户</th>
+                        
+                    </tr>
+
+                    
+
+                    <foreach name="post_categories_user" item="vo">
+                    <tr class="sign-user">
+                        <td>
+                            <div class="col-md-2 name">{$vo.user_login}
+                                    <if $vo.sign_status == 2><i class="fa fa-check name-icon"></i></if>
+                                    <if $vo.sign_status == -1><i class="fa fa-close name-icon-error"></i></if>
+                                </div>
+                            <if $vo.sign_url>
+                                <div class="col-md-2 sign-pic" onclick="parent.imagePreviewDialog('{:cmf_get_image_preview_url($vo.sign_url)}');">查看签约图片</div>
+
+                            <else>
+                                <div class="col-md-2 sign-pic">未签约</div>
+                            </if>
+                            
+                            <div class="col-md-3">
+                                    <select class="form-control valid" name="post[sign_status][]" id="categories-model-sel" aria-invalid="false">
+                                    <option value="0" <if $vo.sign_status == 0>selected=""</if> >待签约</option>
+                                    <option value="1" <if $vo.sign_status == 1>selected=""</if> >待审核</option>
+                                    <option value="2" <if $vo.sign_status == 2>selected=""</if> >签约成功</option>
+                                    <option value="-1" <if $vo.sign_status == -1>selected=""</if> >审核失败</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-5">
+                                        <input class="form-control" type="text" name="post[notes][]"
+                                         value="{$vo.notes}" placeholder="请输入备注"/>
+
+                                        <input type="hidden" name="post[id][]" value="{$vo.protocol_id}">
+                                </div>
+                        </td>
+                        
+                    </tr>
+                    </foreach>
+                    
+                    
+                    <!-- <tr>
+                        <th>协议书</th>
+                        <td>
+                            <ul id="files" class="pic-list list-unstyled form-inline">
+                                <notempty name="post.more.files">
+                                    <foreach name="post.more.files" item="vo">
+                                        <php>$file_url=cmf_get_file_download_url($vo['url']);</php>
+                                        <li id="saved-file{$key}">
+                                            <input id="file-{$key}" type="hidden" name="file_urls[]"
+                                                   value="{$vo.url}">
+                                            <input class="form-control" id="file-{$key}-name" type="text"
+                                                   name="file_names[]"
+                                                   value="{$vo.name}" style="width: 200px;" title="图片名称">
+                                            <a id="file-{$key}-preview" href="{$file_url}" target="_blank">下载</a>
+                                            <a href="javascript:uploadOne('文件上传','#file-{$key}','file');">替换</a>
+                                            <a href="javascript:(function(){$('#saved-file{$key}').remove();})();">移除</a>
+                                        </li>
+                                    </foreach>
+                                </notempty>
+                            </ul>
+                            <a href="javascript:uploadMultiFile('附件上传','#files','files-item-tpl','file');"
+                               class="btn btn-sm btn-default">选择文件</a>
+                        </td>
+                    </tr> -->
+
+                    <!-- <tr>
+                        <th>协议内容</th>
+                        <td>
+                            <script type="text/plain" id="content" name="post[post_content]">{$post['post_content']}</script>
+                        </td>
+                    </tr> -->
+                    <!-- <tr>
+                        <th>音频</th>
+                        <td class="form-inline">
+                            <input id="file-audio" class="form-control" type="text" name="post[more][audio]"
+                                   value="{$post.more.audio|default=''}" placeholder="请上传音频文件" style="width: 200px;">
+                            <notempty name="post.more.audio">
+                                <a id="file-audio-preview" href="{:cmf_get_file_download_url($post.more.audio)}"
+                                   target="_blank">下载</a>
+                            </notempty>
+
+                            <a href="javascript:uploadOne('文件上传','#file-audio','audio');">上传</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>视频</th>
+                        <td class="form-inline">
+                            <input id="file-video" class="form-control" type="text" name="post[more][video]"
+                                   value="{$post.more.video|default=''}" placeholder="请上传视频文件" style="width: 200px;">
+                            <notempty name="post.more.video">
+                                <a id="file-video-preview" href="{:cmf_get_file_download_url($post.more.video)}"
+                                   target="_blank">下载</a>
+                            </notempty>
+                            <a href="javascript:uploadOne('文件上传','#file-video','video');">上传</a>
+                        </td>
+                    </tr> -->
+                </table>
+
+                <hook name="portal_admin_article_edit_view_main"/>
+            </div>
+            
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    //编辑器路径定义
+    var editorURL = GV.WEB_ROOT;
+</script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        // editorcontent = new baidu.editor.ui.Editor();
+        // editorcontent.render('content');
+        // try {
+        //     editorcontent.sync();
+        // } catch (err) {
+        // }
+
+        $('.btn-cancel-thumbnail').click(function () {
+            $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
+            $('#thumbnail').val('');
+        });
+
+        $('#more-template-select').val("{$post.more.template|default=''}");
+
+        $('#categories-model-sel').change(function(){
+            var model_seled = $(this).val();
+            // console.log(model_seled);
+            editorcontent.execCommand('cleardoc');
+            $.ajax({
+                method: 'POST',
+                url: "{:url('AdminCategory/getmodel')}",
+                data: {
+                    id: model_seled
+                },
+                success: function(data, status){
+                    console.log(data);
+                    if(data.code == 200){
+                        editorcontent.execCommand('inserthtml', data.data.description);
+                    }else{
+                        alert(data.msg);
+                    }
+                }
+            })
+            
+        })
+    });
+
+    function doSelectCategory() {
+        var selectedCategoriesId = $('#js-categories-id-input').val();
+        openIframeLayer("{:url('AdminCategory/select')}?ids=" + selectedCategoriesId, '请选择分类', {
+            area: ['700px', '400px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //do something
+
+                var iframeWin          = window[layero.find('iframe')[0]['name']];
+                var selectedCategories = iframeWin.confirm();
+                if (selectedCategories.selectedCategoriesId.length == 0) {
+                    layer.msg('请选择分类');
+                    return;
+                }
+                $('#js-categories-id-input').val(selectedCategories.selectedCategoriesId.join(','));
+                $('#js-categories-name-input').val(selectedCategories.selectedCategoriesName.join(' '));
+                //console.log(layer.getFrameIndex(index));
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            }
+        });
+    }
+
+    function doSelectCategory_seal() {
+        var selectedCategoriesId = $('#js-categories-id-input-seal').val();
+        openIframeLayer("{:url('AdminCategory/select_seal')}?ids=" + selectedCategoriesId, '请选择分类', {
+            area: ['700px', '400px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //do something
+
+                var iframeWin          = window[layero.find('iframe')[0]['name']];
+                var selectedCategories = iframeWin.confirm();
+                if (selectedCategories.selectedCategoriesId.length == 0) {
+                    layer.msg('请选择分类');
+                    return;
+                }
+                $('#js-categories-id-input-seal').val(selectedCategories.selectedCategoriesId.join(','));
+                $('#js-categories-name-input-seal').val(selectedCategories.selectedCategoriesName.join(' '));
+                //console.log(layer.getFrameIndex(index));
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            }
+        });
+    }
+
+    function doSelectCategory_user() {
+        var selectedCategoriesId = $('#js-categories-id-input-user').val();
+        openIframeLayer("{:url('AdminCategory/select_user')}?ids=" + selectedCategoriesId, '请选择分类', {
+            area: ['700px', '400px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //do something
+
+                var iframeWin          = window[layero.find('iframe')[0]['name']];
+                var selectedCategories = iframeWin.confirm();
+                if (selectedCategories.selectedCategoriesId.length == 0) {
+                    layer.msg('请选择分类');
+                    return;
+                }
+                $('#js-categories-id-input-user').val(selectedCategories.selectedCategoriesId.join(','));
+                $('#js-categories-name-input-user').val(selectedCategories.selectedCategoriesName.join(' '));
+                //console.log(layer.getFrameIndex(index));
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            }
+        });
+    }
+</script>
+
+<script>
+
+    var publishYesUrl   = "{:url('AdminIndex/publish',array('yes'=>1))}";
+    var publishNoUrl    = "{:url('AdminIndex/publish',array('no'=>1))}";
+    var topYesUrl       = "{:url('AdminIndex/top',array('yes'=>1))}";
+    var topNoUrl        = "{:url('AdminIndex/top',array('no'=>1))}";
+    var recommendYesUrl = "{:url('AdminIndex/recommend',array('yes'=>1))}";
+    var recommendNoUrl  = "{:url('AdminIndex/recommend',array('no'=>1))}";
+
+    var postId = $('#post-id').val();
+
+    //发布操作
+    $("#post-status-checkbox").change(function () {
+        if ($('#post-status-checkbox').is(':checked')) {
+            //发布
+            $.ajax({
+                url: publishYesUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#post-status-checkbox').removeAttr("checked");
+                        $('#post-status-error').html(data.msg).show();
+
+                    } else {
+                        $('#post-status-error').hide();
+                    }
+                }
+            });
+        } else {
+            //取消发布
+            $.ajax({
+                url: publishNoUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#post-status-checkbox').prop("checked", 'true');
+                        $('#post-status-error').html(data.msg).show();
+                    } else {
+                        $('#post-status-error').hide();
+                    }
+                }
+            });
+        }
+    });
+
+    //置顶操作
+    $("#is-top-checkbox").change(function () {
+        if ($('#is-top-checkbox').is(':checked')) {
+            //置顶
+            $.ajax({
+                url: topYesUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#is-top-checkbox').removeAttr("checked");
+                        $('#is-top-error').html(data.msg).show();
+
+                    } else {
+                        $('#is-top-error').hide();
+                    }
+                }
+            });
+        } else {
+            //取消置顶
+            $.ajax({
+                url: topNoUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#is-top-checkbox').prop("checked", 'true');
+                        $('#is-top-error').html(data.msg).show();
+                    } else {
+                        $('#is-top-error').hide();
+                    }
+                }
+            });
+        }
+    });
+    //推荐操作
+    $("#recommended-checkbox").change(function () {
+        if ($('#recommended-checkbox').is(':checked')) {
+            //推荐
+            $.ajax({
+                url: recommendYesUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#recommended-checkbox').removeAttr("checked");
+                        $('#recommended-error').html(data.msg).show();
+
+                    } else {
+                        $('#recommended-error').hide();
+                    }
+                }
+            });
+        } else {
+            //取消推荐
+            $.ajax({
+                url: recommendNoUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#recommended-checkbox').prop("checked", 'true');
+                        $('#recommended-error').html(data.msg).show();
+                    } else {
+                        $('#recommended-error').hide();
+                    }
+                }
+            });
+        }
+    });
+
+
+</script>
+
+
+</body>
+</html>

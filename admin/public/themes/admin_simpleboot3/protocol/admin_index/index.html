@@ -58,9 +58,9 @@
                 <!-- <th width="65">评论量</th> -->
                 <!-- <th width="160">关键字/来源<br>摘要/缩略图</th> -->
                 <!-- <th width="130">更新时间</th> -->
-                <th width="130">添加时间</th>
-                <!-- <th width="70">状态</th> -->
-                <th width="90">操作</th>
+                <th width="150">添加时间</th>
+                <th width="150">状态</th>
+                <th width="150">操作</th>
             </tr>
             </thead>
             <foreach name="articles" item="vo">
@@ -78,20 +78,21 @@
                     <td><b>{$vo.id}</b></td>
                     <td>
                         <notempty name="category">
-                            <a href="{:cmf_url('portal/Article/index',array('id'=>$vo['id'],'cid'=>$vo['category_id']))}"
+                            <a href="{:url('AdminIndex/edit',array('id'=>$vo['id']))}"
                                target="_blank">{$vo.post_title}</a>
                             <else/>
-                            <a href="{:cmf_url('portal/Article/index',array('id'=>$vo['id']))}"
+                            <a href="{:url('AdminIndex/edit',array('id'=>$vo['id']))}"
                                target="_blank">{$vo.post_title}</a>
                         </notempty>
                     </td>
                     <td>
                         <foreach name="vo.categories" item="voo">
                             <span class="label label-default">
-                                <a href="{:cmf_url('portal/List/index',array('id'=>$voo['id']))}"
+                                <!-- <a href="{:cmf_url('portal/List/index',array('id'=>$voo['id']))}"
                                    style="color: #fff;"
                                    target="_blank"
-                                >{$voo.name}</a>
+                                >{$voo.name}</a> -->
+                                {$voo.name}
                             </span>&nbsp;
                         </foreach>
                     </td>
@@ -108,7 +109,32 @@
                     </td>
                     
                     <td>
+                        <!-- <notempty name="vo.post_status">
+                            <a data-toggle="tooltip" title="已发布"><i class="fa fa-check"></i></a>
+                            <else/>
+                            <a data-toggle="tooltip" title="未发布"><i class="fa fa-close"></i></a>
+                        </notempty>
+                        <notempty name="vo.is_top">
+                            <a data-toggle="tooltip" title="已置顶"><i class="fa fa-arrow-up"></i></a>
+                            <else/>
+                            <a data-toggle="tooltip" title="未置顶"><i class="fa fa-arrow-down"></i></a>
+                        </notempty>
+                        <notempty name="vo.recommended">
+                            <a data-toggle="tooltip" title="已推荐"><i class="fa fa-thumbs-up"></i></a>
+                            <else/>
+                            <a data-toggle="tooltip" title="未推荐"><i class="fa fa-thumbs-down"></i></a>
+                        </notempty> -->
+                        <if $vo['un_sign']>
+                        <b style="color:#18BC9C;">{$vo['un_sign']}</b> 个用户未审核
+                            <else>
+                                已全部审核
+                    </if>
+                    </td>
+
+                    <td>
                         <a href="{:url('AdminIndex/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+                        <a href="{:url('AdminIndex/verify',array('id'=>$vo['id']))}">审核</a>
+                        
                         <a href="{:url('AdminIndex/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">{:lang('DELETE')}</a>
                     </td>
                 </tr>
@@ -127,10 +153,10 @@
                 <!-- <th width="65">点击量</th> -->
                 <!-- <th width="65">评论量</th> -->
                 <!-- <th width="160">关键字/来源<br>摘要/缩略图</th> -->
-                <!-- <th width="130">更新时间</th> -->
-                <th width="130">添加时间</th>
-                <!-- <th width="70">状态</th> -->
-                <th width="90">操作</th>
+                <!-- <th width="150">更新时间</th> -->
+                <th width="150">添加时间</th>
+                <th width="150">状态</th>
+                <th width="150">操作</th>
             </tr>
             </tfoot>
         </table>

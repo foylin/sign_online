@@ -51,7 +51,16 @@ class AdminIndexController extends AdminBaseController
 
         $protocolCategoryModel = new ProtocolCategoryModel();
         $categoryTree        = $protocolCategoryModel->adminCategoryTree($categoryId);
+        // dump($data->items());
 
+        $protocol_data = $data->items();
+        foreach ($protocol_data as $key => $value) {
+            $protocol_data[$key]['un_sign'] = Db::name('protocol_category_user_post')->where(['post_id' => $value['id'], 'sign_status' => ['neq', 2]])->count();
+        }
+
+        // dump(Db::name('protocol_category_user_post')->getLastSql());
+
+        // $postCategories_user  = $post->categories_user()->alias('a')->column('a.user_login, sign_status, sign_url, notes, a.id AS user_id, pivot.id AS protocol_id', 'a.id');
         $this->assign('start_time', isset($param['start_time']) ? $param['start_time'] : '');
         $this->assign('end_time', isset($param['end_time']) ? $param['end_time'] : '');
         $this->assign('keyword', isset($param['keyword']) ? $param['keyword'] : '');
@@ -482,5 +491,110 @@ class AdminIndexController extends AdminBaseController
 
     }
 
+    public function verify(){
+        $content = hook_one('protocol_admin_article_edit_view');
+
+        if (!empty($content)) {
+            return $content;
+        }
+
+        $id = $this->request->param('id', 0, 'intval');
+
+        $protocolPostModel = new ProtocolPostModel();
+        $post            = $protocolPostModel->where('id', $id)->find();
+        $postCategories  = $post->categories()->alias('a')->column('a.name', 'a.id');
+        $postCategoryIds = implode(',', array_keys($postCategories));
+        $this->assign('post_categories', $postCategories);
+        $this->assign('post_category_ids', $postCategoryIds);
+        // dump($postCategoryIds);
+        $protocolCategoryModel = new ProtocolCategoryModel();
+        $where      = ['delete_time' => 0];
+        $categories_model = $protocolCategoryModel->field('id, name')->where($where)->select();
+        $this->assign('categories_model', $categories_model);
+        // dump($categories);
+
+        $postCategories_seal  = $post->categories_seal()->alias('a')->column('a.name', 'a.id');
+        $postCategoryIds_seal = implode(',', array_keys($postCategories_seal));
+        $this->assign('post_categories_seal', $postCategories_seal);
+        $this->assign('post_category_ids_seal', $postCategoryIds_seal);
+
+        $postCategories_user  = $post->categories_user()->alias('a')->column('a.user_login, sign_status, sign_url, notes, a.id AS user_id, pivot.id AS protocol_id', 'a.id');
+        // dump($post->getLastSql());
+        $postCategoryIds_user = implode(',', array_keys($postCategories_user));
+        $this->assign('post_categories_user', $postCategories_user);
+        $this->assign('post_category_ids_user', $postCategoryIds_user);
+        $this->assign('sign_user_count', count($postCategories_user) + 1);
+        $themeModel        = new ThemeModel();
+        $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
+        $this->assign('article_theme_files', $articleThemeFiles);
+        $this->assign('post', $post);
+        
+
+        // $filename = '/home/lin/下载/四书模板/四书模板/xxxx保密工作责任书（通用部门）.doc';
+
+        // $content = shell_exec('/usr/local/bin/antiword -m UTF-8.txt '.$filename);  
+        // dump($postCategories_user);
+        // $this->assign('content', $content);
+        return $this->fetch();
+    }
+
+    public function verifyPost(){
+        if ($this->request->isPost()) {
+            $data = $this->request->param();
+
+            //需要抹除发布、置顶、推荐的修改。
+            unset($data['post']['post_status']);
+            unset($data['post']['is_top']);
+            unset($data['post']['recommended']);
+
+            $post   = $data['post'];
+            // $result = $this->validate($post, 'AdminIndex');
+            // if ($result !== true) {
+            //     $this->error($result);
+            // }
+
+            // $protocolPostModel = new ProtocolPostModel();
+
+            // if (!empty($data['photo_names']) && !empty($data['photo_urls'])) {
+            //     $data['post']['more']['photos'] = [];
+            //     foreach ($data['photo_urls'] as $key => $url) {
+            //         $photoUrl = cmf_asset_relative_url($url);
+            //         array_push($data['post']['more']['photos'], ["url" => $photoUrl, "name" => $data['photo_names'][$key]]);
+            //     }
+            // }
+
+            // if (!empty($data['file_names']) && !empty($data['file_urls'])) {
+            //     $data['post']['more']['files'] = [];
+            //     foreach ($data['file_urls'] as $key => $url) {
+            //         $fileUrl = cmf_asset_relative_url($url);
+            //         array_push($data['post']['more']['files'], ["url" => $fileUrl, "name" => $data['file_names'][$key]]);
+            //     }
+            // }
+
+            // $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user']);
+
+            // $hookParam = [
+            //     'is_add'  => false,
+            //     'article' => $data['post']
+            // ];
+            // hook('protocol_admin_after_save_article', $hookParam);
+
+            $update_id = $post['id'];
+            
+            foreach ($update_id as $key => $value) {
+                # code...
+                $save['id'] = $value;
+                $save['post_id'] = $post['post_id'];
+                $save['sign_status'] = $post['sign_status'][$key];
+                $save['notes'] = $post['notes'][$key];
+
+                Db::name('protocol_category_user_post')->update($save);
+            }
+
+            // dump(Db::name('protocol_category_user_post')->getLastSql());
+            $this->success('保存成功!');
+
+        }
+    }
 
 }

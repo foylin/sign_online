@@ -39,10 +39,13 @@ class UploadController extends RestUserBaseController
         $fileMd5  = $info->md5();
         $fileSha1 = $info->sha1();
 
-        $findFile = Db::name("asset")->where('file_md5', $fileMd5)->where('file_sha1', $fileSha1)->find();
+        // $findFile = Db::name("asset")->where('file_md5', $fileMd5)->where('file_sha1', $fileSha1)->find();
+        $where['post_id'] = $param['protocol_id'];
+        $where['category_id'] = $this->userId;
+        $findFile = Db::name('protocol_category_user_post')->where($where)->find();
 
-        if (!empty($findFile)) {
-            $this->success("请勿重复上传!", ['url' => $findFile['file_path'], 'filename' => $findFile['filename']]);
+        if (!empty($findFile) && $findFile['sign_status'] == 1 && !empty($findFile['sign_url'])) {
+            $this->success("请勿重复上传!", ['url' => $findFile['sign_url']]);
         }
         $info = $info->move(ROOT_PATH . 'public' . DS . 'upload');
         if ($info) {
@@ -69,7 +72,7 @@ class UploadController extends RestUserBaseController
             
 
             $signdata = array(
-                'sign_status' => 0,
+                'sign_status' => 1,
                 'sign_url'    => $saveName
             );
             $where['post_id'] = $param['protocol_id'];
