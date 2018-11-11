@@ -43,9 +43,8 @@
         <view bindtap="onsign" class="onsign">
             
 
-            <view wx:if="{{ countdown }}" class="countdown"> {{ countdowndes }} <text>{{ countdown }} </text></view>
-
-            <view wx:else> 签约 </view>
+            <text wx:if="{{ countdown }}"> {{ countdowndes }} {{ countdown }} </text>
+            <text wx:else> 签约 </text>
 
         </view>
     </view>

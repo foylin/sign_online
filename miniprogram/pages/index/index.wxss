@@ -2,9 +2,9 @@
     background: transparent;
 }
 
-/*.list-view{*/
-/*padding-top: 48px;*/
-/*}*/
+.list-view{
+padding-top: 22rpx;
+}
 /*weui-search-bar*/
 
 /*.weui-search-bar{*/
@@ -24,7 +24,7 @@
 }
 
 .asset-media-box{
-    padding: 4px 15px 4px 15px;
+    padding: 6px 15px 0px 15px;
 }
 
 .total-media-box{
@@ -61,8 +61,21 @@
 }
 
 .weui-media-box__title{
-    font-size: 30rpx;
+    font-size: 34rpx;
 }
+
+.weui-media-box__desc{
+    display: flex;
+}
+.weui-media-box__desc span.notes{
+    line-height: 38rpx;
+    margin-left: 10rpx;
+    /* margin-top: 10px; */
+}
+.weui-media-box__desc .sign-status{
+    background: #00796a;
+}
+
 
 
 

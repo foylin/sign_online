@@ -14,13 +14,13 @@ use api\common\model\CommonModel;
 class ProtocolPostModel extends CommonModel
 {
     //可查询字段
-    protected $visible = [
-        'id', 'articles.id', 'user_id', 'post_id', 'post_type', 'comment_status',
-        'is_top', 'recommended', 'post_hits', 'post_like', 'comment_count',
-        'create_time', 'update_time', 'published_time', 'post_title', 'post_keywords',
-        'post_excerpt', 'post_source', 'post_content', 'more', 'user_nickname',
-        'user', 'category_id'
-    ];
+    // protected $visible = [
+    //     'id', 'articles.id', 'user_id', 'post_id', 'post_type', 'comment_status',
+    //     'is_top', 'recommended', 'post_hits', 'post_like', 'comment_count',
+    //     'create_time', 'update_time', 'published_time', 'post_title', 'post_keywords',
+    //     'post_excerpt', 'post_source', 'post_content', 'more', 'user_nickname',
+    //     'user', 'category_id, sign_status, notes'
+    // ];
 
     //设置只读字段
     protected $readonly = ['user_id'];

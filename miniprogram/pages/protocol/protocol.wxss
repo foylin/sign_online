@@ -60,6 +60,8 @@ image {
     font-size: 30rpx;
     display: block;
     width: 100%;
+    color: #00796a;
+    /* background: #00796a; */
     
 }
 

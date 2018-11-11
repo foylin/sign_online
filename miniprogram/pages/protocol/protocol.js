@@ -14,7 +14,7 @@ Page({
     onLoad(params) {
         console.log(params);
         this.params = params;
-        let count = 5;
+        let count = 30;
         let that = this;
         let interval = setInterval(function(){
             count--;

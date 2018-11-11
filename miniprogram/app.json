@@ -14,9 +14,9 @@
     ],
     "window": {
         "backgroundTextStyle": "white",
-        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarBackgroundColor": "#00796a",
         "navigationBarTitleText": "协议书任务",
-        "navigationBarTextStyle": "black"
+        "navigationBarTextStyle": "white"
     },
     
     "debug": false
