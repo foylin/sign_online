@@ -83,7 +83,7 @@ class PublicController extends RestBaseController
             'password' => 'require'
         ]);
         $validate->message([
-            'username.require' => '请输入手机号,邮箱或用户名!',
+            'username.require' => '请输入手机号或者用户名!',
             'password.require' => '请输入您的密码!'
         ]);
 

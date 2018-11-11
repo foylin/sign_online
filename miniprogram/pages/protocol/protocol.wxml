@@ -19,6 +19,7 @@
             </view>
         </view>
     </view>
+    
     <view class="weui-flex article-footer-action-bar" style="">
         <!-- <view class="weui-flex__item text-center" hover-class="action-bar-item-active" bindtap="onFavoriteTap">
             <view class="fa fa-star"></view>
@@ -44,7 +45,7 @@
             
 
             <text wx:if="{{ countdown }}"> {{ countdowndes }} {{ countdown }} </text>
-            <text wx:else> 签约 </text>
+            <text wx:else> {{ sign }} </text>
 
         </view>
     </view>

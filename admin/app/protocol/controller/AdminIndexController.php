@@ -17,6 +17,8 @@ use app\protocol\model\ProtocolCategoryModel;
 use think\Db;
 use app\admin\model\ThemeModel;
 
+use Dompdf\Dompdf;
+
 class AdminIndexController extends AdminBaseController
 {
     /**
@@ -228,6 +230,23 @@ class AdminIndexController extends AdminBaseController
         // dump($content);
         // $this->assign('content', $content);
         return $this->fetch();
+
+        // reference the Dompdf namespace
+            
+
+            // instantiate and use the dompdf class
+            // $dompdf = new Dompdf();
+
+            // $header = "<style>* {font-family: simsun!important}</style>";
+
+            // $html = $header.$post['post_content'];
+
+            // $dompdf->loadHtml($html);
+
+            // // Render the HTML as PDF
+            // $dompdf->render();
+            // // Output the generated PDF to Browser
+            // $dompdf->stream();
     }
 
     /**
@@ -287,6 +306,8 @@ class AdminIndexController extends AdminBaseController
             hook('protocol_admin_after_save_article', $hookParam);
 
             $this->success('保存成功!');
+
+            
 
         }
     }

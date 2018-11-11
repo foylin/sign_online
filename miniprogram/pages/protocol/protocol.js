@@ -8,25 +8,14 @@ Page({
     data: {
         'countdown': 30,
         'countdowndes': '请阅读协议内容',
+        'sign_status': 0,
+        'sign': '签约'
         
     },
 
     onLoad(params) {
         console.log(params);
         this.params = params;
-        let count = 30;
-        let that = this;
-        let interval = setInterval(function(){
-            count--;
-            console.log(count);
-            that.setData({countdown : count});
-
-            if(count <= 0){
-                clearInterval(interval);
-                that.setData({countdowndes: ''});
-            }
-        }, 1000)
-
         
     },
 
@@ -34,6 +23,9 @@ Page({
         this.loadData();
     },
     loadData() {
+
+        let that = this;
+
         var params = this.params;
         if (params.id) {
             wx.showNavigationBarLoading();
@@ -46,11 +38,35 @@ Page({
                         let publishedDate = new Date();
                         publishedDate.setTime(data.data.published_time * 1000);
                         data.data.published_date = publishedDate.format('yyyy-MM-dd hh:mm');
-                        this.setData({article: data.data});
+                        that.setData({
+                            article: data.data,
+                            sign_status: data.data.sign_status
+                        });
+                        
                         WxParse.wxParse('articleContent', 'html', data.data.post_content, this, 30);
                         wx.setNavigationBarTitle({
                             title: data.data.post_title
                         });
+
+                        if(data.data.sign_status == 2){
+                            that.setData({
+                                countdown: 0,
+                                sign: '已签约'
+                            })
+                        }else{
+                            let count = 3;
+                            
+                            let interval = setInterval(function(){
+                                count--;
+                                console.log(count);
+                                that.setData({countdown : count});
+
+                                if(count <= 0){
+                                    clearInterval(interval);
+                                    that.setData({countdowndes: ''});
+                                }
+                            }, 1000)
+                        }
                     }else{
 
 
@@ -62,7 +78,7 @@ Page({
 
                         wx.showToast({
                             title: data.msg,
-                            icon: 'loading',
+                            icon: 'none',
                             duration: 1000,
                             
                           })
@@ -145,9 +161,9 @@ Page({
         }
     },
     onsign(){
-        if (this.data.countdown) return !1
+        if (this.data.countdown || this.data.sign_status == 2) return !1
 
-        // console.log(this.data.countdown);
+        console.log(this.data.countdown);
         var params = this.params;
         wx.navigateTo({
             url: '/pages/sign/sign?protocol_id='+params.id

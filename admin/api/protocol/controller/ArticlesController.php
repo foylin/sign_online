@@ -53,9 +53,16 @@ class ArticlesController extends RestUserBaseController
             $this->error('无效id！');
         } else {
             $params                       = $this->request->get();
-            $params['where']['post_type'] = 1;
-            $params['id']                 = $id;
-            $data                         = $this->postModel->getDatas($params);
+            // $params['where']['post_type'] = 1;
+            // $params['id']                 = $id;
+
+            $userId = $this->getUserId();
+
+            // $data                         = $this->postModel->getDatas($params);
+            // $data                         = $this->postModel->where($params['where'])->select();
+            $data = $this->postModel->setCondition($params)->alias('a')
+            ->join('__PROTOCOL_CATEGORY_USER_POST__ tp', 'a.id = tp.post_id')->field('a.id, a.post_title, a.post_content, tp.sign_status, tp.notes')
+            ->where(['a.post_status' => 1, 'tp.post_id' => $id, 'tp.category_id' => $userId])->find();
             if (empty($data)) {
                 $this->error('协议书不存在！');
             } else {

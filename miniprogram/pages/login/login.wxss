@@ -21,7 +21,7 @@ page{
 .login-btn {
     margin: 20px 0;
     border: 1px solid #ccc !important;
-    color: #777 !important;
+    color: #00796a !important;
     width: 100%;
     border-radius: 0px;
 }
