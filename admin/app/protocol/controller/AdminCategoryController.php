@@ -271,7 +271,11 @@ tpl;
                value='\$id' data-name='\$name' \$checked>
     </td>
     <td>\$id</td>
-    <td>\$spacer <a href='\$url' target='_blank'>\$name</a></td>
+    <td>\$spacer <a href='\$url' target='_blank'>\$name</a> <input name='seal_place[]' class='form-control' placeholder='公章位置' style='
+    width: 200px;
+    display: inherit;
+    margin-left: 10px;
+' /></td>
 </tr>
 tpl;
 

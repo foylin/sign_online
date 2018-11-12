@@ -101,10 +101,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>签约数量</th>
+                        <th>签名位置</th>
                         <td>
                             <input class="form-control" type="text" name="post[post_count]"
-                                   value="{$post['post_count']}" placeholder="">
+                                   value="{$post['post_count']}" placeholder="协议中需要签名的位置个数">
                             <p class="help-block"></p>
                         </td>
                     </tr>
@@ -180,6 +180,7 @@
                         <th>协议内容</th>
                         <td>
                             <script type="text/plain" id="content" name="post[post_content]">{$post['post_content']}</script>
+                            <!-- <textarea name="" id="content">{$post['post_content']}</textarea> -->
                         </td>
                     </tr>
                     <!-- <tr>
@@ -228,15 +229,23 @@
 </script>
 <script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+
+<!-- <script src='__STATIC__/js/tinymce.min.js'></script> -->
+
 <script type="text/javascript">
     $(function () {
 
-        editorcontent = new baidu.editor.ui.Editor();
+        editorcontent = new baidu.editor.ui.Editor({
+            // initialFrameWidth: 600
+        });
         editorcontent.render('content');
         try {
             editorcontent.sync();
+            // editorcontent.
         } catch (err) {
         }
+
+        
 
         $('.btn-cancel-thumbnail').click(function () {
             $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
@@ -300,6 +309,7 @@
 
                 var iframeWin          = window[layero.find('iframe')[0]['name']];
                 var selectedCategories = iframeWin.confirm();
+                console.log(selectedCategories);
                 if (selectedCategories.selectedCategoriesId.length == 0) {
                     layer.msg('请选择分类');
                     return;
