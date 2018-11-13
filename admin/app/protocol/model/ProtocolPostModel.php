@@ -150,7 +150,7 @@ class ProtocolPostModel extends Model
      * @param array|string $categories 文章分类 id
      * @return $this
      */
-    public function adminEditArticle($data, $categories, $categories_seal, $categories_user)
+    public function adminEditArticle($data, $categories, $categories_seal, $categories_user, $categories_seal_place, $categories_user_place)
     {
 
         unset($data['user_id']);
@@ -187,9 +187,11 @@ class ProtocolPostModel extends Model
             $this->categories()->attach(array_values($newCategoryIds));
         }
 
+
         // 行政公章
         if (is_string($categories_seal)) {
             $categories_seal = explode(',', $categories_seal);
+            $categories_seal_place = explode(',', $categories_seal_place);
         }
 
         $oldCategoryIds_seal        = $this->categories_seal()->column('category_id');
@@ -197,17 +199,22 @@ class ProtocolPostModel extends Model
         $needDeleteCategoryIds_seal = array_diff($oldCategoryIds_seal, $sameCategoryIds_seal);
         $newCategoryIds_seal        = array_diff($categories_seal, $sameCategoryIds_seal);
 
-        if (!empty($needDeleteCategoryIds_seal)) {
-            $this->categories_seal()->detach($needDeleteCategoryIds_seal);
+        if (!empty($oldCategoryIds_seal)) {
+            $this->categories_seal()->detach($oldCategoryIds_seal);
         }
 
-        if (!empty($newCategoryIds_seal)) {
-            $this->categories_seal()->attach(array_values($newCategoryIds_seal));
+        if (!empty($categories_seal)) {
+            foreach ($categories_seal as $nk_seal => $nv_seal) {
+                $this->categories_seal()->attach($nv_seal, ['place'=> $categories_seal_place[$nk_seal]]);
+            }
         }
+
+        
 
         // 签约用户
         if (is_string($categories_user)) {
             $categories_user = explode(',', $categories_user);
+            $categories_user_place = explode(',', $categories_user_place);
         }
 
         $oldCategoryIds_user        = $this->categories_user()->column('category_id');
@@ -215,12 +222,15 @@ class ProtocolPostModel extends Model
         $needDeleteCategoryIds_user = array_diff($oldCategoryIds_user, $sameCategoryIds_user);
         $newCategoryIds_user        = array_diff($categories_user, $sameCategoryIds_user);
 
-        if (!empty($needDeleteCategoryIds_user)) {
-            $this->categories_user()->detach($needDeleteCategoryIds_user);
+        if (!empty($oldCategoryIds_user)) {
+            $this->categories_user()->detach($oldCategoryIds_user);
         }
 
-        if (!empty($newCategoryIds_user)) {
-            $this->categories_user()->attach(array_values($newCategoryIds_user));
+        if (!empty($categories_user)) {
+            // $this->categories_user()->attach(array_values($newCategoryIds_user));
+            foreach ($categories_user as $nk_seal => $nv_seal) {
+                $this->categories_user()->attach($nv_seal, ['place'=> $categories_user_place[$nk_seal]]);
+            }
         }
 
 

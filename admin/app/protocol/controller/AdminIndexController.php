@@ -196,7 +196,7 @@ class AdminIndexController extends AdminBaseController
         if (!empty($content)) {
             return $content;
         }
-
+        
         $id = $this->request->param('id', 0, 'intval');
 
         $protocolPostModel = new ProtocolPostModel();
@@ -217,10 +217,21 @@ class AdminIndexController extends AdminBaseController
         $this->assign('post_categories_seal', $postCategories_seal);
         $this->assign('post_category_ids_seal', $postCategoryIds_seal);
 
+        $postCategories_seal_place = $post->categories_seal()->alias('a')->column('pivot.place', 'a.id');
+        $postCategoryIds_seal_place = implode(',', $postCategories_seal_place);
+        $this->assign('post_category_places_seal', $postCategoryIds_seal_place);
+
         $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login', 'a.id');
         $postCategoryIds_user = implode(',', array_keys($postCategories_user));
+
+        
         $this->assign('post_categories_user', $postCategories_user);
         $this->assign('post_category_ids_user', $postCategoryIds_user);
+
+        $postCategories_user_place = $post->categories_user()->alias('a')->column('pivot.place', 'a.id');
+        
+        $postCategoryIds_user_place = implode(',', $postCategories_user_place);
+        $this->assign('post_category_places_user', $postCategoryIds_user_place);
 
         $themeModel = new ThemeModel();
         $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
@@ -301,7 +312,7 @@ class AdminIndexController extends AdminBaseController
                 }
             }
 
-            $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user']);
+            $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user'], $data['post']['categories_seal_place'], $data['post']['categories_user_place']);
 
             $hookParam = [
                 'is_add' => false,
@@ -554,7 +565,7 @@ class AdminIndexController extends AdminBaseController
         $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
         $this->assign('article_theme_files', $articleThemeFiles);
         $this->assign('post', $post);
-        
+        // dump($postCategories_user);
 
         // $filename = '/home/lin/下载/四书模板/四书模板/xxxx保密工作责任书（通用部门）.doc';
 
@@ -630,49 +641,49 @@ class AdminIndexController extends AdminBaseController
      */
     public function export()
     {
-        $content = hook_one('protocol_admin_article_edit_view');
+        // $content = hook_one('protocol_admin_article_edit_view');
 
-        if (!empty($content)) {
-            return $content;
-        }
+        // if (!empty($content)) {
+        //     return $content;
+        // }
 
-        $id = $this->request->param('id', 0, 'intval');
+        // $id = $this->request->param('id', 0, 'intval');
 
-        $protocolPostModel = new ProtocolPostModel();
-        $post = $protocolPostModel->where('id', $id)->find();
-        $postCategories = $post->categories()->alias('a')->column('a.name', 'a.id');
-        $postCategoryIds = implode(',', array_keys($postCategories));
-        $this->assign('post_categories', $postCategories);
-        $this->assign('post_category_ids', $postCategoryIds);
-        // dump($postCategoryIds);
-        $protocolCategoryModel = new ProtocolCategoryModel();
-        $where = ['delete_time' => 0];
-        $categories_model = $protocolCategoryModel->field('id, name')->where($where)->select();
-        $this->assign('categories_model', $categories_model);
-        // dump($categories);
+        // $protocolPostModel = new ProtocolPostModel();
+        // $post = $protocolPostModel->where('id', $id)->find();
+        // $postCategories = $post->categories()->alias('a')->column('a.name', 'a.id');
+        // $postCategoryIds = implode(',', array_keys($postCategories));
+        // $this->assign('post_categories', $postCategories);
+        // $this->assign('post_category_ids', $postCategoryIds);
+        // // dump($postCategoryIds);
+        // $protocolCategoryModel = new ProtocolCategoryModel();
+        // $where = ['delete_time' => 0];
+        // $categories_model = $protocolCategoryModel->field('id, name')->where($where)->select();
+        // $this->assign('categories_model', $categories_model);
+        // // dump($categories);
 
-        $postCategories_seal = $post->categories_seal()->alias('a')->column('a.name', 'a.id');
-        $postCategoryIds_seal = implode(',', array_keys($postCategories_seal));
-        $this->assign('post_categories_seal', $postCategories_seal);
-        $this->assign('post_category_ids_seal', $postCategoryIds_seal);
+        // $postCategories_seal = $post->categories_seal()->alias('a')->column('a.name', 'a.id');
+        // $postCategoryIds_seal = implode(',', array_keys($postCategories_seal));
+        // $this->assign('post_categories_seal', $postCategories_seal);
+        // $this->assign('post_category_ids_seal', $postCategoryIds_seal);
 
-        $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login', 'a.id');
-        $postCategoryIds_user = implode(',', array_keys($postCategories_user));
-        $this->assign('post_categories_user', $postCategories_user);
-        $this->assign('post_category_ids_user', $postCategoryIds_user);
+        // $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login', 'a.id');
+        // $postCategoryIds_user = implode(',', array_keys($postCategories_user));
+        // $this->assign('post_categories_user', $postCategories_user);
+        // $this->assign('post_category_ids_user', $postCategoryIds_user);
 
-        $themeModel = new ThemeModel();
-        $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
-        $this->assign('article_theme_files', $articleThemeFiles);
-        $this->assign('post', $post);
+        // $themeModel = new ThemeModel();
+        // $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
+        // $this->assign('article_theme_files', $articleThemeFiles);
+        // $this->assign('post', $post);
         
 
-        // $filename = '/home/lin/下载/四书模板/四书模板/xxxx保密工作责任书（通用部门）.doc';
+        // // $filename = '/home/lin/下载/四书模板/四书模板/xxxx保密工作责任书（通用部门）.doc';
 
-        // $content = shell_exec('/usr/local/bin/antiword -m UTF-8.txt '.$filename);  
-        // dump($content);
-        // $this->assign('content', $content);
-        return $this->fetch();
+        // // $content = shell_exec('/usr/local/bin/antiword -m UTF-8.txt '.$filename);  
+        // // dump($content);
+        // // $this->assign('content', $content);
+        // return $this->fetch();
 
         // reference the Dompdf namespace
             
@@ -749,5 +760,23 @@ class AdminIndexController extends AdminBaseController
 //         exit();
 
         // shell_exec("wkhtmltopdf http://signonline.net 1.pdf");
+        $id = $this->request->param('id', 0, 'intval');
+
+        $uid = $this->request->param('uid', 0, 'intval');
+
+        print_r(shell_exec("ls"));
+        // shell_exec("sudo php -v");
+        shell_exec("cd /var/www/sign_online/admin && wkhtmltopdf http://signonline.net/protocol/index/export/id/".$id."/uid/".$uid.".html sign.pdf");
+        // shell_exec("sudo /usr/local/bin/wkhtmltopdf --print-media-type http://www.baidu.com termo590.pdf 2>&1");
+
+        echo exec('whoami');
+        if(file_exists("sign.pdf")){
+            header("Content-type:application/pdf");
+            header("Content-Disposition:attachment;filename=sign.pdf");
+            echo file_get_contents("sign.pdf");
+            //echo "{$filename}.pdf";
+        }else{
+            exit;
+        }
     }
 }

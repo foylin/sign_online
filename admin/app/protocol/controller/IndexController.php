@@ -22,6 +22,7 @@ use Dompdf\Dompdf;
 // use tecnickcom\tcpdf;
 
 use think\Loader;
+use function Qiniu\json_decode;
 
 class IndexController extends HomeBaseController
 {
@@ -640,8 +641,12 @@ class IndexController extends HomeBaseController
 
         $id = $this->request->param('id', 0, 'intval');
 
+        $uid = $this->request->param('uid', 0, 'intval');
+
         $protocolPostModel = new ProtocolPostModel();
         $post = $protocolPostModel->where('id', $id)->find();
+
+
         // $postCategories = $post->categories()->alias('a')->column('a.name', 'a.id');
         // $postCategoryIds = implode(',', array_keys($postCategories));
         // $this->assign('post_categories', $postCategories);
@@ -653,12 +658,41 @@ class IndexController extends HomeBaseController
         // $this->assign('categories_model', $categories_model);
         // // dump($categories);
 
-        // $postCategories_seal = $post->categories_seal()->alias('a')->column('a.name', 'a.id');
+        $postCategories_seal = $post->categories_seal()->alias('a')->column('a.name, a.more', 'a.id');
+        
+
+        foreach ($postCategories_seal as &$value) {
+            $seal_post = Db::name('protocol_category_seal_post')->where(['post_id'=>$id, 'category_id' => $value['id']])->find();
+            // dump($seal_post);
+            $value['more'] = json_decode($value['more'], true);
+            
+            $value['more']['thumbnail'] = cmf_get_image_preview_url($value['more']['thumbnail']);
+            
+            $replace = '<img src="'.$value['more']['thumbnail'].'" title="" alt="" width="106" height="165" style="width: 106px; height: 165px;">';
+            $post['post_content'] = str_replace($seal_post['place'], $replace, $post['post_content']);
+        }
+
+        $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login', 'a.id');
+        $user_post = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'category_id' => $uid])->find();
+        $user_post['sign_url'] = cmf_get_image_preview_url($user_post['sign_url']);
+        $replace = '<img src="'.$user_post['sign_url'].'" title="" alt="" width="106" height="165" style="width: 106px; height: 165px;">';
+        $post['post_content'] = str_replace($user_post['place'], $replace, $post['post_content']);
+        // dump($user_post);
+
+        // 其他用户签名
+        $other_user = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'place' => ['<>', $user_post['place']]])->find();
+
+        // dump(Db::name('protocol_category_user_post')->getLastSql());
+        if($other_user){
+            $other_user['sign_url'] = cmf_get_image_preview_url($other_user['sign_url']);
+            $replace = '<img src="'.$other_user['sign_url'].'" title="" alt="" width="106" height="165" style="width: 106px; height: 165px;">';
+            $post['post_content'] = str_replace($other_user['place'], $replace, $post['post_content']);
+        }
+
         // $postCategoryIds_seal = implode(',', array_keys($postCategories_seal));
         // $this->assign('post_categories_seal', $postCategories_seal);
         // $this->assign('post_category_ids_seal', $postCategoryIds_seal);
 
-        // $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login', 'a.id');
         // $postCategoryIds_user = implode(',', array_keys($postCategories_user));
         // $this->assign('post_categories_user', $postCategories_user);
         // $this->assign('post_category_ids_user', $postCategoryIds_user);
@@ -667,10 +701,10 @@ class IndexController extends HomeBaseController
         // $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
         // $this->assign('article_theme_files', $articleThemeFiles);
 
-        $placeholder = '签名占位符2';
-        $replace = '<img src="http://signonline.net/upload/default/20181112/2f05dcc5db737ee96dc4faef0e293b7b.png" title="e4170604250bd7a482522dbd5efbde75.png" alt="e4170604250bd7a482522dbd5efbde75.png" width="106" height="165" style="width: 106px; height: 165px;">';
+        // $placeholder = '签名占位符2';
+        // $replace = '<img src="http://signonline.net/upload/default/20181112/2f05dcc5db737ee96dc4faef0e293b7b.png" title="e4170604250bd7a482522dbd5efbde75.png" alt="e4170604250bd7a482522dbd5efbde75.png" width="106" height="165" style="width: 106px; height: 165px;">';
 
-        $post['post_content'] = str_replace($placeholder, $replace, $post['post_content']);
+        // $post['post_content'] = str_replace($placeholder, $replace, $post['post_content']);
 
         $this->assign('post', $post);
         
@@ -757,5 +791,7 @@ class IndexController extends HomeBaseController
 //         exit();
 
         // shell_exec("wkhtmltopdf http://signonline.net 1.pdf");
+
+        
     }
 }

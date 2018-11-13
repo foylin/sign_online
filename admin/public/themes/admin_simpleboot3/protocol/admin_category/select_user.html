@@ -12,7 +12,7 @@
                     </label>
                 </th>
                 <th width="50">ID</th>
-                <th>分类名称</th>
+                <th>用户名</th>
             </tr>
             </thead>
             <tbody>
@@ -25,7 +25,9 @@
                                value="{$vo.id}" data-name="{$vo.user_login}" {$checked}>
                     </td>
                     <td>{$vo.id}</td>
-                    <td>{$vo.user_login}</td>
+                    <td>{$vo.user_login}<input value="{$vo.place}" name='user_place_{$vo.id}' class='form-control' placeholder='签名位置' style='
+                        width: 200px;
+                        display: inherit;margin-left: 10px;' /></td>
                 </tr>
             </foreach>
            

@@ -262,6 +262,15 @@ tpl;
     {
         $ids                 = $this->request->param('ids');
         $selectedIds         = explode(',', $ids);
+
+        $places                 = $this->request->param('places');
+        $selectedPlaces         = explode(',', $places);
+
+        foreach ($selectedIds as $key => $value) {
+            # code...
+            $places_arr[$value] = $selectedPlaces[$key];
+        }
+        // dump($places_arr);
         $sealCategoryModel = new SealCategoryModel();
 
         $tpl = <<<tpl
@@ -271,7 +280,7 @@ tpl;
                value='\$id' data-name='\$name' \$checked>
     </td>
     <td>\$id</td>
-    <td>\$spacer <a href='\$url' target='_blank'>\$name</a> <input name='seal_place[]' class='form-control' placeholder='公章位置' style='
+    <td>\$spacer <a href='\$url' target='_blank'>\$name</a> <input value='\$place' name='seal_place_\$id' class='form-control' placeholder='公章位置' style='
     width: 200px;
     display: inherit;
     margin-left: 10px;
@@ -279,8 +288,8 @@ tpl;
 </tr>
 tpl;
 
-        $categoryTree = $sealCategoryModel->adminCategoryTableTree($selectedIds, $tpl);
-
+        $categoryTree = $sealCategoryModel->adminCategoryTableTree($selectedIds, $tpl, $places_arr);
+        // dump($categoryTree);
         $where      = ['delete_time' => 0];
         $categories = $sealCategoryModel->where($where)->select();
 
@@ -294,6 +303,15 @@ tpl;
     {
         $ids                 = $this->request->param('ids');
         $selectedIds         = explode(',', $ids);
+
+        $places                 = $this->request->param('places');
+        $selectedPlaces         = explode(',', $places);
+
+        foreach ($selectedIds as $key => $value) {
+            # code...
+            $places_arr[$value] = $selectedPlaces[$key];
+        }
+
         $userModel = new UserModel();
 
         $tpl = <<<tpl
@@ -311,7 +329,15 @@ tpl;
 
         $where      = ['user_status' => 1];
         $categories = $userModel->where($where)->select();
-
+        foreach ($categories as $key => $val) {
+            # code...
+            // $val['place'] = $selectedPlaces[$key];
+            if(in_array($val['id'], $selectedIds)){
+                $categories[$key]['place'] = $places_arr[$val['id']];
+            }else{
+                $categories[$key]['place'] = '签名占位符1';
+            }
+        }
         $this->assign('categories', $categories);
         $this->assign('selectedIds', $selectedIds);
         // $this->assign('categories_tree', $categoryTree);

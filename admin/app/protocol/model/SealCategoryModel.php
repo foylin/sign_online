@@ -65,14 +65,14 @@ class SealCategoryModel extends Model
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function adminCategoryTableTree($currentIds = 0, $tpl = '')
+    public function adminCategoryTableTree($currentIds = 0, $tpl = '', $places_arr = 0)
     {
         $where = ['delete_time' => 0];
 //        if (!empty($currentCid)) {
 //            $where['id'] = ['neq', $currentCid];
 //        }
         $categories = $this->order("list_order ASC")->where($where)->select()->toArray();
-
+        // dump($categories);
         $tree       = new Tree();
         $tree->icon = ['&nbsp;&nbsp;│', '&nbsp;&nbsp;├─', '&nbsp;&nbsp;└─'];
         $tree->nbsp = '&nbsp;&nbsp;';
@@ -81,8 +81,12 @@ class SealCategoryModel extends Model
             $currentIds = [$currentIds];
         }
 
+        if (!is_array($places_arr)) {
+            $places_arr = [$places_arr];
+        }
+
         $newCategories = [];
-        foreach ($categories as $item) {
+        foreach ($categories as $key => $item) {
             $item['parent_id_node'] = ($item['parent_id']) ? ' class="child-of-node-' . $item['parent_id'] . '"' : '';
             $item['style']          = empty($item['parent_id']) ? '' : 'display:none;';
             $item['status_text']    = empty($item['status'])?'隐藏':'显示';
@@ -94,6 +98,12 @@ class SealCategoryModel extends Model
             } else {
                 $item['str_action'] .= '<a class="js-ajax-dialog-btn" data-msg="您确定显示此分类吗" href="' . url('AdminCategory/toggle', ['ids' => $item['id'], 'display' => 1]) . '">显示</a>';
             }
+            if(in_array($item['id'], $currentIds)){
+                $item['place'] = $places_arr[$item['id']];
+            }else{
+                $item['place'] = '公章占位符1';
+            }
+            
             array_push($newCategories, $item);
         }
 
