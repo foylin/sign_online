@@ -23,6 +23,8 @@ use Dompdf\Dompdf;
 
 use think\Loader;
 
+use mikehaertl\wkhtmlto\Pdf;
+
 class AdminIndexController extends AdminBaseController
 {
     /**
@@ -133,7 +135,7 @@ class AdminIndexController extends AdminBaseController
             $data['post']['post_status'] = 1;
             $data['post']['is_top'] = 0;
             $data['post']['recommended'] = 0;
-            $data['post']['published_time'] = time();
+            $data['post']['published_time'] = date('Y-m-d H:i:s',time());
 
             $post = $data['post'];
 
@@ -358,12 +360,12 @@ class AdminIndexController extends AdminBaseController
             $resultprotocol = $protocolPostModel
                 ->where(['id' => $id])
                 ->update(['delete_time' => time()]);
-            if ($resultprotocol) {
-                Db::name('protocol_category_post')->where(['post_id' => $id])->update(['status' => 0]);
-                Db::name('protocol_tag_post')->where(['post_id' => $id])->update(['status' => 0]);
+            // if ($resultprotocol) {
+            //     Db::name('protocol_category_post')->where(['post_id' => $id])->update(['status' => 0]);
+            //     Db::name('protocol_tag_post')->where(['post_id' => $id])->update(['status' => 0]);
 
-                Db::name('recycleBin')->insert($data);
-            }
+            //     Db::name('recycleBin')->insert($data);
+            // }
             $this->success("删除成功！", '');
 
         }
@@ -373,18 +375,18 @@ class AdminIndexController extends AdminBaseController
             $recycle = $protocolPostModel->where(['id' => ['in', $ids]])->select();
             $result = $protocolPostModel->where(['id' => ['in', $ids]])->update(['delete_time' => time()]);
             if ($result) {
-                Db::name('protocol_category_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
-                Db::name('protocol_tag_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
-                foreach ($recycle as $value) {
-                    $data = [
-                        'object_id' => $value['id'],
-                        'create_time' => time(),
-                        'table_name' => 'protocol_post',
-                        'name' => $value['post_title'],
-                        'user_id' => cmf_get_current_admin_id()
-                    ];
-                    Db::name('recycleBin')->insert($data);
-                }
+                // Db::name('protocol_category_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
+                // Db::name('protocol_tag_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
+                // foreach ($recycle as $value) {
+                //     $data = [
+                //         'object_id' => $value['id'],
+                //         'create_time' => time(),
+                //         'table_name' => 'protocol_post',
+                //         'name' => $value['post_title'],
+                //         'user_id' => cmf_get_current_admin_id()
+                //     ];
+                //     Db::name('recycleBin')->insert($data);
+                // }
                 $this->success("删除成功！", '');
             }
         }
@@ -635,146 +637,36 @@ class AdminIndexController extends AdminBaseController
         }
     }
 
-
-    /**
-     * 导出pdf
-     */
     public function export()
     {
-        // $content = hook_one('protocol_admin_article_edit_view');
-
-        // if (!empty($content)) {
-        //     return $content;
-        // }
-
-        // $id = $this->request->param('id', 0, 'intval');
-
-        // $protocolPostModel = new ProtocolPostModel();
-        // $post = $protocolPostModel->where('id', $id)->find();
-        // $postCategories = $post->categories()->alias('a')->column('a.name', 'a.id');
-        // $postCategoryIds = implode(',', array_keys($postCategories));
-        // $this->assign('post_categories', $postCategories);
-        // $this->assign('post_category_ids', $postCategoryIds);
-        // // dump($postCategoryIds);
-        // $protocolCategoryModel = new ProtocolCategoryModel();
-        // $where = ['delete_time' => 0];
-        // $categories_model = $protocolCategoryModel->field('id, name')->where($where)->select();
-        // $this->assign('categories_model', $categories_model);
-        // // dump($categories);
-
-        // $postCategories_seal = $post->categories_seal()->alias('a')->column('a.name', 'a.id');
-        // $postCategoryIds_seal = implode(',', array_keys($postCategories_seal));
-        // $this->assign('post_categories_seal', $postCategories_seal);
-        // $this->assign('post_category_ids_seal', $postCategoryIds_seal);
-
-        // $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login', 'a.id');
-        // $postCategoryIds_user = implode(',', array_keys($postCategories_user));
-        // $this->assign('post_categories_user', $postCategories_user);
-        // $this->assign('post_category_ids_user', $postCategoryIds_user);
-
-        // $themeModel = new ThemeModel();
-        // $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
-        // $this->assign('article_theme_files', $articleThemeFiles);
-        // $this->assign('post', $post);
         
-
-        // // $filename = '/home/lin/下载/四书模板/四书模板/xxxx保密工作责任书（通用部门）.doc';
-
-        // // $content = shell_exec('/usr/local/bin/antiword -m UTF-8.txt '.$filename);  
-        // // dump($content);
-        // // $this->assign('content', $content);
-        // return $this->fetch();
-
-        // reference the Dompdf namespace
-            
-
-            // instantiate and use the dompdf class
-            // $dompdf = new Dompdf();
-
-            // $header = "<style>* {font-family: simsun!important}</style>";
-
-            // $html = $header.$post['post_content'];
-
-            // $dompdf->loadHtml($html);
-
-            // // Render the HTML as PDF
-            // $dompdf->render();
-            // // Output the generated PDF to Browser
-            // $dompdf->stream();
-
-//         Loader::import('tcpdf2.tcpdf');
-//         $pdf = new \tcpdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-//         $pdf->SetCreator(PDF_CREATOR);
-//         $pdf->SetAuthor('sunnier');
-//         $pdf->SetTitle('123');
-//         $pdf->SetSubject('123');
-//         $pdf->SetKeywords('sunnier');
-
-// // set default header data
-//         $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
-
-// // set header and footer fonts
-//         $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-//         $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-//         $pdf->setPrintHeader(false);
-//         $pdf->setPrintFooter(false);
-
-// // set default monospaced font
-//         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-// // set margins
-//         $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-//         $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-//         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
-// // set auto page breaks
-//         $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-
-// // set image scale factor
-//         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-// // set some language-dependent strings (optional)
-//         // global $l;
-//         // $pdf->setLanguageArray($l);
-
-// // ---------------------------------------------------------
-
-// // set font
-//         $pdf->SetFont('simfang', '', 10);
-// // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// // Print a table
-
-// // add a page
-//         $pdf->AddPage();
-
-// // 随便写HTML
-//         $html = $post['post_content'];
-
-// // output the HTML content
-//         $pdf->writeHTML($html, true, false, true, false, '');
-
-// // reset pointer to the last page
-//         $pdf->lastPage();
-//         $pdf->Output('0123.pdf', 'D');
-//         exit();
-
-        // shell_exec("wkhtmltopdf http://signonline.net 1.pdf");
         $id = $this->request->param('id', 0, 'intval');
 
         $uid = $this->request->param('uid', 0, 'intval');
+        
+        $user = Db::name('user')->where('id = '. $uid)->find();
 
-        print_r(shell_exec("ls"));
+        $model_data = Db::name('protocol_category')->alias('pc')->field('pc.*')->join('__PROTOCOL_CATEGORY_POST__ pcp', 'pc.id = pcp.category_id')->where('pcp.post_id = '.$id)->find();
+        
+        // print_r(shell_exec("ls"));
         // shell_exec("sudo php -v");
-        shell_exec("cd /var/www/sign_online/admin && wkhtmltopdf http://signonline.net/protocol/index/export/id/".$id."/uid/".$uid.".html sign.pdf");
+        
+        $filename = time() . '.pdf';
+        $url = cmf_get_domain().cmf_get_root()."/protocol/index/export/id/".$id."/uid/".$uid.".html ";
+        shell_exec("xvfb-run wkhtmltopdf ". $url .$filename);
         // shell_exec("sudo /usr/local/bin/wkhtmltopdf --print-media-type http://www.baidu.com termo590.pdf 2>&1");
-
-        echo exec('whoami');
-        if(file_exists("sign.pdf")){
+        
+        // 无法直接生成中文文件,采用重命名方式
+        $rename = $user['user_login'].'_'.$model_data['name'].'.pdf';
+        rename($filename, $rename);
+        // echo exec('whoami');
+        // dump($url);
+        if(file_exists($rename)){
             header("Content-type:application/pdf");
-            header("Content-Disposition:attachment;filename=sign.pdf");
-            echo file_get_contents("sign.pdf");
-            //echo "{$filename}.pdf";
+            header("Content-Disposition:attachment;filename=".$rename);
+            echo file_get_contents($rename);
+            //echo "{$rename}.pdf";
+            unlink($rename);
         }else{
             exit;
         }

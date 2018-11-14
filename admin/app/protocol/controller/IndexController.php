@@ -660,7 +660,7 @@ class IndexController extends HomeBaseController
 
         $postCategories_seal = $post->categories_seal()->alias('a')->column('a.name, a.more', 'a.id');
         
-
+        // 公章替换
         foreach ($postCategories_seal as &$value) {
             $seal_post = Db::name('protocol_category_seal_post')->where(['post_id'=>$id, 'category_id' => $value['id']])->find();
             // dump($seal_post);
@@ -668,16 +668,29 @@ class IndexController extends HomeBaseController
             
             $value['more']['thumbnail'] = cmf_get_image_preview_url($value['more']['thumbnail']);
             
-            $replace = '<img src="'.$value['more']['thumbnail'].'" title="" alt="" width="106" height="165" style="width: 106px; height: 165px;">';
+            $replace = '<img src="'.$value['more']['thumbnail'].'" title="" alt="" style="width: 120px;">';
             $post['post_content'] = str_replace($seal_post['place'], $replace, $post['post_content']);
         }
 
+        // 用户签名替换   日期替换
         $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login', 'a.id');
         $user_post = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'category_id' => $uid])->find();
         $user_post['sign_url'] = cmf_get_image_preview_url($user_post['sign_url']);
-        $replace = '<img src="'.$user_post['sign_url'].'" title="" alt="" width="106" height="165" style="width: 106px; height: 165px;">';
+        $replace = '<img src="'.$user_post['sign_url'].'" title="" alt="" style="width: 100px; height: auto; transform:rotate(-90deg); -moz-transform:rotate(-90deg);-webkit-transform:rotate(-90deg);">';
         $post['post_content'] = str_replace($user_post['place'], $replace, $post['post_content']);
-        // dump($user_post);
+        
+
+        $year = date('Y', $user_post['update_time']);
+        $month = date('m', $user_post['update_time']);
+        $day = date('d', $user_post['update_time']);
+        // dump($year. $month . $day);
+        $replace_year = str_replace( '}', '年}', $user_post['place']);
+        $replace_month = str_replace( '}', '月}', $user_post['place']);
+        $replace_day = str_replace( '}', '日}', $user_post['place']);
+        $post['post_content'] = str_replace($replace_year, $year, $post['post_content']);
+        $post['post_content'] = str_replace($replace_month, $month, $post['post_content']);
+        $post['post_content'] = str_replace($replace_day, $year, $post['post_content']);
+
 
         // 其他用户签名
         $other_user = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'place' => ['<>', $user_post['place']]])->find();
@@ -685,112 +698,15 @@ class IndexController extends HomeBaseController
         // dump(Db::name('protocol_category_user_post')->getLastSql());
         if($other_user){
             $other_user['sign_url'] = cmf_get_image_preview_url($other_user['sign_url']);
-            $replace = '<img src="'.$other_user['sign_url'].'" title="" alt="" width="106" height="165" style="width: 106px; height: 165px;">';
+            $replace = '<img src="'.$other_user['sign_url'].'" title="" alt="" style="width: 100px; height: auto; transform:rotate(-90deg); -moz-transform:rotate(-90deg);-webkit-transform:rotate(-90deg);">';
             $post['post_content'] = str_replace($other_user['place'], $replace, $post['post_content']);
         }
 
-        // $postCategoryIds_seal = implode(',', array_keys($postCategories_seal));
-        // $this->assign('post_categories_seal', $postCategories_seal);
-        // $this->assign('post_category_ids_seal', $postCategoryIds_seal);
-
-        // $postCategoryIds_user = implode(',', array_keys($postCategories_user));
-        // $this->assign('post_categories_user', $postCategories_user);
-        // $this->assign('post_category_ids_user', $postCategoryIds_user);
-
-        // $themeModel = new ThemeModel();
-        // $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
-        // $this->assign('article_theme_files', $articleThemeFiles);
-
-        // $placeholder = '签名占位符2';
-        // $replace = '<img src="http://signonline.net/upload/default/20181112/2f05dcc5db737ee96dc4faef0e293b7b.png" title="e4170604250bd7a482522dbd5efbde75.png" alt="e4170604250bd7a482522dbd5efbde75.png" width="106" height="165" style="width: 106px; height: 165px;">';
-
-        // $post['post_content'] = str_replace($placeholder, $replace, $post['post_content']);
+        
 
         $this->assign('post', $post);
         
-
-        // $filename = '/home/lin/下载/四书模板/四书模板/xxxx保密工作责任书（通用部门）.doc';
-
-        // $content = shell_exec('/usr/local/bin/antiword -m UTF-8.txt '.$filename);  
-        // dump($content);
-        // $this->assign('content', $content);
         return $this->fetch();
-
-        // reference the Dompdf namespace
-            
-
-            // instantiate and use the dompdf class
-            // $dompdf = new Dompdf();
-
-            // $header = "<style>* {font-family: simsun!important}</style>";
-
-            // $html = $header.$post['post_content'];
-
-            // $dompdf->loadHtml($html);
-
-            // // Render the HTML as PDF
-            // $dompdf->render();
-            // // Output the generated PDF to Browser
-            // $dompdf->stream();
-
-//         Loader::import('tcpdf2.tcpdf');
-//         $pdf = new \tcpdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-//         $pdf->SetCreator(PDF_CREATOR);
-//         $pdf->SetAuthor('sunnier');
-//         $pdf->SetTitle('123');
-//         $pdf->SetSubject('123');
-//         $pdf->SetKeywords('sunnier');
-
-// // set default header data
-//         $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
-
-// // set header and footer fonts
-//         $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-//         $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-//         $pdf->setPrintHeader(false);
-//         $pdf->setPrintFooter(false);
-
-// // set default monospaced font
-//         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-// // set margins
-//         $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-//         $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-//         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
-// // set auto page breaks
-//         $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-
-// // set image scale factor
-//         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-// // set some language-dependent strings (optional)
-//         // global $l;
-//         // $pdf->setLanguageArray($l);
-
-// // ---------------------------------------------------------
-
-// // set font
-//         $pdf->SetFont('simfang', '', 10);
-// // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// // Print a table
-
-// // add a page
-//         $pdf->AddPage();
-
-// // 随便写HTML
-//         $html = $post['post_content'];
-
-// // output the HTML content
-//         $pdf->writeHTML($html, true, false, true, false, '');
-
-// // reset pointer to the last page
-//         $pdf->lastPage();
-//         $pdf->Output('0123.pdf', 'D');
-//         exit();
-
-        // shell_exec("wkhtmltopdf http://signonline.net 1.pdf");
 
         
     }

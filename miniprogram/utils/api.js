@@ -2,8 +2,8 @@ import "./date";
 
 var app = getApp();
 
-// var host = "https://sscx.karles.com.cn";
-var host = "http://192.168.0.107/sign_online/admin/public";
+var host = "https://sscx.karles.com.cn";
+// var host = "http://192.168.0.107/sign_online/admin/public";
 
 var tryingLogin = false;
 

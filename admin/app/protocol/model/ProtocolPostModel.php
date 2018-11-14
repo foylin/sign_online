@@ -98,7 +98,7 @@ class ProtocolPostModel extends Model
     public function adminAddArticle($data, $categories, $categories_seal, $categories_user)
     {
         $data['user_id'] = cmf_get_current_admin_id();
-
+        // $data['published_time'] = time();
         if (!empty($data['more']['thumbnail'])) {
             $data['more']['thumbnail'] = cmf_asset_relative_url($data['more']['thumbnail']);
             $data['thumbnail']         = $data['more']['thumbnail'];
@@ -113,6 +113,8 @@ class ProtocolPostModel extends Model
         }
 
         $this->allowField(true)->data($data, true)->isUpdate(false)->save();
+
+        // dump($this->getLastSql());
 
         if (is_string($categories)) {
             $categories = explode(',', $categories);
