@@ -4,11 +4,11 @@
 
         // $content = shell_exec('/usr/local/bin/antiword -m UTF-8.txt '.$filename);
         // echo $content;
-        print_r(shell_exec("ls"));
-$result = shell_exec("wkhtmltopdf http://signonline.net sign.pdf");
+        // print_r(shell_exec("ls"));
+$result = shell_exec("xvfb-run wkhtmltopdf http://www.baidu.com 1.pdf");
 // $result = shell_exec('ls');
-echo $result;
-echo exec('whoami');
+// echo $result;
+// echo exec('whoami');
 // if(file_exists("sign.pdf")){
 //     header("Content-type:application/pdf");
 //     header("Content-Disposition:attachment;filename=sign.pdf");
