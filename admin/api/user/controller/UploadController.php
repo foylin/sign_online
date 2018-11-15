@@ -11,6 +11,7 @@ namespace api\user\controller;
 use cmf\controller\RestUserBaseController;
 use think\Db;
 use think\Validate;
+use think\Image;
 class UploadController extends RestUserBaseController
 {
     // 签名图片上传
@@ -30,6 +31,12 @@ class UploadController extends RestUserBaseController
         }
 
         $file = $this->request->file('file');
+
+        $image = Image::open($file);
+        $image->rotate(-90);
+
+        $saveName = time().'.png';
+        $image->save(ROOT_PATH.'public/upload/'.$saveName);
 
         // 移动到框架应用根目录/public/upload/ 目录下
         $info     = $file->validate([

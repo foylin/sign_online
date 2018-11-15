@@ -118,13 +118,13 @@
                     </tr>
                 
 
-                    <tr>
+                    <!-- <tr>
                         <th>协议内容</th>
                         <td>
                             <script type="text/plain" id="content" name="post[post_content]">{$post['post_content']}</script>
-                            <!-- <textarea name="" id="content">{$post['post_content']}</textarea> -->
+                            <textarea name="" id="content">{$post['post_content']}</textarea>
                         </td>
-                    </tr>
+                    </tr> -->
                     
                 </table>
 
@@ -153,15 +153,15 @@
 <script type="text/javascript">
     $(function () {
 
-        editorcontent = new baidu.editor.ui.Editor({
-            // initialFrameWidth: 600
-        });
-        editorcontent.render('content');
-        try {
-            editorcontent.sync();
-            // editorcontent.
-        } catch (err) {
-        }
+        // editorcontent = new baidu.editor.ui.Editor({
+        //     // initialFrameWidth: 600
+        // });
+        // editorcontent.render('content');
+        // try {
+        //     editorcontent.sync();
+        //     // editorcontent.
+        // } catch (err) {
+        // }
 
         
 
@@ -172,27 +172,27 @@
 
         $('#more-template-select').val("{$post.more.template|default=''}");
 
-        $('#categories-model-sel').change(function(){
-            var model_seled = $(this).val();
-            // console.log(model_seled);
-            editorcontent.execCommand('cleardoc');
-            $.ajax({
-                method: 'POST',
-                url: "{:url('AdminCategory/getmodel')}",
-                data: {
-                    id: model_seled
-                },
-                success: function(data, status){
-                    console.log(data);
-                    if(data.code == 200){
-                        editorcontent.execCommand('inserthtml', data.data.description);
-                    }else{
-                        alert(data.msg);
-                    }
-                }
-            })
+        // $('#categories-model-sel').change(function(){
+        //     var model_seled = $(this).val();
+        //     // console.log(model_seled);
+        //     editorcontent.execCommand('cleardoc');
+        //     $.ajax({
+        //         method: 'POST',
+        //         url: "{:url('AdminCategory/getmodel')}",
+        //         data: {
+        //             id: model_seled
+        //         },
+        //         success: function(data, status){
+        //             console.log(data);
+        //             if(data.code == 200){
+        //                 editorcontent.execCommand('inserthtml', data.data.description);
+        //             }else{
+        //                 alert(data.msg);
+        //             }
+        //         }
+        //     })
             
-        })
+        // })
     });
 
     function doSelectCategory() {

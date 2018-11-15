@@ -24,6 +24,9 @@ use Dompdf\Dompdf;
 use think\Loader;
 
 use mikehaertl\wkhtmlto\Pdf;
+use function Qiniu\json_decode;
+// use FPDI\fpdf;
+// use FPDI\fpdi;
 
 class AdminIndexController extends AdminBaseController
 {
@@ -172,9 +175,23 @@ class AdminIndexController extends AdminBaseController
             ];
             hook('protocol_admin_after_save_article', $hookParam);
 
-            $filename = $protocolPostModel->id . '.pdf';
-            $url = cmf_get_domain().cmf_get_root()."/protocol/index/export/id/".$protocolPostModel->id.".html ";
-            shell_exec("xvfb-run wkhtmltopdf ". $url .$filename);
+            // $filename = $protocolPostModel->id . '.pdf';
+            // $url = cmf_get_domain().cmf_get_root()."/protocol/index/export/id/".$protocolPostModel->id.".html ";
+            // shell_exec("xvfb-run wkhtmltopdf ". $url .$filename);
+
+            // 生成 pdf
+            $mode_id = $post['categories'];
+            // dump($mode_id);
+            $model_data = Db::name('protocol_category')->where('id='.$mode_id)->find();
+            $model_data['more'] = json_decode($model_data['more'], true);
+            $url = $model_data['more']['files'][0]['url'];
+            
+                $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
+                $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$protocolPostModel->id.".pdf";
+
+                $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
+                $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
+                $result = shell_exec($sh);
 
 
             $this->success('添加成功!', url('AdminIndex/edit', ['id' => $protocolPostModel->id]));
@@ -326,12 +343,26 @@ class AdminIndexController extends AdminBaseController
             ];
             hook('protocol_admin_after_save_article', $hookParam);
 
-            $filename = $protocolPostModel->id . '.pdf';
-            $url = cmf_get_domain().cmf_get_root()."/protocol/index/export/id/".$protocolPostModel->id.".html ";
-            $cd_url = '/www/wwwroot/wwfnba01/sign_online/admin/public/protocol';
-            // $cd_url = '/var/www/sign_online/admin/public/protocol';
-            shell_exec("cd ".$cd_url." && xvfb-run wkhtmltopdf ". $url .$filename);
+            // $filename = $protocolPostModel->id . '.pdf';
+            // $url = cmf_get_domain().cmf_get_root()."/protocol/index/export/id/".$protocolPostModel->id.".html ";
+            // $cd_url = '/www/wwwroot/wwfnba01/sign_online/admin/public/protocol';
+            // // $cd_url = '/var/www/sign_online/admin/public/protocol';
+            // shell_exec("cd ".$cd_url." && xvfb-run wkhtmltopdf ". $url .$filename);
             
+            // 生成 pdf
+            $mode_id = $post['categories'];
+            // dump($mode_id);
+            $model_data = Db::name('protocol_category')->where('id='.$mode_id)->find();
+            $model_data['more'] = json_decode($model_data['more'], true);
+            $url = $model_data['more']['files'][0]['url'];
+            
+                $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
+                $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$protocolPostModel->id.".pdf";
+
+                $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
+                $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
+                $result = shell_exec($sh);
+
             $this->success('保存成功!');
 
 
@@ -650,6 +681,13 @@ class AdminIndexController extends AdminBaseController
     public function export()
     {
         
+        // require_once(ROOT_PATH . 'public/FPDI/fpdf.php');
+        // require_once(ROOT_PATH . 'public/FPDI/fpdi.php');
+
+        Loader::import('FPDI.fpdf', EXTEND_PATH);
+        Loader::import('FPDI.fpdi', EXTEND_PATH);
+        $pdf = new \FPDI();
+
         $id = $this->request->param('id', 0, 'intval');
 
         $uid = $this->request->param('uid', 0, 'intval');
@@ -661,24 +699,52 @@ class AdminIndexController extends AdminBaseController
         // print_r(shell_exec("ls"));
         // shell_exec("sudo php -v");
         
-        $filename = time() . '.pdf';
-        $url = cmf_get_domain().cmf_get_root()."/protocol/index/export/id/".$id."/uid/".$uid.".html ";
-        shell_exec("xvfb-run wkhtmltopdf ". $url .$filename);
+        // $filename = time() . '.pdf';
+        // $url = cmf_get_domain().cmf_get_root()."/protocol/index/export/id/".$id."/uid/".$uid.".html ";
+        // shell_exec("xvfb-run wkhtmltopdf ". $url .$filename);
         // shell_exec("sudo /usr/local/bin/wkhtmltopdf --print-media-type http://www.baidu.com termo590.pdf 2>&1");
         
-        // 无法直接生成中文文件,采用重命名方式
-        $rename = $user['user_login'].'_'.$model_data['name'].'.pdf';
-        rename($filename, $rename);
-        // echo exec('whoami');
-        // dump($url);
-        if(file_exists($rename)){
-            header("Content-type:application/pdf");
-            header("Content-Disposition:attachment;filename=".$rename);
-            echo file_get_contents($rename);
-            //echo "{$rename}.pdf";
-            unlink($rename);
-        }else{
-            exit;
+        $user_post = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'category_id' => $uid])->find();
+        if($user_post){
+            // dump(ROOT_PATH . 'public/protocol/'.$id.'.pdf');exit();
+            $sign_url = cmf_get_image_preview_url($user_post['sign_url']);
+
+            // 插入图片
+            $pageCount = $pdf->setSourceFile('./protocol/'.$id.'.pdf');
+            // dump($pageCount); exit();
+            for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++){
+                $templateId = $pdf->importPage($pageNo);
+                $size = $pdf->getTemplateSize($templateId);
+                if ($size['w'] > $size['h']) 
+                $pdf->AddPage('L', array($size['w'], $size['h']));
+                else 
+                $pdf->AddPage('P', array($size['w'], $size['h']));
+
+                $pdf->useTemplate($templateId);
+                dump($templateId);
+                // if(count($pageCount) == $pageNo){
+                    // $pdf->image($sign_url, 75, 85, 50);//加上图片水印，后为坐标
+                // }
+                
+            }
+            $pdf->Output('D', '123.pdf');
         }
+
+        
+
+        // 无法直接生成中文文件,采用重命名方式
+        // $rename = $user['user_login'].'_'.$model_data['name'].'.pdf';
+        // rename($filename, $rename);
+        // // echo exec('whoami');
+        // // dump($url);
+        // if(file_exists($rename)){
+        //     header("Content-type:application/pdf");
+        //     header("Content-Disposition:attachment;filename=".$rename);
+        //     echo file_get_contents($rename);
+        //     //echo "{$rename}.pdf";
+        //     unlink($rename);
+        // }else{
+        //     exit;
+        // }
     }
 }

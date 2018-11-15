@@ -1,4 +1,27 @@
 <include file="public@header"/>
+
+<script type="text/html" id="photos-item-tpl">
+    <li id="saved-image{id}">
+        <input id="photo-{id}" type="hidden" name="photo_urls[]" value="{filepath}">
+        <input class="form-control" id="photo-{id}-name" type="text" name="photo_names[]" value="{name}"
+               style="width: 200px;" title="图片名称">
+        <img id="photo-{id}-preview" src="{url}" style="height:36px;width: 36px;"
+             onclick="imagePreviewDialog(this.src);">
+        <a href="javascript:uploadOneImage('图片上传','#photo-{id}');">替换</a>
+        <a href="javascript:(function(){$('#saved-image{id}').remove();})();">移除</a>
+    </li>
+</script>
+<script type="text/html" id="files-item-tpl">
+    <li id="saved-file{id}">
+        <input id="file-{id}" type="hidden" name="file_urls[]" value="{filepath}">
+        <input class="form-control" id="file-{id}-name" type="text" name="file_names[]" value="{name}"
+               style="width: 200px;" title="文件名称">
+        <a id="file-{id}-preview" href="{preview_url}" target="_blank">下载</a>
+        <a href="javascript:uploadOne('文件上传','#file-{id}','file');">替换</a>
+        <a href="javascript:(function(){$('#saved-file{id}').remove();})();">移除</a>
+    </li>
+</script>
+
 </head>
 <body>
 <div class="wrap js-check-wrap">
@@ -35,12 +58,12 @@
                                        value="{$alias|default=''}">
                             </div>
                         </div> -->
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="input-description">协议模板内容</label>
                             <div>
                                 <script type="text/plain" id="content" name="description">{$category['description']}</script>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- <div class="form-group">
                             <label for="input-description">缩略图</label>
                             <div>
@@ -61,6 +84,47 @@
                                 </div>
                             </div>
                         </div> -->
+
+                        <div class="form-group">
+                            <label for="input-description">协议模板文件</label>
+                            <div>
+                                <!-- <input type="hidden" name="more[thumbnail]" class="form-control"
+                                       value="{$more.thumbnail|default=''}" id="js-thumbnail-input">
+                                <div>
+                                    <a href="javascript:uploadOneImage('图片上传','#js-thumbnail-input');">
+                                        <if condition="empty($more.thumbnail)">
+                                            <img src="__TMPL__/public/assets/images/default-thumbnail.png"
+                                                 id="js-thumbnail-input-preview"
+                                                 width="135" style="cursor: pointer"/>
+                                            <else/>
+                                            <img src="{:cmf_get_image_preview_url($more.thumbnail)}"
+                                                 id="js-thumbnail-input-preview"
+                                            width="135" style="cursor: pointer"/>
+                                        </if>
+                                    </a>
+                                </div> -->
+
+                                <ul id="files" class="pic-list list-unstyled form-inline">
+                                        <notempty name="category.more.files">
+                                                <foreach name="category.more.files" item="vo">
+                                                    <php>$file_url=cmf_get_file_download_url($vo['url']);</php>
+                                                    <li id="saved-file{$key}">
+                                                        <input id="file-{$key}" type="hidden" name="file_urls[]"
+                                                               value="{$vo.url}">
+                                                        <input class="form-control" id="file-{$key}-name" type="text"
+                                                               name="file_names[]"
+                                                               value="{$vo.name}" style="width: 200px;" title="图片名称">
+                                                        <a id="file-{$key}-preview" href="{$file_url}" target="_blank">下载</a>
+                                                        <a href="javascript:uploadOne('文件上传','#file-{$key}','file');">替换</a>
+                                                        <a href="javascript:(function(){$('#saved-file{$key}').remove();})();">移除</a>
+                                                    </li>
+                                                </foreach>
+                                            </notempty>
+                                </ul>
+                                <a href="javascript:uploadMultiFile('附件上传','#files','files-item-tpl','file');"
+                                   class="btn btn-sm btn-default">选择文件</a>
+                            </div>
+                        </div>
                     </div>
                     
                     
@@ -88,12 +152,12 @@
 
     $(function () {
 
-            editorcontent = new baidu.editor.ui.Editor();
-            editorcontent.render('content');
-            try {
-                editorcontent.sync();
-            } catch (err) {
-            }
+            // editorcontent = new baidu.editor.ui.Editor();
+            // editorcontent.render('content');
+            // try {
+            //     editorcontent.sync();
+            // } catch (err) {
+            // }
 
             $('.btn-cancel-thumbnail').click(function () {
                 $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');

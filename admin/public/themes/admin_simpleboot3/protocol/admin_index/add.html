@@ -117,12 +117,12 @@
                                class="btn btn-default btn-sm">选择图片</a>
                         </td>
                     </tr> -->
-                    <tr>
+                    <!-- <tr>
                         <th>协议内容</th>
                         <td>
                             <script type="text/plain" id="content" name="post[post_content]"></script>
                         </td>
-                    </tr>
+                    </tr> -->
                     <!-- <tr>
                         <th>音频</th>
                         <td class="form-inline">
@@ -216,39 +216,39 @@
 <script type="text/javascript">
     $(function () {
 
-        editorcontent = new baidu.editor.ui.Editor();
-        editorcontent.render('content');
-        try {
-            editorcontent.sync();
-        } catch (err) {
-        }
+        // editorcontent = new baidu.editor.ui.Editor();
+        // editorcontent.render('content');
+        // try {
+        //     editorcontent.sync();
+        // } catch (err) {
+        // }
 
         $('.btn-cancel-thumbnail').click(function () {
             $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
             $('#thumbnail').val('');
         });
 
-        $('#categories-model-sel').change(function(){
-            var model_seled = $(this).val();
-            // console.log(model_seled);
-            editorcontent.execCommand('cleardoc');
-            $.ajax({
-                method: 'POST',
-                url: "{:url('AdminCategory/getmodel')}",
-                data: {
-                    id: model_seled
-                },
-                success: function(data, status){
-                    console.log(data);
-                    if(data.code == 200){
-                        editorcontent.execCommand('inserthtml', data.data.description);
-                    }else{
-                        alert(data.msg);
-                    }
-                }
-            })
+        // $('#categories-model-sel').change(function(){
+        //     var model_seled = $(this).val();
+        //     // console.log(model_seled);
+        //     editorcontent.execCommand('cleardoc');
+        //     $.ajax({
+        //         method: 'POST',
+        //         url: "{:url('AdminCategory/getmodel')}",
+        //         data: {
+        //             id: model_seled
+        //         },
+        //         success: function(data, status){
+        //             console.log(data);
+        //             if(data.code == 200){
+        //                 editorcontent.execCommand('inserthtml', data.data.description);
+        //             }else{
+        //                 alert(data.msg);
+        //             }
+        //         }
+        //     })
             
-        })
+        // })
 
     });
 

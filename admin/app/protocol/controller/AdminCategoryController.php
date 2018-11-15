@@ -37,6 +37,7 @@ class AdminCategoryController extends AdminBaseController
      */
     public function index()
     {
+        
         $content = hook_one('protocol_admin_category_index_view');
 
         if (!empty($content)) {
@@ -120,6 +121,16 @@ class AdminCategoryController extends AdminBaseController
             $this->error($result);
         }
 
+        if (!empty($data['file_names']) && !empty($data['file_urls'])) {
+            $data['more']['files'] = [];
+            foreach ($data['file_urls'] as $key => $url) {
+                $fileUrl = cmf_asset_relative_url($url);
+                array_push($data['more']['files'], ["url" => $fileUrl, "name" => $data['file_names'][$key]]);
+            
+                
+            }
+        }
+        // dump($data);
         $result = $protocolCategoryModel->addCategory($data);
 
         if ($result === false) {
@@ -208,7 +219,31 @@ class AdminCategoryController extends AdminBaseController
 
         $protocolCategoryModel = new ProtocolCategoryModel();
 
+        if (!empty($data['file_names']) && !empty($data['file_urls'])) {
+            $data['more']['files'] = [];
+            foreach ($data['file_urls'] as $key => $url) {
+                $fileUrl = cmf_asset_relative_url($url);
+                array_push($data['more']['files'], ["url" => $fileUrl, "name" => $data['file_names'][$key]]);
+            
+                // 生成 pdf
+                // $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
+                // $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$data['id'].".pdf";
+
+                // $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
+                // $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
+                // $result = shell_exec($sh);
+                // var_dump($result);
+            
+            }
+        }
+
+        $data['id'];
+
+        
+
         $result = $protocolCategoryModel->editCategory($data);
+
+        // dump($result);
 
         if ($result === false) {
             $this->error('保存失败!');

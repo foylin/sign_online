@@ -149,6 +149,7 @@ class ProtocolCategoryModel extends Model
                 $data['more']['thumbnail'] = cmf_asset_relative_url($data['more']['thumbnail']);
             }
             $this->allowField(true)->save($data);
+            // dump($this->getLastSql());
             $id = $this->id;
             if (empty($data['parent_id'])) {
 
@@ -175,6 +176,8 @@ class ProtocolCategoryModel extends Model
         }
 
         return $result;
+
+        
     }
 
     public function editCategory($data)
