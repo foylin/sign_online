@@ -9,18 +9,31 @@ Page({
         'countdown': 30,
         'countdowndes': '请阅读协议内容',
         'sign_status': 0,
-        'sign': '签约'
+        'sign': '签约',
+        'width': 0,
+        'height': 0,
+        'view_url': ''
         
     },
 
     onLoad(params) {
         console.log(params);
         this.params = params;
+
+        
+        let width = wx.getSystemInfoSync().windowWidth;
+        let height = wx.getSystemInfoSync().windowHeight;
+        let sign_status = this.data.sign_status;
+        this.setData({
+            view_url: 'https://sscx.karles.com.cn/pdf.html?width='+width+'&height='+height+'&sign_status='+sign_status+'&protocol_id='+params.id
+        })
+
+        // console.log();
         
     },
 
     onReady() {
-        // this.loadData();
+        this.loadData();
 
         
     },
