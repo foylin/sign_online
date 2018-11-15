@@ -22,7 +22,11 @@ use Dompdf\Dompdf;
 // use tecnickcom\tcpdf;
 
 use think\Loader;
-use function Qiniu\json_decode;
+// use function Qiniu\json_decode;
+
+
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
 
 class IndexController extends HomeBaseController
 {
@@ -103,5 +107,20 @@ class IndexController extends HomeBaseController
         return $this->fetch();
 
         
+    }
+
+    public function wordtohtml(){
+
+        $phpWord = new \phpoffice\phpword\PhpWord();
+
+        $iofactory = new IOFactory();
+        $iofactory::load('test.doc');
+        $iofactory::createWriter($phpWord, "HTML"); 
+        $xmlWriter->save('test.html'); 
+
+        // $phpWord = \PhpOffice\PhpWord\IOFactory::load('./word/hello.docx'); 
+        // $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, "HTML"); 
+        // $xmlWriter->save('./html/hello.html'); 
+
     }
 }
