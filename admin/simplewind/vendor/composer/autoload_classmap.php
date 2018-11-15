@@ -28,6 +28,7 @@ return array(
     'PHPMailerOAuth' => $vendorDir . '/phpmailer/phpmailer/class.phpmaileroauth.php',
     'PHPMailerOAuthGoogle' => $vendorDir . '/phpmailer/phpmailer/class.phpmaileroauthgoogle.php',
     'POP3' => $vendorDir . '/phpmailer/phpmailer/class.pop3.php',
+    'PclZip' => $vendorDir . '/pclzip/pclzip/pclzip.lib.php',
     'QRcode' => $vendorDir . '/tecnickcom/tcpdf/include/barcodes/qrcode.php',
     'SMTP' => $vendorDir . '/phpmailer/phpmailer/class.smtp.php',
     'TCPDF' => $vendorDir . '/tecnickcom/tcpdf/tcpdf.php',

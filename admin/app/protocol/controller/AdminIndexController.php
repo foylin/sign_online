@@ -172,6 +172,10 @@ class AdminIndexController extends AdminBaseController
             ];
             hook('protocol_admin_after_save_article', $hookParam);
 
+            $filename = $protocolPostModel->id . '.pdf';
+            $url = cmf_get_domain().cmf_get_root()."/protocol/index/export/id/".$protocolPostModel->id.".html ";
+            shell_exec("xvfb-run wkhtmltopdf ". $url .$filename);
+
 
             $this->success('添加成功!', url('AdminIndex/edit', ['id' => $protocolPostModel->id]));
         }
@@ -322,6 +326,12 @@ class AdminIndexController extends AdminBaseController
             ];
             hook('protocol_admin_after_save_article', $hookParam);
 
+            $filename = $protocolPostModel->id . '.pdf';
+            $url = cmf_get_domain().cmf_get_root()."/protocol/index/export/id/".$protocolPostModel->id.".html ";
+            $cd_url = '/www/wwwroot/wwfnba01/sign_online/admin/public/protocol';
+            // $cd_url = '/var/www/sign_online/admin/public/protocol';
+            shell_exec("cd ".$cd_url." && xvfb-run wkhtmltopdf ". $url .$filename);
+            
             $this->success('保存成功!');
 
 
