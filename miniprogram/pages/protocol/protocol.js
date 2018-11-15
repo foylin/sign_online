@@ -20,7 +20,9 @@ Page({
     },
 
     onReady() {
-        this.loadData();
+        // this.loadData();
+
+        
     },
     loadData() {
 

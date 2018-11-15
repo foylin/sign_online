@@ -335,7 +335,7 @@ tpl;
             if(in_array($val['id'], $selectedIds)){
                 $categories[$key]['place'] = $places_arr[$val['id']];
             }else{
-                $categories[$key]['place'] = '签名占位符1';
+                $categories[$key]['place'] = '{签名1}';
             }
         }
         $this->assign('categories', $categories);

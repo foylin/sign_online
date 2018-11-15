@@ -73,7 +73,8 @@ class UploadController extends RestUserBaseController
 
             $signdata = array(
                 'sign_status' => 1,
-                'sign_url'    => $saveName
+                'sign_url'    => $saveName,
+                'update_time' => time()
             );
             $where['post_id'] = $param['protocol_id'];
             $where['category_id'] = $this->userId;

@@ -135,7 +135,7 @@ class AdminIndexController extends AdminBaseController
             $data['post']['post_status'] = 1;
             $data['post']['is_top'] = 0;
             $data['post']['recommended'] = 0;
-            $data['post']['published_time'] = time();
+            $data['post']['published_time'] = date('Y-m-d H:i:s',time());
 
             $post = $data['post'];
 
@@ -360,12 +360,12 @@ class AdminIndexController extends AdminBaseController
             $resultprotocol = $protocolPostModel
                 ->where(['id' => $id])
                 ->update(['delete_time' => time()]);
-            if ($resultprotocol) {
-                Db::name('protocol_category_post')->where(['post_id' => $id])->update(['status' => 0]);
-                Db::name('protocol_tag_post')->where(['post_id' => $id])->update(['status' => 0]);
+            // if ($resultprotocol) {
+            //     Db::name('protocol_category_post')->where(['post_id' => $id])->update(['status' => 0]);
+            //     Db::name('protocol_tag_post')->where(['post_id' => $id])->update(['status' => 0]);
 
-                Db::name('recycleBin')->insert($data);
-            }
+            //     Db::name('recycleBin')->insert($data);
+            // }
             $this->success("删除成功！", '');
 
         }
@@ -375,18 +375,18 @@ class AdminIndexController extends AdminBaseController
             $recycle = $protocolPostModel->where(['id' => ['in', $ids]])->select();
             $result = $protocolPostModel->where(['id' => ['in', $ids]])->update(['delete_time' => time()]);
             if ($result) {
-                Db::name('protocol_category_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
-                Db::name('protocol_tag_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
-                foreach ($recycle as $value) {
-                    $data = [
-                        'object_id' => $value['id'],
-                        'create_time' => time(),
-                        'table_name' => 'protocol_post',
-                        'name' => $value['post_title'],
-                        'user_id' => cmf_get_current_admin_id()
-                    ];
-                    Db::name('recycleBin')->insert($data);
-                }
+                // Db::name('protocol_category_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
+                // Db::name('protocol_tag_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
+                // foreach ($recycle as $value) {
+                //     $data = [
+                //         'object_id' => $value['id'],
+                //         'create_time' => time(),
+                //         'table_name' => 'protocol_post',
+                //         'name' => $value['post_title'],
+                //         'user_id' => cmf_get_current_admin_id()
+                //     ];
+                //     Db::name('recycleBin')->insert($data);
+                // }
                 $this->success("删除成功！", '');
             }
         }
@@ -645,22 +645,28 @@ class AdminIndexController extends AdminBaseController
         $uid = $this->request->param('uid', 0, 'intval');
         
         $user = Db::name('user')->where('id = '. $uid)->find();
+
+        $model_data = Db::name('protocol_category')->alias('pc')->field('pc.*')->join('__PROTOCOL_CATEGORY_POST__ pcp', 'pc.id = pcp.category_id')->where('pcp.post_id = '.$id)->find();
+        
         // print_r(shell_exec("ls"));
         // shell_exec("sudo php -v");
-        $filename = $user['user_login'].'_'.date('YmdH', time()).'.pdf';
-        // dump(cmf_get_domain().cmf_get_root());
+        
+        $filename = time() . '.pdf';
         $url = cmf_get_domain().cmf_get_root()."/protocol/index/export/id/".$id."/uid/".$uid.".html ";
         shell_exec("xvfb-run wkhtmltopdf ". $url .$filename);
         // shell_exec("sudo /usr/local/bin/wkhtmltopdf --print-media-type http://www.baidu.com termo590.pdf 2>&1");
-
+        
+        // 无法直接生成中文文件,采用重命名方式
+        $rename = $user['user_login'].'_'.$model_data['name'].'.pdf';
+        rename($filename, $rename);
         // echo exec('whoami');
         // dump($url);
-        if(file_exists($filename)){
+        if(file_exists($rename)){
             header("Content-type:application/pdf");
-            header("Content-Disposition:attachment;filename=".$filename);
-            echo file_get_contents($filename);
-            //echo "{$filename}.pdf";
-            unlink($filename);
+            header("Content-Disposition:attachment;filename=".$rename);
+            echo file_get_contents($rename);
+            //echo "{$rename}.pdf";
+            unlink($rename);
         }else{
             exit;
         }

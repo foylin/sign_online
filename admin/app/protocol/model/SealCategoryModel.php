@@ -101,7 +101,7 @@ class SealCategoryModel extends Model
             if(in_array($item['id'], $currentIds)){
                 $item['place'] = $places_arr[$item['id']];
             }else{
-                $item['place'] = '公章占位符1';
+                $item['place'] = '{公章1}';
             }
             
             array_push($newCategories, $item);

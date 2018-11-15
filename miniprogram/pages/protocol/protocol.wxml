@@ -1,4 +1,7 @@
 <import src="../../wxParse/wxParse.wxml"/>
+
+<web-view src="https://sscx.karles.com.cn/pdf.html"></web-view>
+
 <view class="page">
     <!-- <view class="page__bd_spacing">
         <view class="page__title">{{article.post_title}}</view>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+        }
+        .footer{
+            
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: white;
+            text-align: center;
+            height: 50px;
+            line-height: 48px;
+            color: #00796a;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <iframe src="https://sscx.karles.com.cn/web/viewer.html?file=/2.pdf" id="iframe1" frameborder="0"></iframe>
+
+    <div class="footer">请阅读协议内容 30</div>
+</body>
+
+<script>
+    $(function () {
+        changeWH();
+    });
+
+    function changeWH() {
+
+        $("#iframe1").height($(document).height());
+        $("#iframe1").width($(document).width());
+    }
+
+    window.onresize = function () {
+        changeWH();
+    } 
+</script>
+
+</html>
