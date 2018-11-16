@@ -699,7 +699,7 @@ class AdminIndexController extends AdminBaseController
         // print_r(shell_exec("ls"));
         // shell_exec("sudo php -v");
         
-        // $filename = time() . '.pdf';
+        $filename = time() . '.pdf';
         // $url = cmf_get_domain().cmf_get_root()."/protocol/index/export/id/".$id."/uid/".$uid.".html ";
         // shell_exec("xvfb-run wkhtmltopdf ". $url .$filename);
         // shell_exec("sudo /usr/local/bin/wkhtmltopdf --print-media-type http://www.baidu.com termo590.pdf 2>&1");
@@ -711,7 +711,7 @@ class AdminIndexController extends AdminBaseController
 
             // 插入图片
             $pageCount = $pdf->setSourceFile('./protocol/'.$id.'.pdf');
-            // dump($pageCount); exit();
+            // dump(count($pageCount)); exit();
             for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++){
                 $templateId = $pdf->importPage($pageNo);
                 $size = $pdf->getTemplateSize($templateId);
@@ -721,30 +721,47 @@ class AdminIndexController extends AdminBaseController
                 $pdf->AddPage('P', array($size['w'], $size['h']));
 
                 $pdf->useTemplate($templateId);
-                dump($templateId);
-                // if(count($pageCount) == $pageNo){
-                    // $pdf->image($sign_url, 75, 85, 50);//加上图片水印，后为坐标
-                // }
+                // dump($templateId);
+                if($user_post['sign_url'] && $pageCount == $pageNo){
+
+                    if($model_data['id'] == 1){
+                        $pdf->image($sign_url, 140, 46, 50);//加上图片水印，后为坐标
+                    }elseif($model_data['id'] == 3){
+
+                    }elseif($model_data['id'] == 4){
+                        $pdf->image($sign_url, 160, 26, 50);//加上图片水印，后为坐标
+                    }elseif($model_data['id'] == 5){
+                        
+                    }
+                }
+
+                if($user_post['sign_url'] && ($pageCount - 1) == $pageNo){
+                    if($model_data['id'] == 3){
+                        $pdf->image($sign_url, 160, 178, 50);//加上图片水印，后为坐标
+                    }elseif($model_data['id'] == 5){
+                        $pdf->image($sign_url, 160, 178, 50);//加上图片水印，后为坐标
+                    }
+                }
                 
             }
-            $pdf->Output('D', '123.pdf');
+            $pdf->Output('F', $filename);
         }
 
         
 
         // 无法直接生成中文文件,采用重命名方式
-        // $rename = $user['user_login'].'_'.$model_data['name'].'.pdf';
-        // rename($filename, $rename);
-        // // echo exec('whoami');
-        // // dump($url);
-        // if(file_exists($rename)){
-        //     header("Content-type:application/pdf");
-        //     header("Content-Disposition:attachment;filename=".$rename);
-        //     echo file_get_contents($rename);
-        //     //echo "{$rename}.pdf";
-        //     unlink($rename);
-        // }else{
-        //     exit;
-        // }
+        $rename = $user['user_login'].'_'.$model_data['name'].'.pdf';
+        rename($filename, $rename);
+        // echo exec('whoami');
+        // dump($url);
+        if(file_exists($rename)){
+            header("Content-type:application/pdf");
+            header("Content-Disposition:attachment;filename=".$rename);
+            echo file_get_contents($rename);
+            //echo "{$rename}.pdf";
+            unlink($rename);
+        }else{
+            exit;
+        }
     }
 }

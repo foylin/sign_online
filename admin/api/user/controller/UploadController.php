@@ -35,8 +35,7 @@ class UploadController extends RestUserBaseController
         $image = Image::open($file);
         $image->rotate(-90);
 
-        $saveName = time().'.png';
-        $image->save(ROOT_PATH.'public/upload/'.$saveName);
+        
 
         // 移动到框架应用根目录/public/upload/ 目录下
         $info     = $file->validate([
@@ -54,27 +53,31 @@ class UploadController extends RestUserBaseController
         if (!empty($findFile) && $findFile['sign_status'] == 1 && !empty($findFile['sign_url'])) {
             $this->success("请勿重复上传!", ['url' => $findFile['sign_url']]);
         }
-        $info = $info->move(ROOT_PATH . 'public' . DS . 'upload');
+        // $info = $info->move(ROOT_PATH . 'public' . DS . 'upload');
+
+        $saveName = time().'.png';
+        $image->save(ROOT_PATH.'public/upload/'.$saveName);
+
         if ($info) {
-            $saveName     = $info->getSaveName();
-            $originalName = $info->getInfo('name');//name,type,size
-            $fileSize     = $info->getInfo('size');
-            $suffix       = $info->getExtension();
+            // $saveName     = $info->getSaveName();
+            // $originalName = $info->getInfo('name');//name,type,size
+            // $fileSize     = $info->getInfo('size');
+            // $suffix       = $info->getExtension();
 
-            $fileKey = $fileMd5 . md5($fileSha1);
+            // $fileKey = $fileMd5 . md5($fileSha1);
 
-            $userId = $this->getUserId();
-            Db::name('asset')->insert([
-                'user_id'     => $userId,
-                'file_key'    => $fileKey,
-                'filename'    => $originalName,
-                'file_size'   => $fileSize,
-                'file_path'   => $saveName,
-                'file_md5'    => $fileMd5,
-                'file_sha1'   => $fileSha1,
-                'create_time' => time(),
-                'suffix'      => $suffix
-            ]);
+            // $userId = $this->getUserId();
+            // Db::name('asset')->insert([
+            //     'user_id'     => $userId,
+            //     'file_key'    => $fileKey,
+            //     'filename'    => $originalName,
+            //     'file_size'   => $fileSize,
+            //     'file_path'   => $saveName,
+            //     'file_md5'    => $fileMd5,
+            //     'file_sha1'   => $fileSha1,
+            //     'create_time' => time(),
+            //     'suffix'      => $suffix
+            // ]);
 
             
 
@@ -87,7 +90,7 @@ class UploadController extends RestUserBaseController
             $where['category_id'] = $this->userId;
             Db::name('protocol_category_user_post')->where($where)->update($signdata);
             // dump(Db::name('protocol_category_user_post')->getLastSql());
-            $this->success("上传成功!", ['url' => $saveName, 'filename' => $originalName]);
+            $this->success("上传成功!", ['url' => $saveName]);
         } else {
             // 上传失败获取错误信息
             $this->error($file->getError());
