@@ -95,8 +95,8 @@
                                     <if $vo.sign_status == -1><i class="fa fa-close name-icon-error"></i></if>
                                 </div>
                             <if $vo.sign_url>
-                            <div class="col-md-2 sign-pic" onclick="parent.imagePreviewDialog('{:cmf_get_image_preview_url($vo.sign_url)}');">查看签约图片</div>
-
+                            <!-- <div class="col-md-2 sign-pic" onclick="parent.imagePreviewDialog('{:cmf_get_image_preview_url($vo.sign_url)}');">查看签约图片</div> -->
+                            <div class="col-md-2 sign-pic"><php>echo date('Y-m-d H:i', $vo['update_time'])</php></div>
                             <else>
                             <div class="col-md-2 sign-pic">未签约</div>
                             </if>

@@ -47,7 +47,7 @@
             <form class="js-ajax-form" action="{:url('AdminCategory/addPost')}" method="post">
                 <div class="tab-content">
                     <div class="tab-pane active" id="A">
-                        <div class="form-group">
+                        <div class="form-group" style="display:none;">
                             <label for="input-parent"><span class="form-required">*</span>上级</label>
                             <div>
                                 <select class="form-control" name="parent_id" id="input-parent">
@@ -56,43 +56,29 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="form-group" style="">
+                                <label for="input-parent"><span class="form-required">*</span>分类</label>
+                                <div>
+                                    <select class="form-control" name="mode_type" id="input-parent">
+                                        <option value="0">请选择分类</option>
+                                        <option value="1">保密工作责任书（通用部门)</option>
+                                        <option value="3">员工保密承诺书</option>
+                                        <option value="4">涉密人员保证书</option>
+                                        <option value="5">涉密人员离岗保密承诺书</option>
+                                    </select>
+                                </div>
+                            </div>
+
                         <div class="form-group">
-                            <label for="input-name"><span class="form-required">*</span>分类名称</label>
+                            <label for="input-name"><span class="form-required">*</span>协议标题</label>
                             <div>
                                 <input type="text" class="form-control" id="input-name" name="name" value="">
                             </div>
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="input-name">分类别名</label>
-                            <div>
-                                <input type="text" class="form-control" id="input-alias" name="alias"
-                                       value="{$alias|default=''}">
-                            </div>
-                        </div> -->
-                        <!-- <div class="form-group">
-                            <label for="input-description">协议模板内容</label>
-                            <div>
-                                <script type="text/plain" id="content" name="description"></script>
-                            </div>
-                        </div> -->
                         <div class="form-group">
                             <label for="input-description">协议模板文件</label>
                             <div>
-                                <!-- <input type="hidden" name="more[thumbnail]" class="form-control"
-                                       value="{$more.thumbnail|default=''}" id="js-thumbnail-input">
-                                <div>
-                                    <a href="javascript:uploadOneImage('图片上传','#js-thumbnail-input');">
-                                        <if condition="empty($more.thumbnail)">
-                                            <img src="__TMPL__/public/assets/images/default-thumbnail.png"
-                                                 id="js-thumbnail-input-preview"
-                                                 width="135" style="cursor: pointer"/>
-                                            <else/>
-                                            <img src="{:cmf_get_image_preview_url($more.thumbnail)}"
-                                                 id="js-thumbnail-input-preview"
-                                            width="135" style="cursor: pointer"/>
-                                        </if>
-                                    </a>
-                                </div> -->
 
                                 <ul id="files" class="pic-list list-unstyled form-inline">
                                 </ul>
@@ -102,7 +88,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="display:none;">
                             <label for="input-description">签名位置</label>
                             <div>
 

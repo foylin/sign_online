@@ -258,7 +258,7 @@
     function doSelectCategory_user() {
         var selectedCategoriesId = $('#js-categories-id-input-user').val();
         var selectedCategoriesPlaces = $('#js-categories-place-input-user').val();
-        openIframeLayer("{:url('AdminCategory/select_user')}?ids=" + selectedCategoriesId + '&places=' + selectedCategoriesPlaces, '请选择分类', {
+        openIframeLayer("{:url('AdminCategory/select_user')}?ids=" + selectedCategoriesId + '&places=' + selectedCategoriesPlaces + '&post_id=' + '{$post.id}', '请选择分类', {
             area: ['700px', '400px'],
             btn: ['确定', '取消'],
             yes: function (index, layero) {

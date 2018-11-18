@@ -22,6 +22,48 @@ use app\protocol\model\UserModel;
 
 class AdminCategoryController extends AdminBaseController
 {
+
+
+    protected $mode_type = [
+        1 => [
+            [
+                'page' => 5,
+                'sign' => '140,46',
+                'time' => '140,80'
+            ]
+        ],
+        3 => [
+            [
+                'page' => 4,
+                'sign' => '65,185',
+                'time' => '65,215'
+            ],[
+                'page' => 4,
+                'sign' => '160,180',
+                'time' => '160,205'
+            ]
+        ],
+        4 =>[
+            [
+                'page' => 6,
+                'sign' => '160,25',
+                'time' => '160,55'
+            ]
+        ],
+        5 =>[
+            [
+                'page' => 3,
+                'sign' => '72,205',
+                'time' => '72,235'
+            ],[
+                'page' => 3,
+                'sign' => '165,206',
+                'time' => '160,235'
+            ]
+        ]
+
+    ];
+
     /**
      * 文章分类列表
      * @adminMenu(
@@ -35,6 +77,8 @@ class AdminCategoryController extends AdminBaseController
      *     'param'  => ''
      * )
      */
+
+    
     public function index()
     {
         
@@ -129,6 +173,10 @@ class AdminCategoryController extends AdminBaseController
             
                 
             }
+        }
+
+        if($data['mode_type']){
+            $data['more']['axes'] = $this->mode_type[$data['mode_type']];
         }
         // dump($data);
         $result = $protocolCategoryModel->addCategory($data);
@@ -253,7 +301,10 @@ class AdminCategoryController extends AdminBaseController
         // dump($data); exit();
 
         
-
+        if($data['mode_type']){
+            $data['more']['axes'] = $this->mode_type[$data['mode_type']];
+        }
+        
         $result = $protocolCategoryModel->editCategory($data);
 
         // dump($result);
@@ -355,6 +406,8 @@ tpl;
         $places                 = $this->request->param('places');
         $selectedPlaces         = explode(',', $places);
 
+        $post_id                 = $this->request->param('post_id');
+
         foreach ($selectedIds as $key => $value) {
             # code...
             $places_arr[$value] = $selectedPlaces[$key];
@@ -380,12 +433,21 @@ tpl;
         foreach ($categories as $key => $val) {
             # code...
             // $val['place'] = $selectedPlaces[$key];
-            if(in_array($val['id'], $selectedIds)){
-                $categories[$key]['place'] = $places_arr[$val['id']];
+            // if(in_array($val['id'], $selectedIds)){
+            //     $categories[$key]['place'] = $places_arr[$val['id']];
+            // }else{
+            //     $categories[$key]['place'] = 0;
+            // }
+
+            $is_user = Db::name('protocol_category_user_post')->where(['post_id'=>$post_id, 'category_id'=>$val['id']])->find();
+            if($is_user){
+                $categories[$key]['place'] = $is_user['place'];
             }else{
-                $categories[$key]['place'] = '{签名1}';
-            }
+                $categories[$key]['place'] = 0;
+            }  
         }
+
+        
         $this->assign('categories', $categories);
         $this->assign('selectedIds', $selectedIds);
         // $this->assign('categories_tree', $categoryTree);
@@ -466,7 +528,8 @@ tpl;
         if (empty($findCategory)) {
             $this->error('分类不存在!');
         }
-//判断此分类有无子分类（不算被删除的子分类）
+
+        //判断此分类有无子分类（不算被删除的子分类）
         $categoryChildrenCount = $protocolCategoryModel->where(['parent_id' => $id,'delete_time' => 0])->count();
 
         if ($categoryChildrenCount > 0) {
@@ -475,9 +538,9 @@ tpl;
 
         $categoryPostCount = Db::name('protocol_category_post')->where('category_id', $id)->count();
 
-        if ($categoryPostCount > 0) {
-            $this->error('此分类有文章无法删除!');
-        }
+        // if ($categoryPostCount > 0) {
+        //     $this->error('此分类有文章无法删除!');
+        // }
 
         $data   = [
             'object_id'   => $findCategory['id'],

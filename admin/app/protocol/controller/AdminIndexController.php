@@ -600,8 +600,8 @@ class AdminIndexController extends AdminBaseController
         $this->assign('post_categories_seal', $postCategories_seal);
         $this->assign('post_category_ids_seal', $postCategoryIds_seal);
 
-        $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login, sign_status, sign_url, notes, a.id AS user_id, pivot.id AS protocol_id', 'a.id');
-        // dump($post->getLastSql());
+        $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login, sign_status, sign_url, notes, a.id AS user_id, pivot.id AS protocol_id, pivot.update_time', 'a.id');
+        // dump($postCategories_user);
         $postCategoryIds_user = implode(',', array_keys($postCategories_user));
         $this->assign('post_categories_user', $postCategories_user);
         $this->assign('post_category_ids_user', $postCategoryIds_user);
@@ -723,6 +723,26 @@ class AdminIndexController extends AdminBaseController
                 $time = explode(',', $place_data['time']);
             }
 
+            // 承诺人签字,查找是否有负责人
+            $user_post2 = null;
+            if($user_post['place'] == 0){
+                $user_post2 = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'place' => 1])->find();
+                if($user_post2){
+                    $sign_url2 = cmf_get_image_preview_url($user_post2['sign_url']);
+            
+                    $sign_time_year2 = date('Y', $user_post2['update_time']);
+                    $sign_time_month2 = date('m', $user_post2['update_time']);
+                    $sign_time_day2 = date('d', $user_post2['update_time']);
+                    $sign_time2 = iconv("utf-8","gbk", $sign_time_year2 . '年' . $sign_time_month2 . '月' . $sign_time_day2 . '日');
+                    $place_data2 = $model_data['more']['axes'][$user_post2['place']];
+                    if($place_data2){
+                        $page2 = $place_data2['page'];
+                        $sign2 = explode(',', $place_data2['sign']);
+                        $time2 = explode(',', $place_data2['time']);
+                    }
+                }
+            }
+
             // 插入图片
 
             $pdf->AddGBFont('sinfang','仿宋_GB2312'); 
@@ -743,6 +763,14 @@ class AdminIndexController extends AdminBaseController
                 if($user_post['sign_url'] && $pageNo == $page){
                     $pdf->image($sign_url, $sign[0], $sign[1], 50);//加上图片水印，后为坐标
                     $pdf->Text($time[0], $time[1], $sign_time);
+                }
+
+                // 如果存在,插入负责人签名
+                if($user_post2){
+                    if($user_post2['sign_url'] && $pageNo == $page2){
+                        $pdf->image($sign_url2, $sign2[0], $sign2[1], 50);//加上图片水印，后为坐标
+                        $pdf->Text($time2[0], $time2[1], $sign_time2);
+                    }
                 }
                 
             }
@@ -769,20 +797,13 @@ class AdminIndexController extends AdminBaseController
 
     public function view()
     {
-        
-        // require_once(ROOT_PATH . 'public/FPDI/fpdf.php');
-        // require_once(ROOT_PATH . 'public/FPDI/fpdi.php');
         define('FPDF_FONTPATH',ROOT_PATH. 'public/FPDI/font/');
 
-        // dump(ROOT_PATH. 'public/FPDI/font/');
 
         Loader::import('FPDI.fpdf', EXTEND_PATH);
         Loader::import('FPDI.fpdi', EXTEND_PATH);
         $pdf = new \FPDI();
 
-        // Loader::import('FPDI.chinese', EXTEND_PATH);
-        // Loader::import('FPDI.fpdi', EXTEND_PATH);
-        // $pdf = new \PDF_Chinese();
 
         $id = $this->request->param('id', 0, 'intval');
 
@@ -792,12 +813,9 @@ class AdminIndexController extends AdminBaseController
 
         $model_data = Db::name('protocol_category')->alias('pc')->field('pc.*')->join('__PROTOCOL_CATEGORY_POST__ pcp', 'pc.id = pcp.category_id')->where('pcp.post_id = '.$id)->find();
         
-
-        $model_data['more'] = json_decode($model_data['more'], true);
-        // dump($model_data['more']['axes']);
-        // print_r(shell_exec("ls"));
-        // shell_exec("sudo php -v");
         
+        $model_data['more'] = json_decode($model_data['more'], true);
+        // dump($model_data);
         $filename = 'view.pdf';
         // $url = cmf_get_domain().cmf_get_root()."/protocol/index/export/id/".$id."/uid/".$uid.".html ";
         // shell_exec("xvfb-run wkhtmltopdf ". $url .$filename);
@@ -806,6 +824,8 @@ class AdminIndexController extends AdminBaseController
         $user_post = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'category_id' => $uid])->find();
         // dump($user_post); exit();
         if($user_post){
+
+            // 需要插入签名的位置信息
             // dump(ROOT_PATH . 'public/protocol/'.$id.'.pdf');exit();
             $sign_url = cmf_get_image_preview_url($user_post['sign_url']);
             
@@ -813,8 +833,6 @@ class AdminIndexController extends AdminBaseController
             $sign_time_month = date('m', $user_post['update_time']);
             $sign_time_day = date('d', $user_post['update_time']);
             $sign_time = iconv("utf-8","gbk", $sign_time_year . '年' . $sign_time_month . '月' . $sign_time_day . '日');
-            
-            // 需要插入签名的位置信息
             $place_data = $model_data['more']['axes'][$user_post['place']];
             if($place_data){
                 $page = $place_data['page'];
@@ -822,13 +840,30 @@ class AdminIndexController extends AdminBaseController
                 $time = explode(',', $place_data['time']);
             }
 
-            // 插入图片
+            // 承诺人签字,查找是否有负责人
+            $user_post2 = null;
+            if($user_post['place'] == 0){
+                $user_post2 = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'place' => 1])->find();
+                if($user_post2){
+                    $sign_url2 = cmf_get_image_preview_url($user_post2['sign_url']);
+            
+                    $sign_time_year2 = date('Y', $user_post2['update_time']);
+                    $sign_time_month2 = date('m', $user_post2['update_time']);
+                    $sign_time_day2 = date('d', $user_post2['update_time']);
+                    $sign_time2 = iconv("utf-8","gbk", $sign_time_year2 . '年' . $sign_time_month2 . '月' . $sign_time_day2 . '日');
+                    $place_data2 = $model_data['more']['axes'][$user_post2['place']];
+                    if($place_data2){
+                        $page2 = $place_data2['page'];
+                        $sign2 = explode(',', $place_data2['sign']);
+                        $time2 = explode(',', $place_data2['time']);
+                    }
+                }
+            }
 
             $pdf->AddGBFont('sinfang','仿宋_GB2312'); 
             $pdf->SetFont('sinfang','',16); 
 
             $pageCount = $pdf->setSourceFile('./protocol/'.$id.'.pdf');
-            // dump($sign[0]); exit();
             for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++){
                 $templateId = $pdf->importPage($pageNo);
                 $size = $pdf->getTemplateSize($templateId);
@@ -839,10 +874,22 @@ class AdminIndexController extends AdminBaseController
 
                 $pdf->useTemplate($templateId);
                 // dump($templateId);
+
+                // 插入承诺人签名
                 if($user_post['sign_url'] && $pageNo == $page){
                     $pdf->image($sign_url, $sign[0], $sign[1], 50);//加上图片水印，后为坐标
                     $pdf->Text($time[0], $time[1], $sign_time);
                 }
+
+                // 如果存在,插入负责人签名
+                if($user_post2){
+                    if($user_post2['sign_url'] && $pageNo == $page2){
+                        $pdf->image($sign_url2, $sign2[0], $sign2[1], 50);//加上图片水印，后为坐标
+                        $pdf->Text($time2[0], $time2[1], $sign_time2);
+                    }
+                }
+
+                
                 
             }
             $pdf->Output('F', $filename);

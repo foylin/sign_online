@@ -18,6 +18,7 @@
             <tbody>
             
             <foreach name="categories" item="vo">
+                
                 <tr>
                     <td>
                         <php>$checked = in_array($vo['id'],$selectedIds)?'checked':'';</php>
@@ -29,8 +30,8 @@
                         <span class="col-md-4" style="float: left; width: 30%; line-height: 34px;">{$vo.user_login}</span>
                         <!-- <input value="{$vo.place}" name='user_place_{$vo.id}' class='form-control' placeholder='签名位置' style='width: 200px;display: inherit;margin-left: 10px;' /> -->
                         <select class="form-control" name="user_place_{$vo.id}" id="" style="float: left; width: 30%;">
-                            <option value="0" selected>签名位置1</option>
-                            <option value="1">签名位置2</option>
+                            <option value="0" <if $vo.place == 0> selected  </if> >承诺人或保证人(多个)</option>
+                            <option value="1" <if $vo.place == 1> selected  </if> >负责人(唯一)</option>
                         </select>
                     </td>
                 </tr>

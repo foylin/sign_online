@@ -1,0 +1,70 @@
+---------------------------------------------------------------
+[ 2018-10-28T14:53:18+08:00 ] 127.0.0.1 GET /api/
+[ info ] signonline.net/api/ [运行时间：0.011665s][吞吐率：85.73req/s] [内存消耗：522.33kb] [文件加载：56]
+[ info ] [ CACHE ] INIT File
+[ info ] [ DB ] INIT mysql
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.005805s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.67 Chrome/70.0.3538.67 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=i0q2fsdidqm079bojuat4f6ka5; admin_username=admin',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000301s ]
+[ info ] [ RUN ] api\home\controller\IndexController->index[ /var/www/sign_online/admin/api/home/controller/IndexController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000571s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_hook` [ RunTime:0.000718s ]
+[ sql ] [ SQL ] SELECT `hook` FROM `so_hook` WHERE  `type` = 1 OR (  `type` = 3  AND ( `app` = '' or `app` = 'cmf' ) ) [ RunTime:0.000504s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_hook_plugin` [ RunTime:0.001108s ]
+[ sql ] [ SQL ] SELECT `hook`,`plugin` FROM `so_hook_plugin` WHERE  `status` = 1  AND `hook` IN ('app_init','app_begin','module_init','action_begin','view_filter','app_end','log_write','response_end','admin_init','home_init','send_mobile_verification_code','body_start','before_head_end','footer_start','before_footer','before_footer_end','before_body_end','left_sidebar_start','before_left_sidebar_end','right_sidebar_start','before_right_sidebar_end','comment','guestbook','switch_theme','after_content','before_content','log_write_done','switch_admin_theme','captcha_image') ORDER BY `list_order` ASC [ RunTime:0.000706s ]
+---------------------------------------------------------------
+[ 2018-10-28T14:53:23+08:00 ] 127.0.0.1 GET /api/
+[ info ] signonline.net/api/ [运行时间：0.003159s][吞吐率：316.55req/s] [内存消耗：338.98kb] [文件加载：50]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000337s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.67 Chrome/70.0.3538.67 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=i0q2fsdidqm079bojuat4f6ka5; admin_username=admin',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000213s ]
+[ info ] [ RUN ] api\home\controller\IndexController->index[ /var/www/sign_online/admin/api/home/controller/IndexController.php ]
+[ info ] [ LOG ] INIT File
