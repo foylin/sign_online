@@ -23,9 +23,9 @@ Page({
         
         let width = wx.getSystemInfoSync().windowWidth;
         let height = wx.getSystemInfoSync().windowHeight;
-        let sign_status = this.data.sign_status;
+        // let sign_status = this.data.sign_status;
         this.setData({
-            view_url: 'https://sscx.karles.com.cn/pdf.html?width='+width+'&height='+height+'&sign_status='+sign_status+'&protocol_id='+params.id
+            view_url: 'https://sscx.karles.com.cn/pdf.html?width='+width+'&height='+height+'&sign_status='+params.status+'&protocol_id='+params.id
         })
 
         // console.log();

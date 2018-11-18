@@ -114,14 +114,15 @@
 
                                 
 
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                         <input class="form-control" type="text" name="post[notes][]"
                                          value="{$vo.notes}" placeholder="请输入备注"/>
 
                                         <input type="hidden" name="post[id][]" value="{$vo.protocol_id}">
                                 </div>
 
-                                <div class="col-md-1">
+                                <div class="col-md-2">
+                                        <a href="{:url('AdminIndex/view', array('id' => $post['id'], 'uid' => $vo.user_id))}" class="export" target="_blank">预览</a>
                                         <a href="{:url('AdminIndex/export', array('id' => $post['id'], 'uid' => $vo.user_id))}" class="export">导出pdf</a>
                                     </div>
                         </td>

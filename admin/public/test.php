@@ -1,18 +1,36 @@
 <?php
 
+
+define('FPDF_FONTPATH','FPDI/font/');
+
 require_once('./FPDI/fpdf.php');
+// require_once('./FPDI/chinese.php');
 require_once('./FPDI/fpdi.php');
 
+
+
 $pdf = new FPDI();
+// $pdf=new PDF_Chinese();
 
 // $pageCount = $pdf->setSourceFile('test999.pdf');
 
 // $pdf->image("test.png", 75, 85, 100, 200);
 
+// $pdf->AddGBFont('simsun','宋体'); 
+// $pdf->AddGBFont('simhei','黑体'); 
+// $pdf->AddGBFont('simkai','楷体_GB2312'); 
+// $pdf->AddGBFont('sinfang','仿宋_GB2312'); 
+// // $pdf->Open(); 
+// // $pdf->AddPage(); 
+// $pdf->SetFont('simsun','',20); 
+
 
 // 插入图片
 $pageCount = $pdf->setSourceFile('test999.pdf');
 
+
+$pdf->SetFont('Helvetica', '', 8);
+// $pdf->SetFont('Big5','',20);
 for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++){
     $templateId = $pdf->importPage($pageNo);
     $size = $pdf->getTemplateSize($templateId);
@@ -22,9 +40,18 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++){
        $pdf->AddPage('P', array($size['w'], $size['h']));
 
     $pdf->useTemplate($templateId);
-    $pdf->image("test.png", 75, 85, 50);//加上图片水印，后为坐标
+
+
+//     $pdf->GetX();
+// var_dump($pdf->GetX());
+
+    //加上图片水印，后为坐标
+        //     $pdf->image("test.png", 75, 85, 50);
+        $pdf->Text(10, 10, '123456789');
 }
-$pdf->Output('D');
+
+
+$pdf->Output('I');
 
 // $filename = '/home/lin/下载/四书模板/四书模板/xxxx保密工作责任书（通用部门）.doc';
 

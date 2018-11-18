@@ -23,6 +23,17 @@
     </li>
 </script>
 
+<style>
+        #axes li{
+            margin-bottom: 10px;
+            float: left;
+        }
+        #axes li input{
+            margin-right: 10px;
+        }
+    
+    </style>
+
 <body>
 <div class="wrap js-check-wrap">
     <ul class="nav nav-tabs">
@@ -90,6 +101,24 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                            <label for="input-description">签名位置</label>
+                            <div>
+
+                                <ul id="axes" class="pic-list list-unstyled form-inline col-md-12">
+                                    <empty name="category.more.axes">
+                                        <li id="axes-data0">
+                                        <input type="text" class="form-control col-md-2" id="input-name" name="more[axes][page][]" value="" placeholder="页数">
+                                        <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][sign][]" value="" placeholder="请填写签名坐标">
+                                        <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][time][]" value="" placeholder="请填写签名日期坐标">
+                                        
+                                    </li>
+                                </ul>
+                                <a href="javascript:;"
+                                   class="btn btn-sm btn-default add-axes">添加位置</a>
+                            </div>
+                        </div>
                     
                     
                 </div>
@@ -129,7 +158,19 @@
             });
 
             $('#more-template-select').val("{$post.more.template|default=''}");
+
+            var i = 10;
+            $('.add-axes').click(function(){
+                var html = '<li id="axes-data'+i+'"><input type="text" class="form-control col-md-2" id="input-name" name="more[axes][page][]" value="" placeholder="页数"><input type="text" class="form-control col-md-5" id="input-name" name="more[axes][sign][]" value="" placeholder="请填写签名坐标"><input type="text" class="form-control col-md-5" id="input-name" name="more[axes][time][]" value="" placeholder="请填写签名日期坐标"><a href="javascript:del('+i+');">移除</a></li>';
+                $('#axes').append(html);
+                i++;
+            })
         });
+
+    function del(i){
+        $("#axes-data"+i).remove();
+        // (function(){$("#axes-data'+i+'").remove();}
+    }
 </script>
 </body>
 </html>

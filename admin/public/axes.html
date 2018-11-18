@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>协议内容</title>
+    <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css"> -->
+
+    <style>
+        body {
+            margin: 0;
+        }
+        .footer{
+            
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: white;
+            text-align: center;
+            height: 50px;
+            line-height: 48px;
+            color: #00796a;
+            border-top: 1px solid #ccc;
+        }
+        #draggable { width: 150px; height: 150px; padding: 0.5em; }
+    </style>
+</head>
+
+<body>
+    <div style="width: 1200px; margin: 0 auto;" id="main">
+    <iframe src="http://signonline.net/web/viewer.html?file=/test999.pdf" id="iframe1" frameborder="0" style="width: 1200px;"></iframe>
+</div>
+
+<div id="draggable" class="ui-widget-content">
+        获取
+      </div>
+
+    <!-- <div class="footer">请阅读协议内容 30</div> -->
+</body>
+
+<script>
+    $(function () {
+        changeWH();
+        // alert(GetQueryString('width'));
+        // alert(GetQueryString('protocol_id'));
+        var sign_status = GetQueryString('sign_status');
+        var protocol_id = GetQueryString('protocol_id');
+        var count = 0;
+        
+        // $('iframe').attr('src', 'https://sscx.karles.com.cn/web/viewer.html?file=/protocol/'+protocol_id+'.pdf');
+        // $('iframe').attr('src', 'http://signonline.net/web/viewer.html?file=/test999.pdf');
+        // if(sign_status == 1){
+        //     $('.footer').html('待审核');
+            
+        // }else if(sign_status == 2){
+        //     $('.footer').html('已签约');
+        // }else{
+        //     count = 1;
+        //     let interval = setInterval(function () {
+        //         count--;
+        //         // console.log(count);
+        //         // that.setData({ countdown: count });
+        //         $('.footer').html('请阅读协议内容 '+count);
+        //         if (count <= 0) {
+        //             clearInterval(interval);
+        //             // that.setData({ countdowndes: '' });
+        //             $('.footer').html('签约');
+        //         }
+        //     }, 1000)
+        // }
+
+        // $('.footer').click(function(){
+        //     if(count > 0) return ;
+        //     if(sign_status == 2 || sign_status == 1) return ;
+        //     wx.miniProgram.navigateTo({
+        //         url: '/pages/sign/sign?protocol_id='+protocol_id
+        //     })
+        // })
+
+        // $( "#draggable" ).draggable({
+        //     // revert: true
+        //     stop: function(event,ui){
+        //         console.log(event);
+        //         console.log(ui);
+        //     }
+        // });
+
+        // setTimeout(function(){
+        //     $('#iframe1').load(function(){
+        //         console.log($('#iframe1').contents().find('#viewer div.page'));
+        //         var html = $('#iframe1').contents().find('#viewer')[0]['children'];
+        //         console.log($(html));
+        //         // $("#main",document.frames('iframe1').document)
+        //     })
+        // }, 200)
+        
+        $('#draggable').click(function(){
+            // $('#iframe1').load(function(){
+                console.log($('#iframe1').contents().find('#viewer div.page').find("div:contains('承 诺 人（签字）')").parent().parent().data('page-number'));
+                // var html = $('#iframe1').contents().find('#viewer')[0]['children'];
+                // console.log($(html));
+                // $("#main",document.frames('iframe1').document)
+            // })
+            console.log($('#iframe1').contents().find('#viewer div.page').find("div:contains('承 诺 人（签字）')").offset());
+            console.log($('#iframe1').contents().find('#viewer div.page').find("div:contains('八、本《承诺书》经双方签字后生效。一式三份，公司保密')").offset());
+        })
+
+    });
+
+    function changeWH() {
+
+        $("#iframe1").height($(window).height());
+        $("#iframe1").width(GetQueryString('width'));
+    }
+
+    function GetQueryString(name) { 
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); 
+        var r = window.location.search.substr(1).match(reg);
+        //search,查询？后面的参数，并匹配正则 
+        if(r!=null)
+            return unescape(r[2]); 
+        return null; 
+    }
+
+
+    window.onresize = function () {
+        changeWH();
+    } 
+</script>
+
+</html>

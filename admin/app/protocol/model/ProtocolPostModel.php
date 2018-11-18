@@ -214,26 +214,25 @@ class ProtocolPostModel extends Model
         
 
         // 签约用户
-        if (is_string($categories_user)) {
-            $categories_user = explode(',', $categories_user);
-            $categories_user_place = explode(',', $categories_user_place);
-        }
+        // if (is_string($categories_user)) {
+        //     $categories_user = explode(',', $categories_user);
+        //     $categories_user_place = explode(',', $categories_user_place);
+        // }
 
-        $oldCategoryIds_user        = $this->categories_user()->column('category_id');
-        $sameCategoryIds_user       = array_intersect($categories_user, $oldCategoryIds_user);
-        $needDeleteCategoryIds_user = array_diff($oldCategoryIds_user, $sameCategoryIds_user);
-        $newCategoryIds_user        = array_diff($categories_user, $sameCategoryIds_user);
+        // $oldCategoryIds_user        = $this->categories_user()->column('category_id');
+        // $sameCategoryIds_user       = array_intersect($categories_user, $oldCategoryIds_user);
+        // $needDeleteCategoryIds_user = array_diff($oldCategoryIds_user, $sameCategoryIds_user);
+        // $newCategoryIds_user        = array_diff($categories_user, $sameCategoryIds_user);
 
-        if (!empty($oldCategoryIds_user)) {
-            $this->categories_user()->detach($oldCategoryIds_user);
-        }
+        // if (!empty($oldCategoryIds_user)) {
+        //     $this->categories_user()->detach($oldCategoryIds_user);
+        // }
 
-        if (!empty($categories_user)) {
-            // $this->categories_user()->attach(array_values($newCategoryIds_user));
-            foreach ($categories_user as $nk_seal => $nv_seal) {
-                $this->categories_user()->attach($nv_seal, ['place'=> $categories_user_place[$nk_seal]]);
-            }
-        }
+        // if (!empty($categories_user)) {
+        //     foreach ($categories_user as $nk_seal => $nv_seal) {
+        //         $this->categories_user()->attach($nv_seal, ['place'=> $categories_user_place[$nk_seal]]);
+        //     }
+        // }
 
 
         // $data['post_keywords'] = str_replace('，', ',', $data['post_keywords']);

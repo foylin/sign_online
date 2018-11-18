@@ -11,6 +11,7 @@
 
 define('FPDF_VERSION','1.81');
 
+
 class FPDF
 {
 protected $page;               // current page number
@@ -103,6 +104,17 @@ function __construct($orientation='P', $unit='mm', $size='A4')
 	$this->ColorFlag = false;
 	$this->WithAlpha = false;
 	$this->ws = 0;
+
+	$this->GB_widths = array(' '=>207,'!'=>270,'"'=>342,'#'=>467,'$'=>462,'%'=>797,'&'=>710,'\''=>239,
+	'('=>374,')'=>374,'*'=>423,'+'=>605,','=>238,'-'=>375,'.'=>238,'/'=>334,'0'=>462,'1'=>462,
+	'2'=>462,'3'=>462,'4'=>462,'5'=>462,'6'=>462,'7'=>462,'8'=>462,'9'=>462,':'=>238,';'=>238,
+	'<'=>605,'='=>605,'>'=>605,'?'=>344,'@'=>748,'A'=>684,'B'=>560,'C'=>695,'D'=>739,'E'=>563,
+	'F'=>511,'G'=>729,'H'=>793,'I'=>318,'J'=>312,'K'=>666,'L'=>526,'M'=>896,'N'=>758,'O'=>772,
+	'P'=>544,'Q'=>772,'R'=>628,'S'=>465,'T'=>607,'U'=>753,'V'=>711,'W'=>972,'X'=>647,'Y'=>620,
+	'Z'=>607,'['=>374,'\\'=>333,']'=>374,'^'=>606,'_'=>500,'`'=>239,'a'=>417,'b'=>503,'c'=>427,
+	'd'=>529,'e'=>415,'f'=>264,'g'=>444,'h'=>518,'i'=>241,'j'=>230,'k'=>495,'l'=>228,'m'=>793,
+	'n'=>527,'o'=>524,'p'=>524,'q'=>504,'r'=>338,'s'=>336,'t'=>277,'u'=>517,'v'=>450,'w'=>652,
+	'x'=>466,'y'=>452,'z'=>407,'{'=>370,'|'=>258,'}'=>370,'~'=>605);
 	// Font path
 	if(defined('FPDF_FONTPATH'))
 	{
@@ -169,6 +181,160 @@ function __construct($orientation='P', $unit='mm', $size='A4')
 	$this->SetCompression(true);
 	// Set default PDF version number
 	$this->PDFVersion = '1.3';
+}
+
+function AddCIDFont($family, $style, $name, $cw, $CMap, $registry)
+{
+	$fontkey = strtolower($family).strtoupper($style);
+	if(isset($this->fonts[$fontkey]))
+		$this->Error("Font already added: $family $style");
+	$i = count($this->fonts)+1;
+	$name = str_replace(' ','',$name);
+	$this->fonts[$fontkey] = array('i'=>$i, 'type'=>'Type0', 'name'=>$name, 'up'=>-130, 'ut'=>40, 'cw'=>$cw, 'CMap'=>$CMap, 'registry'=>$registry);
+}
+
+function AddCIDFonts($family, $name, $cw, $CMap, $registry)
+{
+	$this->AddCIDFont($family,'',$name,$cw,$CMap,$registry);
+	$this->AddCIDFont($family,'B',$name.',Bold',$cw,$CMap,$registry);
+	$this->AddCIDFont($family,'I',$name.',Italic',$cw,$CMap,$registry);
+	$this->AddCIDFont($family,'BI',$name.',BoldItalic',$cw,$CMap,$registry);
+}
+
+function AddGBFont($family='GB', $name='STSongStd-Light-Acro')
+{
+	// Add GB font with proportional Latin
+
+	// dump($this->GB_widths);
+	$cw = $this->GB_widths;
+	$CMap = 'GBKp-EUC-H';
+	$registry = array('ordering'=>'GB1', 'supplement'=>2);
+	$this->AddCIDFonts($family,$name,$cw,$CMap,$registry);
+}
+
+function MBWrite($h, $txt, $link = '')
+{
+	// Multi-byte version of Write()
+	$cw = &$this->CurrentFont['cw'];
+	$w = $this->w-$this->rMargin-$this->x;
+	$wmax = ($w-2*$this->cMargin)*1000/$this->FontSize;
+	$s = str_replace("\r",'',$txt);
+	$nb = strlen($s);
+	$sep = -1;
+	$i = 0;
+	$j = 0;
+	$l = 0;
+	$nl = 1;
+	while($i<$nb)
+	{
+		// Get next character
+		$c = $s[$i];
+		// Check if ASCII or MB
+		$ascii = (ord($c)<128);
+		if($c=="\n")
+		{
+			// Explicit line break
+			$this->Cell($w,$h,substr($s,$j,$i-$j),0,2,'',0,$link);
+			$i++;
+			$sep = -1;
+			$j = $i;
+			$l = 0;
+			if($nl==1)
+			{
+				$this->x = $this->lMargin;
+				$w = $this->w-$this->rMargin-$this->x;
+				$wmax = ($w-2*$this->cMargin)*1000/$this->FontSize;
+			}
+			$nl++;
+			continue;
+		}
+		if(!$ascii || $c==' ')
+			$sep = $i;
+		$l += $ascii ? $cw[$c] : 1000;
+		if($l>$wmax)
+		{
+			// Automatic line break
+			if($sep==-1 || $i==$j)
+			{
+				if($this->x>$this->lMargin)
+				{
+					// Move to next line
+					$this->x = $this->lMargin;
+					$this->y += $h;
+					$w = $this->w-$this->rMargin-$this->x;
+					$wmax = ($w-2*$this->cMargin)*1000/$this->FontSize;
+					$i++;
+					$nl++;
+					continue;
+				}
+				if($i==$j)
+					$i += $ascii ? 1 : 2;
+				$this->Cell($w,$h,substr($s,$j,$i-$j),0,2,'',0,$link);
+			}
+			else
+			{
+				$this->Cell($w,$h,substr($s,$j,$sep-$j),0,2,'',0,$link);
+				$i = ($s[$sep]==' ') ? $sep+1 : $sep;
+			}
+			$sep = -1;
+			$j = $i;
+			$l = 0;
+			if($nl==1)
+			{
+				$this->x = $this->lMargin;
+				$w = $this->w-$this->rMargin-$this->x;
+				$wmax = ($w-2*$this->cMargin)*1000/$this->FontSize;
+			}
+			$nl++;
+		}
+		else
+			$i += $ascii ? 1 : 2;
+	}
+	// Last chunk
+	if($i!=$j)
+		$this->Cell($l/1000*$this->FontSize,$h,substr($s,$j,$i-$j),0,0,'',0,$link);
+}
+
+
+function _putType0($font)
+{
+	// Type0
+	$this->_newobj();
+	$this->_out('<</Type /Font');
+	$this->_out('/Subtype /Type0');
+	$this->_out('/BaseFont /'.$font['name'].'-'.$font['CMap']);
+	$this->_out('/Encoding /'.$font['CMap']);
+	$this->_out('/DescendantFonts ['.($this->n+1).' 0 R]');
+	$this->_out('>>');
+	$this->_out('endobj');
+	// CIDFont
+	$this->_newobj();
+	$this->_out('<</Type /Font');
+	$this->_out('/Subtype /CIDFontType0');
+	$this->_out('/BaseFont /'.$font['name']);
+	$this->_out('/CIDSystemInfo <</Registry '.$this->_textstring('Adobe').' /Ordering '.$this->_textstring($font['registry']['ordering']).' /Supplement '.$font['registry']['supplement'].'>>');
+	$this->_out('/FontDescriptor '.($this->n+1).' 0 R');
+	if($font['CMap']=='ETen-B5-H')
+		$W = '13648 13742 500';
+	elseif($font['CMap']=='GBK-EUC-H')
+		$W = '814 907 500 7716 [500]';
+	else
+		$W = '1 ['.implode(' ',$font['cw']).']';
+	$this->_out('/W ['.$W.']>>');
+	$this->_out('endobj');
+	// Font descriptor
+	$this->_newobj();
+	$this->_out('<</Type /FontDescriptor');
+	$this->_out('/FontName /'.$font['name']);
+	$this->_out('/Flags 6');
+	$this->_out('/FontBBox [0 -200 1000 900]');
+	$this->_out('/ItalicAngle 0');
+	$this->_out('/Ascent 800');
+	$this->_out('/Descent -200');
+	$this->_out('/CapHeight 800');
+	$this->_out('/StemV 50');
+	$this->_out('>>');
+	$this->_out('endobj');
 }
 
 function SetMargins($left, $top, $right=null)
@@ -1622,8 +1788,8 @@ protected function _putfonts()
 		$this->fonts[$k]['n'] = $this->n+1;
 		$type = $font['type'];
 		$name = $font['name'];
-		if($font['subsetted'])
-			$name = 'AAAAAA+'.$name;
+		// if($font['subsetted'])
+		// 	$name = 'AAAAAA+'.$name;
 		if($type=='Core')
 		{
 			// Core font
@@ -1896,5 +2062,8 @@ protected function _enddoc()
 	$this->_put('%%EOF');
 	$this->state = 3;
 }
+
+
+
 }
 ?>

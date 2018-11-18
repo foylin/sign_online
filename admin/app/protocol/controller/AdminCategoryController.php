@@ -183,7 +183,10 @@ class AdminCategoryController extends AdminBaseController
             $alias      = $routeModel->getUrl('protocol/List/index', ['id' => $id]);
 
             $category['alias'] = $alias;
+            
+
             $this->assign('category', $category);
+
             $this->assign('list_theme_files', $listThemeFiles);
             $this->assign('article_theme_files', $articleThemeFiles);
             $this->assign('categories_tree', $categoriesTree);
@@ -237,7 +240,17 @@ class AdminCategoryController extends AdminBaseController
             }
         }
 
-        $data['id'];
+        // $data['id'];
+        // dump($data['more']['axes']);
+        if(!empty($data['more']['axes']['page'])){
+            foreach ($data['more']['axes']['page'] as $key => $value) {
+                $axes[$key]['page'] = $data['more']['axes']['page'][$key];
+                $axes[$key]['sign'] = $data['more']['axes']['sign'][$key];
+                $axes[$key]['time'] = $data['more']['axes']['time'][$key];
+            }
+        }
+        $data['more']['axes'] = $axes;
+        // dump($data); exit();
 
         
 
@@ -509,5 +522,49 @@ tpl;
 
         return json($result);
         
+    }
+
+    public function update_user(){
+        $param = $this->request->param();
+        
+
+        $post_id = $param['post_id'];
+        $user_ids = explode(',', $param['user_ids']);
+        $user_places = explode(',', $param['user_places']);
+
+        $oldCategoryIds        = Db::name('protocol_category_user_post')->where(['post_id'=>$post_id])->column('category_id');
+        
+        $sameCategoryIds       = array_intersect($user_ids, $oldCategoryIds);
+
+        $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
+
+        // dump($needDeleteCategoryIds);
+
+        // $newCategoryIds        = array_diff($user_ids, $sameCategoryIds);
+
+        // dump($newCategoryIds); exit();
+
+        foreach ($needDeleteCategoryIds as $key => $value) {
+            Db::name('protocol_category_user_post')->where(['post_id'=>$post_id, 'category_id' => $value])->delete();
+        }
+        
+        foreach ($user_ids as $key_2 => $value_2) {
+            # code...
+            $is_user = Db::name('protocol_category_user_post')->where(['post_id'=>$post_id, 'category_id' => $user_ids[$key_2]])->find();
+            // dump($is_user);
+            $save['place'] = $user_places[$key_2];
+
+            if($is_user){
+                Db::name('protocol_category_user_post')->where(['post_id'=>$post_id, 'category_id' => $user_ids[$key_2]])->update($save);
+            
+            }else{
+                $save['post_id'] = $post_id;
+                $save['category_id'] = $user_ids[$key_2];
+                Db::name('protocol_category_user_post')->insert($save);
+            
+            }
+
+            
+        }
     }
 }

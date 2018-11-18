@@ -181,8 +181,9 @@ class AdminIndexController extends AdminBaseController
 
             // 生成 pdf
             $mode_id = $post['categories'];
-            // dump($mode_id);
+            
             $model_data = Db::name('protocol_category')->where('id='.$mode_id)->find();
+            // dump($model_data);
             $model_data['more'] = json_decode($model_data['more'], true);
             $url = $model_data['more']['files'][0]['url'];
             
@@ -233,7 +234,7 @@ class AdminIndexController extends AdminBaseController
         $where = ['delete_time' => 0];
         $categories_model = $protocolCategoryModel->field('id, name')->where($where)->select();
         $this->assign('categories_model', $categories_model);
-        // dump($categories);
+        // dump($categories_model);
 
         $postCategories_seal = $post->categories_seal()->alias('a')->column('a.name', 'a.id');
         $postCategoryIds_seal = implode(',', array_keys($postCategories_seal));
@@ -246,7 +247,7 @@ class AdminIndexController extends AdminBaseController
 
         $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login', 'a.id');
         $postCategoryIds_user = implode(',', array_keys($postCategories_user));
-
+        // dump($postCategories_user);
         
         $this->assign('post_categories_user', $postCategories_user);
         $this->assign('post_category_ids_user', $postCategoryIds_user);
@@ -335,6 +336,7 @@ class AdminIndexController extends AdminBaseController
                 }
             }
 
+            
             $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user'], $data['post']['categories_seal_place'], $data['post']['categories_user_place']);
 
             $hookParam = [
@@ -695,7 +697,7 @@ class AdminIndexController extends AdminBaseController
         $user = Db::name('user')->where('id = '. $uid)->find();
 
         $model_data = Db::name('protocol_category')->alias('pc')->field('pc.*')->join('__PROTOCOL_CATEGORY_POST__ pcp', 'pc.id = pcp.category_id')->where('pcp.post_id = '.$id)->find();
-        
+        $model_data['more'] = json_decode($model_data['more'], true);
         // print_r(shell_exec("ls"));
         // shell_exec("sudo php -v");
         
@@ -706,12 +708,28 @@ class AdminIndexController extends AdminBaseController
         
         $user_post = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'category_id' => $uid])->find();
         if($user_post){
-            // dump(ROOT_PATH . 'public/protocol/'.$id.'.pdf');exit();
             $sign_url = cmf_get_image_preview_url($user_post['sign_url']);
+            
+            $sign_time_year = date('Y', $user_post['update_time']);
+            $sign_time_month = date('m', $user_post['update_time']);
+            $sign_time_day = date('d', $user_post['update_time']);
+            $sign_time = iconv("utf-8","gbk", $sign_time_year . '年' . $sign_time_month . '月' . $sign_time_day . '日');
+            
+            // 需要插入签名的位置信息
+            $place_data = $model_data['more']['axes'][$user_post['place']];
+            if($place_data){
+                $page = $place_data['page'];
+                $sign = explode(',', $place_data['sign']);
+                $time = explode(',', $place_data['time']);
+            }
 
             // 插入图片
+
+            $pdf->AddGBFont('sinfang','仿宋_GB2312'); 
+            $pdf->SetFont('sinfang','',16); 
+
             $pageCount = $pdf->setSourceFile('./protocol/'.$id.'.pdf');
-            // dump(count($pageCount)); exit();
+            // dump($sign[0]); exit();
             for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++){
                 $templateId = $pdf->importPage($pageNo);
                 $size = $pdf->getTemplateSize($templateId);
@@ -722,25 +740,9 @@ class AdminIndexController extends AdminBaseController
 
                 $pdf->useTemplate($templateId);
                 // dump($templateId);
-                if($user_post['sign_url'] && $pageCount == $pageNo){
-
-                    if($model_data['id'] == 1){
-                        $pdf->image($sign_url, 140, 46, 50);//加上图片水印，后为坐标
-                    }elseif($model_data['id'] == 3){
-
-                    }elseif($model_data['id'] == 4){
-                        $pdf->image($sign_url, 160, 26, 50);//加上图片水印，后为坐标
-                    }elseif($model_data['id'] == 5){
-                        
-                    }
-                }
-
-                if($user_post['sign_url'] && ($pageCount - 1) == $pageNo){
-                    if($model_data['id'] == 3){
-                        $pdf->image($sign_url, 160, 178, 50);//加上图片水印，后为坐标
-                    }elseif($model_data['id'] == 5){
-                        $pdf->image($sign_url, 160, 178, 50);//加上图片水印，后为坐标
-                    }
+                if($user_post['sign_url'] && $pageNo == $page){
+                    $pdf->image($sign_url, $sign[0], $sign[1], 50);//加上图片水印，后为坐标
+                    $pdf->Text($time[0], $time[1], $sign_time);
                 }
                 
             }
@@ -763,5 +765,105 @@ class AdminIndexController extends AdminBaseController
         }else{
             exit;
         }
+    }
+
+    public function view()
+    {
+        
+        // require_once(ROOT_PATH . 'public/FPDI/fpdf.php');
+        // require_once(ROOT_PATH . 'public/FPDI/fpdi.php');
+        define('FPDF_FONTPATH',ROOT_PATH. 'public/FPDI/font/');
+
+        // dump(ROOT_PATH. 'public/FPDI/font/');
+
+        Loader::import('FPDI.fpdf', EXTEND_PATH);
+        Loader::import('FPDI.fpdi', EXTEND_PATH);
+        $pdf = new \FPDI();
+
+        // Loader::import('FPDI.chinese', EXTEND_PATH);
+        // Loader::import('FPDI.fpdi', EXTEND_PATH);
+        // $pdf = new \PDF_Chinese();
+
+        $id = $this->request->param('id', 0, 'intval');
+
+        $uid = $this->request->param('uid', 0, 'intval');
+        
+        $user = Db::name('user')->where('id = '. $uid)->find();
+
+        $model_data = Db::name('protocol_category')->alias('pc')->field('pc.*')->join('__PROTOCOL_CATEGORY_POST__ pcp', 'pc.id = pcp.category_id')->where('pcp.post_id = '.$id)->find();
+        
+
+        $model_data['more'] = json_decode($model_data['more'], true);
+        // dump($model_data['more']['axes']);
+        // print_r(shell_exec("ls"));
+        // shell_exec("sudo php -v");
+        
+        $filename = 'view.pdf';
+        // $url = cmf_get_domain().cmf_get_root()."/protocol/index/export/id/".$id."/uid/".$uid.".html ";
+        // shell_exec("xvfb-run wkhtmltopdf ". $url .$filename);
+        // shell_exec("sudo /usr/local/bin/wkhtmltopdf --print-media-type http://www.baidu.com termo590.pdf 2>&1");
+        
+        $user_post = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'category_id' => $uid])->find();
+        // dump($user_post); exit();
+        if($user_post){
+            // dump(ROOT_PATH . 'public/protocol/'.$id.'.pdf');exit();
+            $sign_url = cmf_get_image_preview_url($user_post['sign_url']);
+            
+            $sign_time_year = date('Y', $user_post['update_time']);
+            $sign_time_month = date('m', $user_post['update_time']);
+            $sign_time_day = date('d', $user_post['update_time']);
+            $sign_time = iconv("utf-8","gbk", $sign_time_year . '年' . $sign_time_month . '月' . $sign_time_day . '日');
+            
+            // 需要插入签名的位置信息
+            $place_data = $model_data['more']['axes'][$user_post['place']];
+            if($place_data){
+                $page = $place_data['page'];
+                $sign = explode(',', $place_data['sign']);
+                $time = explode(',', $place_data['time']);
+            }
+
+            // 插入图片
+
+            $pdf->AddGBFont('sinfang','仿宋_GB2312'); 
+            $pdf->SetFont('sinfang','',16); 
+
+            $pageCount = $pdf->setSourceFile('./protocol/'.$id.'.pdf');
+            // dump($sign[0]); exit();
+            for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++){
+                $templateId = $pdf->importPage($pageNo);
+                $size = $pdf->getTemplateSize($templateId);
+                if ($size['w'] > $size['h']) 
+                $pdf->AddPage('L', array($size['w'], $size['h']));
+                else 
+                $pdf->AddPage('P', array($size['w'], $size['h']));
+
+                $pdf->useTemplate($templateId);
+                // dump($templateId);
+                if($user_post['sign_url'] && $pageNo == $page){
+                    $pdf->image($sign_url, $sign[0], $sign[1], 50);//加上图片水印，后为坐标
+                    $pdf->Text($time[0], $time[1], $sign_time);
+                }
+                
+            }
+            $pdf->Output('F', $filename);
+
+        }
+
+        $this->redirect(cmf_get_domain().'/view.pdf');
+
+        // // 无法直接生成中文文件,采用重命名方式
+        // $rename = $user['user_login'].'_'.$model_data['name'].'.pdf';
+        // rename($filename, $rename);
+        // // echo exec('whoami');
+        // // dump($url);
+        // if(file_exists($rename)){
+        //     header("Content-type:application/pdf");
+        //     header("Content-Disposition:attachment;filename=".$rename);
+        //     echo file_get_contents($rename);
+        //     //echo "{$rename}.pdf";
+        //     unlink($rename);
+        // }else{
+        //     exit;
+        // }
     }
 }

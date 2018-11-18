@@ -25,9 +25,14 @@
                                value="{$vo.id}" data-name="{$vo.user_login}" {$checked}>
                     </td>
                     <td>{$vo.id}</td>
-                    <td>{$vo.user_login}<input value="{$vo.place}" name='user_place_{$vo.id}' class='form-control' placeholder='签名位置' style='
-                        width: 200px;
-                        display: inherit;margin-left: 10px;' /></td>
+                    <td>
+                        <span class="col-md-4" style="float: left; width: 30%; line-height: 34px;">{$vo.user_login}</span>
+                        <!-- <input value="{$vo.place}" name='user_place_{$vo.id}' class='form-control' placeholder='签名位置' style='width: 200px;display: inherit;margin-left: 10px;' /> -->
+                        <select class="form-control" name="user_place_{$vo.id}" id="" style="float: left; width: 30%;">
+                            <option value="0" selected>签名位置1</option>
+                            <option value="1">签名位置2</option>
+                        </select>
+                    </td>
                 </tr>
             </foreach>
            
@@ -57,6 +62,7 @@
         var selectedCategoriesId   = [];
         var selectedCategoriesName = [];
         var selectedCategories     = [];
+        var selectedCategoriesPlace= [];
         $('.js-check:checked').each(function () {
             var $this = $(this);
             selectedCategoriesId.push($this.val());
@@ -66,12 +72,18 @@
                 id: $this.val(),
                 name: $this.data('name')
             });
+
+            var place_val = $this.closest('tr').find('select').val();
+            // console.log($this.closest('tr'));
+            // console.log(place_val);
+            selectedCategoriesPlace.push(place_val);
         });
 
         return {
             selectedCategories: selectedCategories,
             selectedCategoriesId: selectedCategoriesId,
-            selectedCategoriesName: selectedCategoriesName
+            selectedCategoriesName: selectedCategoriesName,
+            selectedCategoriesPlace: selectedCategoriesPlace
         };
     }
 </script>
