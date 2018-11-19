@@ -849,7 +849,17 @@ class AdminIndexController extends AdminBaseController
                 $time = explode(',', $place_data['time']);
             }
 
-            // 承诺人签字,查找是否有负责人
+            
+            // 如果有公章坐标
+            $seal_data = $model_data['more']['seal'];
+            if($seal_data){
+                $seal_page = $seal_data['page'];
+                $seal_sign = explode(',', $seal_data['sign']);
+            }
+
+            // dump($seal_sign);exit();
+
+            // 如果是承诺人签字,查找是否有负责人
             $user_post2 = null;
             if($user_post['place'] == 0){
                 $user_post2 = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'place' => 1])->find();
@@ -884,6 +894,8 @@ class AdminIndexController extends AdminBaseController
                 $pdf->useTemplate($templateId);
                 // dump($templateId);
 
+                // $pdf->image(cmf_get_image_preview_url('08a7bd611707f2a894b0839c88469a9d.jpg'), 10, 10, 40);
+                // dump($page);exit();
                 // 插入承诺人签名
                 if($user_post['sign_url'] && $pageNo == $page){
                     $pdf->image($sign_url, $sign[0], $sign[1], 50);//加上图片水印，后为坐标
@@ -891,6 +903,17 @@ class AdminIndexController extends AdminBaseController
                     $date_path = time() . 'date1.png';
                     gettimeimg($sign_time, $date_path);
                     $pdf->image(cmf_get_image_preview_url('dateimg/'.$date_path), $time[0], $time[1]-10, 50);
+
+                    // 如果有公章数据,则插入
+                    if($seal_data){
+
+                        // 获取公章图片插入
+                        $seal_category_data = Db::name('seal_category')->alias('sc')->field('sc.*')->join('__PROTOCOL_CATEGORY_SEAL_POST__ pcsp', 'sc.id = pcsp.category_id')->where('pcsp.post_id = '.$id)->find();
+                        $seal_img = json_decode($seal_category_data['more'], true);
+                        $seal_img = cmf_get_image_preview_url($seal_img['thumbnail']);
+                        $pdf->image($seal_img, $seal_sign[0], $seal_sign[1], 30);
+
+                    }
 
                 }
 

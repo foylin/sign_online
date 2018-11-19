@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:58:"themes/admin_simpleboot3/protocol/admin_category/edit.html";i:1542548393;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:58:"themes/admin_simpleboot3/protocol/admin_category/edit.html";i:1542641184;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -152,7 +152,7 @@
                             </div>
 
                         <div class="form-group">
-                            <label for="input-name"><span class="form-required">*</span>分类名称</label>
+                            <label for="input-name"><span class="form-required">*</span>协议标题</label>
                             <div>
                                 <input type="text" class="form-control" id="input-name" name="name" value="<?php echo $category['name']; ?>">
                             </div>
@@ -229,32 +229,59 @@
                             </div>
                         </div>
 
-                        <div class="form-group" style="display:none;">
+                        <div class="form-group">
                             <label for="input-description">签名位置</label>
                             <div>
 
                                 <ul id="axes" class="pic-list list-unstyled form-inline col-md-12">
                                     <?php if(empty($category['more']['axes']) || (($category['more']['axes'] instanceof \think\Collection || $category['more']['axes'] instanceof \think\Paginator ) && $category['more']['axes']->isEmpty())): ?>
-                                        <li id="axes-data0">
-                                        <input type="text" class="form-control col-md-2" id="input-name" name="more[axes][page][]" value="" placeholder="页数">
-                                        <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][sign][]" value="" placeholder="请填写签名坐标">
-                                        <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][time][]" value="" placeholder="请填写签名日期坐标">
-                                        
-                                    </li>
+                                            <li id="axes-data0">
+                                                    <span class="form-control col-md-2">承诺人</span>
+                                                    <input type="text" class="form-control col-md-2" id="input-name" name="more[axes][page][]" value="" placeholder="页数">
+                                                    <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][sign][]" value="" placeholder="请填写签名坐标">
+                                                    <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][time][]" value="" placeholder="请填写签名日期坐标">
+                                                    
+                                                </li>
+            
+                                                <li id="axes-data0">
+                                                        <span class="form-control col-md-2">负责人</span>
+                                                    <input type="text" class="form-control col-md-2" id="input-name" name="more[axes][page][]" value="" placeholder="页数">
+                                                    <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][sign][]" value="" placeholder="请填写签名坐标">
+                                                    <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][time][]" value="" placeholder="请填写签名日期坐标">
+                                                    
+                                                </li>
                                     <?php endif; if(!(empty($category['more']['axes']) || (($category['more']['axes'] instanceof \think\Collection || $category['more']['axes'] instanceof \think\Paginator ) && $category['more']['axes']->isEmpty()))): if(is_array($category['more']['axes']) || $category['more']['axes'] instanceof \think\Collection || $category['more']['axes'] instanceof \think\Paginator): if( count($category['more']['axes'])==0 ) : echo "" ;else: foreach($category['more']['axes'] as $key=>$vo): ?>
                                                         
                                                 <li id="axes-data<?php echo $key; ?>">
+                                                    <span class="form-control col-md-2"><?php if($key == 0): ?>承诺人<?php else: ?>负责人<?php endif; ?></span>
                                                     <input type="text" class="form-control col-md-2" id="input-name" name="more[axes][page][]" value="<?php echo $vo['page']; ?>" placeholder="页数">
                                                     <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][sign][]" value="<?php echo $vo['sign']; ?>" placeholder="请填写签名坐标">
                                                     <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][time][]" value="<?php echo $vo['time']; ?>" placeholder="请填写签名日期坐标">
-                                                    <a href="javascript:(function(){$('#axes-data<?php echo $key; ?>').remove();})();">移除</a>
+                                                    <!-- <a href="javascript:(function(){$('#axes-data<?php echo $key; ?>').remove();})();">移除</a> -->
                                                 </li>
+
+                                                
                                                 <?php endforeach; endif; else: echo "" ;endif; endif; ?>
                                 </ul>
-                                <a href="javascript:;"
-                                   class="btn btn-sm btn-default add-axes">添加位置</a>
+                                <!-- <a href="javascript:;"
+                                   class="btn btn-sm btn-default add-axes">添加位置</a> -->
                             </div>
                         </div>
+
+                        <div class="form-group">
+                                <label for="input-description">公章位置</label>
+                                <div>
+    
+                                    <ul id="axes" class="pic-list list-unstyled form-inline col-md-12">
+                                        <li id="axes-data0">
+                                            <input type="text" class="form-control col-md-2" id="input-name" name="more[seal][page]"
+                                                value="<?php echo $category['more']['seal']['page']; ?>" placeholder="页数">
+                                            <input type="text" class="form-control col-md-5" id="input-name" name="more[seal][sign]"
+                                                value="<?php echo $category['more']['seal']['sign']; ?>" placeholder="请填写公章坐标">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                     </div>
                     
                     

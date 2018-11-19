@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:55:"themes/admin_simpleboot3/protocol/admin_index/edit.html";i:1542455825;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:55:"themes/admin_simpleboot3/protocol/admin_index/edit.html";i:1542544738;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -210,7 +210,7 @@
                 </table>
 
                 <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bf138661b528,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bf2f445ea9a4,null,false);
  ?>
             </div>
             
@@ -341,7 +341,7 @@
     function doSelectCategory_user() {
         var selectedCategoriesId = $('#js-categories-id-input-user').val();
         var selectedCategoriesPlaces = $('#js-categories-place-input-user').val();
-        openIframeLayer("<?php echo url('AdminCategory/select_user'); ?>?ids=" + selectedCategoriesId + '&places=' + selectedCategoriesPlaces, '请选择分类', {
+        openIframeLayer("<?php echo url('AdminCategory/select_user'); ?>?ids=" + selectedCategoriesId + '&places=' + selectedCategoriesPlaces + '&post_id=' + '<?php echo $post['id']; ?>', '请选择分类', {
             area: ['700px', '400px'],
             btn: ['确定', '取消'],
             yes: function (index, layero) {

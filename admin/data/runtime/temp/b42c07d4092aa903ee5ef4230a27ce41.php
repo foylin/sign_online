@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"themes/admin_simpleboot3/protocol/admin_category/select_user.html";i:1542455139;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"themes/admin_simpleboot3/protocol/admin_category/select_user.html";i:1542545819;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,6 +99,7 @@
             <tbody>
             
             <?php if(is_array($categories) || $categories instanceof \think\Collection || $categories instanceof \think\Paginator): if( count($categories)==0 ) : echo "" ;else: foreach($categories as $key=>$vo): ?>
+                
                 <tr>
                     <td>
                         <?php $checked = in_array($vo['id'],$selectedIds)?'checked':''; ?>
@@ -110,8 +111,8 @@
                         <span class="col-md-4" style="float: left; width: 30%; line-height: 34px;"><?php echo $vo['user_login']; ?></span>
                         <!-- <input value="<?php echo $vo['place']; ?>" name='user_place_<?php echo $vo['id']; ?>' class='form-control' placeholder='签名位置' style='width: 200px;display: inherit;margin-left: 10px;' /> -->
                         <select class="form-control" name="user_place_<?php echo $vo['id']; ?>" id="" style="float: left; width: 30%;">
-                            <option value="0" selected>签名位置1</option>
-                            <option value="1">签名位置2</option>
+                            <option value="0" <?php if($vo['place'] == 0): ?> selected  <?php endif; ?> >承诺人或保证人(多个)</option>
+                            <option value="1" <?php if($vo['place'] == 1): ?> selected  <?php endif; ?> >负责人(唯一)</option>
                         </select>
                     </td>
                 </tr>
