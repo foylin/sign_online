@@ -764,4 +764,91 @@ class AdminIndexController extends AdminBaseController
             exit;
         }
     }
+
+    public function view()
+    {
+        
+        // require_once(ROOT_PATH . 'public/FPDI/fpdf.php');
+        // require_once(ROOT_PATH . 'public/FPDI/fpdi.php');
+
+        Loader::import('FPDI.fpdf', EXTEND_PATH);
+        Loader::import('FPDI.fpdi', EXTEND_PATH);
+        $pdf = new \FPDI();
+
+        $id = $this->request->param('id', 0, 'intval');
+
+        $uid = $this->request->param('uid', 0, 'intval');
+        
+        $user = Db::name('user')->where('id = '. $uid)->find();
+
+        $model_data = Db::name('protocol_category')->alias('pc')->field('pc.*')->join('__PROTOCOL_CATEGORY_POST__ pcp', 'pc.id = pcp.category_id')->where('pcp.post_id = '.$id)->find();
+        
+        // print_r(shell_exec("ls"));
+        // shell_exec("sudo php -v");
+        
+        $filename = 'view.pdf';
+        // $url = cmf_get_domain().cmf_get_root()."/protocol/index/export/id/".$id."/uid/".$uid.".html ";
+        // shell_exec("xvfb-run wkhtmltopdf ". $url .$filename);
+        // shell_exec("sudo /usr/local/bin/wkhtmltopdf --print-media-type http://www.baidu.com termo590.pdf 2>&1");
+        
+        $user_post = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'category_id' => $uid])->find();
+        if($user_post){
+            // dump(ROOT_PATH . 'public/protocol/'.$id.'.pdf');exit();
+            $sign_url = cmf_get_image_preview_url($user_post['sign_url']);
+
+            // 插入图片
+            $pageCount = $pdf->setSourceFile('./protocol/'.$id.'.pdf');
+            // dump(count($pageCount)); exit();
+            for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++){
+                $templateId = $pdf->importPage($pageNo);
+                $size = $pdf->getTemplateSize($templateId);
+                if ($size['w'] > $size['h']) 
+                $pdf->AddPage('L', array($size['w'], $size['h']));
+                else 
+                $pdf->AddPage('P', array($size['w'], $size['h']));
+
+                $pdf->useTemplate($templateId);
+                // dump($templateId);
+                if($user_post['sign_url'] && $pageCount == $pageNo){
+
+                    if($model_data['id'] == 1){
+                        $pdf->image($sign_url, 140, 46, 50);//加上图片水印，后为坐标
+                    }elseif($model_data['id'] == 3){
+
+                    }elseif($model_data['id'] == 4){
+                        $pdf->image($sign_url, 160, 26, 50);//加上图片水印，后为坐标
+                    }elseif($model_data['id'] == 5){
+                        
+                    }
+                }
+
+                if($user_post['sign_url'] && ($pageCount - 1) == $pageNo){
+                    if($model_data['id'] == 3){
+                        $pdf->image($sign_url, 160, 178, 50);//加上图片水印，后为坐标
+                    }elseif($model_data['id'] == 5){
+                        $pdf->image($sign_url, 160, 178, 50);//加上图片水印，后为坐标
+                    }
+                }
+                
+            }
+            $pdf->Output('F', $filename);
+        }
+
+        $this->redirect(cmf_get_domain().'/view.pdf');
+
+        // // 无法直接生成中文文件,采用重命名方式
+        // $rename = $user['user_login'].'_'.$model_data['name'].'.pdf';
+        // rename($filename, $rename);
+        // // echo exec('whoami');
+        // // dump($url);
+        // if(file_exists($rename)){
+        //     header("Content-type:application/pdf");
+        //     header("Content-Disposition:attachment;filename=".$rename);
+        //     echo file_get_contents($rename);
+        //     //echo "{$rename}.pdf";
+        //     unlink($rename);
+        // }else{
+        //     exit;
+        // }
+    }
 }

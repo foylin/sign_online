@@ -137,9 +137,9 @@ Page({
     },
     onListItemTap(e) {
         let id = e.currentTarget.dataset.id;
-
+        let status = e.currentTarget.dataset.status;
         wx.navigateTo({
-            url: '/pages/protocol/protocol?id=' + id
+            url: '/pages/protocol/protocol?id=' + id + '&status='+status
         });
 
     },
