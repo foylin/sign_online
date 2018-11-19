@@ -1977,3 +1977,79 @@ function cmf_check_mobile($mobile)
         return false;
     }
 }
+
+//created by Kakurady
+//no rights reserved
+//no warranties explicit or implicit either
+function to_entities($string){
+    $len = strlen($string);
+    $buf = "";
+    for($i = 0; $i < $len; $i++){
+        if (ord($string[$i]) <= 127){
+            $buf .= $string[$i];
+        } else if (ord ($string[$i]) <192){
+            //unexpected 2nd, 3rd or 4th byte
+            $buf .= "&#xfffd";
+        } else if (ord ($string[$i]) <224){
+            //first byte of 2-byte seq
+            $buf .= sprintf("&#%d;",
+                ((ord($string[$i + 0]) & 31) << 6) +
+                (ord($string[$i + 1]) & 63)
+            );
+            $i += 1;
+        } else if (ord ($string[$i]) <240){
+            //first byte of 3-byte seq
+            $buf .= sprintf("&#%d;",
+                ((ord($string[$i + 0]) & 15) << 12) +
+                ((ord($string[$i + 1]) & 63) << 6) +
+                (ord($string[$i + 2]) & 63)
+            );
+            $i += 2;
+        } else {
+            //first byte of 4-byte seq
+            $buf .= sprintf("&#%d;",
+                ((ord($string[$i + 0]) & 7) << 18) +
+                ((ord($string[$i + 1]) & 63) << 12) +
+                ((ord($string[$i + 2]) & 63) << 6) +
+                (ord($string[$i + 3]) & 63)
+            );
+            $i += 3;
+        }
+    }
+    return $buf;
+}
+
+// 生成日期图片
+function gettimeimg($date = '2018年11月11日', $name = 'date.png'){
+    // Set the enviroment variable for GD
+    putenv('GDFONTPATH=' . realpath('.'));
+    // dump(realpath('.'));
+    // Name the font to be used (note the lack of the .ttf extension)
+    $font = 'simfang';
+
+    $img = ImageCreate(200,40);   //创建一个宽400 高60的图片
+    
+    //创建以bg.jpg为背景的图片
+    //$img = ImageCreateFromJpeg('./bg.jpg');
+    
+    //创建颜色
+    $black = imagecolorallocate($img, 0, 0, 0); //创建颜色
+    $red = imagecolorallocate($img,255,0,0);
+    $white = imagecolorallocate($img,255,255,255);
+    
+    //绘制了矩形的轮廓
+    // imagerectangle($img, 10, 10, 30, 30, $white);
+    
+    //填充矩形
+    imagefilledrectangle($img, 0, 0, 200, 40, $white);
+    
+    //填写文字
+    imagettftext($img, 18, 0, 20, 28, $black, $font, to_entities($date));
+    
+    //生成图片
+    header('Content-type:image/png');
+
+    $path = ROOT_PATH. 'public/upload/dateimg/'.$name;
+    ImagePng($img, $path);
+    ImageDestroy($img);
+}

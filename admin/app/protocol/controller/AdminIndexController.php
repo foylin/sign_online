@@ -760,16 +760,24 @@ class AdminIndexController extends AdminBaseController
 
                 $pdf->useTemplate($templateId);
                 // dump($templateId);
+                // 插入承诺人签名
                 if($user_post['sign_url'] && $pageNo == $page){
                     $pdf->image($sign_url, $sign[0], $sign[1], 50);//加上图片水印，后为坐标
-                    $pdf->Text($time[0], $time[1], $sign_time);
+                    // $pdf->Text($time[0], $time[1], $sign_time);
+                    $date_path = time() . 'date1.png';
+                    gettimeimg($sign_time, $date_path);
+                    $pdf->image(cmf_get_image_preview_url('dateimg/'.$date_path), $time[0], $time[1]-10, 50);
+
                 }
 
                 // 如果存在,插入负责人签名
                 if($user_post2){
                     if($user_post2['sign_url'] && $pageNo == $page2){
                         $pdf->image($sign_url2, $sign2[0], $sign2[1], 50);//加上图片水印，后为坐标
-                        $pdf->Text($time2[0], $time2[1], $sign_time2);
+                        // $pdf->Text($time2[0], $time2[1], $sign_time2);
+                        $date_path2 = time() . 'date2.png';
+                        gettimeimg($sign_time2, $date_path2);
+                        $pdf->image(cmf_get_image_preview_url('dateimg/'.$date_path2), $time2[0], $time2[1]-10, 50);
                     }
                 }
                 
@@ -797,6 +805,7 @@ class AdminIndexController extends AdminBaseController
 
     public function view()
     {
+        // gettimeimg();exit();
         define('FPDF_FONTPATH',ROOT_PATH. 'public/FPDI/font/');
 
 
@@ -878,14 +887,21 @@ class AdminIndexController extends AdminBaseController
                 // 插入承诺人签名
                 if($user_post['sign_url'] && $pageNo == $page){
                     $pdf->image($sign_url, $sign[0], $sign[1], 50);//加上图片水印，后为坐标
-                    $pdf->Text($time[0], $time[1], $sign_time);
+                    // $pdf->Text($time[0], $time[1], $sign_time);
+                    $date_path = time() . 'date1.png';
+                    gettimeimg($sign_time, $date_path);
+                    $pdf->image(cmf_get_image_preview_url('dateimg/'.$date_path), $time[0], $time[1]-10, 50);
+
                 }
 
                 // 如果存在,插入负责人签名
                 if($user_post2){
                     if($user_post2['sign_url'] && $pageNo == $page2){
                         $pdf->image($sign_url2, $sign2[0], $sign2[1], 50);//加上图片水印，后为坐标
-                        $pdf->Text($time2[0], $time2[1], $sign_time2);
+                        // $pdf->Text($time2[0], $time2[1], $sign_time2);
+                        $date_path2 = time() . 'date2.png';
+                        gettimeimg($sign_time2, $date_path2);
+                        $pdf->image(cmf_get_image_preview_url('dateimg/'.$date_path2), $time2[0], $time2[1]-10, 50);
                     }
                 }
 
@@ -895,7 +911,8 @@ class AdminIndexController extends AdminBaseController
             $pdf->Output('F', $filename);
 
         }
-
+        // unlink('date1.png');
+        // unlink('date')
         $this->redirect(cmf_get_domain().'/view.pdf');
 
         // // 无法直接生成中文文件,采用重命名方式

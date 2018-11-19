@@ -19,12 +19,19 @@ $pdf=new PDF_Chinese();
 // $pdf->AddGBFont('simsun','宋体'); 
 // $pdf->AddGBFont('simhei','黑体'); 
 // $pdf->AddGBFont('simkai','楷体_GB2312'); 
-$pdf->AddGBFont('sinfang','仿宋_GB2312'); 
-// $pdf->Open(); 
-$pdf->AddPage(); 
-$pdf->SetFont('sinfang','',20); 
+$pdf->AddGBFont('simfang0','仿宋_GB2312'); 
+
+// $pdf->AddGBFont ('simhei', '黑体');
+// $pdf->Open ();
+$pdf->AddPage();
+$pdf->SetFont('simfang0', '', 20); 
+
+ 
+// $pdf->SetFont('simhei','',16); 
+// $pdf->Text(10, 10, iconv('UTF-8', 'GBK', '2018年22月22日'));
 
 
+$pdf->Write(10, iconv('UTF-8', 'GBK', '2018年22月22日'));
 // 插入图片
 // $pageCount = $pdf->setSourceFile('test999.pdf');
 
@@ -47,7 +54,7 @@ $pdf->SetFont('sinfang','',20);
 
     //加上图片水印，后为坐标
         //     $pdf->image("test.png", 75, 85, 50);
-        $pdf->Text(10, 10, iconv('UTF-8', 'GBK', '2018年22月22日'));
+        
 // }
 
 

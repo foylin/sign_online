@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:57:"themes/admin_simpleboot3/protocol/admin_index/verify.html";i:1542550350;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:57:"themes/admin_simpleboot3/protocol/admin_index/verify.html";i:1542550412;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -175,7 +175,7 @@
                                 </div>
                             <?php if($vo['sign_url']): ?>
                             <!-- <div class="col-md-2 sign-pic" onclick="parent.imagePreviewDialog('<?php echo cmf_get_image_preview_url($vo['sign_url']); ?>');">查看签约图片</div> -->
-                            <div class="col-md-2 sign-pic"><?php echo date('Y-m-d', $vo['update_time']) ?></div>
+                            <div class="col-md-2 sign-pic"><?php echo date('Y-m-d H:i', $vo['update_time']) ?></div>
                             <?php else: ?>
                             <div class="col-md-2 sign-pic">未签约</div>
                             <?php endif; ?>
@@ -266,7 +266,7 @@
                 </table>
 
                 <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bf173528deab,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bf1a38d97722,null,false);
  ?>
             </div>
             
