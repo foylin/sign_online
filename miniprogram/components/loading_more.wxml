@@ -12,5 +12,5 @@
 </view>
 
 <view class="weui-loadmore weui-loadmore_line" wx:if="{{noData}}">
-    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">啥都没有啊~~</view>
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
 </view>

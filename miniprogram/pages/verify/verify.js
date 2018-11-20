@@ -54,7 +54,7 @@ Page({
             data: {
                 order:'-published_time',
                 token: wx.getStorageSync('token'),
-                status: 'all'
+                status: '1'
             },
             success: data => {
                 let newItems = api.updatePageList('id', data.data.list, this.formatListItem, true);
@@ -98,7 +98,7 @@ Page({
                 page: this.currentPageNumber,
                 order:'-published_time',
                 token: wx.getStorageSync('token'),
-                status: 'all'
+                status: '1'
             },
             success: data => {
                 let newItems = api.updatePageList('id', data.data.list, this.formatListItem);

@@ -53,8 +53,7 @@ Page({
             url: 'protocol/lists',
             data: {
                 order:'-published_time',
-                token: wx.getStorageSync('token'),
-                status: 'all'
+                token: wx.getStorageSync('token')
             },
             success: data => {
                 let newItems = api.updatePageList('id', data.data.list, this.formatListItem, true);
@@ -97,8 +96,7 @@ Page({
             data: {
                 page: this.currentPageNumber,
                 order:'-published_time',
-                token: wx.getStorageSync('token'),
-                status: 'all'
+                token: wx.getStorageSync('token')
             },
             success: data => {
                 let newItems = api.updatePageList('id', data.data.list, this.formatListItem);

@@ -32,10 +32,18 @@ class ListsController extends RestUserBaseController
         $params                       = $this->request->get();
         // $params['where']['post_type'] = 1;
         $userId = $this->getUserId();
-
+        
+        if($params['status'] == 1){
+            $where['tp.sign_status'] = 1;
+        }elseif($params['status'] == 2){
+            $where['tp.sign_status'] = 2;
+        }
+        $where['a.post_status'] = 1;
+        $where['tp.category_id'] = $userId;
         $data = $this->postModel->setCondition($params)->alias('a')
-        ->join('__PROTOCOL_CATEGORY_USER_POST__ tp', 'a.id = tp.post_id')->field('a.id, a.post_title, tp.sign_status, tp.notes')
-        ->where(['a.post_status' => 1, 'tp.category_id' => $userId])->select();
+        ->join('__PROTOCOL_CATEGORY_USER_POST__ tp', 'a.id = tp.post_id', 'LEFT')
+        ->field('a.id, a.post_title, tp.sign_status, tp.notes')
+        ->where($where)->select();
 
         // $articles = $postModel->setCondition($params)->alias('a')->join('__PORTAL_TAG_POST__ tp', 'a.id = tp.post_id')
         //         ->where(['post_status' => 1])->select();

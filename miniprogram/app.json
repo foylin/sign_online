@@ -10,7 +10,10 @@
         "pages/comment/comment",
         "pages/login/login",
         "pages/protocol/protocol",
-        "pages/sign/sign"
+        "pages/sign/sign",
+        "pages/verify/verify",
+        "pages/pass/pass",
+        "pages/download/download"
     ],
     "window": {
         "backgroundTextStyle": "white",
@@ -18,6 +21,22 @@
         "navigationBarTitleText": "协议书任务",
         "navigationBarTextStyle": "white"
     },
-    
+    "tabBar":{
+        "list":[
+            {
+                "text": "全部",
+                "pagePath": "pages/index/index"
+            },{
+                "text": "待审核",
+                "pagePath": "pages/verify/verify"
+            },{
+                "text": "已签约",
+                "pagePath": "pages/pass/pass"
+            },{
+                "text": "下载",
+                "pagePath": "pages/download/download"
+            }
+        ]
+    },
     "debug": false
 }

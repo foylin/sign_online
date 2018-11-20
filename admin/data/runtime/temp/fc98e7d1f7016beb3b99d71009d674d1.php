@@ -210,7 +210,7 @@
                 </table>
 
                 <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bf2f445ea9a4,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bf41e2ac997e,null,false);
  ?>
             </div>
             

@@ -54,7 +54,7 @@ Page({
             data: {
                 order:'-published_time',
                 token: wx.getStorageSync('token'),
-                status: 'all'
+                status: 2
             },
             success: data => {
                 let newItems = api.updatePageList('id', data.data.list, this.formatListItem, true);
@@ -71,10 +71,10 @@ Page({
                     });
 
                     // 没有数据
-                    // this.setData({
-                    //     noMoreData: true,
-                    //     noData: true
-                    // });
+                    this.setData({
+                        // noMoreData: true,
+                        noData: true
+                    });
                 }
 
                 wx.stopPullDownRefresh();
@@ -98,7 +98,7 @@ Page({
                 page: this.currentPageNumber,
                 order:'-published_time',
                 token: wx.getStorageSync('token'),
-                status: 'all'
+                status: 2
             },
             success: data => {
                 let newItems = api.updatePageList('id', data.data.list, this.formatListItem);
@@ -114,10 +114,10 @@ Page({
                     });
 
                     // 没有数据
-                    // this.setData({
-                    //     noMoreData: true,
-                    //     noData: true
-                    // });
+                    this.setData({
+                        // noMoreData: true,
+                        noData: true
+                    });
                 }
             },
             complete: () => {
