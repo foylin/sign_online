@@ -42,7 +42,7 @@ class ListsController extends RestUserBaseController
         $where['tp.category_id'] = $userId;
         $data = $this->postModel->setCondition($params)->alias('a')
         ->join('__PROTOCOL_CATEGORY_USER_POST__ tp', 'a.id = tp.post_id', 'LEFT')
-        ->field('a.id, a.post_title, tp.sign_status, tp.notes')
+        ->field('a.id, a.post_title, tp.category_id AS uid, tp.sign_status, tp.notes')
         ->where($where)->select();
 
         // $articles = $postModel->setCondition($params)->alias('a')->join('__PORTAL_TAG_POST__ tp', 'a.id = tp.post_id')
@@ -50,7 +50,7 @@ class ListsController extends RestUserBaseController
 
         // dump($userId);
         if (isset($this->apiVersion)) {
-            $response = ['list' => $data,];
+            $response = ['list' => $data];
         } else {
             $response = $data;
         }

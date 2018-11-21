@@ -2022,7 +2022,8 @@ function to_entities($string){
 // 生成日期图片
 function gettimeimg($date = '2018年11月11日', $name = 'date.png'){
     // Set the enviroment variable for GD
-    putenv('GDFONTPATH=' . realpath('.'));
+    // putenv('GDFONTPATH=' . realpath('.'));
+    putenv('GDFONTPATH=' . ROOT_PATH. 'public/');
     // dump(realpath('.'));
     // Name the font to be used (note the lack of the .ttf extension)
     $font = 'simfang';
@@ -2052,4 +2053,136 @@ function gettimeimg($date = '2018年11月11日', $name = 'date.png'){
     $path = ROOT_PATH. 'public/upload/dateimg/'.$name;
     ImagePng($img, $path);
     ImageDestroy($img);
+}
+
+/**
+ * 生成预览PDF
+ */
+function createpdf($id, $uid){
+    // gettimeimg();exit();
+    define('FPDF_FONTPATH',ROOT_PATH. 'public/FPDI/font/');
+
+
+    Loader::import('FPDI.fpdf', EXTEND_PATH);
+    Loader::import('FPDI.fpdi', EXTEND_PATH);
+    $pdf = new \FPDI();
+
+
+    // $id = $this->request->param('id', 0, 'intval');
+
+    // $uid = $this->request->param('uid', 0, 'intval');
+    
+    $user = Db::name('user')->where('id = '. $uid)->find();
+
+    $model_data = Db::name('protocol_category')->alias('pc')->field('pc.*')->join('__PROTOCOL_CATEGORY_POST__ pcp', 'pc.id = pcp.category_id')->where('pcp.post_id = '.$id)->find();
+    
+    
+    $model_data['more'] = json_decode($model_data['more'], true);
+    // dump($model_data);
+    $filename = ROOT_PATH . 'public/upload/view/' . $id . '_' .$uid . '.pdf';
+    
+    $user_post = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'category_id' => $uid])->find();
+    // dump($user_post); exit();
+    if($user_post){
+
+        // 需要插入签名的位置信息
+        // dump(ROOT_PATH . 'public/protocol/'.$id.'.pdf');exit();
+        $sign_url = cmf_get_image_preview_url($user_post['sign_url']);
+        
+        $sign_time_year = date('Y', $user_post['update_time']);
+        $sign_time_month = date('m', $user_post['update_time']);
+        $sign_time_day = date('d', $user_post['update_time']);
+        $sign_time = iconv("utf-8","gbk", $sign_time_year . '年' . $sign_time_month . '月' . $sign_time_day . '日');
+        $place_data = $model_data['more']['axes'][$user_post['place']];
+        if($place_data){
+            $page = $place_data['page'];
+            $sign = explode(',', $place_data['sign']);
+            $time = explode(',', $place_data['time']);
+        }
+
+        
+        // 如果有公章坐标
+        $seal_data = $model_data['more']['seal'];
+        if($seal_data){
+            $seal_page = $seal_data['page'];
+            $seal_sign = explode(',', $seal_data['sign']);
+        }
+
+        // dump($seal_sign);exit();
+
+        // 如果是承诺人签字,查找是否有负责人
+        $user_post2 = null;
+        if($user_post['place'] == 0){
+            $user_post2 = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'place' => 1])->find();
+            if($user_post2){
+                $sign_url2 = cmf_get_image_preview_url($user_post2['sign_url']);
+        
+                $sign_time_year2 = date('Y', $user_post2['update_time']);
+                $sign_time_month2 = date('m', $user_post2['update_time']);
+                $sign_time_day2 = date('d', $user_post2['update_time']);
+                $sign_time2 = iconv("utf-8","gbk", $sign_time_year2 . '年' . $sign_time_month2 . '月' . $sign_time_day2 . '日');
+                $place_data2 = $model_data['more']['axes'][$user_post2['place']];
+                if($place_data2){
+                    $page2 = $place_data2['page'];
+                    $sign2 = explode(',', $place_data2['sign']);
+                    $time2 = explode(',', $place_data2['time']);
+                }
+            }
+        }
+
+        $pdf->AddGBFont('sinfang','仿宋_GB2312'); 
+        $pdf->SetFont('sinfang','',16); 
+
+        $pageCount = $pdf->setSourceFile(ROOT_PATH . '/public/protocol/'.$id.'.pdf');
+        for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++){
+            $templateId = $pdf->importPage($pageNo);
+            $size = $pdf->getTemplateSize($templateId);
+            if ($size['w'] > $size['h']) 
+            $pdf->AddPage('L', array($size['w'], $size['h']));
+            else 
+            $pdf->AddPage('P', array($size['w'], $size['h']));
+
+            $pdf->useTemplate($templateId);
+            // dump($templateId);
+
+            // $pdf->image(cmf_get_image_preview_url('08a7bd611707f2a894b0839c88469a9d.jpg'), 10, 10, 40);
+            // dump($page);exit();
+            // 插入承诺人签名
+            if($user_post['sign_url'] && $pageNo == $page){
+                $pdf->image($sign_url, $sign[0], $sign[1], 50);//加上图片水印，后为坐标
+                // $pdf->Text($time[0], $time[1], $sign_time);
+                $date_path = time() . 'date1.png';
+                gettimeimg($sign_time, $date_path);
+                $pdf->image(cmf_get_image_preview_url('dateimg/'.$date_path), $time[0], $time[1]-10, 50);
+
+                // 如果有公章数据,则插入
+                if($seal_data){
+
+                    // 获取公章图片插入
+                    $seal_category_data = Db::name('seal_category')->alias('sc')->field('sc.*')->join('__PROTOCOL_CATEGORY_SEAL_POST__ pcsp', 'sc.id = pcsp.category_id')->where('pcsp.post_id = '.$id)->find();
+                    $seal_img = json_decode($seal_category_data['more'], true);
+                    $seal_img = cmf_get_image_preview_url($seal_img['thumbnail']);
+                    $pdf->image($seal_img, $seal_sign[0], $seal_sign[1], 30);
+
+                }
+
+            }
+
+            // 如果存在,插入负责人签名
+            if($user_post2){
+                if($user_post2['sign_url'] && $pageNo == $page2){
+                    $pdf->image($sign_url2, $sign2[0], $sign2[1], 50);//加上图片水印，后为坐标
+                    // $pdf->Text($time2[0], $time2[1], $sign_time2);
+                    $date_path2 = time() . 'date2.png';
+                    gettimeimg($sign_time2, $date_path2);
+                    $pdf->image(cmf_get_image_preview_url('dateimg/'.$date_path2), $time2[0], $time2[1]-10, 50);
+                }
+            }
+
+            
+            
+        }
+        $pdf->Output('F', $filename);
+
+    }
 }

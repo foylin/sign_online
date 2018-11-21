@@ -25,16 +25,20 @@
         "list":[
             {
                 "text": "全部",
-                "pagePath": "pages/index/index"
+                "pagePath": "pages/index/index",
+                "iconPath": "images/icons/home.png"
             },{
                 "text": "待审核",
-                "pagePath": "pages/verify/verify"
+                "pagePath": "pages/verify/verify",
+                "iconPath": "images/icons/security.png"
             },{
                 "text": "已签约",
-                "pagePath": "pages/pass/pass"
+                "pagePath": "pages/pass/pass",
+                "iconPath": "images/icons/safety.png"
             },{
                 "text": "下载",
-                "pagePath": "pages/download/download"
+                "pagePath": "pages/download/download",
+                "iconPath": "images/icons/download.png"
             }
         ]
     },

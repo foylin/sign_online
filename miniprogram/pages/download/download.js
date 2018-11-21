@@ -50,7 +50,7 @@ Page({
             noData: false
         });
         api.get({
-            url: 'protocol/lists',
+            url: 'protocol/download',
             data: {
                 order:'-published_time',
                 token: wx.getStorageSync('token')
@@ -92,7 +92,7 @@ Page({
         wx.showNavigationBarLoading();
 
         api.get({
-            url: 'protocol/lists',
+            url: 'protocol/download',
             data: {
                 page: this.currentPageNumber,
                 order:'-published_time',
@@ -138,9 +138,25 @@ Page({
     onListItemTap(e) {
         let id = e.currentTarget.dataset.id;
         let status = e.currentTarget.dataset.status;
-        wx.navigateTo({
-            url: '/pages/protocol/protocol?id=' + id + '&status=' + status
-        });
+        let url = e.currentTarget.dataset.url;
+        wx.downloadFile({
+            url: url, //仅为示例，并非真实的资源
+            success (res) {
+                console.log(res);
+                // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+                const filePath = res.tempFilePath
+                wx.openDocument({
+                    filePath: filePath,
+                    fileType: 'doc',
+                    success: function(res) {
+                        console.log('打开文档成功')
+                    },
+                    fail: function(res){
+                        console.log(res);
+                    }
+                })
+            }
+          })
 
     },
     onListItemMoreTap(e) {

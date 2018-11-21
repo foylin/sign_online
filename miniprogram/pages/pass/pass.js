@@ -140,8 +140,9 @@ Page({
     onListItemTap(e) {
         let id = e.currentTarget.dataset.id;
         let status = e.currentTarget.dataset.status;
+        let uid = e.currentTarget.dataset.uid;
         wx.navigateTo({
-            url: '/pages/protocol/protocol?id=' + id + '&status=' + status
+            url: '/pages/protocol/protocol?id=' + id + '&status=' + status + '&uid=' + uid
         });
 
     },

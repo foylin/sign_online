@@ -40,9 +40,15 @@
         // alert(GetQueryString('protocol_id'));
         var sign_status = GetQueryString('sign_status');
         var protocol_id = GetQueryString('protocol_id');
+        var uid = GetQueryString('uid');
         var count = 0;
         
-        $('iframe').attr('src', 'https://sscx.karles.com.cn/web/viewer.html?file=/protocol/'+protocol_id+'.pdf');
+        if(sign_status == 0){
+            $('iframe').attr('src', 'https://sscx.karles.com.cn/web/viewer.html?file=/protocol/'+protocol_id+'.pdf');
+        }else{
+            $('iframe').attr('src', 'https://sscx.karles.com.cn/web/viewer.html?file=/upload/view/'+protocol_id+'_'+uid+'.pdf');
+        }
+        
 
         if(sign_status == 1){
             $('.footer').html('待审核');
