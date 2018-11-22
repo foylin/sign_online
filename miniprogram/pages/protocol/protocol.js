@@ -29,12 +29,12 @@ Page({
             view_url: 'https://sscx.karles.com.cn/pdf.html?width='+width+'&height='+height+'&sign_status='+params.status+'&protocol_id='+params.id+'&uid='+params.uid
         })
 
-        // console.log();
+        console.log(this.data.view_url);
         
     },
 
     onReady() {
-        this.loadData();
+        // this.loadData();
 
         
     },

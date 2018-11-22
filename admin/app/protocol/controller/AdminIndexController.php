@@ -813,7 +813,6 @@ class AdminIndexController extends AdminBaseController
         Loader::import('FPDI.fpdi', EXTEND_PATH);
         $pdf = new \FPDI();
 
-
         $id = $this->request->param('id', 0, 'intval');
 
         $uid = $this->request->param('uid', 0, 'intval');

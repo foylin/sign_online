@@ -122,8 +122,9 @@
                                 </div>
 
                                 <div class="col-md-1">
-                                        <a href="{:url('AdminIndex/export', array('id' => $post['id']))}" class="export">导出pdf</a>
-                                    </div>
+                                        <a href="{:url('AdminIndex/view', array('id' => $post['id']))}" class="export">预览</a>
+                                        <a href="{:url('AdminIndex/export', array('id' => $post['id']))}" class="export">导出pdf</a>    
+                                </div>
                         </td>
                         
                     </tr>
