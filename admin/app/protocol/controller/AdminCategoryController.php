@@ -176,7 +176,7 @@ class AdminCategoryController extends AdminBaseController
         }
 
         if($data['mode_type']){
-            $data['more']['axes'] = $this->mode_type[$data['mode_type']];
+            // $data['more']['axes'] = $this->mode_type[$data['mode_type']];
         }
         // dump($data);
         $result = $protocolCategoryModel->addCategory($data);
