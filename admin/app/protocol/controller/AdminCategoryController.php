@@ -372,18 +372,28 @@ tpl;
         // dump($places_arr);
         $sealCategoryModel = new SealCategoryModel();
 
-        $tpl = <<<tpl
+//         $tpl = <<<tpl
+// <tr class='data-item-tr'>
+//     <td>
+//         <input type='checkbox' class='js-check' data-yid='js-check-y' data-xid='js-check-x' name='ids[]'
+//                value='\$id' data-name='\$name' \$checked>
+//     </td>
+//     <td>\$id</td>
+//     <td>\$spacer <a href='\$url' target='_blank'>\$name</a> <input value='\$place' name='seal_place_\$id' class='form-control' placeholder='公章位置' style='
+//     width: 200px;
+//     display: inherit;
+//     margin-left: 10px;
+// ' /></td>
+// </tr>
+// tpl;
+$tpl = <<<tpl
 <tr class='data-item-tr'>
     <td>
         <input type='checkbox' class='js-check' data-yid='js-check-y' data-xid='js-check-x' name='ids[]'
                value='\$id' data-name='\$name' \$checked>
     </td>
     <td>\$id</td>
-    <td>\$spacer <a href='\$url' target='_blank'>\$name</a> <input value='\$place' name='seal_place_\$id' class='form-control' placeholder='公章位置' style='
-    width: 200px;
-    display: inherit;
-    margin-left: 10px;
-' /></td>
+    <td>\$spacer \$name</td>
 </tr>
 tpl;
 
