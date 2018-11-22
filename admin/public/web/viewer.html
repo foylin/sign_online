@@ -38,7 +38,7 @@ See https://github.com/adobe-type-tools/cmap-resources
 
 
     <script src="viewer.js"></script>
-
+    <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
   </head>
 
   <body tabindex="1" class="loadingInProgress">
@@ -389,6 +389,32 @@ See https://github.com/adobe-type-tools/cmap-resources
 
     </div> <!-- outerContainer -->
     <div id="printContainer"></div>
+
+    <div id="getdata">
+      点击
+    </div>
   </body>
+
+  <script>
+    $(function () {
+        
+        
+        $('#getdata').click(function(){
+            // $('#iframe1').load(function(){
+                console.log($('#viewer div.page').find("div:contains('承 诺 人（签字）')").parent().parent().data('page-number'));
+                // var html = $('#viewer')[0]['children'];
+                // console.log($(html));
+                // $("#main",document.frames('iframe1').document)
+            // })
+
+            $('#viewer div.page').find("div:contains('承 诺 人（签字）')").html(123);
+
+            console.log($('#viewer div.page').find("div:contains('承 诺 人（签字）')").position());
+            console.log($('#viewer div.page').find("div:contains('八、本《承诺书》经双方签字后生效。一式三份，公司保密')").position());
+        })
+
+    });
+  
+  </script>
 </html>
 

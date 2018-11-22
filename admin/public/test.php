@@ -1,30 +1,64 @@
 <?php
 
-require_once('./FPDI/fpdf.php');
+
+define('FPDF_FONTPATH','FPDI/font/');
+
+// require_once('./FPDI/fpdf.php');
+require_once('./FPDI/chinese.php');
 require_once('./FPDI/fpdi.php');
 
-$pdf = new FPDI();
+
+
+// $pdf = new FPDI();
+$pdf=new PDF_Chinese();
 
 // $pageCount = $pdf->setSourceFile('test999.pdf');
 
 // $pdf->image("test.png", 75, 85, 100, 200);
 
+// $pdf->AddGBFont('simsun','宋体'); 
+// $pdf->AddGBFont('simhei','黑体'); 
+// $pdf->AddGBFont('simkai','楷体_GB2312'); 
+$pdf->AddGBFont('simfang0','仿宋_GB2312'); 
 
+// $pdf->AddGBFont ('simhei', '黑体');
+// $pdf->Open ();
+$pdf->AddPage();
+$pdf->SetFont('simfang0', '', 20); 
+
+ 
+// $pdf->SetFont('simhei','',16); 
+// $pdf->Text(10, 10, iconv('UTF-8', 'GBK', '2018年22月22日'));
+
+
+$pdf->Write(10, iconv('UTF-8', 'GBK', '2018年22月22日'));
 // 插入图片
-$pageCount = $pdf->setSourceFile('test999.pdf');
+// $pageCount = $pdf->setSourceFile('test999.pdf');
 
-for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++){
-    $templateId = $pdf->importPage($pageNo);
-    $size = $pdf->getTemplateSize($templateId);
-    if ($size['w'] > $size['h']) 
-       $pdf->AddPage('L', array($size['w'], $size['h']));
-    else 
-       $pdf->AddPage('P', array($size['w'], $size['h']));
 
-    $pdf->useTemplate($templateId);
-    $pdf->image("test.png", 75, 85, 50);//加上图片水印，后为坐标
-}
-$pdf->Output('D');
+// $pdf->SetFont('Helvetica', '', 8);
+// $pdf->SetFont('Big5','',20);
+// for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++){
+//     $templateId = $pdf->importPage($pageNo);
+//     $size = $pdf->getTemplateSize($templateId);
+//     if ($size['w'] > $size['h']) 
+//        $pdf->AddPage('L', array($size['w'], $size['h']));
+//     else 
+//        $pdf->AddPage('P', array($size['w'], $size['h']));
+
+//     $pdf->useTemplate($templateId);
+
+
+//     $pdf->GetX();
+// var_dump($pdf->GetX());
+
+    //加上图片水印，后为坐标
+        //     $pdf->image("test.png", 75, 85, 50);
+        
+// }
+
+
+$pdf->Output('I');
 
 // $filename = '/home/lin/下载/四书模板/四书模板/xxxx保密工作责任书（通用部门）.doc';
 

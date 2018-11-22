@@ -78,11 +78,9 @@
                     <td><b>{$vo.id}</b></td>
                     <td>
                         <notempty name="category">
-                            <a href="{:url('AdminIndex/edit',array('id'=>$vo['id']))}"
-                               target="_blank">{$vo.post_title}</a>
+                            {$vo.post_title}
                             <else/>
-                            <a href="{:url('AdminIndex/edit',array('id'=>$vo['id']))}"
-                               target="_blank">{$vo.post_title}</a>
+                            {$vo.post_title}
                         </notempty>
                     </td>
                     <td>

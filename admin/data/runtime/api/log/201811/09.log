@@ -1,0 +1,1978 @@
+---------------------------------------------------------------
+[ 2018-11-09T01:12:35+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.019343s][吞吐率：51.70req/s] [内存消耗：753.57kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000309s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/e3602b39c081fae43020db7e28fdf701',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000281s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000716s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001104s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000634s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000899s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541697155 AND `published_time` BETWEEN 1 AND 1541697155 AND `published_time` BETWEEN 1 AND 1541697155 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.004862s ]
+---------------------------------------------------------------
+[ 2018-11-09T01:13:00+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.009437s][吞吐率：105.96req/s] [内存消耗：754.16kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000193s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/e3602b39c081fae43020db7e28fdf701',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000128s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000470s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000745s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000609s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001327s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,`tp`.`sign_status`,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541697180 AND `published_time` BETWEEN 1 AND 1541697180 AND `published_time` BETWEEN 1 AND 1541697180 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.001024s ]
+---------------------------------------------------------------
+[ 2018-11-09T01:13:37+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.010694s][吞吐率：93.51req/s] [内存消耗：758.61kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000291s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/e3602b39c081fae43020db7e28fdf701',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000222s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000698s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001062s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000779s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001068s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,`tp`.`sign_status`,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541697217 AND `published_time` BETWEEN 1 AND 1541697217 AND `published_time` BETWEEN 1 AND 1541697217 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000851s ]
+---------------------------------------------------------------
+[ 2018-11-09T01:14:09+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.012396s][吞吐率：80.67req/s] [内存消耗：754.16kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000234s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/e3602b39c081fae43020db7e28fdf701',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000127s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000525s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001223s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.003896s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001172s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,`tp`.`sign_status`,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541697249 AND `published_time` BETWEEN 1 AND 1541697249 AND `published_time` BETWEEN 1 AND 1541697249 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000943s ]
+---------------------------------------------------------------
+[ 2018-11-09T01:14:27+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.008916s][吞吐率：112.16req/s] [内存消耗：754.13kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000302s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/e3602b39c081fae43020db7e28fdf701',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000173s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000516s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001135s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000663s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000930s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541697267 AND `published_time` BETWEEN 1 AND 1541697267 AND `published_time` BETWEEN 1 AND 1541697267 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 10 [ RunTime:0.000775s ]
+---------------------------------------------------------------
+[ 2018-11-09T01:14:44+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.018589s][吞吐率：53.80req/s] [内存消耗：879.05kb] [文件加载：71]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000323s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/e3602b39c081fae43020db7e28fdf701',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000224s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000619s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000741s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000631s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000898s ]
+[ sql ] [ SQL ] SELECT `a`.*,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541697284 AND `published_time` BETWEEN 1 AND 1541697284 AND `published_time` BETWEEN 1 AND 1541697284 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.001376s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_option` [ RunTime:0.000927s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `so_option` WHERE  `option_name` = 'storage' LIMIT 1 [ RunTime:0.000460s ]
+---------------------------------------------------------------
+[ 2018-11-09T01:15:00+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.011439s][吞吐率：87.42req/s] [内存消耗：752.80kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000526s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/e3602b39c081fae43020db7e28fdf701',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000247s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000627s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000975s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000845s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001268s ]
+[ sql ] [ SQL ] SELECT tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541697300 AND `published_time` BETWEEN 1 AND 1541697300 AND `published_time` BETWEEN 1 AND 1541697300 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000685s ]
+---------------------------------------------------------------
+[ 2018-11-09T01:15:33+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.008029s][吞吐率：124.55req/s] [内存消耗：754.16kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000306s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/e3602b39c081fae43020db7e28fdf701',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000198s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000451s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000764s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000606s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000631s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541697333 AND `published_time` BETWEEN 1 AND 1541697333 AND `published_time` BETWEEN 1 AND 1541697333 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000516s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:07:15+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：1.143864s][吞吐率：0.87req/s] [内存消耗：952.84kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.032558s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.073920s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.031661s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.082792s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.023293s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.040643s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541776035 AND `published_time` BETWEEN 1 AND 1541776035 AND `published_time` BETWEEN 1 AND 1541776035 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.049106s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:23:31+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.014564s][吞吐率：68.66req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000615s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000211s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001635s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001532s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000901s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000804s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777011 AND `published_time` BETWEEN 1 AND 1541777011 AND `published_time` BETWEEN 1 AND 1541777011 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000668s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:23:52+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.015252s][吞吐率：65.57req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000403s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000236s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000600s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001436s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000891s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001274s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777032 AND `published_time` BETWEEN 1 AND 1541777032 AND `published_time` BETWEEN 1 AND 1541777032 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000748s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:23:55+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/articles/3
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/articles/3 [运行时间：0.232395s][吞吐率：4.30req/s] [内存消耗：921.44kb] [文件加载：70]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000268s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'Articles',
+    2 => 'read',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'id' => '3',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000197s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ArticlesController->read[ /var/www/sign_online/admin/api/protocol/controller/ArticlesController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000426s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000716s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000616s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000855s ]
+[ sql ] [ SQL ] SELECT * FROM `so_protocol_post` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777035 AND `published_time` BETWEEN 1 AND 1541777035 )  AND `id` = 3 LIMIT 1 [ RunTime:0.000819s ]
+[ sql ] [ SQL ] UPDATE `so_protocol_post`  SET `post_hits`=`post_hits`+1  WHERE  `delete_time` = 0  AND `post_status` = 1  AND `published_time` BETWEEN 1 AND 1541777035  AND `id` = 3 [ RunTime:0.099318s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_option` [ RunTime:0.020364s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `so_option` WHERE  `option_name` = 'storage' LIMIT 1 [ RunTime:0.013867s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:23:59+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=2&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=2&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.009065s][吞吐率：110.32req/s] [内存消耗：688.72kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000270s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '2',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000210s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000617s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001173s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000656s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000874s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777039 AND `published_time` BETWEEN 1 AND 1541777039 AND `published_time` BETWEEN 1 AND 1541777039 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 20,20 [ RunTime:0.000767s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:24:15+08:00 ] 192.168.0.101 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b [运行时间：0.016395s][吞吐率：60.99req/s] [内存消耗：752.86kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000943s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'xx-api-version' => '1.1.0',
+  'xx-device-type' => 'wxapp',
+  'accept' => '*/*',
+  'xx-token' => '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b',
+  'accept-language' => 'zh-cn',
+  'accept-encoding' => 'gzip, deflate',
+  'cache-control' => 'no-cache',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16A404 MicroMessenger/6.7.3(0x16070321) NetType/WIFI Language/zh_CN',
+  'connection' => 'keep-alive',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/0/page-frame.html',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000114s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000860s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001390s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.001119s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001519s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777055 AND `published_time` BETWEEN 1 AND 1541777055 AND `published_time` BETWEEN 1 AND 1541777055 )  AND `tp`.`category_id` = 3 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.001165s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:25:28+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.024572s][吞吐率：40.70req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000509s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000240s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000835s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.005672s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.003326s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001587s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777128 AND `published_time` BETWEEN 1 AND 1541777128 AND `published_time` BETWEEN 1 AND 1541777128 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000895s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:25:40+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.014141s][吞吐率：70.72req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000450s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000207s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000583s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001435s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000946s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001098s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777140 AND `published_time` BETWEEN 1 AND 1541777140 AND `published_time` BETWEEN 1 AND 1541777140 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000899s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:25:55+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.008407s][吞吐率：118.95req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000273s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000224s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000671s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000802s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000674s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000793s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777155 AND `published_time` BETWEEN 1 AND 1541777155 AND `published_time` BETWEEN 1 AND 1541777155 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000727s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:26:08+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.010208s][吞吐率：97.96req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000283s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000201s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000555s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000952s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000725s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001137s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777168 AND `published_time` BETWEEN 1 AND 1541777168 AND `published_time` BETWEEN 1 AND 1541777168 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.001865s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:26:44+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.012238s][吞吐率：81.71req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000322s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000215s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000586s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001044s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000962s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.002300s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777204 AND `published_time` BETWEEN 1 AND 1541777204 AND `published_time` BETWEEN 1 AND 1541777204 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.001320s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:27:09+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.008462s][吞吐率：118.17req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000223s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000124s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000486s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000904s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000833s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001167s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777229 AND `published_time` BETWEEN 1 AND 1541777229 AND `published_time` BETWEEN 1 AND 1541777229 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000789s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:29:33+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.008027s][吞吐率：124.58req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000201s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000315s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000493s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000905s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000891s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000828s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777373 AND `published_time` BETWEEN 1 AND 1541777373 AND `published_time` BETWEEN 1 AND 1541777373 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000673s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:29:43+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.010307s][吞吐率：97.02req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000544s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000222s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000512s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000854s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000870s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001511s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777383 AND `published_time` BETWEEN 1 AND 1541777383 AND `published_time` BETWEEN 1 AND 1541777383 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000819s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:29:50+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.008321s][吞吐率：120.18req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000200s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000114s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000472s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000868s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000787s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001133s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777390 AND `published_time` BETWEEN 1 AND 1541777390 AND `published_time` BETWEEN 1 AND 1541777390 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000971s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:29:57+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.009962s][吞吐率：100.38req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000303s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000242s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000477s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000840s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000771s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001114s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777397 AND `published_time` BETWEEN 1 AND 1541777397 AND `published_time` BETWEEN 1 AND 1541777397 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.001412s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:31:18+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.010430s][吞吐率：95.88req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000305s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000230s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000517s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000910s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000837s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001255s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777478 AND `published_time` BETWEEN 1 AND 1541777478 AND `published_time` BETWEEN 1 AND 1541777478 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.001395s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:31:28+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.008951s][吞吐率：111.72req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000295s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000142s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000480s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000755s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000612s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001675s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777488 AND `published_time` BETWEEN 1 AND 1541777488 AND `published_time` BETWEEN 1 AND 1541777488 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000731s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:31:35+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.007678s][吞吐率：130.25req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000222s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000125s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000474s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000574s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000531s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001086s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777495 AND `published_time` BETWEEN 1 AND 1541777495 AND `published_time` BETWEEN 1 AND 1541777495 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.001127s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:31:45+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.008426s][吞吐率：118.68req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000285s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000204s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000483s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000777s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000715s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000903s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777505 AND `published_time` BETWEEN 1 AND 1541777505 AND `published_time` BETWEEN 1 AND 1541777505 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000831s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:32:05+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.009496s][吞吐率：105.31req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000301s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000213s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000540s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000869s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000730s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001256s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777525 AND `published_time` BETWEEN 1 AND 1541777525 AND `published_time` BETWEEN 1 AND 1541777525 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.001073s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:32:12+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.008711s][吞吐率：114.80req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000203s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000136s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000474s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000891s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000774s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001821s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777532 AND `published_time` BETWEEN 1 AND 1541777532 AND `published_time` BETWEEN 1 AND 1541777532 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000817s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:32:25+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.009584s][吞吐率：104.34req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000350s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000239s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000511s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000821s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000780s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001176s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777545 AND `published_time` BETWEEN 1 AND 1541777545 AND `published_time` BETWEEN 1 AND 1541777545 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000799s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:32:43+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.009343s][吞吐率：107.03req/s] [内存消耗：753.07kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000163s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000111s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000465s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000790s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.001831s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001256s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777563 AND `published_time` BETWEEN 1 AND 1541777563 AND `published_time` BETWEEN 1 AND 1541777563 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000872s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:32:50+08:00 ] 192.168.0.101 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b [运行时间：0.011354s][吞吐率：88.07req/s] [内存消耗：752.86kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000358s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'xx-api-version' => '1.1.0',
+  'xx-device-type' => 'wxapp',
+  'accept' => '*/*',
+  'xx-token' => '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b',
+  'accept-language' => 'zh-cn',
+  'accept-encoding' => 'gzip, deflate',
+  'cache-control' => 'no-cache',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16A404 MicroMessenger/6.7.3(0x16070321) NetType/WIFI Language/zh_CN',
+  'connection' => 'keep-alive',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/0/page-frame.html',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000246s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000964s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001230s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000899s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000956s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777570 AND `published_time` BETWEEN 1 AND 1541777570 AND `published_time` BETWEEN 1 AND 1541777570 )  AND `tp`.`category_id` = 3 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000831s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:33:57+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.009365s][吞吐率：106.78req/s] [内存消耗：753.06kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000319s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000186s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000440s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000656s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000497s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001196s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777637 AND `published_time` BETWEEN 1 AND 1541777637 AND `published_time` BETWEEN 1 AND 1541777637 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 10 [ RunTime:0.001437s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:34:15+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.007826s][吞吐率：127.78req/s] [内存消耗：753.08kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000195s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000128s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000459s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000664s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000914s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000688s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777655 AND `published_time` BETWEEN 1 AND 1541777655 AND `published_time` BETWEEN 1 AND 1541777655 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 10 [ RunTime:0.000574s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:34:17+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.007525s][吞吐率：132.89req/s] [内存消耗：753.08kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000151s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000263s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000635s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000687s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000546s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001006s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777657 AND `published_time` BETWEEN 1 AND 1541777657 AND `published_time` BETWEEN 1 AND 1541777657 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 10 [ RunTime:0.000536s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:36:54+08:00 ] 192.168.0.101 GET /sign_online/admin/public/api/protocol/lists?page=2&order=-published_time&token=724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=2&order=-published_time&token=724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b [运行时间：0.011093s][吞吐率：90.15req/s] [内存消耗：688.50kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000440s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'xx-api-version' => '1.1.0',
+  'xx-device-type' => 'wxapp',
+  'accept' => '*/*',
+  'xx-token' => '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b',
+  'accept-language' => 'zh-cn',
+  'accept-encoding' => 'gzip, deflate',
+  'cache-control' => 'no-cache',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16A404 MicroMessenger/6.7.3(0x16070321) NetType/WIFI Language/zh_CN',
+  'connection' => 'keep-alive',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/0/page-frame.html',
+)
+[ info ] [ PARAM ] array (
+  'page' => '2',
+  'order' => '-published_time',
+  'token' => '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000261s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000863s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001161s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000975s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001170s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777814 AND `published_time` BETWEEN 1 AND 1541777814 AND `published_time` BETWEEN 1 AND 1541777814 )  AND `tp`.`category_id` = 3 ORDER BY `published_time` DESC LIMIT 20,20 [ RunTime:0.000785s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:36:56+08:00 ] 192.168.0.101 GET /sign_online/admin/public/api/protocol/lists?order=-published_time&token=724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?order=-published_time&token=724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b [运行时间：0.010571s][吞吐率：94.60req/s] [内存消耗：752.87kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000313s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'xx-api-version' => '1.1.0',
+  'xx-device-type' => 'wxapp',
+  'accept' => '*/*',
+  'xx-token' => '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b',
+  'accept-language' => 'zh-cn',
+  'accept-encoding' => 'gzip, deflate',
+  'cache-control' => 'no-cache',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16A404 MicroMessenger/6.7.3(0x16070321) NetType/WIFI Language/zh_CN',
+  'connection' => 'keep-alive',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/0/page-frame.html',
+)
+[ info ] [ PARAM ] array (
+  'order' => '-published_time',
+  'token' => '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000231s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000829s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001128s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000961s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001247s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777816 AND `published_time` BETWEEN 1 AND 1541777816 AND `published_time` BETWEEN 1 AND 1541777816 )  AND `tp`.`category_id` = 3 ORDER BY `published_time` DESC LIMIT 10 [ RunTime:0.000970s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:36:57+08:00 ] 192.168.0.101 GET /sign_online/admin/public/api/protocol/lists?order=-published_time&token=724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?order=-published_time&token=724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b [运行时间：0.010610s][吞吐率：94.25req/s] [内存消耗：752.87kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000360s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'xx-api-version' => '1.1.0',
+  'xx-device-type' => 'wxapp',
+  'accept' => '*/*',
+  'xx-token' => '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b',
+  'accept-language' => 'zh-cn',
+  'accept-encoding' => 'gzip, deflate',
+  'cache-control' => 'no-cache',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16A404 MicroMessenger/6.7.3(0x16070321) NetType/WIFI Language/zh_CN',
+  'connection' => 'keep-alive',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/0/page-frame.html',
+)
+[ info ] [ PARAM ] array (
+  'order' => '-published_time',
+  'token' => '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000250s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000865s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001118s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000860s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001159s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777817 AND `published_time` BETWEEN 1 AND 1541777817 AND `published_time` BETWEEN 1 AND 1541777817 )  AND `tp`.`category_id` = 3 ORDER BY `published_time` DESC LIMIT 10 [ RunTime:0.000958s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:36:59+08:00 ] 192.168.0.101 GET /sign_online/admin/public/api/protocol/lists?order=-published_time&token=724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?order=-published_time&token=724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b [运行时间：0.011478s][吞吐率：87.12req/s] [内存消耗：752.87kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000322s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'xx-api-version' => '1.1.0',
+  'xx-device-type' => 'wxapp',
+  'accept' => '*/*',
+  'xx-token' => '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b',
+  'accept-language' => 'zh-cn',
+  'accept-encoding' => 'gzip, deflate',
+  'cache-control' => 'no-cache',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16A404 MicroMessenger/6.7.3(0x16070321) NetType/WIFI Language/zh_CN',
+  'connection' => 'keep-alive',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/0/page-frame.html',
+)
+[ info ] [ PARAM ] array (
+  'order' => '-published_time',
+  'token' => '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000235s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000891s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001080s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.001095s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001297s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777819 AND `published_time` BETWEEN 1 AND 1541777819 AND `published_time` BETWEEN 1 AND 1541777819 )  AND `tp`.`category_id` = 3 ORDER BY `published_time` DESC LIMIT 10 [ RunTime:0.001088s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:37:01+08:00 ] 192.168.0.101 GET /sign_online/admin/public/api/protocol/lists?order=-published_time&token=724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?order=-published_time&token=724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b [运行时间：0.011875s][吞吐率：84.21req/s] [内存消耗：752.87kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000355s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'xx-api-version' => '1.1.0',
+  'xx-device-type' => 'wxapp',
+  'accept' => '*/*',
+  'xx-token' => '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b',
+  'accept-language' => 'zh-cn',
+  'accept-encoding' => 'gzip, deflate',
+  'cache-control' => 'no-cache',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16A404 MicroMessenger/6.7.3(0x16070321) NetType/WIFI Language/zh_CN',
+  'connection' => 'keep-alive',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/0/page-frame.html',
+)
+[ info ] [ PARAM ] array (
+  'order' => '-published_time',
+  'token' => '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000248s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000934s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001342s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '724b39b4053c9fa012794af1d18648ac0cfc3fac43fceb21bc0a018b6192980b'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.001149s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001400s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777821 AND `published_time` BETWEEN 1 AND 1541777821 AND `published_time` BETWEEN 1 AND 1541777821 )  AND `tp`.`category_id` = 3 ORDER BY `published_time` DESC LIMIT 10 [ RunTime:0.001141s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:39:52+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.009104s][吞吐率：109.84req/s] [内存消耗：753.11kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000313s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000215s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000472s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000754s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000680s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001151s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541777992 AND `published_time` BETWEEN 1 AND 1541777992 AND `published_time` BETWEEN 1 AND 1541777992 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.000936s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:40:12+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=1&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.017382s][吞吐率：57.53req/s] [内存消耗：753.11kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000563s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000220s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000546s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.000780s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000735s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.003615s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541778012 AND `published_time` BETWEEN 1 AND 1541778012 AND `published_time` BETWEEN 1 AND 1541778012 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 0,20 [ RunTime:0.001422s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:40:25+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/articles/1
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/articles/1 [运行时间：0.089148s][吞吐率：11.22req/s] [内存消耗：874.94kb] [文件加载：70]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000277s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'Articles',
+    2 => 'read',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'id' => '1',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000214s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ArticlesController->read[ /var/www/sign_online/admin/api/protocol/controller/ArticlesController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000602s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.002064s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000858s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001435s ]
+[ sql ] [ SQL ] SELECT * FROM `so_protocol_post` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541778025 AND `published_time` BETWEEN 1 AND 1541778025 )  AND `id` = 1 LIMIT 1 [ RunTime:0.000936s ]
+[ sql ] [ SQL ] UPDATE `so_protocol_post`  SET `post_hits`=`post_hits`+1  WHERE  `delete_time` = 0  AND `post_status` = 1  AND `published_time` BETWEEN 1 AND 1541778025  AND `id` = 1 [ RunTime:0.073883s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_option` [ RunTime:0.000605s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `so_option` WHERE  `option_name` = 'storage' LIMIT 1 [ RunTime:0.000412s ]
+---------------------------------------------------------------
+[ 2018-11-09T23:40:33+08:00 ] 192.168.0.107 GET /sign_online/admin/public/api/protocol/lists?page=2&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263
+[ info ] 192.168.0.107/sign_online/admin/public/api/protocol/lists?page=2&order=-published_time&token=87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263 [运行时间：0.010286s][吞吐率：97.22req/s] [内存消耗：688.72kb] [文件加载：62]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000338s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'lists',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => '192.168.0.107',
+  'connection' => 'keep-alive',
+  'pragma' => 'no-cache',
+  'cache-control' => 'no-cache',
+  'xx-device-type' => 'wxapp',
+  'user-agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1809110 MicroMessenger/6.5.7 Language/zh_CN webview/ token/8b5b3276c5509db09de8776d0305ccfb',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'xx-api-version' => '1.1.0',
+  'xx-token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+  'accept' => '*/*',
+  'referer' => 'https://servicewechat.com/wx6cc7078c98091722/devtools/page-frame.html',
+  'accept-encoding' => 'gzip, deflate',
+)
+[ info ] [ PARAM ] array (
+  'page' => '2',
+  'order' => '-published_time',
+  'token' => '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/api/../../simplewind/cmf/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000231s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] api\protocol\controller\ListsController->index[ /var/www/sign_online/admin/api/protocol/controller/ListsController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000768s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user_token` [ RunTime:0.001041s ]
+[ sql ] [ SQL ] SELECT `b`.* FROM `so_user_token` `a` INNER JOIN `so_user` `b` ON `a`.`user_id`=`b`.`id` WHERE  `token` = '87d760147f9ff0845ff72cc19878a572d3fac4427e965a5a2c720b31b5c26263'  AND `device_type` = 'wxapp' LIMIT 1 [ RunTime:0.000767s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001368s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`post_title`,tp.sign_status AS sign_status,`tp`.`notes` FROM `so_protocol_post` `a` INNER JOIN `so_protocol_category_user_post` `tp` ON `a`.`id`=`tp`.`post_id` WHERE  ( `delete_time` = 0 AND `delete_time` = 0 AND `delete_time` = 0 )  AND ( `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 AND `post_status` = 1 )  AND ( `published_time` BETWEEN 1 AND 1541778033 AND `published_time` BETWEEN 1 AND 1541778033 AND `published_time` BETWEEN 1 AND 1541778033 )  AND `tp`.`category_id` = 2 ORDER BY `published_time` DESC LIMIT 20,20 [ RunTime:0.000696s ]
