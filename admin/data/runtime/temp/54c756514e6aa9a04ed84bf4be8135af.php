@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:58:"themes/admin_simpleboot3/protocol/admin_category/edit.html";i:1542641184;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:58:"themes/admin_simpleboot3/protocol/admin_category/edit.html";i:1542905453;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -138,7 +138,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group" style="">
+                        <div class="form-group" style="display: none;">
                                 <label for="input-parent"><span class="form-required">*</span>分类</label>
                                 <div>
                                     <select class="form-control" name="mode_type" id="input-parent">
@@ -291,6 +291,7 @@
                     <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0"><?php echo lang('SAVE'); ?>
                     </button>
                     <a class="btn btn-default" href="<?php echo url('AdminCategory/index'); ?>"><?php echo lang('BACK'); ?></a>
+                    <a class="btn btn-success" href="<?php echo url('AdminCoor/index'); ?>" target="_blank">获取坐标</a>
                 </div>
             </form>
         </div>
