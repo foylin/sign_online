@@ -1,4 +1,4 @@
-<include file="public@header"/>
+<include file="public@header" />
 </head>
 
 <script type="text/html" id="photos-item-tpl">
@@ -24,7 +24,7 @@
 </script>
 
 <style>
-        #axes li{
+    #axes li{
             margin-bottom: 10px;
             float: left;
         }
@@ -35,29 +35,29 @@
     </style>
 
 <body>
-<div class="wrap js-check-wrap">
-    <ul class="nav nav-tabs">
-        <li><a href="{:url('AdminCategory/index')}">协议分类管理</a></li>
-        <li class="active"><a>添加协议分类</a></li>
-        <!-- <li class="active"><a>编辑协议分类</a></li> -->
-    </ul>
-    <div class="row margin-top-20">
-        
-        <div class="col-md-12">
-            <form class="js-ajax-form" action="{:url('AdminCategory/addPost')}" method="post">
-                <div class="tab-content">
-                    <div class="tab-pane active" id="A">
-                        <div class="form-group" style="display:none;">
-                            <label for="input-parent"><span class="form-required">*</span>上级</label>
-                            <div>
-                                <select class="form-control" name="parent_id" id="input-parent">
-                                    <option value="0">作为一级分类</option>
-                                    {$categories_tree}
-                                </select>
-                            </div>
-                        </div>
+    <div class="wrap js-check-wrap">
+        <ul class="nav nav-tabs">
+            <li><a href="{:url('AdminCategory/index')}">协议分类管理</a></li>
+            <li class="active"><a>添加协议分类</a></li>
+            <!-- <li class="active"><a>编辑协议分类</a></li> -->
+        </ul>
+        <div class="row margin-top-20">
 
-                        <div class="form-group" style="">
+            <div class="col-md-12">
+                <form class="js-ajax-form" action="{:url('AdminCategory/addPost')}" method="post">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="A">
+                            <div class="form-group" style="display:none;">
+                                <label for="input-parent"><span class="form-required">*</span>上级</label>
+                                <div>
+                                    <select class="form-control" name="parent_id" id="input-parent">
+                                        <option value="0">作为一级分类</option>
+                                        {$categories_tree}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="">
                                 <label for="input-parent"><span class="form-required">*</span>分类</label>
                                 <div>
                                     <select class="form-control" name="mode_type" id="input-parent">
@@ -70,66 +70,92 @@
                                 </div>
                             </div>
 
-                        <div class="form-group">
-                            <label for="input-name"><span class="form-required">*</span>协议标题</label>
-                            <div>
-                                <input type="text" class="form-control" id="input-name" name="name" value="">
+                            <div class="form-group">
+                                <label for="input-name"><span class="form-required">*</span>协议标题</label>
+                                <div>
+                                    <input type="text" class="form-control" id="input-name" name="name" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-description">协议模板文件</label>
+                                <div>
+
+                                    <ul id="files" class="pic-list list-unstyled form-inline">
+                                    </ul>
+                                    <a href="javascript:uploadMultiFile('附件上传','#files','files-item-tpl','file');"
+                                        class="btn btn-sm btn-default">选择文件</a>
+                                </div>
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label for="input-description">协议模板文件</label>
-                            <div>
-
-                                <ul id="files" class="pic-list list-unstyled form-inline">
-                                </ul>
-                                <a href="javascript:uploadMultiFile('附件上传','#files','files-item-tpl','file');"
-                                   class="btn btn-sm btn-default">选择文件</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group" style="display:none;">
                             <label for="input-description">签名位置</label>
                             <div>
 
                                 <ul id="axes" class="pic-list list-unstyled form-inline col-md-12">
-                                    <empty name="category.more.axes">
-                                        <li id="axes-data0">
-                                        <input type="text" class="form-control col-md-2" id="input-name" name="more[axes][page][]" value="" placeholder="页数">
-                                        <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][sign][]" value="" placeholder="请填写签名坐标">
-                                        <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][time][]" value="" placeholder="请填写签名日期坐标">
-                                        
+                                    <li id="axes-data0">
+                                        <span class="form-control col-md-2">承诺人</span>
+                                        <input type="text" class="form-control col-md-2" id="input-name" name="more[axes][page][]"
+                                            value="" placeholder="页数">
+                                        <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][sign][]"
+                                            value="" placeholder="请填写签名坐标">
+                                        <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][time][]"
+                                            value="" placeholder="请填写签名日期坐标">
+
+                                    </li>
+
+                                    <li id="axes-data0">
+                                        <span class="form-control col-md-2">负责人</span>
+                                        <input type="text" class="form-control col-md-2" id="input-name" name="more[axes][page][]"
+                                            value="" placeholder="页数">
+                                        <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][sign][]"
+                                            value="" placeholder="请填写签名坐标">
+                                        <input type="text" class="form-control col-md-5" id="input-name" name="more[axes][time][]"
+                                            value="" placeholder="请填写签名日期坐标">
+
                                     </li>
                                 </ul>
-                                <a href="javascript:;"
-                                   class="btn btn-sm btn-default add-axes">添加位置</a>
+                                <!-- <a href="javascript:;" class="btn btn-sm btn-default add-axes">添加位置</a> -->
                             </div>
                         </div>
-                    
-                    
-                </div>
-                <div class="form-group">
-                    <input type="hidden" name="id" value="">
-                    <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">{:lang('SAVE')}
-                    </button>
-                    <a class="btn btn-default" href="{:url('AdminCategory/index')}">{:lang('BACK')}</a>
-                </div>
-            </form>
+
+                        <div class="form-group">
+                                <label for="input-description">公章位置</label>
+                                <div>
+    
+                                    <ul id="axes" class="pic-list list-unstyled form-inline col-md-12">
+                                        <li id="axes-data0">
+                                            <input type="text" class="form-control col-md-2" id="input-name" name="more[seal][page]"
+                                                value="" placeholder="页数">
+                                            <input type="text" class="form-control col-md-5" id="input-name" name="more[seal][sign]"
+                                                value="" placeholder="请填写公章坐标">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" name="id" value="">
+                        <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">{:lang('SAVE')}
+                        </button>
+                        <a class="btn btn-default" href="{:url('AdminCategory/index')}">{:lang('BACK')}</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
-<script type="text/javascript">
-    //编辑器路径定义
-    var editorURL = GV.WEB_ROOT;
-</script>
-<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
-<script>
-    $('#input-list_tpl').val("{$list_tpl|default=''}");
-    $('#input-one_tpl').val("{$one_tpl|default=''}");
+    <script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+    <script type="text/javascript">
+        //编辑器路径定义
+        var editorURL = GV.WEB_ROOT;
+    </script>
+    <script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+    <script>
+        $('#input-list_tpl').val("{$list_tpl|default=''}");
+        $('#input-one_tpl').val("{$one_tpl|default=''}");
 
-    $(function () {
+        $(function () {
 
             // editorcontent = new baidu.editor.ui.Editor();
             // editorcontent.render('content');
@@ -146,17 +172,18 @@
             $('#more-template-select').val("{$post.more.template|default=''}");
 
             var i = 10;
-            $('.add-axes').click(function(){
-                var html = '<li id="axes-data'+i+'"><input type="text" class="form-control col-md-2" id="input-name" name="more[axes][page][]" value="" placeholder="页数"><input type="text" class="form-control col-md-5" id="input-name" name="more[axes][sign][]" value="" placeholder="请填写签名坐标"><input type="text" class="form-control col-md-5" id="input-name" name="more[axes][time][]" value="" placeholder="请填写签名日期坐标"><a href="javascript:del('+i+');">移除</a></li>';
+            $('.add-axes').click(function () {
+                var html = '<li id="axes-data' + i + '"><input type="text" class="form-control col-md-2" id="input-name" name="more[axes][page][]" value="" placeholder="页数"><input type="text" class="form-control col-md-5" id="input-name" name="more[axes][sign][]" value="" placeholder="请填写签名坐标"><input type="text" class="form-control col-md-5" id="input-name" name="more[axes][time][]" value="" placeholder="请填写签名日期坐标"><a href="javascript:del(' + i + ');">移除</a></li>';
                 $('#axes').append(html);
                 i++;
             })
         });
 
-    function del(i){
-        $("#axes-data"+i).remove();
-        // (function(){$("#axes-data'+i+'").remove();}
-    }
-</script>
+        function del(i) {
+            $("#axes-data" + i).remove();
+            // (function(){$("#axes-data'+i+'").remove();}
+        }
+    </script>
 </body>
+
 </html>

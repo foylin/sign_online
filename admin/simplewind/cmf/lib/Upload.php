@@ -108,7 +108,7 @@ class Upload
         $arrAllowedExtensions = explode(',', $arrFileTypes[$fileType]['extensions']);
 
         $strFileExtension = strtolower(cmf_get_file_extension($originalName));
-
+        // dump($strFileExtension);
         if (!in_array($strFileExtension, $arrAllowedExtensions) || $strFileExtension == 'php') {
             $this->error = "非法文件类型！";
             return false;
@@ -193,6 +193,7 @@ class Upload
         }
 
         $fileSaveName    = (empty($app) ? '' : $app . '/') . $strDate . '/' . md5(uniqid()) . "." . $strFileExtension;
+        // dump($fileSaveName);
         $strSaveFilePath = './upload/' . $fileSaveName; //TODO 测试 windows 下
         $strSaveFileDir  = dirname($strSaveFilePath);
         if (!file_exists($strSaveFileDir)) {
@@ -221,7 +222,7 @@ class Upload
             flock($out, LOCK_UN);
         }
         @fclose($out);
-
+        // dump($strSaveFilePath);exit();
         $fileImage = new File($strSaveFilePath, 'r');
         $arrInfo   = [
             "name"     => $originalName,
@@ -349,6 +350,7 @@ class Upload
 
         }
 
+        // dump($arrInfo);
         return [
             'filepath'    => $arrInfo["file_path"],
             "name"        => $arrInfo["filename"],
