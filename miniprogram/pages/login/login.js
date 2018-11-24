@@ -38,7 +38,7 @@ Page({
                     try {
                         wx.setStorageSync('login', '1');
                         wx.setStorageSync('token', data.data.token);
-                        console.log("success");
+                        wx.setStorageSync('user', data.data.user);
                         wx.navigateBack({
                             delta: 1
                         });

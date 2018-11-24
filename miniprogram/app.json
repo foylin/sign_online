@@ -36,9 +36,9 @@
                 "pagePath": "pages/pass/pass",
                 "iconPath": "images/icons/safety.png"
             },{
-                "text": "下载",
-                "pagePath": "pages/download/download",
-                "iconPath": "images/icons/download.png"
+                "text": "我的",
+                "pagePath": "pages/my/my",
+                "iconPath": "images/icons/user.png"
             }
         ]
     },
