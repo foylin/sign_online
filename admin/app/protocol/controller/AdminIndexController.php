@@ -671,6 +671,18 @@ class AdminIndexController extends AdminBaseController
                 $save['sign_status'] = $post['sign_status'][$key];
                 $save['notes'] = $post['notes'][$key];
 
+                if($post['sign_status'][$key] == 0){
+                    $save['sign_url'] = '';
+                    $save['update_time'] = null;
+                }
+
+                if($post['sign_status'][$key] == 2){
+                    $sign_url = Db::name('protocol_category_user_post')->where('id='.$value)->value('sign_url');
+                    if(!$sign_url){
+                        $this->error('未签约用户无法通过审核');
+                    }
+                }
+
                 Db::name('protocol_category_user_post')->update($save);
             }
 

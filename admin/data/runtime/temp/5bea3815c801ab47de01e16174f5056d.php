@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:57:"themes/admin_simpleboot3/protocol/admin_category/add.html";i:1542899105;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:57:"themes/admin_simpleboot3/protocol/admin_category/add.html";i:1543149867;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -138,7 +138,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" style="display: none;">
+                            <div class="form-group" style="">
                                 <label for="input-parent"><span class="form-required">*</span>分类</label>
                                 <div>
                                     <select class="form-control" name="mode_type" id="input-parent">

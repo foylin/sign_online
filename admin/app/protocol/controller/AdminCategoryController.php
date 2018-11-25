@@ -64,6 +64,26 @@ class AdminCategoryController extends AdminBaseController
 
     ];
 
+    protected $mode_type_seal = [
+        1 => [
+                'page' => 5,
+                'sign' => '140,56'
+        ],
+        3 => [
+                'page' => 4,
+                'sign' => '65,195'
+        ],
+        4 =>[
+                'page' => 6,
+                'sign' => '160,35'
+        ],
+        5 =>[
+                'page' => 3,
+                'sign' => '72,215'
+        ]
+
+    ];
+
     /**
      * 文章分类列表
      * @adminMenu(
@@ -176,7 +196,8 @@ class AdminCategoryController extends AdminBaseController
         }
 
         if($data['mode_type']){
-            // $data['more']['axes'] = $this->mode_type[$data['mode_type']];
+            $data['more']['axes'] = $this->mode_type[$data['mode_type']];
+            $data['more']['seal'] = $this->mode_type_seal[$data['mode_type']];
         }
         // dump($data);
         $result = $protocolCategoryModel->addCategory($data);
