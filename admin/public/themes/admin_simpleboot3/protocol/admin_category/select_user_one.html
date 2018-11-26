@@ -12,29 +12,12 @@
                     </label>
                 </th>
                 <th width="50">ID</th>
-                <th>签约用户</th>
+                <th>负责人</th>
             </tr>
             </thead>
             <tbody>
                 {$categories_tree}
-            <!-- <foreach name="categories" item="vo">
-                
-                <tr>
-                    <td>
-                        <php>$checked = in_array($vo['id'],$selectedIds)?'checked':'';</php>
-                        <input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]"
-                               value="{$vo.id}" data-name="{$vo.user_login}" {$checked}>
-                    </td>
-                    <td>{$vo.id}</td>
-                    <td>
-                        <span class="col-md-4" style="float: left; width: 30%; line-height: 34px;">{$vo.user_login}</span>
-                        <select class="form-control" name="user_place_{$vo.id}" id="" style="float: left; width: 30%;">
-                            <option value="0" <if $vo.place == 0> selected  </if> >承诺人或保证人(多个)</option>
-                            <option value="1" <if $vo.place == 1> selected  </if> >负责人(唯一)</option>
-                        </select>
-                    </td>
-                </tr>
-            </foreach> -->
+           
            
             </tbody>
         </table>

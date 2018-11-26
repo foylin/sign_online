@@ -245,15 +245,19 @@ class AdminIndexController extends AdminBaseController
         $postCategoryIds_seal_place = implode(',', $postCategories_seal_place);
         $this->assign('post_category_places_seal', $postCategoryIds_seal_place);
 
-        $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login', 'a.id');
-        $postCategoryIds_user = implode(',', array_keys($postCategories_user));
-        // dump($postCategories_user);
-        
+        // 承诺人
+        $postCategories_user = $post->categories_user()->alias('a')->where('pivot.place = 0')->column('a.user_login', 'a.id');
+        $postCategoryIds_user = implode(',', array_keys($postCategories_user));        
         $this->assign('post_categories_user', $postCategories_user);
         $this->assign('post_category_ids_user', $postCategoryIds_user);
 
+        // 负责人
+        $postCategories_user_one = $post->categories_user()->alias('a')->where('pivot.place = 1')->column('a.user_login', 'a.id');
+        $postCategoryIds_user_one = implode(',', array_keys($postCategories_user_one));        
+        $this->assign('post_categories_user_one', $postCategories_user_one);
+        $this->assign('post_category_ids_user_one', $postCategoryIds_user_one);
+
         $postCategories_user_place = $post->categories_user()->alias('a')->column('pivot.place', 'a.id');
-        
         $postCategoryIds_user_place = implode(',', $postCategories_user_place);
         $this->assign('post_category_places_user', $postCategoryIds_user_place);
 
@@ -335,9 +339,9 @@ class AdminIndexController extends AdminBaseController
                     array_push($data['post']['more']['files'], ["url" => $fileUrl, "name" => $data['file_names'][$key]]);
                 }
             }
-
+            // dump($data['post']);exit();
             
-            $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user'], $data['post']['categories_seal_place'], $data['post']['categories_user_place']);
+            $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user'], $data['post']['categories_user_one']);
 
             $hookParam = [
                 'is_add' => false,

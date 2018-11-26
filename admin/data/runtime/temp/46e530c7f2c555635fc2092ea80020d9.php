@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"themes/admin_simpleboot3/protocol/admin_category/select_seal.html";i:1543250896;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"themes/admin_simpleboot3/protocol/admin_category/select_user_one.html";i:1543250495;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,25 +93,13 @@
                     </label>
                 </th>
                 <th width="50">ID</th>
-                <th>分类名称</th>
+                <th>负责人</th>
             </tr>
             </thead>
             <tbody>
-            <!--
-            <?php if(is_array($categories) || $categories instanceof \think\Collection || $categories instanceof \think\Paginator): if( count($categories)==0 ) : echo "" ;else: foreach($categories as $key=>$vo): ?>
-                <tr>
-                    <td>
-                        <?php $checked = in_array($vo['id'],$selectedIds)?'checked':''; ?>
-                        <input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]"
-                               value="<?php echo $vo['id']; ?>" data-name="<?php echo $vo['name']; ?>" <?php echo $checked; ?>>
-                    </td>
-                    <td><?php echo $vo['id']; ?></td>
-                    <td><?php echo $vo['name']; ?></td>
-                    <td><?php echo $vo['description']; ?></td>
-                </tr>
-            <?php endforeach; endif; else: echo "" ;endif; ?>
-            -->
-            <?php echo $categories_tree; ?>
+                <?php echo $categories_tree; ?>
+           
+           
             </tbody>
         </table>
     </form>
@@ -138,6 +126,7 @@
         var selectedCategoriesId   = [];
         var selectedCategoriesName = [];
         var selectedCategories     = [];
+        var selectedCategoriesPlace= [];
         $('.js-check:checked').each(function () {
             var $this = $(this);
             selectedCategoriesId.push($this.val());
@@ -147,12 +136,18 @@
                 id: $this.val(),
                 name: $this.data('name')
             });
+
+            var place_val = $this.closest('tr').find('select').val();
+            // console.log($this.closest('tr'));
+            // console.log(place_val);
+            selectedCategoriesPlace.push(place_val);
         });
 
         return {
             selectedCategories: selectedCategories,
             selectedCategoriesId: selectedCategoriesId,
-            selectedCategoriesName: selectedCategoriesName
+            selectedCategoriesName: selectedCategoriesName,
+            selectedCategoriesPlace: selectedCategoriesPlace
         };
     }
 </script>

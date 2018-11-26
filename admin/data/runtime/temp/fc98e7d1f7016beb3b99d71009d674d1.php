@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:55:"themes/admin_simpleboot3/protocol/admin_index/edit.html";i:1542544738;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:55:"themes/admin_simpleboot3/protocol/admin_index/edit.html";i:1543251875;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -166,15 +166,11 @@
                             <input class="form-control" type="hidden" value="<?php echo $post_category_ids_seal; ?>"
                                    name="post[categories_seal]"
                                    id="js-categories-id-input-seal"/>
-
-                            <input class="form-control" type="hidden" value="<?php echo $post_category_places_seal; ?>"
-                                   name="post[categories_seal_place]"
-                                   id="js-categories-place-input-seal"/>
                         </td>
                     </tr>
 
                     <tr>
-                        <th width="100">签约用户<span class="form-required">*</span></th>
+                        <th width="100">承诺人或保证人<span class="form-required">*</span></th>
                         <td>
                             <input class="form-control" type="text" style="width:400px;" required
                                    value="<?php echo implode(' ',$post_categories_user); ?>"
@@ -183,20 +179,29 @@
                             <input class="form-control" type="hidden" value="<?php echo $post_category_ids_user; ?>"
                                    name="post[categories_user]"
                                    id="js-categories-id-input-user"/>
-
-                            <input class="form-control" type="hidden" value="<?php echo $post_category_places_user; ?>"
-                                   name="post[categories_user_place]"
-                                   id="js-categories-place-input-user"/>
                         </td>
                     </tr>
+
                     <tr>
+                        <th width="100">负责人</th>
+                        <td>
+                            <input class="form-control" type="text" style="width:400px;" required
+                                   value="<?php echo implode(' ',$post_categories_user_one); ?>"
+                                   placeholder="请选择分类" onclick="doSelectCategory_user_one();" id="js-categories-name-input-user-one"
+                                   readonly/>
+                            <input class="form-control" type="hidden" value="<?php echo $post_category_ids_user_one; ?>"
+                                   name="post[categories_user_one]"
+                                   id="js-categories-id-input-user-one"/>
+                        </td>
+                    </tr>
+                    <!-- <tr>
                         <th>签名位置</th>
                         <td>
                             <input class="form-control" type="text" name="post[post_count]"
                                    value="<?php echo $post['post_count']; ?>" placeholder="协议中需要签名的位置个数">
                             <p class="help-block"></p>
                         </td>
-                    </tr>
+                    </tr> -->
                 
 
                     <!-- <tr>
@@ -210,7 +215,7 @@
                 </table>
 
                 <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bf41e2ac997e,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bfc320f756ad,null,false);
  ?>
             </div>
             
@@ -331,7 +336,7 @@
                 console.log(seal_place_arr);
                 $('#js-categories-id-input-seal').val(selectedCategories.selectedCategoriesId.join(','));
                 $('#js-categories-name-input-seal').val(selectedCategories.selectedCategoriesName.join(' '));
-                $('#js-categories-place-input-seal').val(seal_place_arr.join(','));
+                // $('#js-categories-place-input-seal').val(seal_place_arr.join(','));
                 //console.log(layer.getFrameIndex(index));
                 layer.close(index); //如果设定了yes回调，需进行手工关闭
             }
@@ -354,34 +359,52 @@
                     return;
                 }
 
-                // var user_place_arr = new Array();
-                // $.each(selectedCategories.selectedCategoriesId,function(k,v){
-                //     var user_place = $("#layui-layer-iframe"+index).contents().find("input[name=user_place_"+v+"]").val();
-                    
-                //     user_place_arr.push(user_place);
-
-
-                // })
-                // console.log(selectedCategories);
                 $('#js-categories-id-input-user').val(selectedCategories.selectedCategoriesId.join(','));
                 $('#js-categories-name-input-user').val(selectedCategories.selectedCategoriesName.join(' '));
-                $('#js-categories-place-input-user').val(selectedCategories.selectedCategoriesPlace.join(','));
+                // $('#js-categories-place-input-user').val(selectedCategories.selectedCategoriesPlace.join(','));
                 //console.log(layer.getFrameIndex(index));
                 layer.close(index); //如果设定了yes回调，需进行手工关闭
 
-                $.ajax({
-                    url: "<?php echo url('AdminCategory/update_user'); ?>", 
-                    type: "post", 
-                    dataType: "json", 
-                    data: {
-                        post_id: "<?php echo $post['id']; ?>",
-                        user_ids: selectedCategories.selectedCategoriesId.join(','),
-                        user_places: selectedCategories.selectedCategoriesPlace.join(',')
-                    }, 
-                    success: function (data) {
-                        console.log(data);
-                    }
-                });
+                // $.ajax({
+                //     url: "<?php echo url('AdminCategory/update_user'); ?>", 
+                //     type: "post", 
+                //     dataType: "json", 
+                //     data: {
+                //         post_id: "<?php echo $post['id']; ?>",
+                //         user_ids: selectedCategories.selectedCategoriesId.join(','),
+                //         user_places: selectedCategories.selectedCategoriesPlace.join(',')
+                //     }, 
+                //     success: function (data) {
+                //         console.log(data);
+                //     }
+                // });
+            }
+        });
+    }
+
+    function doSelectCategory_user_one() {
+        var selectedCategoriesId_one = $('#js-categories-id-input-user-one').val();
+        var selectedCategoriesPlaces_one = $('#js-categories-place-input-user-one').val();
+        openIframeLayer("<?php echo url('AdminCategory/select_user_one'); ?>?ids=" + selectedCategoriesId_one + '&post_id=' + '<?php echo $post['id']; ?>', '请选择分类', {
+            area: ['700px', '400px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //do something
+
+                var iframeWin          = window[layero.find('iframe')[0]['name']];
+                var selectedCategories = iframeWin.confirm();
+                if (selectedCategories.selectedCategoriesId.length == 0) {
+                    layer.msg('请选择分类');
+                    return;
+                }else if (selectedCategories.selectedCategoriesId.length > 1) {
+                    layer.msg('只能存在一个协议负责人');
+                    return;
+                }
+
+                $('#js-categories-id-input-user-one').val(selectedCategories.selectedCategoriesId.join(','));
+                $('#js-categories-name-input-user-one').val(selectedCategories.selectedCategoriesName.join(' '));
+                //console.log(layer.getFrameIndex(index));
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
             }
         });
     }

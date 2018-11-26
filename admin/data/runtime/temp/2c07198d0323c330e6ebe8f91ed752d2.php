@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:50:"themes/admin_simpleboot3/user/admin_index/add.html";i:1540739936;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:50:"themes/admin_simpleboot3/user/admin_index/add.html";i:1543241362;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -190,7 +190,7 @@
 
                     </table>
                     <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bd9c3a2380c4,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bfbfea9454ed,null,false);
  ?>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
@@ -207,7 +207,7 @@
                         <tr>
                             <td>
                                 <div style="text-align: center;">
-                                    <input type="hidden" name="post[more][thumbnail]" id="thumbnail" value="">
+                                    <input type="hidden" name="post[avatar]" id="thumbnail" value="">
                                     <a href="javascript:uploadOneImage('图片上传','#thumbnail');">
                                         <img src="/themes/admin_simpleboot3/public/assets/images/default-thumbnail.png" id="thumbnail-preview"
                                             width="135" style="cursor: pointer" />
@@ -230,7 +230,7 @@
                     </table>
 
                     <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_right_sidebar',$temp5bd9c3a2380d4,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_right_sidebar',$temp5bfbfea9454f6,null,false);
  ?>
                 </div>
             </div>

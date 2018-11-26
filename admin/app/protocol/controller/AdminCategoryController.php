@@ -453,11 +453,11 @@ tpl;
                value='\$id' data-name='\$name' \$checked>
     </td>
     <td>\$id</td>
-    <td>\$spacer <a href='\$url' target='_blank'>\$name</a></td>
+    <td>\$spacer \$name</td>
 </tr>
 tpl;
 
-        // $categoryTree = $userModel->adminCategoryTableTree($selectedIds, $tpl);
+        $categoryTree = $userModel->adminCategoryTableTree($selectedIds, $tpl);
 
         $where      = ['user_status' => 1];
         $categories = $userModel->where($where)->select();
@@ -481,7 +481,66 @@ tpl;
         
         $this->assign('categories', $categories);
         $this->assign('selectedIds', $selectedIds);
-        // $this->assign('categories_tree', $categoryTree);
+        $this->assign('categories_tree', $categoryTree);
+        return $this->fetch();
+    }
+
+    /**
+     * 查找负责人
+     */
+    public function select_user_one()
+    {
+        $ids                 = $this->request->param('ids');
+        $selectedIds         = explode(',', $ids);
+
+        $places                 = $this->request->param('places');
+        $selectedPlaces         = explode(',', $places);
+
+        $post_id                 = $this->request->param('post_id');
+
+        // foreach ($selectedIds as $key => $value) {
+        //     # code...
+        //     $places_arr[$value] = $selectedPlaces[$key];
+        // }
+
+        $userModel = new UserModel();
+
+        $tpl = <<<tpl
+<tr class='data-item-tr'>
+    <td>
+        <input type='checkbox' class='js-check' data-yid='js-check-y' data-xid='js-check-x' name='ids[]'
+               value='\$id' data-name='\$name' \$checked>
+    </td>
+    <td>\$id</td>
+    <td>\$spacer \$name</td>
+</tr>
+tpl;
+
+        $categoryTree = $userModel->adminCategoryTableTree($selectedIds, $tpl, $one = true);
+
+        // $where      = ['user_status' => 1];
+        // $categories = $userModel->where($where)->select();
+        // foreach ($categories as $key => $val) {
+            # code...
+            // $val['place'] = $selectedPlaces[$key];
+            // if(in_array($val['id'], $selectedIds)){
+            //     $categories[$key]['place'] = $places_arr[$val['id']];
+            // }else{
+            //     $categories[$key]['place'] = 0;
+            // }
+
+            // $is_user = Db::name('protocol_category_user_post')->where(['post_id'=>$post_id, 'category_id'=>$val['id']])->find();
+            // if($is_user){
+            //     $categories[$key]['place'] = $is_user['place'];
+            // }else{
+            //     $categories[$key]['place'] = 0;
+            // }  
+        // }
+
+        
+        // $this->assign('categories', $categories);
+        // $this->assign('selectedIds', $selectedIds);
+        $this->assign('categories_tree', $categoryTree);
         return $this->fetch();
     }
 

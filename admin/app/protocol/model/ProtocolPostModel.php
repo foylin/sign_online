@@ -13,6 +13,7 @@ namespace app\protocol\model;
 use app\admin\model\RouteModel;
 use think\Model;
 use think\Db;
+// use App\Controller\Db;
 
 class ProtocolPostModel extends Model
 {
@@ -49,6 +50,11 @@ class ProtocolPostModel extends Model
     public function categories_user()
     {
         return $this->belongsToMany('UserModel', 'protocol_category_user_post', 'category_id', 'post_id');
+    }
+
+    public function categories_user_frame()
+    {
+        return $this->belongsToMany('UserModel', 'protocol_category_user_post', 'frame', 'post_id');
     }
 
     /**
@@ -152,7 +158,7 @@ class ProtocolPostModel extends Model
      * @param array|string $categories 文章分类 id
      * @return $this
      */
-    public function adminEditArticle($data, $categories, $categories_seal, $categories_user, $categories_seal_place, $categories_user_place)
+    public function adminEditArticle($data, $categories, $categories_seal, $categories_user, $categories_user_one)
     {
 
         unset($data['user_id']);
@@ -193,53 +199,74 @@ class ProtocolPostModel extends Model
         // 行政公章
         if (is_string($categories_seal)) {
             $categories_seal = explode(',', $categories_seal);
-            $categories_seal_place = explode(',', $categories_seal_place);
+            // $categories_seal_place = explode(',', $categories_seal_place);
         }
 
         $oldCategoryIds_seal        = $this->categories_seal()->column('category_id');
         $sameCategoryIds_seal       = array_intersect($categories_seal, $oldCategoryIds_seal);
         $needDeleteCategoryIds_seal = array_diff($oldCategoryIds_seal, $sameCategoryIds_seal);
         $newCategoryIds_seal        = array_diff($categories_seal, $sameCategoryIds_seal);
-
+        
         if (!empty($oldCategoryIds_seal)) {
             $this->categories_seal()->detach($oldCategoryIds_seal);
         }
 
-        if (!empty($categories_seal)) {
-            foreach ($categories_seal as $nk_seal => $nv_seal) {
-                $this->categories_seal()->attach($nv_seal, ['place'=> $categories_seal_place[$nk_seal]]);
-            }
+        if (!empty($newCategoryIds_seal)) {
+        //     foreach ($categories_seal as $nk_seal => $nv_seal) {
+        //         $this->categories_seal()->attach($nv_seal, ['place'=> $categories_seal_place[$nk_seal]]);
+        //     }
+            $this->categories_seal()->attach(array_values($newCategoryIds_seal));
         }
 
+
+        // 承诺人或保证人
+        
+        
+        
+        if (is_string($categories_user)) {
+            // $categories_user = explode(',', $categories_user);
+            $categories_user = Db::name('frame_category_post')->where('category_id in ('.$categories_user.')')->group('post_id')->field('post_id')->select()->toArray();
+            foreach ($categories_user as $key => $value) {
+                $categories_user_arr[] = $value['post_id'];
+            }
+            $categories_user = $categories_user_arr;
+        }
+        // dump($categories_user);
         
 
-        // 签约用户
-        // if (is_string($categories_user)) {
-        //     $categories_user = explode(',', $categories_user);
-        //     $categories_user_place = explode(',', $categories_user_place);
-        // }
+        $oldCategoryIds_user        = $this->categories_user()->column('category_id');
+        // dump($oldCategoryIds_user);
+        $sameCategoryIds_user       = array_intersect($categories_user, $oldCategoryIds_user);
+        $needDeleteCategoryIds_user = array_diff($oldCategoryIds_user, $sameCategoryIds_user);
+        $newCategoryIds_user        = array_diff($categories_user, $sameCategoryIds_user);
 
-        // $oldCategoryIds_user        = $this->categories_user()->column('category_id');
-        // $sameCategoryIds_user       = array_intersect($categories_user, $oldCategoryIds_user);
-        // $needDeleteCategoryIds_user = array_diff($oldCategoryIds_user, $sameCategoryIds_user);
-        // $newCategoryIds_user        = array_diff($categories_user, $sameCategoryIds_user);
+        // dump($newCategoryIds_user);
+        if (!empty($needDeleteCategoryIds_user)) {
+            $this->categories_user()->detach($needDeleteCategoryIds_user);
+        }
 
-        // if (!empty($oldCategoryIds_user)) {
-        //     $this->categories_user()->detach($oldCategoryIds_user);
-        // }
+        if (!empty($newCategoryIds_user)) {
+            $this->categories_user()->attach(array_values($newCategoryIds_user));
+        }
 
-        // if (!empty($categories_user)) {
-        //     foreach ($categories_user as $nk_seal => $nv_seal) {
-        //         $this->categories_user()->attach($nv_seal, ['place'=> $categories_user_place[$nk_seal]]);
-        //     }
-        // }
+        // 负责人
+        if (is_string($categories_user_one)) {
+            $categories_user_one = explode(',', $categories_user_one);
+        }
+
+        $oldCategoryIds_user_one        = $this->categories_user()->where('pivot.place = 1')->column('category_id');
+        $sameCategoryIds_user_one       = array_intersect($categories_user_one, $oldCategoryIds_user_one);
+        $needDeleteCategoryIds_user_one = array_diff($oldCategoryIds_user_one, $sameCategoryIds_user_one);
+        $newCategoryIds_user_one        = array_diff($categories_user_one, $sameCategoryIds_user_one);
+        if (!empty($needDeleteCategoryIds_user_one)) {
+            $this->categories_user()->detach($needDeleteCategoryIds_user_one);
+        }
+
+        if (!empty($newCategoryIds_user_one)) {
+            $this->categories_user()->attach(array_values($newCategoryIds_user_one), ['place'=>1]);
+        }
 
 
-        // $data['post_keywords'] = str_replace('，', ',', $data['post_keywords']);
-
-        // $keywords = explode(',', $data['post_keywords']);
-
-        // $this->addTags($keywords, $data['id']);
 
         return $this;
 
