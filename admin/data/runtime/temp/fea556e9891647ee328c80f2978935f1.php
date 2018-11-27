@@ -191,7 +191,7 @@
 
                     </table>
                     <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bfd5b664fcd4,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bfd794fd8368,null,false);
  ?>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
@@ -253,7 +253,7 @@
                     </table>
 
                     <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_right_sidebar',$temp5bfd5b664fce6,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_right_sidebar',$temp5bfd794fd8372,null,false);
  ?>
                 </div>
             </div>

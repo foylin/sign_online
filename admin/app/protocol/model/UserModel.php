@@ -31,15 +31,15 @@ class UserModel extends Model
      */
     public function adminCategoryTableTree($currentIds = 0, $tpl = '', $one = false)
     {
-        if($one){
-            $where = ['user_status' => 1];
+        // if($one){
+            // $where = ['user_status' => 1];
             // $where = ['delete_time' => 0];
     //        if (!empty($currentCid)) {
     //            $where['id'] = ['neq', $currentCid];
     //        }
-            $categories = $this->order("user_login ASC")->where($where)->select()->toArray();
+            // $categories = $this->order("user_login ASC")->where($where)->select()->toArray();
             // $categories = Db::name('frame_category')->where($where)->select()->toArray();
-        }else{
+        // }else{
             $where = ['fc.status' => 1];
             $where = ['fc.delete_time' => 0];
     //        if (!empty($currentCid)) {
@@ -49,9 +49,28 @@ class UserModel extends Model
             // $categories = Db::name('frame_category')->alias('fc')->join('__PROTOCOL_CATEGORY_USER_POST__ pcup', 'fc.id=pcup.frame')
             // ->field('fc.*')->where($where)->select()->toArray();
             $categories = Db::name('frame_category')->alias('fc')->where($where)->select()->toArray();
-        }
         
-        // dump(Db::name('frame_category')->getLastSql());
+            foreach ($categories as $key => $value) {
+                $categories[$key]['is_user'] = false;
+                $map['fcp.category_id'] = $value['id'];
+                $map['u.user_status'] = 1;
+                $next_parent = Db::name('frame_category_post')->alias('fcp')->join('__USER__ u', 'fcp.post_id = u.id')
+                ->where($map)->field('u.*')->select()->toArray();
+                if($next_parent){
+                    foreach ($next_parent as $k_np => $val_np) {
+                        $next_parent_data['id'] = $val_np['id'];
+                        $next_parent_data['parent_id'] = $value['id'];
+                        $next_parent_data['name'] = $val_np['user_login'];
+                        $next_parent_data['is_user'] = true;
+                    }
+                    $categories[] = $next_parent_data;
+                }
+                
+
+            }
+        // }
+        
+        // dump($categories);
         $tree       = new Tree();
         $tree->icon = ['&nbsp;&nbsp;│', '&nbsp;&nbsp;├─', '&nbsp;&nbsp;└─'];
         $tree->nbsp = '&nbsp;&nbsp;';
@@ -68,11 +87,12 @@ class UserModel extends Model
         
 
         $newCategories = [];
+        
         foreach ($categories as $item) {
-            if($one){
-                $item['parent_id'] = 0;
-                $item['name'] = $item['user_login'];
-            }
+            // if($one){
+            //     $item['parent_id'] = 0;
+            //     $item['name'] = $item['user_login'];
+            // }
             
             $item['parent_id_node'] = ($item['parent_id']) ? ' class="child-of-node-' . $item['parent_id'] . '"' : '';
             $item['style']          = empty($item['parent_id']) ? '' : 'display:none;';
@@ -87,7 +107,7 @@ class UserModel extends Model
             // }
             array_push($newCategories, $item);
         }
-
+        // dump($newCategories);
         $tree->init($newCategories);
 
         if (empty($tpl)) {

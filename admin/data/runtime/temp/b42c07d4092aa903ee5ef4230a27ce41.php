@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"themes/admin_simpleboot3/protocol/admin_category/select_user.html";i:1543326120;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"themes/admin_simpleboot3/protocol/admin_category/select_user.html";i:1543333509;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,7 +93,7 @@
                     </label>
                 </th>
                 <th width="50">ID</th>
-                <th>签约用户</th>
+                <th>承诺人或保证人</th>
             </tr>
             </thead>
             <tbody>

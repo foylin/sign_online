@@ -446,16 +446,20 @@ tpl;
 
         $userModel = new UserModel();
 
-        $tpl = <<<tpl
-<tr class='data-item-tr'>
-    <td>
-        <input type='checkbox' class='js-check' data-yid='js-check-y' data-xid='js-check-x' name='ids[]'
-               value='\$id' data-name='\$name' \$checked>
-    </td>
-    <td>\$id</td>
-    <td>\$spacer \$name</td>
-</tr>
-tpl;
+//         $tpl = <<<tpl
+// <tr id='node-\$id' \$parent_id_node data-parent_id='\$parent_id' data-id='\$id'>
+// <td style='padding-left:20px;'><input type='checkbox' class='js-check' data-yid='js-check-y' data-xid='js-check-x' name='ids[]' value='\$id' data-parent_id='\$parent_id' data-id='\$id'></td>
+
+//     <td>\$id</td>
+//     <td>\$spacer \$name</td>
+// </tr>
+// tpl;
+
+$tpl = " <tr id='node-\$id' \$parent_id_node style='' data-parent_id='\$parent_id' data-id='\$id'>
+                        <td style='padding-left:20px;'><input type='checkbox' class='js-check' data-yid='js-check-y' data-xid='js-check-x' name='ids[]' value='\$id' data-parent_id='\$parent_id' data-id='\$id'></td>
+                        <td>\$id</td>
+                        <td>\$spacer \$name</td>
+                    </tr>";
 
         $categoryTree = $userModel->adminCategoryTableTree($selectedIds, $tpl);
 

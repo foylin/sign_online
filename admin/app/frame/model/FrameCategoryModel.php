@@ -96,7 +96,7 @@ class FrameCategoryModel extends Model
             }
             array_push($newCategories, $item);
         }
-
+        // dump($newCategories);
         $tree->init($newCategories);
 
         if (empty($tpl)) {

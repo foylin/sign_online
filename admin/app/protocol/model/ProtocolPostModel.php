@@ -242,17 +242,17 @@ class ProtocolPostModel extends Model
         // 承诺人或保证人
         
         
-        $frame_ids = $categories_user;
+        // $frame_ids = $categories_user;
         if (is_string($categories_user)) {
-            // $categories_user = explode(',', $categories_user);
-            $categories_user = Db::name('frame_category_post')->where('category_id in ('.$categories_user.')')->group('post_id')->field('post_id, category_id')->select()->toArray();
-            foreach ($categories_user as $key => $value) {
-                $categories_user_arr[] = $value['post_id'];
+            $categories_user = explode(',', $categories_user);
+            // $categories_user = Db::name('frame_category_post')->where('category_id in ('.$categories_user.')')->group('post_id')->field('post_id, category_id')->select()->toArray();
+            // foreach ($categories_user as $key => $value) {
+            //     $categories_user_arr[] = $value['post_id'];
                 
-            }
-            $categories_user = $categories_user_arr;
-            unset($key);
-            unset($value);
+            // }
+            // $categories_user = $categories_user_arr;
+            // unset($key);
+            // unset($value);
         }
         // dump($categories_user);
         
@@ -277,7 +277,8 @@ class ProtocolPostModel extends Model
             // }
             $this->categories_user()->attach(array_values($newCategoryIds_user));
         }
-        Db::name('protocol_category_user_post')->where('place = 0 and post_id = '.$data['id'])->update(['frame'=>$frame_ids]);
+        // Db::name('protocol_category_user_post')->where('place = 0 and post_id = '.$data['id'])
+        // ->update(['frame'=>$frame_ids]);
 
         // 负责人
         

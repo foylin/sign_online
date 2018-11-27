@@ -234,29 +234,29 @@ class UserModel extends Model
             if (is_string($user['categories'])) {
                 $user['categories'] = explode(',', $user['categories']);
             }
-    
             $this->frame()->save($user['categories']);
 
+            
             // 模糊岗位数据
             if (is_string($user['categories_vague'])) {
                 $user['categories_vague'] = explode(',', $user['categories_vague']);
             }
-    
             $this->vague()->save($user['categories_vague']);
 
             // 员工身份
             if (is_string($user['categories_identity'])) {
                 $user['categories_identity'] = explode(',', $user['categories_identity']);
             }
-    
             $this->identity()->save($user['categories_identity']);
 
             // 员工角色
             if (is_string($user['categories_role'])) {
                 $user['categories_role'] = explode(',', $user['categories_role']);
             }
-    
             $this->role()->save($user['categories_role']);
+            
+            // 添加到相应的协议签约
+            
             // $data   = Db::name("user")->where('id', $userId)->find();
             // cmf_update_current_user($data);
             // $token = cmf_generate_user_token($userId, 'web');

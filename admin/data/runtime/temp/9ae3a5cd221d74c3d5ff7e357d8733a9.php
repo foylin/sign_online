@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:54:"themes/admin_simpleboot3/protocol/admin_index/add.html";i:1543331206;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:54:"themes/admin_simpleboot3/protocol/admin_index/add.html";i:1543333503;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -151,7 +151,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th width="100">签约用户<span class="form-required">*</span></th>
+                        <th width="100">承诺人或保证人<span class="form-required">*</span></th>
                         <td>
                             <input class="form-control" type="text" style="width:400px;" required value=""
                                    placeholder="请选择分类" onclick="doSelectCategory_user();" id="js-categories-name-input-user"
@@ -174,7 +174,7 @@
                     </tr>
                 </table>
                 <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bfd64b48a167,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bfd793f95c10,null,false);
  ?>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
@@ -227,7 +227,7 @@
                 </table>
 
                 <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_right_sidebar',$temp5bfd64b48a172,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_right_sidebar',$temp5bfd793f95c19,null,false);
  ?>
             </div> -->
         </div>

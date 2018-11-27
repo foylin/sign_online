@@ -215,7 +215,7 @@
                 </table>
 
                 <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bfd64c390284,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bfd8368a84b8,null,false);
  ?>
             </div>
             

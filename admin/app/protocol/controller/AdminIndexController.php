@@ -249,8 +249,10 @@ class AdminIndexController extends AdminBaseController
         $this->assign('post_category_places_seal', $postCategoryIds_seal_place);
 
         // 承诺人
-        // $postCategories_user = $post->categories_user()->alias('a')->where('pivot.place = 0')->column('a.user_login', 'a.id');
-        
+        $postCategories_user = $post->categories_user()->alias('a')->where('pivot.place = 0')->column('a.user_login', 'a.id');
+        $postCategoryIds_user = implode(',', array_keys($postCategories_user));  
+        $this->assign('post_categories_user', $postCategories_user);
+        $this->assign('post_category_ids_user', $postCategoryIds_user);
         // $postCategories_user = Db::name('protocol_category_user_post')->alias('pcup')->join('__FRAME_CATEGORY__ fc', 'pcup.frame = fc.id')
         // ->where('pcup.post_id = '.$id)->field('fc.id, fc.name')->select()->toArray();
         // $postCategories_user_arr = array();
@@ -259,18 +261,18 @@ class AdminIndexController extends AdminBaseController
         //     $postCategories_user_arr[] = $value['name'];
         //     $postCategories_user_id_arr[] = $value['id'];
         // }
-        $postCategories_user_frame = Db::name('protocol_category_user_post')->alias('pcup')
-        ->where('pcup.post_id = '.$id)->find();
-        $frame_ids = explode(',', $postCategories_user_frame['frame']);
-        // dump($frame_ids);
-        foreach ($frame_ids as $key => $value) {
-            # code...
-            $frame_data = Db::name('frame_category')->where('id = '. $value)->find();
-            $postCategoryIds_user[] = $frame_data['name'];
-        }
-        $frame_ids = implode(',', $frame_ids);        
-        $this->assign('post_categories_user', $postCategoryIds_user);
-        $this->assign('post_category_ids_user', $frame_ids);
+        // $postCategories_user_frame = Db::name('protocol_category_user_post')->alias('pcup')
+        // ->where('pcup.post_id = '.$id)->find();
+        // $frame_ids = explode(',', $postCategories_user_frame['frame']);
+        // // dump($frame_ids);
+        // foreach ($frame_ids as $key => $value) {
+        //     # code...
+        //     $frame_data = Db::name('frame_category')->where('id = '. $value)->find();
+        //     $postCategoryIds_user[] = $frame_data['name'];
+        // }
+        // $frame_ids = implode(',', $frame_ids);        
+        // $this->assign('post_categories_user', $postCategories_user_arr);
+        // $this->assign('post_category_ids_user', $frame_ids);
 
         // 负责人
         $postCategories_user_one = $post->categories_user()->alias('a')->where('pivot.place = 1')->column('a.user_login', 'a.id');
@@ -278,9 +280,9 @@ class AdminIndexController extends AdminBaseController
         $this->assign('post_categories_user_one', $postCategories_user_one);
         $this->assign('post_category_ids_user_one', $postCategoryIds_user_one);
 
-        $postCategories_user_place = $post->categories_user()->alias('a')->column('pivot.place', 'a.id');
-        $postCategoryIds_user_place = implode(',', $postCategories_user_place);
-        $this->assign('post_category_places_user', $postCategoryIds_user_place);
+        // $postCategories_user_place = $post->categories_user()->alias('a')->column('pivot.place', 'a.id');
+        // $postCategoryIds_user_place = implode(',', $postCategories_user_place);
+        // $this->assign('post_category_places_user', $postCategoryIds_user_place);
 
         $themeModel = new ThemeModel();
         $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
@@ -780,6 +782,7 @@ class AdminIndexController extends AdminBaseController
 
             // 承诺人签字,查找是否有负责人
             $user_post2 = null;
+            $place_data2 = null;
             if($user_post['place'] == 0){
                 $user_post2 = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'place' => 1])->find();
                 if($user_post2){
@@ -789,12 +792,16 @@ class AdminIndexController extends AdminBaseController
                     $sign_time_month2 = date('m', $user_post2['update_time']);
                     $sign_time_day2 = date('d', $user_post2['update_time']);
                     $sign_time2 = iconv("utf-8","gbk", $sign_time_year2 . '年' . $sign_time_month2 . '月' . $sign_time_day2 . '日');
-                    $place_data2 = $model_data['more']['axes'][$user_post2['place']];
-                    if($place_data2){
-                        $page2 = $place_data2['page'];
-                        $sign2 = explode(',', $place_data2['sign']);
-                        $time2 = explode(',', $place_data2['time']);
+                    
+                    if(isset($model_data['more']['axes'][$user_post2['place']])){
+                        $place_data2 = $model_data['more']['axes'][$user_post2['place']];
+                        if($place_data2){
+                            $page2 = $place_data2['page'];
+                            $sign2 = explode(',', $place_data2['sign']);
+                            $time2 = explode(',', $place_data2['time']);
+                        }
                     }
+                    
                 }
             }
 
@@ -837,7 +844,7 @@ class AdminIndexController extends AdminBaseController
                 }
 
                 // 如果存在,插入负责人签名
-                if($user_post2){
+                if($user_post2 && $place_data2){
                     if($user_post2['sign_url'] && $pageNo == $page2){
                         $pdf->image($sign_url2, $sign2[0], $sign2[1], 50);//加上图片水印，后为坐标
                         // $pdf->Text($time2[0], $time2[1], $sign_time2);
@@ -926,6 +933,7 @@ class AdminIndexController extends AdminBaseController
 
             // 如果是承诺人签字,查找是否有负责人
             $user_post2 = null;
+            $place_data2 = null;
             if($user_post['place'] == 0){
                 $user_post2 = Db::name('protocol_category_user_post')->where(['post_id'=>$id, 'place' => 1])->find();
                 if($user_post2){
@@ -935,12 +943,15 @@ class AdminIndexController extends AdminBaseController
                     $sign_time_month2 = date('m', $user_post2['update_time']);
                     $sign_time_day2 = date('d', $user_post2['update_time']);
                     $sign_time2 = iconv("utf-8","gbk", $sign_time_year2 . '年' . $sign_time_month2 . '月' . $sign_time_day2 . '日');
-                    $place_data2 = $model_data['more']['axes'][$user_post2['place']];
-                    if($place_data2){
-                        $page2 = $place_data2['page'];
-                        $sign2 = explode(',', $place_data2['sign']);
-                        $time2 = explode(',', $place_data2['time']);
+                    if(isset($model_data['more']['axes'][$user_post2['place']])){
+                        $place_data2 = $model_data['more']['axes'][$user_post2['place']];
+                        if($place_data2){
+                            $page2 = $place_data2['page'];
+                            $sign2 = explode(',', $place_data2['sign']);
+                            $time2 = explode(',', $place_data2['time']);
+                        }
                     }
+                    
                 }
             }
 
@@ -983,7 +994,7 @@ class AdminIndexController extends AdminBaseController
                 }
 
                 // 如果存在,插入负责人签名
-                if($user_post2){
+                if($user_post2 && $place_data2){
                     if($user_post2['sign_url'] && $pageNo == $page2){
                         $pdf->image($sign_url2, $sign2[0], $sign2[1], 50);//加上图片水印，后为坐标
                         // $pdf->Text($time2[0], $time2[1], $sign_time2);
