@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:54:"themes/admin_simpleboot3/protocol/admin_index/add.html";i:1542304229;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:54:"themes/admin_simpleboot3/protocol/admin_index/add.html";i:1543331206;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,32 +139,7 @@
                             </div>
                         </td>
                     </tr>
-                    <!-- <tr>
-                        <th>关键词</th>
-                        <td>
-                            <input class="form-control" type="text" name="post[post_keywords]" id="keywords" value=""
-                                   placeholder="请输入关键字">
-                            <p class="help-block">多关键词之间用英文逗号隔开</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>文章来源</th>
-                        <td><input class="form-control" type="text" name="post[post_source]" id="source" value=""
-                                   placeholder="请输入文章来源"></td>
-                    </tr>
-                    <tr>
-                        <th>摘要</th>
-                        <td>
-                            <textarea class="form-control" name="post[post_excerpt]" style="height: 50px;"
-                                      placeholder="请填写摘要"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>内容</th>
-                        <td>
-                            <script type="text/plain" id="content" name="post[post_content]"></script>
-                        </td>
-                    </tr> -->
+                    
                     <tr>
                         <th width="100">行政公章<span class="form-required">*</span></th>
                         <td>
@@ -186,52 +161,20 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>签约数量</th>
-                        <td><input class="form-control" type="text" name="post[post_count]" id="source" value=""
-                                   placeholder=""></td>
-                    </tr>
-                    <!-- <tr>
-                        <th>相册</th>
+                        <th width="100">负责人</th>
                         <td>
-                            <ul id="photos" class="pic-list list-unstyled form-inline"></ul>
-                            <a href="javascript:uploadMultiImage('图片上传','#photos','photos-item-tpl');"
-                               class="btn btn-default btn-sm">选择图片</a>
-                        </td>
-                    </tr> -->
-                    <!-- <tr>
-                        <th>协议内容</th>
-                        <td>
-                            <script type="text/plain" id="content" name="post[post_content]"></script>
-                        </td>
-                    </tr> -->
-                    <!-- <tr>
-                        <th>音频</th>
-                        <td class="form-inline">
-                            <input id="file-audio" class="form-control" type="text" name="post[more][audio]"
-                                   value="<?php echo (isset($post['more']['audio']) && ($post['more']['audio'] !== '')?$post['more']['audio']:''); ?>" placeholder="请上传音频文件" style="width: 200px;">
-                            <?php if(!(empty($post['more']['audio']) || (($post['more']['audio'] instanceof \think\Collection || $post['more']['audio'] instanceof \think\Paginator ) && $post['more']['audio']->isEmpty()))): ?>
-                                <a id="file-audio-preview" href="<?php echo cmf_get_file_download_url($post['more']['audio']); ?>"
-                                   target="_blank">下载</a>
-                            <?php endif; ?>
-
-                            <a href="javascript:uploadOne('文件上传','#file-audio','audio');">上传</a>
+                            <input class="form-control" type="text" style="width:400px;" required
+                                   value=""
+                                   placeholder="请选择分类" onclick="doSelectCategory_user_one();" id="js-categories-name-input-user-one"
+                                   readonly/>
+                            <input class="form-control" type="hidden" value=""
+                                   name="post[categories_user_one]"
+                                   id="js-categories-id-input-user-one"/>
                         </td>
                     </tr>
-                    <tr>
-                        <th>视频</th>
-                        <td class="form-inline">
-                            <input id="file-video" class="form-control" type="text" name="post[more][video]"
-                                   value="<?php echo (isset($post['more']['video']) && ($post['more']['video'] !== '')?$post['more']['video']:''); ?>" placeholder="请上传视频文件" style="width: 200px;">
-                            <?php if(!(empty($post['more']['video']) || (($post['more']['video'] instanceof \think\Collection || $post['more']['video'] instanceof \think\Paginator ) && $post['more']['video']->isEmpty()))): ?>
-                                <a id="file-video-preview" href="<?php echo cmf_get_file_download_url($post['more']['video']); ?>"
-                                   target="_blank">下载</a>
-                            <?php endif; ?>
-                            <a href="javascript:uploadOne('文件上传','#file-video','video');">上传</a>
-                        </td>
-                    </tr> -->
                 </table>
                 <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bf2e5008d383,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bfd64b48a167,null,false);
  ?>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
@@ -284,7 +227,7 @@
                 </table>
 
                 <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_right_sidebar',$temp5bf2e5008d38c,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_right_sidebar',$temp5bfd64b48a172,null,false);
  ?>
             </div> -->
         </div>
@@ -396,6 +339,33 @@
                 }
                 $('#js-categories-id-input-user').val(selectedCategories.selectedCategoriesId.join(','));
                 $('#js-categories-name-input-user').val(selectedCategories.selectedCategoriesName.join(' '));
+                //console.log(layer.getFrameIndex(index));
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            }
+        });
+    }
+
+    function doSelectCategory_user_one() {
+        var selectedCategoriesId_one = $('#js-categories-id-input-user-one').val();
+        var selectedCategoriesPlaces_one = $('#js-categories-place-input-user-one').val();
+        openIframeLayer("<?php echo url('AdminCategory/select_user_one'); ?>?ids=" + selectedCategoriesId_one, '请选择分类', {
+            area: ['700px', '400px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //do something
+
+                var iframeWin          = window[layero.find('iframe')[0]['name']];
+                var selectedCategories = iframeWin.confirm();
+                // if (selectedCategories.selectedCategoriesId.length == 0) {
+                //     layer.msg('请选择分类');
+                //     return;
+                // }else if (selectedCategories.selectedCategoriesId.length > 1) {
+                //     layer.msg('只能存在一个协议负责人');
+                //     return;
+                // }
+
+                $('#js-categories-id-input-user-one').val(selectedCategories.selectedCategoriesId.join(','));
+                $('#js-categories-name-input-user-one').val(selectedCategories.selectedCategoriesName.join(' '));
                 //console.log(layer.getFrameIndex(index));
                 layer.close(index); //如果设定了yes回调，需进行手工关闭
             }

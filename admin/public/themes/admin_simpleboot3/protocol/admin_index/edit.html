@@ -310,13 +310,13 @@
 
                 var iframeWin          = window[layero.find('iframe')[0]['name']];
                 var selectedCategories = iframeWin.confirm();
-                if (selectedCategories.selectedCategoriesId.length == 0) {
-                    layer.msg('请选择分类');
-                    return;
-                }else if (selectedCategories.selectedCategoriesId.length > 1) {
-                    layer.msg('只能存在一个协议负责人');
-                    return;
-                }
+                // if (selectedCategories.selectedCategoriesId.length == 0) {
+                //     layer.msg('请选择分类');
+                //     return;
+                // }else if (selectedCategories.selectedCategoriesId.length > 1) {
+                //     layer.msg('只能存在一个协议负责人');
+                //     return;
+                // }
 
                 $('#js-categories-id-input-user-one').val(selectedCategories.selectedCategoriesId.join(','));
                 $('#js-categories-name-input-user-one').val(selectedCategories.selectedCategoriesName.join(' '));

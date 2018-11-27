@@ -383,13 +383,13 @@ tpl;
         $ids                 = $this->request->param('ids');
         $selectedIds         = explode(',', $ids);
 
-        $places                 = $this->request->param('places');
-        $selectedPlaces         = explode(',', $places);
+        // $places                 = $this->request->param('places');
+        // $selectedPlaces         = explode(',', $places);
 
-        foreach ($selectedIds as $key => $value) {
-            # code...
-            $places_arr[$value] = $selectedPlaces[$key];
-        }
+        // foreach ($selectedIds as $key => $value) {
+        //     # code...
+        //     $places_arr[$value] = $selectedPlaces[$key];
+        // }
         // dump($places_arr);
         $sealCategoryModel = new SealCategoryModel();
 
@@ -418,7 +418,7 @@ $tpl = <<<tpl
 </tr>
 tpl;
 
-        $categoryTree = $sealCategoryModel->adminCategoryTableTree($selectedIds, $tpl, $places_arr);
+        $categoryTree = $sealCategoryModel->adminCategoryTableTree($selectedIds, $tpl);
         // dump($categoryTree);
         $where      = ['delete_time' => 0];
         $categories = $sealCategoryModel->where($where)->select();
@@ -433,16 +433,16 @@ tpl;
     {
         $ids                 = $this->request->param('ids');
         $selectedIds         = explode(',', $ids);
-
-        $places                 = $this->request->param('places');
-        $selectedPlaces         = explode(',', $places);
+        // dump($selectedIds);
+        // $places                 = $this->request->param('places');
+        // $selectedPlaces         = explode(',', $places);
 
         $post_id                 = $this->request->param('post_id');
 
-        foreach ($selectedIds as $key => $value) {
-            # code...
-            $places_arr[$value] = $selectedPlaces[$key];
-        }
+        // foreach ($selectedIds as $key => $value) {
+        //     # code...
+        //     $places_arr[$value] = $selectedPlaces[$key];
+        // }
 
         $userModel = new UserModel();
 
@@ -461,7 +461,7 @@ tpl;
 
         $where      = ['user_status' => 1];
         $categories = $userModel->where($where)->select();
-        foreach ($categories as $key => $val) {
+        // foreach ($categories as $key => $val) {
             # code...
             // $val['place'] = $selectedPlaces[$key];
             // if(in_array($val['id'], $selectedIds)){
@@ -470,13 +470,13 @@ tpl;
             //     $categories[$key]['place'] = 0;
             // }
 
-            $is_user = Db::name('protocol_category_user_post')->where(['post_id'=>$post_id, 'category_id'=>$val['id']])->find();
-            if($is_user){
-                $categories[$key]['place'] = $is_user['place'];
-            }else{
-                $categories[$key]['place'] = 0;
-            }  
-        }
+            // $is_user = Db::name('protocol_category_user_post')->where(['post_id'=>$post_id, 'category_id'=>$val['id']])->find();
+            // if($is_user){
+            //     $categories[$key]['place'] = $is_user['place'];
+            // }else{
+            //     $categories[$key]['place'] = 0;
+            // }  
+        // }
 
         
         $this->assign('categories', $categories);

@@ -166,8 +166,11 @@ class AdminIndexController extends AdminBaseController
             }
 
 
-            $protocolPostModel->adminAddArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user']);
-
+            $protocolPostModel->adminAddArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user'], $data['post']['categories_user_one']);
+            // dump($data['post']['categories_user']);
+            Db::name('protocol_category_user_post')->where('place = 0 and post_id = '.$protocolPostModel->id)
+            ->update(['frame' => $data['post']['categories_user']]);
+            // dump(Db::name('protocol_category_user_post')->getLastSql());
             $data['post']['id'] = $protocolPostModel->id;
             $hookParam = [
                 'is_add' => true,
@@ -246,10 +249,28 @@ class AdminIndexController extends AdminBaseController
         $this->assign('post_category_places_seal', $postCategoryIds_seal_place);
 
         // 承诺人
-        $postCategories_user = $post->categories_user()->alias('a')->where('pivot.place = 0')->column('a.user_login', 'a.id');
-        $postCategoryIds_user = implode(',', array_keys($postCategories_user));        
-        $this->assign('post_categories_user', $postCategories_user);
-        $this->assign('post_category_ids_user', $postCategoryIds_user);
+        // $postCategories_user = $post->categories_user()->alias('a')->where('pivot.place = 0')->column('a.user_login', 'a.id');
+        
+        // $postCategories_user = Db::name('protocol_category_user_post')->alias('pcup')->join('__FRAME_CATEGORY__ fc', 'pcup.frame = fc.id')
+        // ->where('pcup.post_id = '.$id)->field('fc.id, fc.name')->select()->toArray();
+        // $postCategories_user_arr = array();
+        // $postCategories_user_id_arr = array();
+        // foreach ($postCategories_user as $key => $value) {
+        //     $postCategories_user_arr[] = $value['name'];
+        //     $postCategories_user_id_arr[] = $value['id'];
+        // }
+        $postCategories_user_frame = Db::name('protocol_category_user_post')->alias('pcup')
+        ->where('pcup.post_id = '.$id)->find();
+        $frame_ids = explode(',', $postCategories_user_frame['frame']);
+        // dump($frame_ids);
+        foreach ($frame_ids as $key => $value) {
+            # code...
+            $frame_data = Db::name('frame_category')->where('id = '. $value)->find();
+            $postCategoryIds_user[] = $frame_data['name'];
+        }
+        $frame_ids = implode(',', $frame_ids);        
+        $this->assign('post_categories_user', $postCategoryIds_user);
+        $this->assign('post_category_ids_user', $frame_ids);
 
         // 负责人
         $postCategories_user_one = $post->categories_user()->alias('a')->where('pivot.place = 1')->column('a.user_login', 'a.id');
@@ -404,9 +425,13 @@ class AdminIndexController extends AdminBaseController
                 'name' => $result['post_title'],
                 'user_id' => cmf_get_current_admin_id()
             ];
-            $resultprotocol = $protocolPostModel
-                ->where(['id' => $id])
-                ->update(['delete_time' => time()]);
+            // $resultprotocol = $protocolPostModel
+            //     ->where(['id' => $id])
+            //     ->update(['delete_time' => time()]);
+            $resultprotocol = $protocolPostModel->where(['id' => $id])->delete();
+            Db::name('protocol_category_post')->where(['post_id' => $id])->delete();
+            Db::name('protocol_category_seal_post')->where(['post_id' => $id])->delete();
+            Db::name('protocol_category_user_post')->where(['post_id' => $id])->delete();
             // if ($resultprotocol) {
             //     Db::name('protocol_category_post')->where(['post_id' => $id])->update(['status' => 0]);
             //     Db::name('protocol_tag_post')->where(['post_id' => $id])->update(['status' => 0]);
@@ -419,9 +444,14 @@ class AdminIndexController extends AdminBaseController
 
         if (isset($param['ids'])) {
             $ids = $this->request->param('ids/a');
-            $recycle = $protocolPostModel->where(['id' => ['in', $ids]])->select();
-            $result = $protocolPostModel->where(['id' => ['in', $ids]])->update(['delete_time' => time()]);
-            if ($result) {
+
+            $protocolPostModel->where(['id' => ['in', $ids]])->delete();
+            Db::name('protocol_category_post')->where(['post_id' => ['in', $ids]])->delete();
+            Db::name('protocol_category_seal_post')->where(['post_id' => ['in', $ids]])->delete();
+            Db::name('protocol_category_user_post')->where(['post_id' => ['in', $ids]])->delete();
+            // $recycle = $protocolPostModel->where(['id' => ['in', $ids]])->select();
+            // $result = $protocolPostModel->where(['id' => ['in', $ids]])->update(['delete_time' => time()]);
+            // if ($result) {
                 // Db::name('protocol_category_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
                 // Db::name('protocol_tag_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
                 // foreach ($recycle as $value) {
@@ -434,8 +464,10 @@ class AdminIndexController extends AdminBaseController
                 //     ];
                 //     Db::name('recycleBin')->insert($data);
                 // }
-                $this->success("删除成功！", '');
-            }
+                // $this->success("删除成功！", '');
+            // }
+
+            $this->success("删除成功！", '');
         }
     }
 
@@ -739,6 +771,13 @@ class AdminIndexController extends AdminBaseController
                 $time = explode(',', $place_data['time']);
             }
 
+            // 如果有公章坐标
+            $seal_data = $model_data['more']['seal'];
+            if($seal_data){
+                $seal_page = $seal_data['page'];
+                $seal_sign = explode(',', $seal_data['sign']);
+            }
+
             // 承诺人签字,查找是否有负责人
             $user_post2 = null;
             if($user_post['place'] == 0){
@@ -783,6 +822,17 @@ class AdminIndexController extends AdminBaseController
                     $date_path = time() . 'date1.png';
                     gettimeimg($sign_time, $date_path);
                     $pdf->image(cmf_get_image_preview_url('dateimg/'.$date_path), $time[0], $time[1]-10, 50);
+
+                    // 如果有公章数据,则插入
+                    if($seal_data){
+
+                        // 获取公章图片插入
+                        $seal_category_data = Db::name('seal_category')->alias('sc')->field('sc.*')->join('__PROTOCOL_CATEGORY_SEAL_POST__ pcsp', 'sc.id = pcsp.category_id')->where('pcsp.post_id = '.$id)->find();
+                        $seal_img = json_decode($seal_category_data['more'], true);
+                        $seal_img = cmf_get_image_preview_url($seal_img['thumbnail']);
+                        $pdf->image($seal_img, $seal_sign[0], $seal_sign[1], 30);
+
+                    }
 
                 }
 

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:55:"themes/admin_simpleboot3/protocol/admin_index/edit.html";i:1543251875;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:55:"themes/admin_simpleboot3/protocol/admin_index/edit.html";i:1543329717;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -215,7 +215,7 @@
                 </table>
 
                 <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bfc320f756ad,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bfd64c390284,null,false);
  ?>
             </div>
             
@@ -393,13 +393,13 @@
 
                 var iframeWin          = window[layero.find('iframe')[0]['name']];
                 var selectedCategories = iframeWin.confirm();
-                if (selectedCategories.selectedCategoriesId.length == 0) {
-                    layer.msg('请选择分类');
-                    return;
-                }else if (selectedCategories.selectedCategoriesId.length > 1) {
-                    layer.msg('只能存在一个协议负责人');
-                    return;
-                }
+                // if (selectedCategories.selectedCategoriesId.length == 0) {
+                //     layer.msg('请选择分类');
+                //     return;
+                // }else if (selectedCategories.selectedCategoriesId.length > 1) {
+                //     layer.msg('只能存在一个协议负责人');
+                //     return;
+                // }
 
                 $('#js-categories-id-input-user-one').val(selectedCategories.selectedCategoriesId.join(','));
                 $('#js-categories-name-input-user-one').val(selectedCategories.selectedCategoriesName.join(' '));

@@ -40,23 +40,32 @@ class UserModel extends Model
             $categories = $this->order("user_login ASC")->where($where)->select()->toArray();
             // $categories = Db::name('frame_category')->where($where)->select()->toArray();
         }else{
-            $where = ['status' => 1];
-            $where = ['delete_time' => 0];
+            $where = ['fc.status' => 1];
+            $where = ['fc.delete_time' => 0];
     //        if (!empty($currentCid)) {
     //            $where['id'] = ['neq', $currentCid];
     //        }
             // $categories = $this->order("user_login ASC")->where($where)->select()->toArray();
-            $categories = Db::name('frame_category')->where($where)->select()->toArray();
+            // $categories = Db::name('frame_category')->alias('fc')->join('__PROTOCOL_CATEGORY_USER_POST__ pcup', 'fc.id=pcup.frame')
+            // ->field('fc.*')->where($where)->select()->toArray();
+            $categories = Db::name('frame_category')->alias('fc')->where($where)->select()->toArray();
         }
         
-        // dump($categories);
+        // dump(Db::name('frame_category')->getLastSql());
         $tree       = new Tree();
         $tree->icon = ['&nbsp;&nbsp;│', '&nbsp;&nbsp;├─', '&nbsp;&nbsp;└─'];
         $tree->nbsp = '&nbsp;&nbsp;';
 
-        if (!is_array($currentIds)) {
-            $currentIds = [$currentIds];
-        }
+        // if($one){
+            if (!is_array($currentIds)) {
+                $currentIds = [$currentIds];
+            }
+        // }else{
+        //     foreach ($categories as $key => $value) {
+        //         $currentIds[] = $value['id'];   
+        //     }
+        // }
+        
 
         $newCategories = [];
         foreach ($categories as $item) {
