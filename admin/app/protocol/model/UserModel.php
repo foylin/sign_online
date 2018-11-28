@@ -102,6 +102,8 @@ class UserModel extends Model
             $item['checked']        = in_array($item['id'], $currentIds) ? "checked" : "";
             $item['url']            = cmf_url('protocol/List/index', ['id' => $item['id']]);
             $item['str_action']     = '<a href="' . url("AdminCategory/add", ["parent" => $item['id']]) . '">添加子分类</a>  <a href="' . url("AdminCategory/edit", ["id" => $item['id']]) . '">' . lang('EDIT') . '</a>  <a class="js-ajax-delete" href="' . url("AdminCategory/delete", ["id" => $item['id']]) . '">' . lang('DELETE') . '</a> ';
+            $item['is_user']        = $item['is_user'] ? 'user' : '';
+            
             // if ($item['status']) {
             //     $item['str_action'] .= '<a class="js-ajax-dialog-btn" data-msg="您确定隐藏此分类吗" href="' . url('AdminCategory/toggle', ['ids' => $item['id'], 'hide' => 1]) . '">隐藏</a>';
             // } else {

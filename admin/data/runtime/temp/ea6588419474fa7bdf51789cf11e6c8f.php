@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:56:"themes/admin_simpleboot3/protocol/admin_index/index.html";i:1542592516;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540625985;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:56:"themes/admin_simpleboot3/protocol/admin_index/index.html";i:1542552444;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +14,9 @@
     <![endif]-->
 
 
-    <link href="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
-    <link href="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/simpleboot3/css/simplebootadmin.css" rel="stylesheet">
-    <link href="/sign_online/admin/public/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
+    <link href="/themes/admin_simpleboot3/public/assets/simpleboot3/css/simplebootadmin.css" rel="stylesheet">
+    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -49,15 +49,15 @@
     <script type="text/javascript">
         //全局变量
         var GV = {
-            ROOT: "/sign_online/admin/public/",
-            WEB_ROOT: "/sign_online/admin/public/",
+            ROOT: "/",
+            WEB_ROOT: "/",
             JS_ROOT: "static/js/",
             APP: '<?php echo \think\Request::instance()->module(); ?>'/*当前应用名*/
         };
     </script>
-    <script src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
-    <script src="/sign_online/admin/public/static/js/wind.js"></script>
-    <script src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/js/bootstrap.min.js"></script>
+    <script src="/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="/static/js/wind.js"></script>
+    <script src="/themes/admin_simpleboot3/public/assets/js/bootstrap.min.js"></script>
     <script>
         Wind.css('artDialog');
         Wind.css('layer');
@@ -250,7 +250,7 @@
         <ul class="pagination"><?php echo (isset($page) && ($page !== '')?$page:''); ?></ul>
     </form>
 </div>
-<script src="/sign_online/admin/public/static/js/admin.js"></script>
+<script src="/static/js/admin.js"></script>
 <script>
 
     function reloadPage(win) {
@@ -281,7 +281,7 @@
                 }
 
                 ids = ids.join(',');
-                art.dialog.open("/sign_online/admin/public/index.php?g=portal&m=AdminIndex&a=copy&ids=" + ids, {
+                art.dialog.open("/index.php?g=portal&m=AdminIndex&a=copy&ids=" + ids, {
                     title: "批量复制",
                     width: "300px"
                 });
@@ -307,7 +307,7 @@
                 }
 
                 ids = ids.join(',');
-                art.dialog.open("/sign_online/admin/public/index.php?g=portal&m=AdminIndex&a=move&old_term_id=<?php echo (isset($term['term_id']) && ($term['term_id'] !== '')?$term['term_id']:0); ?>&ids=" + ids, {
+                art.dialog.open("/index.php?g=portal&m=AdminIndex&a=move&old_term_id=<?php echo (isset($term['term_id']) && ($term['term_id'] !== '')?$term['term_id']:0); ?>&ids=" + ids, {
                     title: "批量移动",
                     width: "300px"
                 });

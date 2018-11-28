@@ -27105,3 +27105,1689 @@
 [ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000607s ]
 [ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 10  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000374s ]
 [ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `user_status` = 1 [ RunTime:0.000348s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:32:52+08:00 ] 127.0.0.1 GET signonline.net/
+[运行时间：0.015817s] [吞吐率：63.22req/s] [内存消耗：942.86kb] [文件加载：83]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000304s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/admin/public/login.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000461s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000099s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000400s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\IndexController->index[ /var/www/sign_online/admin/app/admin/controller/IndexController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/admin/index/index.html [ array (
+  0 => 'admin',
+  1 => 'menus',
+  2 => 'menus_js_var',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000536s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.001040s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000625s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_admin_menu` [ RunTime:0.000966s ]
+[ sql ] [ SQL ] SELECT * FROM `so_admin_menu` ORDER BY `app` ASC,`controller` ASC,`action` ASC [ RunTime:0.001468s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:32:52+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_index/index.html
+[运行时间：0.044692s] [吞吐率：22.38req/s] [内存消耗：959.09kb] [文件加载：111]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000238s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_index',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; refersh_time=0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000310s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000106s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000392s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminIndexController->index[ /var/www/sign_online/admin/app/protocol/controller/AdminIndexController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_index/index.html [ array (
+  0 => 'admin',
+  1 => 'start_time',
+  2 => 'end_time',
+  3 => 'keyword',
+  4 => 'articles',
+  5 => 'category_tree',
+  6 => 'category',
+  7 => 'page',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000532s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.001856s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.001567s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001185s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `so_protocol_post` `a` INNER JOIN `so_user` `u` ON `a`.`user_id`=`u`.`id` WHERE  `a`.`create_time` >= 0  AND `a`.`delete_time` = 0  AND `a`.`post_type` = 1 LIMIT 1 [ RunTime:0.000708s ]
+[ sql ] [ SQL ] SELECT `a`.*,`u`.`user_login`,`u`.`user_nickname`,`u`.`user_email` FROM `so_protocol_post` `a` INNER JOIN `so_user` `u` ON `a`.`user_id`=`u`.`id` WHERE  `a`.`create_time` >= 0  AND `a`.`delete_time` = 0  AND `a`.`post_type` = 1 ORDER BY `update_time` DESC LIMIT 0,10 [ RunTime:0.000872s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_category` [ RunTime:0.001156s ]
+[ sql ] [ SQL ] SELECT * FROM `so_protocol_category` WHERE  `delete_time` = 0 ORDER BY `list_order` ASC [ RunTime:0.002588s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_option` [ RunTime:0.003031s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `so_option` WHERE  `option_name` = 'storage' LIMIT 1 [ RunTime:0.000578s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_category_user_post` [ RunTime:0.000992s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `so_protocol_category_user_post` WHERE  `post_id` = 26  AND `sign_status` <> 2 LIMIT 1 [ RunTime:0.000517s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_category_post` [ RunTime:0.003971s ]
+[ sql ] [ SQL ] SELECT `so_protocol_category`.*,pivot.id AS pivot__id,pivot.post_id AS pivot__post_id,pivot.category_id AS pivot__category_id,pivot.list_order AS pivot__list_order,pivot.status AS pivot__status FROM `so_protocol_category` INNER JOIN `so_protocol_category_post` `pivot` ON `pivot`.`category_id`=`so_protocol_category`.`id` WHERE  `pivot`.`post_id` = 26 [ RunTime:0.000668s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:32:55+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_index/edit/id/26.html
+[运行时间：0.026128s] [吞吐率：38.27req/s] [内存消耗：933.43kb] [文件加载：101]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000260s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_index',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; refersh_time=0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000359s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000101s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000227s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminIndexController->edit[ /var/www/sign_online/admin/app/protocol/controller/AdminIndexController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_index/edit.html [ array (
+  0 => 'admin',
+  1 => 'post_categories',
+  2 => 'post_category_ids',
+  3 => 'categories_model',
+  4 => 'post_categories_seal',
+  5 => 'post_category_ids_seal',
+  6 => 'post_category_places_seal',
+  7 => 'post_categories_user',
+  8 => 'post_category_ids_user',
+  9 => 'post_categories_user_one',
+  10 => 'post_category_ids_user_one',
+  11 => 'article_theme_files',
+  12 => 'post',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000509s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.001008s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000597s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.001904s ]
+[ sql ] [ SQL ] SELECT * FROM `so_protocol_post` WHERE  `id` = 26 LIMIT 1 [ RunTime:0.000582s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_category` [ RunTime:0.000897s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`name` FROM `so_protocol_category` `a` INNER JOIN `so_protocol_category_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26 [ RunTime:0.000483s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `so_protocol_category` WHERE  `delete_time` = 0 [ RunTime:0.000347s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_seal_category` [ RunTime:0.000821s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`name` FROM `so_seal_category` `a` INNER JOIN `so_protocol_category_seal_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26 [ RunTime:0.000486s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`pivot`.`place` FROM `so_seal_category` `a` INNER JOIN `so_protocol_category_seal_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26 [ RunTime:0.000448s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`user_login` FROM `so_user` `a` INNER JOIN `so_protocol_category_user_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26  AND (  pivot.place = 0 ) [ RunTime:0.000597s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`user_login` FROM `so_user` `a` INNER JOIN `so_protocol_category_user_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26  AND (  pivot.place = 1 ) [ RunTime:0.000422s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_theme_file` [ RunTime:0.000814s ]
+[ sql ] [ SQL ] SELECT * FROM `so_theme_file` WHERE  `theme` = 'simpleboot3'  AND `action` = 'protocol/Article/index' [ RunTime:0.000509s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_option` [ RunTime:0.002168s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `so_option` WHERE  `option_name` = 'storage' LIMIT 1 [ RunTime:0.000493s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:32:57+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user.html?ids=10,9,11&places=undefined&post_id=26
+[运行时间：0.022550s] [吞吐率：44.35req/s] [内存消耗：699.79kb] [文件加载：94]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000212s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '10,9,11',
+  'places' => 'undefined',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000286s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000085s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000351s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user.html [ array (
+  0 => 'admin',
+  1 => 'categories',
+  2 => 'selectedIds',
+  3 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000557s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.001154s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000734s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.000968s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.001107s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.000951s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000761s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.001310s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000810s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000697s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `user_status` = 1 [ RunTime:0.000744s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:38:08+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user.html?ids=10,9,11&places=undefined&post_id=26
+[运行时间：0.019994s] [吞吐率：50.02req/s] [内存消耗：699.88kb] [文件加载：94]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000286s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '10,9,11',
+  'places' => 'undefined',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000493s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000100s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000292s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user.html [ array (
+  0 => 'admin',
+  1 => 'categories',
+  2 => 'selectedIds',
+  3 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000485s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.001515s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000812s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.000837s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.000422s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.000518s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000464s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000386s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000471s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000409s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `user_status` = 1 [ RunTime:0.000775s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:38:47+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user.html?ids=10,9,11&places=undefined&post_id=26
+[运行时间：0.019926s] [吞吐率：50.19req/s] [内存消耗：699.79kb] [文件加载：94]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000277s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '10,9,11',
+  'places' => 'undefined',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000460s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000104s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000469s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user.html [ array (
+  0 => 'admin',
+  1 => 'categories',
+  2 => 'selectedIds',
+  3 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000590s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.000961s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000574s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.000794s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.000435s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.000687s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000796s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000922s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000758s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000508s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `user_status` = 1 [ RunTime:0.000614s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:38:50+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user.html?ids=10,9,11&places=undefined&post_id=26
+[运行时间：0.015956s] [吞吐率：62.67req/s] [内存消耗：698.99kb] [文件加载：94]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000169s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '10,9,11',
+  'places' => 'undefined',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000225s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000064s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000230s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user.html [ array (
+  0 => 'admin',
+  1 => 'categories',
+  2 => 'selectedIds',
+  3 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000484s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.001011s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000423s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.000600s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.000548s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.001599s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.001342s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000679s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000605s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000383s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `user_status` = 1 [ RunTime:0.000453s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:39:26+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user.html?ids=10,9,11&places=undefined&post_id=26
+[运行时间：0.020459s] [吞吐率：48.88req/s] [内存消耗：699.88kb] [文件加载：94]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000328s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '10,9,11',
+  'places' => 'undefined',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000480s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000118s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000414s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user.html [ array (
+  0 => 'admin',
+  1 => 'categories',
+  2 => 'selectedIds',
+  3 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000408s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.000660s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000414s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.000604s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.000377s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.000450s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000524s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000442s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000404s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000428s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `user_status` = 1 [ RunTime:0.001311s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:39:52+08:00 ] 127.0.0.1 POST signonline.net/protocol/admin_index/editpost.html
+[运行时间：0.291146s] [吞吐率：3.43req/s] [内存消耗：662.83kb] [文件加载：87]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000193s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_index',
+    2 => 'editpost',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'content-length' => '179',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://signonline.net',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; refersh_time=0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'post' => 
+  array (
+    'id' => '26',
+    'post_title' => 'test',
+    'categories' => '13',
+    'categories_seal' => '3',
+    'categories_user' => '3,7,9,10,8,9,11',
+    'categories_user_one' => '9',
+  ),
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000412s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000073s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000413s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminIndexController->editPost[ /var/www/sign_online/admin/app/protocol/controller/AdminIndexController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000445s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.001201s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000530s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000595s ]
+[ sql ] [ SQL ] UPDATE `so_protocol_post`  SET `post_title`='test',`update_time`=1543408792  WHERE  `id` = 26 [ RunTime:0.092290s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_category` [ RunTime:0.000585s ]
+[ sql ] [ SQL ] SELECT `category_id` FROM `so_protocol_category` INNER JOIN `so_protocol_category_post` `pivot` ON `pivot`.`category_id`=`so_protocol_category`.`id` WHERE  `pivot`.`post_id` = '26' [ RunTime:0.000288s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_seal_category` [ RunTime:0.000489s ]
+[ sql ] [ SQL ] SELECT `category_id` FROM `so_seal_category` INNER JOIN `so_protocol_category_seal_post` `pivot` ON `pivot`.`category_id`=`so_seal_category`.`id` WHERE  `pivot`.`post_id` = '26' [ RunTime:0.000277s ]
+[ sql ] [ SQL ] SELECT `category_id` FROM `so_user` INNER JOIN `so_protocol_category_user_post` `pivot` ON `pivot`.`category_id`=`so_user`.`id` WHERE  `pivot`.`post_id` = '26'  AND (  pivot.place = 0 ) [ RunTime:0.000282s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_category_user_post` [ RunTime:0.000452s ]
+[ sql ] [ SQL ] REPLACE INTO `so_protocol_category_user_post` (`post_id` , `category_id`) VALUES (26 , 3) [ RunTime:0.084606s ]
+[ sql ] [ SQL ] REPLACE INTO `so_protocol_category_user_post` (`post_id` , `category_id`) VALUES (26 , 7) [ RunTime:0.033021s ]
+[ sql ] [ SQL ] REPLACE INTO `so_protocol_category_user_post` (`post_id` , `category_id`) VALUES (26 , 8) [ RunTime:0.066149s ]
+[ sql ] [ SQL ] SELECT `category_id` FROM `so_user` INNER JOIN `so_protocol_category_user_post` `pivot` ON `pivot`.`category_id`=`so_user`.`id` WHERE  `pivot`.`post_id` = '26'  AND (  pivot.place = 1 ) [ RunTime:0.000409s ]
+[ sql ] [ SQL ] SELECT * FROM `so_protocol_category` WHERE  (  id=13 ) LIMIT 1 [ RunTime:0.000390s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:39:54+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_index/edit/id/26.html
+[运行时间：0.017166s] [吞吐率：58.26req/s] [内存消耗：933.58kb] [文件加载：101]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000148s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_index',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; refersh_time=0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000201s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000046s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000192s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminIndexController->edit[ /var/www/sign_online/admin/app/protocol/controller/AdminIndexController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_index/edit.html [ array (
+  0 => 'admin',
+  1 => 'post_categories',
+  2 => 'post_category_ids',
+  3 => 'categories_model',
+  4 => 'post_categories_seal',
+  5 => 'post_category_ids_seal',
+  6 => 'post_category_places_seal',
+  7 => 'post_categories_user',
+  8 => 'post_category_ids_user',
+  9 => 'post_categories_user_one',
+  10 => 'post_category_ids_user_one',
+  11 => 'article_theme_files',
+  12 => 'post',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000371s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.000619s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000407s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000505s ]
+[ sql ] [ SQL ] SELECT * FROM `so_protocol_post` WHERE  `id` = 26 LIMIT 1 [ RunTime:0.000269s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_category` [ RunTime:0.000399s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`name` FROM `so_protocol_category` `a` INNER JOIN `so_protocol_category_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26 [ RunTime:0.000234s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `so_protocol_category` WHERE  `delete_time` = 0 [ RunTime:0.000167s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_seal_category` [ RunTime:0.000394s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`name` FROM `so_seal_category` `a` INNER JOIN `so_protocol_category_seal_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26 [ RunTime:0.000220s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`pivot`.`place` FROM `so_seal_category` `a` INNER JOIN `so_protocol_category_seal_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26 [ RunTime:0.000320s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`user_login` FROM `so_user` `a` INNER JOIN `so_protocol_category_user_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26  AND (  pivot.place = 0 ) [ RunTime:0.000569s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`user_login` FROM `so_user` `a` INNER JOIN `so_protocol_category_user_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26  AND (  pivot.place = 1 ) [ RunTime:0.000596s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_theme_file` [ RunTime:0.000978s ]
+[ sql ] [ SQL ] SELECT * FROM `so_theme_file` WHERE  `theme` = 'simpleboot3'  AND `action` = 'protocol/Article/index' [ RunTime:0.000421s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_option` [ RunTime:0.000809s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `so_option` WHERE  `option_name` = 'storage' LIMIT 1 [ RunTime:0.000445s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:39:56+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user.html?ids=10,9,11,3,7,8&places=undefined&post_id=26
+[运行时间：0.018410s] [吞吐率：54.32req/s] [内存消耗：699.05kb] [文件加载：94]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000232s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '10,9,11,3,7,8',
+  'places' => 'undefined',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000234s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000072s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000329s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user.html [ array (
+  0 => 'admin',
+  1 => 'categories',
+  2 => 'selectedIds',
+  3 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000503s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.000988s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000652s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.000877s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.000602s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.000836s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000697s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000656s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000652s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000481s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `user_status` = 1 [ RunTime:0.000661s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:40:08+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user.html?ids=10,9,11,3,7,8&places=undefined&post_id=26
+[运行时间：0.014707s] [吞吐率：67.99req/s] [内存消耗：699.05kb] [文件加载：94]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000202s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '10,9,11,3,7,8',
+  'places' => 'undefined',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000430s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000114s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000281s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user.html [ array (
+  0 => 'admin',
+  1 => 'categories',
+  2 => 'selectedIds',
+  3 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000528s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.001001s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000461s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.000604s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.000333s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.000424s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000464s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000400s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000404s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000402s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `user_status` = 1 [ RunTime:0.000628s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:40:18+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user.html?ids=3,7,9,10,8,9,11&places=undefined&post_id=26
+[运行时间：0.017663s] [吞吐率：56.62req/s] [内存消耗：699.02kb] [文件加载：94]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000280s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '3,7,9,10,8,9,11',
+  'places' => 'undefined',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000316s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000145s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000260s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user.html [ array (
+  0 => 'admin',
+  1 => 'categories',
+  2 => 'selectedIds',
+  3 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000522s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.001043s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000605s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.000809s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.000452s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.000822s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000746s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000542s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000700s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000639s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `user_status` = 1 [ RunTime:0.000717s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:40:55+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user.html?ids=3,7,9,10,8,9,11&places=undefined&post_id=26
+[运行时间：0.014522s] [吞吐率：68.86req/s] [内存消耗：699.02kb] [文件加载：94]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000189s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '3,7,9,10,8,9,11',
+  'places' => 'undefined',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000611s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000170s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000445s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user.html [ array (
+  0 => 'admin',
+  1 => 'categories',
+  2 => 'selectedIds',
+  3 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000538s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.000797s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000514s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.000663s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.000318s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.000447s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000492s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000379s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000394s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000334s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `user_status` = 1 [ RunTime:0.000481s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:42:17+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user.html?ids=3,7,9,10,8,9,11&places=undefined&post_id=26
+[运行时间：0.020982s] [吞吐率：47.66req/s] [内存消耗：699.91kb] [文件加载：94]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000286s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '3,7,9,10,8,9,11',
+  'places' => 'undefined',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000444s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000099s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000459s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user.html [ array (
+  0 => 'admin',
+  1 => 'categories',
+  2 => 'selectedIds',
+  3 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000544s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.001040s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000682s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.001001s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.000582s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.000586s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000450s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000418s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000360s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000360s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `user_status` = 1 [ RunTime:0.001405s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:43:12+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user.html?ids=3,7,9,10,8,9,11&places=undefined&post_id=26
+[运行时间：0.016288s] [吞吐率：61.39req/s] [内存消耗：699.02kb] [文件加载：94]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000194s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '3,7,9,10,8,9,11',
+  'places' => 'undefined',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000289s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000067s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000248s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user.html [ array (
+  0 => 'admin',
+  1 => 'categories',
+  2 => 'selectedIds',
+  3 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000487s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.000819s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000726s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.000830s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.000494s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.000813s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000927s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.001318s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000600s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000499s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `user_status` = 1 [ RunTime:0.000504s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:43:15+08:00 ] 127.0.0.1 POST signonline.net/protocol/admin_index/editpost.html
+[运行时间：0.104921s] [吞吐率：9.53req/s] [内存消耗：662.50kb] [文件加载：87]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000169s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_index',
+    2 => 'editpost',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'content-length' => '163',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://signonline.net',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; refersh_time=0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'post' => 
+  array (
+    'id' => '26',
+    'post_title' => 'test',
+    'categories' => '13',
+    'categories_seal' => '3',
+    'categories_user' => '10,9,11',
+    'categories_user_one' => '9',
+  ),
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000220s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000081s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000302s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminIndexController->editPost[ /var/www/sign_online/admin/app/protocol/controller/AdminIndexController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000549s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.000956s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000676s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000610s ]
+[ sql ] [ SQL ] UPDATE `so_protocol_post`  SET `post_title`='test',`update_time`=1543408995  WHERE  `id` = 26 [ RunTime:0.061351s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_category` [ RunTime:0.000768s ]
+[ sql ] [ SQL ] SELECT `category_id` FROM `so_protocol_category` INNER JOIN `so_protocol_category_post` `pivot` ON `pivot`.`category_id`=`so_protocol_category`.`id` WHERE  `pivot`.`post_id` = '26' [ RunTime:0.000368s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_seal_category` [ RunTime:0.000735s ]
+[ sql ] [ SQL ] SELECT `category_id` FROM `so_seal_category` INNER JOIN `so_protocol_category_seal_post` `pivot` ON `pivot`.`category_id`=`so_seal_category`.`id` WHERE  `pivot`.`post_id` = '26' [ RunTime:0.000441s ]
+[ sql ] [ SQL ] SELECT `category_id` FROM `so_user` INNER JOIN `so_protocol_category_user_post` `pivot` ON `pivot`.`category_id`=`so_user`.`id` WHERE  `pivot`.`post_id` = '26'  AND (  pivot.place = 0 ) [ RunTime:0.000407s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_category_user_post` [ RunTime:0.000529s ]
+[ sql ] [ SQL ] DELETE FROM `so_protocol_category_user_post`    WHERE  `post_id` = 26  AND `category_id` IN (3,7,8) [ RunTime:0.028452s ]
+[ sql ] [ SQL ] SELECT `category_id` FROM `so_user` INNER JOIN `so_protocol_category_user_post` `pivot` ON `pivot`.`category_id`=`so_user`.`id` WHERE  `pivot`.`post_id` = '26'  AND (  pivot.place = 1 ) [ RunTime:0.000526s ]
+[ sql ] [ SQL ] SELECT * FROM `so_protocol_category` WHERE  (  id=13 ) LIMIT 1 [ RunTime:0.000310s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:43:17+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_index/edit/id/26.html
+[运行时间：0.016700s] [吞吐率：59.88req/s] [内存消耗：933.48kb] [文件加载：101]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000141s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_index',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; thinkphp_show_page_trace=0|0; refersh_time=0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000212s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000046s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000184s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminIndexController->edit[ /var/www/sign_online/admin/app/protocol/controller/AdminIndexController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_index/edit.html [ array (
+  0 => 'admin',
+  1 => 'post_categories',
+  2 => 'post_category_ids',
+  3 => 'categories_model',
+  4 => 'post_categories_seal',
+  5 => 'post_category_ids_seal',
+  6 => 'post_category_places_seal',
+  7 => 'post_categories_user',
+  8 => 'post_category_ids_user',
+  9 => 'post_categories_user_one',
+  10 => 'post_category_ids_user_one',
+  11 => 'article_theme_files',
+  12 => 'post',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000420s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.000642s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000439s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_post` [ RunTime:0.000544s ]
+[ sql ] [ SQL ] SELECT * FROM `so_protocol_post` WHERE  `id` = 26 LIMIT 1 [ RunTime:0.000356s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_protocol_category` [ RunTime:0.000549s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`name` FROM `so_protocol_category` `a` INNER JOIN `so_protocol_category_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26 [ RunTime:0.000337s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `so_protocol_category` WHERE  `delete_time` = 0 [ RunTime:0.000236s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_seal_category` [ RunTime:0.000475s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`name` FROM `so_seal_category` `a` INNER JOIN `so_protocol_category_seal_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26 [ RunTime:0.000250s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`pivot`.`place` FROM `so_seal_category` `a` INNER JOIN `so_protocol_category_seal_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26 [ RunTime:0.000396s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`user_login` FROM `so_user` `a` INNER JOIN `so_protocol_category_user_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26  AND (  pivot.place = 0 ) [ RunTime:0.000491s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`user_login` FROM `so_user` `a` INNER JOIN `so_protocol_category_user_post` `pivot` ON `pivot`.`category_id`=`a`.`id` WHERE  `pivot`.`post_id` = 26  AND (  pivot.place = 1 ) [ RunTime:0.000512s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_theme_file` [ RunTime:0.000807s ]
+[ sql ] [ SQL ] SELECT * FROM `so_theme_file` WHERE  `theme` = 'simpleboot3'  AND `action` = 'protocol/Article/index' [ RunTime:0.000535s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_option` [ RunTime:0.000584s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `so_option` WHERE  `option_name` = 'storage' LIMIT 1 [ RunTime:0.000208s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:43:19+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user.html?ids=10,9,11&places=undefined&post_id=26
+[运行时间：0.022385s] [吞吐率：44.67req/s] [内存消耗：698.99kb] [文件加载：94]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000288s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '10,9,11',
+  'places' => 'undefined',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000363s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000083s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000332s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user.html [ array (
+  0 => 'admin',
+  1 => 'categories',
+  2 => 'selectedIds',
+  3 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001463s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.004905s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000615s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.001008s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.000563s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.000803s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000591s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000735s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000590s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000560s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `user_status` = 1 [ RunTime:0.000651s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:43:21+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user_one.html?ids=9&post_id=26
+[运行时间：0.015633s] [吞吐率：63.97req/s] [内存消耗：665.73kb] [文件加载：93]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000185s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user_one',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '9',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000198s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000049s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000199s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user_one[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user_one.html [ array (
+  0 => 'admin',
+  1 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000450s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.000994s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000779s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.000952s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.000530s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.000876s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000694s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000571s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000560s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000810s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:45:32+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user_one.html?ids=9&post_id=26
+[运行时间：0.017863s] [吞吐率：55.98req/s] [内存消耗：667.02kb] [文件加载：93]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000259s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user_one',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '9',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000426s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000085s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000425s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user_one[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user_one.html [ array (
+  0 => 'admin',
+  1 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000552s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.001111s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.001302s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.001112s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.000441s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.000746s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000623s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000623s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000350s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000303s ]
+---------------------------------------------------------------
+[ 2018-11-28T20:45:40+08:00 ] 127.0.0.1 GET signonline.net/protocol/admin_category/select_user_one.html?ids=9&post_id=26
+[运行时间：0.017202s] [吞吐率：58.13req/s] [内存消耗：666.23kb] [文件加载：93]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.000218s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/simplewind/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'protocol',
+    1 => 'admin_category',
+    2 => 'select_user_one',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'signonline.net',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/70.0.3538.110 Chrome/70.0.3538.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'referer' => 'http://signonline.net/protocol/admin_index/edit/id/26.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7',
+  'cookie' => 'thinkphp_show_page_trace=0|0; admin_username=admin; PHPSESSID=squgvrork1e1qpnsg4mfdm7eb0; thinkphp_show_page_trace=0|0',
+)
+[ info ] [ PARAM ] array (
+  'ids' => '9',
+  'post_id' => '26',
+)
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../simplewind/cmf/lang/zh-cn.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/frame/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/identity/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/portal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/role/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/seal/lang/zh-cn/common.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/vague/lang/zh-cn/common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.000365s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/protocol/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitAppHookBehavior @module_init [ RunTime:0.000126s ]
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/admin/lang/zh-cn/admin.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../app/user/lang/zh-cn/admin_menu.php
+[ info ] [ LANG ] /var/www/sign_online/admin/public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.000268s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\protocol\controller\AdminCategoryController->select_user_one[ /var/www/sign_online/admin/app/protocol/controller/AdminCategoryController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/protocol/admin_category/select_user_one.html [ array (
+  0 => 'admin',
+  1 => 'categories_tree',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000457s ] mysql:host=127.0.0.1;port=3306;dbname=sign_online;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_user` [ RunTime:0.000906s ]
+[ sql ] [ SQL ] SELECT * FROM `so_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000490s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category` [ RunTime:0.000691s ]
+[ sql ] [ SQL ] SELECT * FROM `so_frame_category` `fc` WHERE  `fc`.`delete_time` = 0 [ RunTime:0.000412s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `so_frame_category_post` [ RunTime:0.000737s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 3  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000673s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 7  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000716s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 8  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.000753s ]
+[ sql ] [ SQL ] SELECT `u`.* FROM `so_frame_category_post` `fcp` INNER JOIN `so_user` `u` ON `fcp`.`post_id`=`u`.`id` WHERE  `fcp`.`category_id` = 9  AND `u`.`user_status` = 1  AND `u`.`user_type` = 2 [ RunTime:0.001096s ]

@@ -669,36 +669,7 @@ class AdminIndexController extends AdminBaseController
             unset($data['post']['recommended']);
 
             $post = $data['post'];
-            // $result = $this->validate($post, 'AdminIndex');
-            // if ($result !== true) {
-            //     $this->error($result);
-            // }
-
-            // $protocolPostModel = new ProtocolPostModel();
-
-            // if (!empty($data['photo_names']) && !empty($data['photo_urls'])) {
-            //     $data['post']['more']['photos'] = [];
-            //     foreach ($data['photo_urls'] as $key => $url) {
-            //         $photoUrl = cmf_asset_relative_url($url);
-            //         array_push($data['post']['more']['photos'], ["url" => $photoUrl, "name" => $data['photo_names'][$key]]);
-            //     }
-            // }
-
-            // if (!empty($data['file_names']) && !empty($data['file_urls'])) {
-            //     $data['post']['more']['files'] = [];
-            //     foreach ($data['file_urls'] as $key => $url) {
-            //         $fileUrl = cmf_asset_relative_url($url);
-            //         array_push($data['post']['more']['files'], ["url" => $fileUrl, "name" => $data['file_names'][$key]]);
-            //     }
-            // }
-
-            // $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user']);
-
-            // $hookParam = [
-            //     'is_add'  => false,
-            //     'article' => $data['post']
-            // ];
-            // hook('protocol_admin_after_save_article', $hookParam);
+            
 
             $update_id = $post['id'];
 

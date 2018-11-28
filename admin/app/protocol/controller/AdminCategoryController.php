@@ -457,7 +457,7 @@ tpl;
 
 $tpl = " <tr id='node-\$id' \$parent_id_node style='' data-parent_id='\$parent_id' data-id='\$id'>
                         <td style='padding-left:20px;'>
-                        <input type='checkbox' class='js-check' data-yid='js-check-y' data-xid='js-check-x' name='ids[]' value='\$id' data-parent_id='\$parent_id' data-id='\$id' value='\$id' data-name='\$name' \$checked></td>
+                        <input type='checkbox' class='js-check \$is_user' data-yid='js-check-y' data-xid='js-check-x' name='ids[]' value='\$id' data-parent_id='\$parent_id' data-id='\$id' value='\$id' data-name='\$name' \$checked></td>
                         <td>\$id</td>
                         <td>\$spacer \$name</td>
                     </tr>";
@@ -512,7 +512,7 @@ $tpl = " <tr id='node-\$id' \$parent_id_node style='' data-parent_id='\$parent_i
 
         $tpl = " <tr id='node-\$id' \$parent_id_node style='' data-parent_id='\$parent_id' data-id='\$id'>
                         <td style='padding-left:20px;'>
-                        <input type='checkbox' class='js-check' data-yid='js-check-y' data-xid='js-check-x' name='ids[]' value='\$id' data-parent_id='\$parent_id' data-id='\$id' value='\$id' data-name='\$name' \$checked></td>
+                        <input type='checkbox' class='js-check \$is_user' data-yid='js-check-y' data-xid='js-check-x' name='ids[]' value='\$id' data-parent_id='\$parent_id' data-id='\$id' value='\$id' data-name='\$name' \$checked></td>
                         <td>\$id</td>
                         <td>\$spacer \$name</td>
                     </tr>";
