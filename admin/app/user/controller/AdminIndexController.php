@@ -405,51 +405,53 @@ class AdminIndexController extends AdminBaseController
     public function delete()
     {
         $param           = $this->request->param();
-        $portalPostModel = new PortalPostModel();
+        // $portalPostModel = new PortalPostModel();
 
         if (isset($param['id'])) {
             $id           = $this->request->param('id', 0, 'intval');
-            $result       = $portalPostModel->where(['id' => $id])->find();
-            $data         = [
-                'object_id'   => $result['id'],
-                'create_time' => time(),
-                'table_name'  => 'portal_post',
-                'name'        => $result['post_title'],
-                'user_id'     => cmf_get_current_admin_id()
-            ];
-            $resultPortal = $portalPostModel
-                ->where(['id' => $id])
-                ->update(['delete_time' => time()]);
-            if ($resultPortal) {
-                Db::name('portal_category_post')->where(['post_id' => $id])->update(['status' => 0]);
-                Db::name('portal_tag_post')->where(['post_id' => $id])->update(['status' => 0]);
+            // $result       = $portalPostModel->where(['id' => $id])->find();
+            // $data         = [
+            //     'object_id'   => $result['id'],
+            //     'create_time' => time(),
+            //     'table_name'  => 'portal_post',
+            //     'name'        => $result['post_title'],
+            //     'user_id'     => cmf_get_current_admin_id()
+            // ];
+            // $resultPortal = $portalPostModel
+            //     ->where(['id' => $id])
+            //     ->update(['delete_time' => time()]);
+            // if ($resultPortal) {
+            //     Db::name('portal_category_post')->where(['post_id' => $id])->update(['status' => 0]);
+            //     Db::name('portal_tag_post')->where(['post_id' => $id])->update(['status' => 0]);
 
-                Db::name('recycleBin')->insert($data);
-            }
+            //     Db::name('recycleBin')->insert($data);
+            // }
+            Db::name('user')->where('id = '.$id)->delete();
+            Db::name('protocol_category_user_post')->where('category_id = '.$id)->delete();
             $this->success("删除成功！", '');
 
         }
 
-        if (isset($param['ids'])) {
-            $ids     = $this->request->param('ids/a');
-            $recycle = $portalPostModel->where(['id' => ['in', $ids]])->select();
-            $result  = $portalPostModel->where(['id' => ['in', $ids]])->update(['delete_time' => time()]);
-            if ($result) {
-                Db::name('portal_category_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
-                Db::name('portal_tag_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
-                foreach ($recycle as $value) {
-                    $data = [
-                        'object_id'   => $value['id'],
-                        'create_time' => time(),
-                        'table_name'  => 'portal_post',
-                        'name'        => $value['post_title'],
-                        'user_id'     => cmf_get_current_admin_id()
-                    ];
-                    Db::name('recycleBin')->insert($data);
-                }
-                $this->success("删除成功！", '');
-            }
-        }
+        // if (isset($param['ids'])) {
+        //     $ids     = $this->request->param('ids/a');
+        //     $recycle = $portalPostModel->where(['id' => ['in', $ids]])->select();
+        //     $result  = $portalPostModel->where(['id' => ['in', $ids]])->update(['delete_time' => time()]);
+        //     if ($result) {
+        //         Db::name('portal_category_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
+        //         Db::name('portal_tag_post')->where(['post_id' => ['in', $ids]])->update(['status' => 0]);
+        //         foreach ($recycle as $value) {
+        //             $data = [
+        //                 'object_id'   => $value['id'],
+        //                 'create_time' => time(),
+        //                 'table_name'  => 'portal_post',
+        //                 'name'        => $value['post_title'],
+        //                 'user_id'     => cmf_get_current_admin_id()
+        //             ];
+        //             Db::name('recycleBin')->insert($data);
+        //         }
+        //         $this->success("删除成功！", '');
+        //     }
+        // }
     }
 
     public function select()

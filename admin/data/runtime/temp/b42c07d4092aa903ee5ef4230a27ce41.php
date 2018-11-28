@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"themes/admin_simpleboot3/protocol/admin_category/select_user.html";i:1543371450;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540625985;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:65:"themes/admin_simpleboot3/protocol/admin_category/select_user.html";i:1543401650;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540625985;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,21 +117,62 @@
         });
     });
 
-    $('.data-item-tr').click(function (e) {
+    $('#menus-table tbody tr').click(function (e) {
 
         console.log(e);
+
         var $this = $(this);
         if ($(e.target).is('input')) {
             return;
         }
 
         var $input = $this.find('input');
+        var this_id = $this.data('id');
+
         if ($input.is(':checked')) {
             $input.prop('checked', false);
+            statustree(this_id, false);
         } else {
             $input.prop('checked', true);
+            statustree(this_id, true);
         }
     });
+
+    $('#menus-table tbody tr input').click(function (e) {
+
+        // console.log(e);
+        e.stopPropagation();  // 阻止事件冒泡
+        var $this = $(this).parent().parent();
+        
+        // if ($(e.target).is('input')) {
+        //     return;
+        // }
+
+        var $input = $this.find('input');
+        // console.log($input);
+        var this_id = $this.data('id');
+
+        if ($input.is(':checked')) {
+            $input.prop('checked', true);
+            statustree(this_id, true);
+        } else {
+            $input.prop('checked', false);
+            statustree(this_id, false);
+        }
+    });
+
+    // 设置树形状态
+    function statustree(id, checked){
+        if($("#menus-table tbody tr[data-parent_id='"+id+"']").length > 0){
+            if(checked == true){
+                $("#menus-table tbody tr[data-parent_id='"+id+"']").find('input').prop('checked', true);
+            }else{
+                $("#menus-table tbody tr[data-parent_id='"+id+"']").find('input').prop('checked', false);
+            }
+            var nextid = $("#menus-table tbody tr[data-parent_id='"+id+"']").data('id');
+            statustree(nextid, checked);
+        }
+    }
 
     function confirm() {
         var selectedCategoriesId   = [];

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:52:"themes/admin_simpleboot3/user/admin_index/index.html";i:1542164506;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540625985;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:52:"themes/admin_simpleboot3/user/admin_index/index.html";i:1543385939;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540625985;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -140,8 +140,8 @@
                                    data-msg="<?php echo lang('BLOCK_USER_CONFIRM_MESSAGE'); ?>"><?php echo lang('BLOCK_USER'); ?></a>
                             <?php endif; ?>
                             <a href="<?php echo url('adminIndex/edit',array('id'=>$vo['id'])); ?>">编辑</a>
-                                <a href="<?php echo url('adminIndex/edit',array('id'=>$vo['id'])); ?>" class="js-ajax-dialog-btn"
-                                    data-msg="<?php echo lang('BLOCK_USER_CONFIRM_MESSAGE'); ?>">删除</a>
+                                <a href="<?php echo url('adminIndex/delete',array('id'=>$vo['id'])); ?>" class="js-ajax-dialog-btn"
+                                    data-msg="您确定删除此用户吗？">删除</a>
                             <?php else: ?>
                             <a style="color: #ccc;"><?php echo lang('BLOCK_USER'); ?></a>
                         <?php endif; ?>

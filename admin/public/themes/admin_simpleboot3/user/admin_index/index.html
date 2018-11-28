@@ -61,8 +61,8 @@
                                    data-msg="{:lang('BLOCK_USER_CONFIRM_MESSAGE')}">{:lang('BLOCK_USER')}</a>
                             </empty>
                             <a href="{:url('adminIndex/edit',array('id'=>$vo['id']))}">编辑</a>
-                                <a href="{:url('adminIndex/edit',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn"
-                                    data-msg="{:lang('BLOCK_USER_CONFIRM_MESSAGE')}">删除</a>
+                                <a href="{:url('adminIndex/delete',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn"
+                                    data-msg="您确定删除此用户吗？">删除</a>
                             <else/>
                             <a style="color: #ccc;">{:lang('BLOCK_USER')}</a>
                         </neq>
