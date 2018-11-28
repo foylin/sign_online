@@ -98,11 +98,11 @@ class SealCategoryModel extends Model
             } else {
                 $item['str_action'] .= '<a class="js-ajax-dialog-btn" data-msg="您确定显示此分类吗" href="' . url('AdminCategory/toggle', ['ids' => $item['id'], 'display' => 1]) . '">显示</a>';
             }
-            if(in_array($item['id'], $currentIds)){
-                $item['place'] = $places_arr[$item['id']];
-            }else{
-                $item['place'] = '{公章1}';
-            }
+            // if(in_array($item['id'], $currentIds)){
+            //     $item['place'] = $places_arr[$item['id']];
+            // }else{
+            //     $item['place'] = '{公章1}';
+            // }
             
             array_push($newCategories, $item);
         }

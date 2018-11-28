@@ -64,6 +64,26 @@ class AdminCategoryController extends AdminBaseController
 
     ];
 
+    protected $mode_type_seal = [
+        1 => [
+                'page' => 5,
+                'sign' => '140,56'
+        ],
+        3 => [
+                'page' => 4,
+                'sign' => '65,195'
+        ],
+        4 =>[
+                'page' => 6,
+                'sign' => '160,35'
+        ],
+        5 =>[
+                'page' => 3,
+                'sign' => '72,215'
+        ]
+
+    ];
+
     /**
      * 文章分类列表
      * @adminMenu(
@@ -177,6 +197,7 @@ class AdminCategoryController extends AdminBaseController
 
         if($data['mode_type']){
             $data['more']['axes'] = $this->mode_type[$data['mode_type']];
+            $data['more']['seal'] = $this->mode_type_seal[$data['mode_type']];
         }
         // dump($data);
         $result = $protocolCategoryModel->addCategory($data);
@@ -362,13 +383,13 @@ tpl;
         $ids                 = $this->request->param('ids');
         $selectedIds         = explode(',', $ids);
 
-        $places                 = $this->request->param('places');
-        $selectedPlaces         = explode(',', $places);
+        // $places                 = $this->request->param('places');
+        // $selectedPlaces         = explode(',', $places);
 
-        foreach ($selectedIds as $key => $value) {
-            # code...
-            $places_arr[$value] = $selectedPlaces[$key];
-        }
+        // foreach ($selectedIds as $key => $value) {
+        //     # code...
+        //     $places_arr[$value] = $selectedPlaces[$key];
+        // }
         // dump($places_arr);
         $sealCategoryModel = new SealCategoryModel();
 
@@ -397,7 +418,7 @@ $tpl = <<<tpl
 </tr>
 tpl;
 
-        $categoryTree = $sealCategoryModel->adminCategoryTableTree($selectedIds, $tpl, $places_arr);
+        $categoryTree = $sealCategoryModel->adminCategoryTableTree($selectedIds, $tpl);
         // dump($categoryTree);
         $where      = ['delete_time' => 0];
         $categories = $sealCategoryModel->where($where)->select();
@@ -412,35 +433,40 @@ tpl;
     {
         $ids                 = $this->request->param('ids');
         $selectedIds         = explode(',', $ids);
-
-        $places                 = $this->request->param('places');
-        $selectedPlaces         = explode(',', $places);
+        // dump($selectedIds);
+        // $places                 = $this->request->param('places');
+        // $selectedPlaces         = explode(',', $places);
 
         $post_id                 = $this->request->param('post_id');
 
-        foreach ($selectedIds as $key => $value) {
-            # code...
-            $places_arr[$value] = $selectedPlaces[$key];
-        }
+        // foreach ($selectedIds as $key => $value) {
+        //     # code...
+        //     $places_arr[$value] = $selectedPlaces[$key];
+        // }
 
         $userModel = new UserModel();
 
-        $tpl = <<<tpl
-<tr class='data-item-tr'>
-    <td>
-        <input type='checkbox' class='js-check' data-yid='js-check-y' data-xid='js-check-x' name='ids[]'
-               value='\$id' data-name='\$name' \$checked>
-    </td>
-    <td>\$id</td>
-    <td>\$spacer <a href='\$url' target='_blank'>\$name</a></td>
-</tr>
-tpl;
+//         $tpl = <<<tpl
+// <tr id='node-\$id' \$parent_id_node data-parent_id='\$parent_id' data-id='\$id'>
+// <td style='padding-left:20px;'><input type='checkbox' class='js-check' data-yid='js-check-y' data-xid='js-check-x' name='ids[]' value='\$id' data-parent_id='\$parent_id' data-id='\$id'></td>
 
-        // $categoryTree = $userModel->adminCategoryTableTree($selectedIds, $tpl);
+//     <td>\$id</td>
+//     <td>\$spacer \$name</td>
+// </tr>
+// tpl;
+
+$tpl = " <tr id='node-\$id' \$parent_id_node style='' data-parent_id='\$parent_id' data-id='\$id'>
+                        <td style='padding-left:20px;'>
+                        <input type='checkbox' class='js-check' data-yid='js-check-y' data-xid='js-check-x' name='ids[]' value='\$id' data-parent_id='\$parent_id' data-id='\$id' value='\$id' data-name='\$name' \$checked></td>
+                        <td>\$id</td>
+                        <td>\$spacer \$name</td>
+                    </tr>";
+
+        $categoryTree = $userModel->adminCategoryTableTree($selectedIds, $tpl);
 
         $where      = ['user_status' => 1];
         $categories = $userModel->where($where)->select();
-        foreach ($categories as $key => $val) {
+        // foreach ($categories as $key => $val) {
             # code...
             // $val['place'] = $selectedPlaces[$key];
             // if(in_array($val['id'], $selectedIds)){
@@ -449,18 +475,73 @@ tpl;
             //     $categories[$key]['place'] = 0;
             // }
 
-            $is_user = Db::name('protocol_category_user_post')->where(['post_id'=>$post_id, 'category_id'=>$val['id']])->find();
-            if($is_user){
-                $categories[$key]['place'] = $is_user['place'];
-            }else{
-                $categories[$key]['place'] = 0;
-            }  
-        }
+            // $is_user = Db::name('protocol_category_user_post')->where(['post_id'=>$post_id, 'category_id'=>$val['id']])->find();
+            // if($is_user){
+            //     $categories[$key]['place'] = $is_user['place'];
+            // }else{
+            //     $categories[$key]['place'] = 0;
+            // }  
+        // }
 
         
         $this->assign('categories', $categories);
         $this->assign('selectedIds', $selectedIds);
-        // $this->assign('categories_tree', $categoryTree);
+        $this->assign('categories_tree', $categoryTree);
+        return $this->fetch();
+    }
+
+    /**
+     * 查找负责人
+     */
+    public function select_user_one()
+    {
+        $ids                 = $this->request->param('ids');
+        $selectedIds         = explode(',', $ids);
+
+        $places                 = $this->request->param('places');
+        $selectedPlaces         = explode(',', $places);
+
+        $post_id                 = $this->request->param('post_id');
+
+        // foreach ($selectedIds as $key => $value) {
+        //     # code...
+        //     $places_arr[$value] = $selectedPlaces[$key];
+        // }
+
+        $userModel = new UserModel();
+
+        $tpl = " <tr id='node-\$id' \$parent_id_node style='' data-parent_id='\$parent_id' data-id='\$id'>
+                        <td style='padding-left:20px;'>
+                        <input type='checkbox' class='js-check' data-yid='js-check-y' data-xid='js-check-x' name='ids[]' value='\$id' data-parent_id='\$parent_id' data-id='\$id' value='\$id' data-name='\$name' \$checked></td>
+                        <td>\$id</td>
+                        <td>\$spacer \$name</td>
+                    </tr>";
+
+        $categoryTree = $userModel->adminCategoryTableTree($selectedIds, $tpl, $one = true);
+
+        // $where      = ['user_status' => 1];
+        // $categories = $userModel->where($where)->select();
+        // foreach ($categories as $key => $val) {
+            # code...
+            // $val['place'] = $selectedPlaces[$key];
+            // if(in_array($val['id'], $selectedIds)){
+            //     $categories[$key]['place'] = $places_arr[$val['id']];
+            // }else{
+            //     $categories[$key]['place'] = 0;
+            // }
+
+            // $is_user = Db::name('protocol_category_user_post')->where(['post_id'=>$post_id, 'category_id'=>$val['id']])->find();
+            // if($is_user){
+            //     $categories[$key]['place'] = $is_user['place'];
+            // }else{
+            //     $categories[$key]['place'] = 0;
+            // }  
+        // }
+
+        
+        // $this->assign('categories', $categories);
+        // $this->assign('selectedIds', $selectedIds);
+        $this->assign('categories_tree', $categoryTree);
         return $this->fetch();
     }
 

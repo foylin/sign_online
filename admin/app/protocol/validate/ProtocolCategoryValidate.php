@@ -20,7 +20,7 @@ class ProtocolCategoryValidate extends Validate
         'alias' => 'checkAlias',
     ];
     protected $message = [
-        'name.require' => '分类名称不能为空',
+        'name.require' => '协议标题不能为空',
     ];
 
     protected $scene = [

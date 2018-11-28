@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:62:"themes/admin_simpleboot3/user/admin_index/select_identity.html";i:1540738245;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"themes/admin_simpleboot3/protocol/admin_category/select_user_one.html";i:1543371460;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540625985;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +14,9 @@
     <![endif]-->
 
 
-    <link href="/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
-    <link href="/themes/admin_simpleboot3/public/assets/simpleboot3/css/simplebootadmin.css" rel="stylesheet">
-    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
+    <link href="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/simpleboot3/css/simplebootadmin.css" rel="stylesheet">
+    <link href="/sign_online/admin/public/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -49,15 +49,15 @@
     <script type="text/javascript">
         //全局变量
         var GV = {
-            ROOT: "/",
-            WEB_ROOT: "/",
+            ROOT: "/sign_online/admin/public/",
+            WEB_ROOT: "/sign_online/admin/public/",
             JS_ROOT: "static/js/",
             APP: '<?php echo \think\Request::instance()->module(); ?>'/*当前应用名*/
         };
     </script>
-    <script src="/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
-    <script src="/static/js/wind.js"></script>
-    <script src="/themes/admin_simpleboot3/public/assets/js/bootstrap.min.js"></script>
+    <script src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="/sign_online/admin/public/static/js/wind.js"></script>
+    <script src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/js/bootstrap.min.js"></script>
     <script>
         Wind.css('artDialog');
         Wind.css('layer');
@@ -84,7 +84,7 @@
 <body>
 <div class="wrap js-check-wrap">
     <form method="post" class="js-ajax-form" action="<?php echo url('AdminCategory/listorders'); ?>">
-        <table class="table table-hover table-bordered table-list">
+        <table class="table table-hover table-bordered table-list" id="menus-table-one">
             <thead>
             <tr>
                 <th width="16">
@@ -93,31 +93,30 @@
                     </label>
                 </th>
                 <th width="50">ID</th>
-                <th>分类名称</th>
+                <th>负责人</th>
             </tr>
             </thead>
             <tbody>
-            <!--
-            <?php if(is_array($categories) || $categories instanceof \think\Collection || $categories instanceof \think\Paginator): if( count($categories)==0 ) : echo "" ;else: foreach($categories as $key=>$vo): ?>
-                <tr>
-                    <td>
-                        <?php $checked = in_array($vo['id'],$selectedIds)?'checked':''; ?>
-                        <input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]"
-                               value="<?php echo $vo['id']; ?>" data-name="<?php echo $vo['name']; ?>" <?php echo $checked; ?>>
-                    </td>
-                    <td><?php echo $vo['id']; ?></td>
-                    <td><?php echo $vo['name']; ?></td>
-                    <td><?php echo $vo['description']; ?></td>
-                </tr>
-            <?php endforeach; endif; else: echo "" ;endif; ?>
-            -->
-            <?php echo $categories_tree; ?>
+                <?php echo $categories_tree; ?>
+           
+           
             </tbody>
         </table>
     </form>
 </div>
-<script src="/static/js/admin.js"></script>
+<script src="/sign_online/admin/public/static/js/admin.js"></script>
 <script>
+
+    $(document).ready(function () {
+        Wind.css('treeTable');
+        Wind.use('treeTable', function () {
+            $("#menus-table-one").treeTable({
+                indent: 20,
+                initialState: 'expanded'
+            });
+        });
+    });
+
     $('.data-item-tr').click(function (e) {
 
         console.log(e);
@@ -138,6 +137,7 @@
         var selectedCategoriesId   = [];
         var selectedCategoriesName = [];
         var selectedCategories     = [];
+        var selectedCategoriesPlace= [];
         $('.js-check:checked').each(function () {
             var $this = $(this);
             selectedCategoriesId.push($this.val());
@@ -147,12 +147,18 @@
                 id: $this.val(),
                 name: $this.data('name')
             });
+
+            var place_val = $this.closest('tr').find('select').val();
+            // console.log($this.closest('tr'));
+            // console.log(place_val);
+            selectedCategoriesPlace.push(place_val);
         });
 
         return {
             selectedCategories: selectedCategories,
             selectedCategoriesId: selectedCategoriesId,
-            selectedCategoriesName: selectedCategoriesName
+            selectedCategoriesName: selectedCategoriesName,
+            selectedCategoriesPlace: selectedCategoriesPlace
         };
     }
 </script>

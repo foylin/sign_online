@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:47:"themes/admin_simpleboot3/admin/index/index.html";i:1541696987;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:47:"themes/admin_simpleboot3/admin/index/index.html";i:1542164505;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh_CN" style="overflow: hidden;">
 <head>
@@ -13,10 +13,10 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <![endif]-->
-    <link href="/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
-    <link href="/themes/admin_simpleboot3/public/assets/simpleboot3/css/simplebootadmin.css" rel="stylesheet">
-    <link href="/static/font-awesome/css/font-awesome.min.css?page=index" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/simplebootadminindex.min.css">
+    <link href="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
+    <link href="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/simpleboot3/css/simplebootadmin.css" rel="stylesheet">
+    <link href="/sign_online/admin/public/static/font-awesome/css/font-awesome.min.css?page=index" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/simplebootadminindex.min.css">
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -56,8 +56,8 @@
         //全局变量
         var GV = {
             HOST: "<?php echo $_SERVER['HTTP_HOST']; ?>",
-            ROOT: "/",
-            WEB_ROOT: "/",
+            ROOT: "/sign_online/admin/public/",
+            WEB_ROOT: "/sign_online/admin/public/",
             JS_ROOT: "static/js/"
         };
     </script>
@@ -192,7 +192,7 @@
                                  src="<?php echo cmf_get_user_avatar_url($admin['avatar']); ?>" alt="<?php echo $admin['user_login']; ?>">
                             <?php else: ?>
                             <img class="nav-user-photo" width="30" height="30"
-                                 src="/themes/admin_simpleboot3/public/assets/images/logo-18.png" alt="<?php echo (isset($admin['user_login']) && ($admin['user_login'] !== '')?$admin['user_login']:''); ?>">
+                                 src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/images/logo-18.png" alt="<?php echo (isset($admin['user_login']) && ($admin['user_login'] !== '')?$admin['user_login']:''); ?>">
                         <?php endif; ?>
                         <span class="user-info">
 								<?php echo lang('WELCOME_USER',array('user_nickname' => empty($admin['user_nickname'] )? $admin['user_login'] : $admin['user_nickname'])); ?>
@@ -225,7 +225,7 @@
 
     <div class="sidebar" id="sidebar">
         <div class="sidebar-shortcuts" id="sidebar-shortcuts">
-            <a class="btn btn-sm btn-warning" href="/"
+            <a class="btn btn-sm btn-warning" href="/sign_online/admin/public/"
                title="<?php echo lang('WEBSITE_HOME_PAGE'); ?>"
                target="_blank"
                data-toggle="tooltip">
@@ -292,11 +292,11 @@
     </div>
 </div>
 
-<script src="/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
-<script src="/static/js/wind.js"></script>
-<script src="/themes/admin_simpleboot3/public/assets/js/bootstrap.min.js"></script>
-<script src="/static/js/admin.js"></script>
-<script src="/themes/admin_simpleboot3/public/assets/simpleboot3/js/adminindex.js"></script>
+<script src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
+<script src="/sign_online/admin/public/static/js/wind.js"></script>
+<script src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/js/bootstrap.min.js"></script>
+<script src="/sign_online/admin/public/static/js/admin.js"></script>
+<script src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/simpleboot3/js/adminindex.js"></script>
 <script>
     $(function () {
         $("[data-toggle='tooltip']").tooltip();

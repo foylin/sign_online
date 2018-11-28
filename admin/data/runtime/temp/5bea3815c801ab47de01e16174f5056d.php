@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:57:"themes/admin_simpleboot3/protocol/admin_category/add.html";i:1542899105;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:57:"themes/admin_simpleboot3/protocol/admin_category/add.html";i:1542944169;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540625985;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +14,9 @@
     <![endif]-->
 
 
-    <link href="/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
-    <link href="/themes/admin_simpleboot3/public/assets/simpleboot3/css/simplebootadmin.css" rel="stylesheet">
-    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
+    <link href="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/simpleboot3/css/simplebootadmin.css" rel="stylesheet">
+    <link href="/sign_online/admin/public/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -49,15 +49,15 @@
     <script type="text/javascript">
         //全局变量
         var GV = {
-            ROOT: "/",
-            WEB_ROOT: "/",
+            ROOT: "/sign_online/admin/public/",
+            WEB_ROOT: "/sign_online/admin/public/",
             JS_ROOT: "static/js/",
             APP: '<?php echo \think\Request::instance()->module(); ?>'/*当前应用名*/
         };
     </script>
-    <script src="/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
-    <script src="/static/js/wind.js"></script>
-    <script src="/themes/admin_simpleboot3/public/assets/js/bootstrap.min.js"></script>
+    <script src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="/sign_online/admin/public/static/js/wind.js"></script>
+    <script src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/js/bootstrap.min.js"></script>
     <script>
         Wind.css('artDialog');
         Wind.css('layer');
@@ -138,7 +138,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" style="display: none;">
+                            <div class="form-group" style="">
                                 <label for="input-parent"><span class="form-required">*</span>分类</label>
                                 <div>
                                     <select class="form-control" name="mode_type" id="input-parent">
@@ -225,13 +225,13 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="/static/js/admin.js"></script>
+    <script type="text/javascript" src="/sign_online/admin/public/static/js/admin.js"></script>
     <script type="text/javascript">
         //编辑器路径定义
         var editorURL = GV.WEB_ROOT;
     </script>
-    <script type="text/javascript" src="/static/js/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" src="/static/js/ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="/sign_online/admin/public/static/js/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/sign_online/admin/public/static/js/ueditor/ueditor.all.min.js"></script>
     <script>
         $('#input-list_tpl').val("<?php echo (isset($list_tpl) && ($list_tpl !== '')?$list_tpl:''); ?>");
         $('#input-one_tpl').val("<?php echo (isset($one_tpl) && ($one_tpl !== '')?$one_tpl:''); ?>");
@@ -246,7 +246,7 @@
             // }
 
             $('.btn-cancel-thumbnail').click(function () {
-                $('#thumbnail-preview').attr('src', '/themes/admin_simpleboot3/public/assets/images/default-thumbnail.png');
+                $('#thumbnail-preview').attr('src', '/sign_online/admin/public/themes/admin_simpleboot3/public/assets/images/default-thumbnail.png');
                 $('#thumbnail').val('');
             });
 

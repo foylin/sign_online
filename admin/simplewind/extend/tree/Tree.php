@@ -123,7 +123,7 @@ class Tree
         $number = 1;
         //一级栏目
         $child = $this->getChild($myId);
-
+        // dump($child);
         if (is_array($child)) {
             $total = count($child);
 

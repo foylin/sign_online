@@ -57,6 +57,9 @@ class DownloadController extends RestUserBaseController
             $download = json_decode($category['more'], true);
             $files = $download['files'][0];
             $files['url'] = cmf_get_image_preview_url($files['url']);
+
+            $name_arr = explode('.', $files['name']);
+            $files['ext'] = $name_arr[1];
             $val['download'] = $files;
         }
         if (isset($this->apiVersion)) {

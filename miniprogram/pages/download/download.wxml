@@ -40,7 +40,7 @@
     </view>
     -->
     <block wx:for="{{list}}" wx:key="id">
-        <view class="weui-panel weui-panel_access" bindtap="onListItemTap" data-id="{{item.id}}" data-status="{{item.sign_status}}" data-url="{{item.download.url}}">
+        <view class="weui-panel weui-panel_access" bindtap="onListItemTap" data-id="{{item.id}}" data-status="{{item.sign_status}}" data-url="{{item.download.url}}" data-ext="{{item.download.ext}}">
             <view class="weui-media-box weui-media-box_appmsg asset-media-box"
                   hover-class="weui-cell_active" hover="{{true}}">
                 

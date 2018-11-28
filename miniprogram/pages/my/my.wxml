@@ -1,16 +1,16 @@
 <view class="page">
     <view class="page__bd">
         <view class="text-center">
-            <image src="{{user.avatar}}" style="width: 60px;height: 60px;" class="img-circle"></image>
-            <view class="user-nickname">{{user.user_nickname}}</view>
+            <!-- <image src="{{user.avatar}}" style="width: 60px;height: 60px;" class="img-circle"></image> -->
+            <view class="user-nickname">{{user.user_login}}</view>
         </view>
         <view class="weui-cells weui-cells_after-title">
-            <navigator url="/pages/favorite/index" class="weui-cell weui-cell_access"
+            <!-- <navigator url="/pages/favorite/index" class="weui-cell weui-cell_access"
                        hover-class="weui-cell_active">
                 <view class="weui-cell__bd">我的收藏</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-            </navigator>
-            <block wx:if="{{user.mobile}}">
+            </navigator> -->
+            <!-- <block wx:if="{{user.mobile}}">
                 <view class="weui-cell weui-cell_access" hover-class="weui-cell_active"
                 >
                     <view class="weui-cell__bd">手机已绑定</view>
@@ -35,20 +35,26 @@
                     <view class="weui-cell__bd">绑定邮箱</view>
                     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                 </navigator>
-            </block>
+            </block> -->
             <!--
             <navigator url="/pages/about/update" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__bd">更新日志</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access"></view>
             </navigator>
             -->
+
+            <navigator url="/pages/download/download" class="weui-cell weui-cell_access"
+                       hover-class="weui-cell_active">
+                <view class="weui-cell__bd">协议下载</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
         </view>
 
-        <!--
+        
         <view class="weui-btn-area">
-            <button class="weui-btn" type="warn">退出</button>
+            <button class="weui-btn" type="warn" bindtap="logout">退出</button>
         </view>
-        -->
+       
 
     </view>
 </view>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:51:"themes/admin_simpleboot3/user/admin_index/edit.html";i:1540907286;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:51:"themes/admin_simpleboot3/user/admin_index/edit.html";i:1542164506;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540625985;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +14,9 @@
     <![endif]-->
 
 
-    <link href="/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
-    <link href="/themes/admin_simpleboot3/public/assets/simpleboot3/css/simplebootadmin.css" rel="stylesheet">
-    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
+    <link href="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/simpleboot3/css/simplebootadmin.css" rel="stylesheet">
+    <link href="/sign_online/admin/public/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -49,15 +49,15 @@
     <script type="text/javascript">
         //全局变量
         var GV = {
-            ROOT: "/",
-            WEB_ROOT: "/",
+            ROOT: "/sign_online/admin/public/",
+            WEB_ROOT: "/sign_online/admin/public/",
             JS_ROOT: "static/js/",
             APP: '<?php echo \think\Request::instance()->module(); ?>'/*当前应用名*/
         };
     </script>
-    <script src="/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
-    <script src="/static/js/wind.js"></script>
-    <script src="/themes/admin_simpleboot3/public/assets/js/bootstrap.min.js"></script>
+    <script src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="/sign_online/admin/public/static/js/wind.js"></script>
+    <script src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/js/bootstrap.min.js"></script>
     <script>
         Wind.css('artDialog');
         Wind.css('layer');
@@ -191,7 +191,7 @@
 
                     </table>
                     <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5be461ad6e6f0,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_main',$temp5bfdf1a60aef3,null,false);
  ?>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
@@ -214,7 +214,7 @@
                                     
                                     
                                         <?php if(empty($post['avatar'])): ?>
-                                            <img src="/themes/admin_simpleboot3/public/assets/images/default-thumbnail.png" id="thumbnail-preview" width="135" style="cursor: pointer" />
+                                            <img src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/images/default-thumbnail.png" id="thumbnail-preview" width="135" style="cursor: pointer" />
                                             <?php else: ?>
                                             <img src="<?php echo cmf_get_image_preview_url($post['avatar']); ?>" id="thumbnail-preview" width="135" style="cursor: pointer" />
                                         <?php endif; ?>
@@ -253,19 +253,19 @@
                     </table>
 
                     <?php 
-    \think\Hook::listen('portal_admin_article_edit_view_right_sidebar',$temp5be461ad6e711,null,false);
+    \think\Hook::listen('portal_admin_article_edit_view_right_sidebar',$temp5bfdf1a60af44,null,false);
  ?>
                 </div>
             </div>
         </form>
     </div>
-    <script type="text/javascript" src="/static/js/admin.js"></script>
+    <script type="text/javascript" src="/sign_online/admin/public/static/js/admin.js"></script>
     <script type="text/javascript">
         //编辑器路径定义
         var editorURL = GV.WEB_ROOT;
     </script>
-    <script type="text/javascript" src="/static/js/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" src="/static/js/ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="/sign_online/admin/public/static/js/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/sign_online/admin/public/static/js/ueditor/ueditor.all.min.js"></script>
     <script type="text/javascript">
         $(function () {
             
@@ -279,7 +279,7 @@
             }
 
             $('.btn-cancel-thumbnail').click(function () {
-                $('#thumbnail-preview').attr('src', '/themes/admin_simpleboot3/public/assets/images/default-thumbnail.png');
+                $('#thumbnail-preview').attr('src', '/sign_online/admin/public/themes/admin_simpleboot3/public/assets/images/default-thumbnail.png');
                 $('#thumbnail').val('');
             });
             

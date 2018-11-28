@@ -3,7 +3,7 @@
 <body>
 <div class="wrap js-check-wrap">
     <form method="post" class="js-ajax-form" action="{:url('AdminCategory/listorders')}">
-        <table class="table table-hover table-bordered table-list"  id="menus-table">
+        <table class="table table-hover table-bordered table-list" id="menus-table-one">
             <thead>
             <tr>
                 <th width="16">
@@ -12,12 +12,12 @@
                     </label>
                 </th>
                 <th width="50">ID</th>
-                <th>承诺人或保证人</th>
+                <th>负责人</th>
             </tr>
             </thead>
             <tbody>
                 {$categories_tree}
-            
+           
            
             </tbody>
         </table>
@@ -29,7 +29,7 @@
     $(document).ready(function () {
         Wind.css('treeTable');
         Wind.use('treeTable', function () {
-            $("#menus-table").treeTable({
+            $("#menus-table-one").treeTable({
                 indent: 20,
                 initialState: 'expanded'
             });

@@ -139,6 +139,7 @@ Page({
         let id = e.currentTarget.dataset.id;
         let status = e.currentTarget.dataset.status;
         let url = e.currentTarget.dataset.url;
+        let ext = e.currentTarget.dataset.ext;
         wx.downloadFile({
             url: url, //仅为示例，并非真实的资源
             success (res) {
@@ -147,7 +148,7 @@ Page({
                 const filePath = res.tempFilePath
                 wx.openDocument({
                     filePath: filePath,
-                    fileType: 'doc',
+                    fileType: ext,
                     success: function(res) {
                         console.log('打开文档成功')
                     },
