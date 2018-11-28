@@ -176,7 +176,7 @@ class AdminCategoryController extends AdminBaseController
         }
 
         if($data['mode_type']){
-            // $data['more']['axes'] = $this->mode_type[$data['mode_type']];
+            $data['more']['axes'] = $this->mode_type[$data['mode_type']];
         }
         // dump($data);
         $result = $protocolCategoryModel->addCategory($data);
@@ -184,7 +184,7 @@ class AdminCategoryController extends AdminBaseController
         if ($result === false) {
             $this->error('添加失败!');
         }
-
+        // dump($result);
         $this->success('添加成功!', url('AdminCategory/index'));
 
     }
