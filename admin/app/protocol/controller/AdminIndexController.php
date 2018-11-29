@@ -190,12 +190,12 @@ class AdminIndexController extends AdminBaseController
             $model_data['more'] = json_decode($model_data['more'], true);
             $url = $model_data['more']['files'][0]['url'];
             
-                $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
-                $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$protocolPostModel->id.".pdf";
+            $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
+            $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$protocolPostModel->id.".pdf";
 
-                $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
-                $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
-                $result = shell_exec($sh);
+            $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
+            $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
+            $result = shell_exec($sh);
 
 
             $this->success('添加成功!', url('AdminIndex/edit', ['id' => $protocolPostModel->id]));
@@ -900,7 +900,27 @@ class AdminIndexController extends AdminBaseController
                 $seal_sign = explode(',', $seal_data['sign']);
             }
 
-            // dump($seal_sign);exit();
+            // 部门公章坐标数据
+            $frame_page = 0;
+            $frame_sign = [0 => 0, 1 => 1];
+            $frame_img = '';
+            $frame_user_post = Db::name('frame_category')->alias('fc')->join('__FRAME_CATEGORY_POST__ fcp', 'fcp.category_id = fc.id')
+            ->where(['fcp.post_id' => $uid])->field('fc.*')->find();
+            if($frame_user_post){
+                $frame_data = $model_data['more']['frame'];
+                // if($frame_data){
+                    $frame_page = $frame_data['page'];
+                    $frame_sign = explode(',', $frame_data['sign']);
+                // }
+                
+                $frame_img_arr = json_decode($frame_user_post['more'], true);
+                $frame_img = !empty($frame_img_arr['thumbnail']) ? cmf_get_image_preview_url($frame_img_arr['thumbnail']) : '';
+
+            }
+
+            
+
+            // dump($frame_user_post);exit();
 
             // 如果是承诺人签字,查找是否有负责人
             $user_post2 = null;
@@ -975,7 +995,12 @@ class AdminIndexController extends AdminBaseController
                     }
                 }
 
-                
+                // 插入部门公章
+                if($frame_page && $frame_img){
+                    if($pageNo == $frame_page){
+                        $pdf->image($frame_img, $frame_sign[0], $frame_sign[1], 30);
+                    }
+                }   
                 
             }
             $pdf->Output('F', $filename);
