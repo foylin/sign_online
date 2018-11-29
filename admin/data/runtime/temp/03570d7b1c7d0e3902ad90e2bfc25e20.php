@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:51:"themes/admin_simpleboot3/frame/admin_index/add.html";i:1542164505;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540625985;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:51:"themes/admin_simpleboot3/frame/admin_index/add.html";i:1543508240;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +14,9 @@
     <![endif]-->
 
 
-    <link href="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
-    <link href="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/simpleboot3/css/simplebootadmin.css" rel="stylesheet">
-    <link href="/sign_online/admin/public/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
+    <link href="/themes/admin_simpleboot3/public/assets/simpleboot3/css/simplebootadmin.css" rel="stylesheet">
+    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -49,15 +49,15 @@
     <script type="text/javascript">
         //全局变量
         var GV = {
-            ROOT: "/sign_online/admin/public/",
-            WEB_ROOT: "/sign_online/admin/public/",
+            ROOT: "/",
+            WEB_ROOT: "/",
             JS_ROOT: "static/js/",
             APP: '<?php echo \think\Request::instance()->module(); ?>'/*当前应用名*/
         };
     </script>
-    <script src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
-    <script src="/sign_online/admin/public/static/js/wind.js"></script>
-    <script src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/js/bootstrap.min.js"></script>
+    <script src="/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="/static/js/wind.js"></script>
+    <script src="/themes/admin_simpleboot3/public/assets/js/bootstrap.min.js"></script>
     <script>
         Wind.css('artDialog');
         Wind.css('layer');
@@ -128,20 +128,20 @@
                                 <textarea class="form-control" name="description" id="input-description"></textarea>
                             </div>
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="input-description">缩略图</label>
+                        <div class="form-group">
+                            <label for="input-description">部门公章</label>
                             <div>
                                 <input type="hidden" name="more[thumbnail]" class="form-control"
                                        id="js-thumbnail-input">
                                 <div>
                                     <a href="javascript:uploadOneImage('图片上传','#js-thumbnail-input');">
-                                        <img src="/sign_online/admin/public/themes/admin_simpleboot3/public/assets/images/default-thumbnail.png"
+                                        <img src="/themes/admin_simpleboot3/public/assets/images/default-thumbnail.png"
                                              id="js-thumbnail-input-preview"
                                              width="135" style="cursor: pointer"/>
                                     </a>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                     <div class="tab-pane" id="B">
                         <div class="form-group">
@@ -197,6 +197,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="/sign_online/admin/public/static/js/admin.js"></script>
+<script type="text/javascript" src="/static/js/admin.js"></script>
 </body>
 </html>
