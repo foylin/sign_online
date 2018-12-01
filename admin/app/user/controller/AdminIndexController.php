@@ -304,6 +304,12 @@ class AdminIndexController extends AdminBaseController
         $this->assign('post_categories_resp', $postCategories_resp);
         $this->assign('post_category_ids_resp', $postCategoryIds_resp);
 
+        // 部门/单位涉密人员
+        $postCategories_secr  = $post->frame_secr()->alias('a')->column('a.name', 'a.id');
+        $postCategoryIds_secr = implode(',', array_keys($postCategories_secr));
+        $this->assign('post_categories_secr', $postCategories_secr);
+        $this->assign('post_category_ids_secr', $postCategoryIds_secr);
+
 
         $postCategories_vague  = $post->vague()->alias('a')->column('a.name', 'a.id');
         $postCategoryIds_vague = implode(',', array_keys($postCategories_vague));
@@ -378,7 +384,7 @@ class AdminIndexController extends AdminBaseController
                 $post['user_pass'] = cmf_password($post['user_pass']);
             }
             // dump($post);
-            $userModel->adminEditUser($post, $post['categories'], $post['categories_vague'], $post['categories_identity'], $post['categories_role'], $post['categories_resp']);
+            $userModel->adminEditUser($post, $post['categories'], $post['categories_vague'], $post['categories_identity'], $post['categories_role'], $post['categories_resp'], $post['categories_secr']);
 
             $hookParam = [
                 'is_add'  => false,

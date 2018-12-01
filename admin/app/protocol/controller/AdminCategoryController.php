@@ -323,7 +323,7 @@ class AdminCategoryController extends AdminBaseController
 
         
         if($data['mode_type']){
-            // $data['more']['axes'] = $this->mode_type[$data['mode_type']];
+            $data['more']['axes'] = $this->mode_type[$data['mode_type']];
         }
         
         $result = $protocolCategoryModel->editCategory($data);
@@ -489,6 +489,36 @@ $tpl = " <tr id='node-\$id' \$parent_id_node style='' data-parent_id='\$parent_i
         $this->assign('categories_tree', $categoryTree);
         return $this->fetch();
     }
+
+    /**
+     * 查找部门负责人
+     */
+    public function select_user_resp()
+    {
+        $ids                 = $this->request->param('ids');
+        $selectedIds         = explode(',', $ids);
+
+        $post_id                 = $this->request->param('post_id');
+
+        $userModel = new UserModel();
+
+        $tpl = " <tr id='node-\$id' \$parent_id_node style='' data-parent_id='\$parent_id' data-id='\$id'>
+                        <td style='padding-left:20px;'>
+                        <input type='checkbox' class='js-check \$is_user' data-yid='js-check-y' data-xid='js-check-x' name='ids[]' value='\$id' data-parent_id='\$parent_id' data-id='\$id' value='\$id' data-name='\$name' \$checked></td>
+                        <td>\$id</td>
+                        <td>\$spacer \$name</td>
+                    </tr>";
+
+        $categoryTree = $userModel->adminCategoryTableTree_resp($selectedIds, $tpl);
+
+        $where      = ['user_status' => 1];
+        $categories = $userModel->where($where)->select();
+        $this->assign('categories', $categories);
+        $this->assign('selectedIds', $selectedIds);
+        $this->assign('categories_tree', $categoryTree);
+        return $this->fetch();
+    }
+
 
     /**
      * 查找负责人

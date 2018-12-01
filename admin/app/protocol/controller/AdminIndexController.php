@@ -204,16 +204,7 @@ class AdminIndexController extends AdminBaseController
     }
 
     /**
-     * 编辑文章
-     * @adminMenu(
-     *     'name'   => '编辑文章',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> true,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '编辑文章',
-     *     'param'  => ''
+     * 编辑协议
      * )
      */
     public function edit()
@@ -232,7 +223,9 @@ class AdminIndexController extends AdminBaseController
         $postCategoryIds = implode(',', array_keys($postCategories));
         $this->assign('post_categories', $postCategories);
         $this->assign('post_category_ids', $postCategoryIds);
-        // dump($postCategoryIds);
+        // dump($postCategories);
+
+        // 协议模板数据
         $protocolCategoryModel = new ProtocolCategoryModel();
         $where = ['delete_time' => 0];
         $categories_model = $protocolCategoryModel->field('id, name')->where($where)->select();
@@ -295,24 +288,21 @@ class AdminIndexController extends AdminBaseController
         // $content = shell_exec('/usr/local/bin/antiword -m UTF-8.txt '.$filename);  
         // dump($content);
         // $this->assign('content', $content);
-        return $this->fetch();
-
-        // reference the Dompdf namespace
-            
-
-            // // instantiate and use the dompdf class
-            // $dompdf = new Dompdf();
-
-            // $header = "<style>* {font-family: simsun!important}</style>";
-
-            // $html = $header.$post['post_content'];
-
-            // $dompdf->loadHtml($html);
-
-            // // Render the HTML as PDF
-            // $dompdf->render();
-            // // Output the generated PDF to Browser
-            // $dompdf->stream();
+        
+        // 不同协议模板类型,加载不同页面
+        $mode_type = $post->categories()->alias('a')->value('a.mode_type');
+        if($mode_type == 1){                    // 保密工作责任书
+            return $this->fetch('edit_1');
+        }elseif($mode_type == 2){               // 员工保密承诺书
+            return $this->fetch('edit_2');
+        }elseif($mode_type == 3){               // 涉密人员保证书
+            return $this->fetch('edit_3');
+        }elseif($mode_type == 4){               // 涉密人员离岗保密承诺书
+            return $this->fetch('edit_4');
+        }else{
+            return $this->fetch();
+        }
+        
     }
 
     /**

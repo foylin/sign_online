@@ -36,6 +36,14 @@ class UserModel extends Model
     }
 
     /**
+     * 关联部门涉密人员表
+     */
+    public function frame_secr()
+    {
+        return $this->belongsToMany('FrameCategoryModel', 'frame_category_secr_post', 'category_id', 'post_id');
+    }
+
+    /**
      * 关联模糊岗位分类表
      */
     public function vague()
@@ -250,6 +258,12 @@ class UserModel extends Model
             }
             $this->frame_resp()->save($user['categories_resp']);
 
+            // 部门/单位涉密人员数据
+            if (is_string($user['categories_secr'])) {
+                $user['categories_secr'] = explode(',', $user['categories_secr']);
+            }
+            $this->frame_secr()->save($user['categories_secr']);
+
             
             // 模糊岗位数据
             if (is_string($user['categories_vague'])) {
@@ -412,7 +426,7 @@ class UserModel extends Model
     /**
      * 
      */
-    public function adminEditUser($user, $frame = null, $vague = null, $identity = null, $role = null, $frame_resp = null){
+    public function adminEditUser($user, $frame = null, $vague = null, $identity = null, $role = null, $frame_resp = null, $frame_secr = null){
         $nowuser = Db::name("user")->where('id', $user['id'])->find();
         
         $result = Db::name("user")->where('mobile', $user['mobile'])->find();
@@ -459,7 +473,6 @@ class UserModel extends Model
             $this->frame()->attach(array_values($newCategoryIds));
         }
 
-        // dump($frame_resp);
         //部门负责人分类
         if (is_string($frame_resp)) {
             $frame_resp = explode(',', $frame_resp);
@@ -473,6 +486,21 @@ class UserModel extends Model
         }
         if (!empty($newCategoryIds)) {
             $this->frame_resp()->attach(array_values($newCategoryIds));
+        }
+
+        //部门涉密人员
+        if (is_string($frame_secr)) {
+            $frame_secr = explode(',', $frame_secr);
+        }
+        $oldCategoryIds        = $this->frame_secr()->column('category_id');
+        $sameCategoryIds       = array_intersect($frame_secr, $oldCategoryIds);
+        $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
+        $newCategoryIds        = array_diff($frame_secr, $sameCategoryIds);
+        if (!empty($needDeleteCategoryIds)) {
+            $this->frame_secr()->detach($needDeleteCategoryIds);
+        }
+        if (!empty($newCategoryIds)) {
+            $this->frame_secr()->attach(array_values($newCategoryIds));
         }
 
 

@@ -62,7 +62,7 @@
                         </tr>
 
                         <tr>
-                            <th width="100">部门/单位</th>
+                            <th width="100">所属部门/单位</th>
                             <td>
                                 <input class="form-control" type="text" style="width:400px;"  value=""
                                     placeholder="请选择部门/单位" onclick="doSelectCategory();" id="js-categories-name-input"
@@ -110,6 +110,18 @@
                                 <input class="form-control" type="hidden" value="" name="post[categories_resp]" id="js-categories-id-input-resp" />
                             </td>
                         </tr>
+
+                        <tr>
+                            <th width="100">部门/单位涉密人员</th>
+                            <td>
+                                <input class="form-control" type="text" style="width:400px;" value=""
+                                    placeholder="请设置部门/单位" onclick="doSelectCategory_secr();" id="js-categories-name-input-secr"
+                                    readonly />
+                                <input class="form-control" type="hidden" value="" name="post[categories_secr]" id="js-categories-id-input-secr" />
+                            </td>
+                        </tr>
+
+                        
 
                         <tr>
                             <th>岗位调动详情</th>
@@ -225,6 +237,29 @@
                     // }
                     $('#js-categories-id-input-resp').val(selectedCategories.selectedCategoriesId.join(','));
                     $('#js-categories-name-input-resp').val(selectedCategories.selectedCategoriesName.join(' '));
+                    //console.log(layer.getFrameIndex(index));
+                    layer.close(index); //如果设定了yes回调，需进行手工关闭
+                }
+            });
+        }
+
+        // 设置部门/单位涉密人员
+        function doSelectCategory_secr() {
+            var selectedCategoriesId = $('#js-categories-id-input-secr').val();
+            openIframeLayer("{:url('AdminIndex/select')}?ids=" + selectedCategoriesId, '请选择部门/单位', {
+                area: ['700px', '400px'],
+                btn: ['确定', '取消'],
+                yes: function (index, layero) {
+                    //do something
+
+                    var iframeWin = window[layero.find('iframe')[0]['name']];
+                    var selectedCategories = iframeWin.confirm();
+                    // if (selectedCategories.selectedCategoriesId.length == 0) {
+                    //     layer.msg('请选择部门/单位');
+                    //     return;
+                    // }
+                    $('#js-categories-id-input-secr').val(selectedCategories.selectedCategoriesId.join(','));
+                    $('#js-categories-name-input-secr').val(selectedCategories.selectedCategoriesName.join(' '));
                     //console.log(layer.getFrameIndex(index));
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
                 }
