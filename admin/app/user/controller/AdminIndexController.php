@@ -291,33 +291,36 @@ class AdminIndexController extends AdminBaseController
         
         // $portalPostModel = new PortalPostModel();
         $post            = $userModel->where('id', $id)->find();
-        // var_dump($post);
+        
+        // 所属部门/单位
         $postCategories  = $post->frame()->alias('a')->column('a.name', 'a.id');
         $postCategoryIds = implode(',', array_keys($postCategories));
-        
         $this->assign('post_categories', $postCategories);
         $this->assign('post_category_ids', $postCategoryIds);
 
+        // 部门/单位负责人
+        $postCategories_resp  = $post->frame_resp()->alias('a')->column('a.name', 'a.id');
+        $postCategoryIds_resp = implode(',', array_keys($postCategories_resp));
+        $this->assign('post_categories_resp', $postCategories_resp);
+        $this->assign('post_category_ids_resp', $postCategoryIds_resp);
+
+
         $postCategories_vague  = $post->vague()->alias('a')->column('a.name', 'a.id');
         $postCategoryIds_vague = implode(',', array_keys($postCategories_vague));
-        
         $this->assign('post_categories_vague', $postCategories_vague);
         $this->assign('post_category_ids_vague', $postCategoryIds_vague);
 
         $postCategories_identity  = $post->identity()->alias('a')->column('a.name', 'a.id');
         $postCategoryIds_identity = implode(',', array_keys($postCategories_identity));
-        
         $this->assign('post_categories_identity', $postCategories_identity);
         $this->assign('post_category_ids_identity', $postCategoryIds_identity);
 
         $postCategories_role  = $post->role()->alias('a')->column('a.name', 'a.id');
         $postCategoryIds_role = implode(',', array_keys($postCategories_role));
-        
         $this->assign('post_categories_role', $postCategories_role);
         $this->assign('post_category_ids_role', $postCategoryIds_role);
         
         $this->assign('post', $post);
-
         return $this->fetch();
     }
 
@@ -370,13 +373,12 @@ class AdminIndexController extends AdminBaseController
             //     }
             // }
             if(empty($post['user_pass'])){
-                // $user['user_pass'] = '123456';
                 unset($post['user_pass']);
             }else{
                 $post['user_pass'] = cmf_password($post['user_pass']);
             }
             // dump($post);
-            $userModel->adminEditUser($post, $post['categories'], $post['categories_vague'], $post['categories_identity'], $post['categories_role']);
+            $userModel->adminEditUser($post, $post['categories'], $post['categories_vague'], $post['categories_identity'], $post['categories_role'], $post['categories_resp']);
 
             $hookParam = [
                 'is_add'  => false,

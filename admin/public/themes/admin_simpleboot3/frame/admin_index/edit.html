@@ -5,7 +5,7 @@
     <ul class="nav nav-tabs">
         <li><a href="{:url('AdminIndex/index')}">组织架构管理</a></li>
         <li><a href="{:url('AdminIndex/add')}">添加架构管理</a></li>
-        <li class="active"><a>编辑分类</a></li>
+        <li class="active"><a>编辑组织架构</a></li>
     </ul>
     <div class="row margin-top-20">
         <div class="col-md-2">
@@ -39,6 +39,18 @@
                             <div>
                                 <input type="text" class="form-control" id="input-alias" name="alias"
                                        value="{$alias|default=''}">
+                            </div>
+                        </div> -->
+                        <!-- <div class="form-group">
+                            <label for="input-description">负责人</label>
+                            <div>
+                                <input class="form-control" type="text" style="" required
+                                   value=""
+                                   placeholder="请选择负责人" onclick="doSelectCategory_user();" id="js-categories-name-input-user"
+                                   readonly/>
+                                <input class="form-control" type="hidden" value=""
+                                    name="post[categories_user]"
+                                    id="js-categories-id-input-user"/>
                             </div>
                         </div> -->
                         <div class="form-group">
@@ -132,6 +144,33 @@
 <script>
     $('#input-list_tpl').val("{$list_tpl|default=''}");
     $('#input-one_tpl').val("{$one_tpl|default=''}");
+
+    function doSelectCategory_user() {
+        var selectedCategoriesId = $('#js-categories-id-input-user').val();
+        var selectedCategoriesPlaces = $('#js-categories-place-input-user').val();
+        openIframeLayer("{:url('/protocol/admin_category/select_user_one')}?ids=" + selectedCategoriesId, '请选择分类', {
+            area: ['700px', '400px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //do something
+
+                var iframeWin          = window[layero.find('iframe')[0]['name']];
+                var selectedCategories = iframeWin.confirm();
+                if (selectedCategories.selectedCategoriesId.length != 1) {
+                    layer.msg('只允许设置一个负责人');
+                    return;
+                }
+
+                $('#js-categories-id-input-user').val(selectedCategories.selectedCategoriesId.join(','));
+                $('#js-categories-name-input-user').val(selectedCategories.selectedCategoriesName.join(' '));
+                // $('#js-categories-place-input-user').val(selectedCategories.selectedCategoriesPlace.join(','));
+                //console.log(layer.getFrameIndex(index));
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+
+                
+            }
+        });
+    }
 </script>
 </body>
 </html>

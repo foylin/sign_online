@@ -28,6 +28,14 @@ class UserModel extends Model
     }
 
     /**
+     * 关联部门负责人表
+     */
+    public function frame_resp()
+    {
+        return $this->belongsToMany('FrameCategoryModel', 'frame_category_resp_post', 'category_id', 'post_id');
+    }
+
+    /**
      * 关联模糊岗位分类表
      */
     public function vague()
@@ -236,6 +244,12 @@ class UserModel extends Model
             }
             $this->frame()->save($user['categories']);
 
+            // 部门/单位负责人数据
+            if (is_string($user['categories_resp'])) {
+                $user['categories_resp'] = explode(',', $user['categories_resp']);
+            }
+            $this->frame_resp()->save($user['categories_resp']);
+
             
             // 模糊岗位数据
             if (is_string($user['categories_vague'])) {
@@ -398,7 +412,7 @@ class UserModel extends Model
     /**
      * 
      */
-    public function adminEditUser($user, $frame = null, $vague = null, $identity = null, $role = null){
+    public function adminEditUser($user, $frame = null, $vague = null, $identity = null, $role = null, $frame_resp = null){
         $nowuser = Db::name("user")->where('id', $user['id'])->find();
         
         $result = Db::name("user")->where('mobile', $user['mobile'])->find();
@@ -434,19 +448,33 @@ class UserModel extends Model
         if (is_string($frame)) {
             $frame = explode(',', $frame);
         }
-        
         $oldCategoryIds        = $this->frame()->column('category_id');
         $sameCategoryIds       = array_intersect($frame, $oldCategoryIds);
         $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
         $newCategoryIds        = array_diff($frame, $sameCategoryIds);
-
         if (!empty($needDeleteCategoryIds)) {
             $this->frame()->detach($needDeleteCategoryIds);
         }
-
         if (!empty($newCategoryIds)) {
             $this->frame()->attach(array_values($newCategoryIds));
         }
+
+        // dump($frame_resp);
+        //部门负责人分类
+        if (is_string($frame_resp)) {
+            $frame_resp = explode(',', $frame_resp);
+        }
+        $oldCategoryIds        = $this->frame_resp()->column('category_id');
+        $sameCategoryIds       = array_intersect($frame_resp, $oldCategoryIds);
+        $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
+        $newCategoryIds        = array_diff($frame_resp, $sameCategoryIds);
+        if (!empty($needDeleteCategoryIds)) {
+            $this->frame_resp()->detach($needDeleteCategoryIds);
+        }
+        if (!empty($newCategoryIds)) {
+            $this->frame_resp()->attach(array_values($newCategoryIds));
+        }
+
 
         //模糊岗位分类
         if (is_string($vague)) {
@@ -456,11 +484,9 @@ class UserModel extends Model
         $sameCategoryIds       = array_intersect($vague, $oldCategoryIds);
         $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
         $newCategoryIds        = array_diff($vague, $sameCategoryIds);
-
         if (!empty($needDeleteCategoryIds)) {
             $this->vague()->detach($needDeleteCategoryIds);
         }
-
         if (!empty($newCategoryIds)) {
             $this->vague()->attach(array_values($newCategoryIds));
         }
