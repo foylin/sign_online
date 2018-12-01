@@ -32,7 +32,7 @@ class AdminCategoryController extends AdminBaseController
                 'time' => '140,80'
             ]
         ],
-        3 => [
+        2 => [
             [
                 'page' => 4,
                 'sign' => '65,185',
@@ -43,14 +43,14 @@ class AdminCategoryController extends AdminBaseController
                 'time' => '160,205'
             ]
         ],
-        4 =>[
+        3 =>[
             [
                 'page' => 6,
                 'sign' => '160,25',
                 'time' => '160,55'
             ]
         ],
-        5 =>[
+        4 =>[
             [
                 'page' => 3,
                 'sign' => '72,205',
@@ -69,19 +69,18 @@ class AdminCategoryController extends AdminBaseController
                 'page' => 5,
                 'sign' => '140,56'
         ],
-        3 => [
+        2 => [
                 'page' => 4,
                 'sign' => '65,195'
         ],
-        4 =>[
+        3 =>[
                 'page' => 6,
                 'sign' => '160,35'
         ],
-        5 =>[
+        4 =>[
                 'page' => 3,
                 'sign' => '72,215'
         ]
-
     ];
 
     /**
@@ -510,6 +509,35 @@ $tpl = " <tr id='node-\$id' \$parent_id_node style='' data-parent_id='\$parent_i
                     </tr>";
 
         $categoryTree = $userModel->adminCategoryTableTree_resp($selectedIds, $tpl);
+
+        $where      = ['user_status' => 1];
+        $categories = $userModel->where($where)->select();
+        $this->assign('categories', $categories);
+        $this->assign('selectedIds', $selectedIds);
+        $this->assign('categories_tree', $categoryTree);
+        return $this->fetch();
+    }
+
+    /**
+     * 查找部门普通员工,除去部门负责人
+     */
+    public function select_user_no_resp()
+    {
+        $ids                 = $this->request->param('ids');
+        $selectedIds         = explode(',', $ids);
+
+        $post_id                 = $this->request->param('post_id');
+
+        $userModel = new UserModel();
+
+        $tpl = " <tr id='node-\$id' \$parent_id_node style='' data-parent_id='\$parent_id' data-id='\$id'>
+                        <td style='padding-left:20px;'>
+                        <input type='checkbox' class='js-check \$is_user' data-yid='js-check-y' data-xid='js-check-x' name='ids[]' value='\$id' data-parent_id='\$parent_id' data-id='\$id' value='\$id' data-name='\$name' \$checked></td>
+                        <td>\$id</td>
+                        <td>\$spacer \$name</td>
+                    </tr>";
+
+        $categoryTree = $userModel->adminCategoryTableTree_no_resp($selectedIds, $tpl);
 
         $where      = ['user_status' => 1];
         $categories = $userModel->where($where)->select();

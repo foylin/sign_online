@@ -244,12 +244,18 @@ class UserModel extends Model
             }
             // $userId = Db::name("user")->insertGetId($data);
 
-            $this->allowField(true)->data($data, true)->isUpdate(false)->save();
-
             // 部门/单位数据
             if (is_string($user['categories'])) {
                 $user['categories'] = explode(',', $user['categories']);
+                // 是否属于保密委
+                if(in_array('999', $user['categories'])){
+                    $data['user_type'] = 3;
+                }
             }
+
+            $this->allowField(true)->data($data, true)->isUpdate(false)->save();
+
+            
             $this->frame()->save($user['categories']);
 
             // 部门/单位负责人数据
@@ -456,12 +462,21 @@ class UserModel extends Model
         if (!empty($user['avatar'])) {
             $user['avatar'] = cmf_asset_relative_url($user['avatar']);
         }
-        $this->allowField(true)->isUpdate(true)->save($user);
-        // dump($this->getLastSql());
-        //部门分类
+
         if (is_string($frame)) {
             $frame = explode(',', $frame);
+            // 是否属于保密委
+            if(in_array('999', $frame)){
+                $user['user_type'] = 3;
+            }else{
+                $user['user_type'] = 2;
+            }
         }
+
+        $this->allowField(true)->isUpdate(true)->save($user);
+        // dump($this->getLastSql());
+        
+        //部门分类
         $oldCategoryIds        = $this->frame()->column('category_id');
         $sameCategoryIds       = array_intersect($frame, $oldCategoryIds);
         $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
