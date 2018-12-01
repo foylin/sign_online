@@ -85,15 +85,22 @@ class FrameCategoryModel extends Model
         foreach ($categories as $item) {
             $item['parent_id_node'] = ($item['parent_id']) ? ' class="child-of-node-' . $item['parent_id'] . '"' : '';
             $item['style']          = empty($item['parent_id']) ? '' : 'display:none;';
-            $item['status_text']    = empty($item['status'])?'隐藏':'显示';
+            // $item['status_text']    = empty($item['status'])?'隐藏':'显示';
             $item['checked']        = in_array($item['id'], $currentIds) ? "checked" : "";
             $item['url']            = cmf_url('frame/List/index', ['id' => $item['id']]);
-            $item['str_action']     = '<a href="' . url("AdminIndex/add", ["parent" => $item['id']]) . '">添加子分类</a>  <a href="' . url("AdminIndex/edit", ["id" => $item['id']]) . '">' . lang('EDIT') . '</a>  <a class="js-ajax-delete" href="' . url("AdminIndex/delete", ["id" => $item['id']]) . '">' . lang('DELETE') . '</a> ';
-            if ($item['status']) {
-                $item['str_action'] .= '<a class="js-ajax-dialog-btn" data-msg="您确定隐藏此分类吗" href="' . url('AdminIndex/toggle', ['ids' => $item['id'], 'hide' => 1]) . '">隐藏</a>';
-            } else {
-                $item['str_action'] .= '<a class="js-ajax-dialog-btn" data-msg="您确定显示此分类吗" href="' . url('AdminIndex/toggle', ['ids' => $item['id'], 'display' => 1]) . '">显示</a>';
+
+            // 保密委 不能删除
+            if($item['id'] == 999){
+                $item['str_action']     = '<a href="' . url("AdminIndex/add", ["parent" => $item['id']]) . '">添加子分类</a>  <a href="' . url("AdminIndex/edit", ["id" => $item['id']]) . '">' . lang('EDIT') . '</a> ';
+            }else{
+                $item['str_action']     = '<a href="' . url("AdminIndex/add", ["parent" => $item['id']]) . '">添加子分类</a>  <a href="' . url("AdminIndex/edit", ["id" => $item['id']]) . '">' . lang('EDIT') . '</a>  <a class="js-ajax-delete" href="' . url("AdminIndex/delete", ["id" => $item['id']]) . '">' . lang('DELETE') . '</a> ';
             }
+            
+            // if ($item['status']) {
+            //     $item['str_action'] .= '<a class="js-ajax-dialog-btn" data-msg="您确定隐藏此分类吗" href="' . url('AdminIndex/toggle', ['ids' => $item['id'], 'hide' => 1]) . '">隐藏</a>';
+            // } else {
+            //     $item['str_action'] .= '<a class="js-ajax-dialog-btn" data-msg="您确定显示此分类吗" href="' . url('AdminIndex/toggle', ['ids' => $item['id'], 'display' => 1]) . '">显示</a>';
+            // }
             array_push($newCategories, $item);
         }
         // dump($newCategories);
@@ -106,7 +113,6 @@ class FrameCategoryModel extends Model
                         <td>\$id</td>
                         <td>\$spacer \$name</td>
                         <td>\$description</td>
-                        <td>\$status_text</td>
                         <td>\$str_action</td>
                     </tr>";
         }

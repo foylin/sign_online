@@ -89,7 +89,7 @@
                     </tr>
 
                     <tr>
-                        <th width="100">承诺人或保证人<span class="form-required">*</span></th>
+                        <th width="100">承诺人<span class="form-required">*</span></th>
                         <td>
                             <input class="form-control" type="text" style="width:400px;" required
                                    value="{:implode(' ',$post_categories_user)}"
@@ -101,7 +101,7 @@
                         </td>
                     </tr>
 
-                    <tr>
+                    <tr style="display:none;">
                         <th width="100">负责人</th>
                         <td>
                             <input class="form-control" type="text" style="width:400px;" required
@@ -111,6 +111,13 @@
                             <input class="form-control" type="hidden" value="{$post_category_ids_user_one}"
                                    name="post[categories_user_one]"
                                    id="js-categories-id-input-user-one"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th width="100">负责人</th>
+                        <td>
+                            自动分发到所选部门的负责人
                         </td>
                     </tr>
                     <!-- <tr>

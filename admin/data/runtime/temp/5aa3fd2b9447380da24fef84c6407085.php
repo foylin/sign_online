@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:53:"themes/admin_simpleboot3/frame/admin_index/index.html";i:1540716904;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:53:"themes/admin_simpleboot3/frame/admin_index/index.html";i:1543677985;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,13 +98,13 @@
     <form method="post" class="js-ajax-form" action="<?php echo url('AdminIndex/listOrder'); ?>">
         <div class="table-actions">
             <button type="submit" class="btn btn-primary btn-sm js-ajax-submit"><?php echo lang('SORT'); ?></button>
-            <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
+            <!-- <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
                     data-action="<?php echo url('AdminIndex/toggle',array('display'=>'1')); ?>" data-subcheck="true">
                 <?php echo lang('DISPLAY'); ?>
             </button>
             <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
                     data-action="<?php echo url('AdminIndex/toggle',array('hide'=>1)); ?>" data-subcheck="true"><?php echo lang('HIDE'); ?>
-            </button>
+            </button> -->
         </div>
         <?php if(empty($keyword) || (($keyword instanceof \think\Collection || $keyword instanceof \think\Paginator ) && $keyword->isEmpty())): ?>
             <table class="table table-hover table-bordered table-list" id="menus-table">
@@ -117,7 +117,7 @@
                     <th width="50">ID</th>
                     <th>分类名称</th>
                     <th>描述</th>
-                    <th>状态</th>
+                    <!-- <th>状态</th> -->
                     <th width="200">操作</th>
                 </tr>
                 </thead>
@@ -133,7 +133,7 @@
                     <th width="50">ID</th>
                     <th>分类名称</th>
                     <th>描述</th>
-                    <th>状态</th>
+                    <!-- <th>状态</th> -->
                     <th width="200">操作</th>
                 </tr>
                 </tfoot>
@@ -149,7 +149,7 @@
                     <th width="50">ID</th>
                     <th>分类名称</th>
                     <th>描述</th>
-                    <th>状态</th>
+                    <!-- <th>状态</th> -->
                     <th width="200">操作</th>
                 </tr>
                 </thead>
@@ -164,18 +164,12 @@
                         <td><?php echo $vo['id']; ?></td>
                         <td><?php echo $vo['name']; ?></td>
                         <td><?php echo $vo['description']; ?></td>
-                        <td><?php echo !empty($vo['status'])?'显示':'隐藏'; ?></td>
+                        <!-- <td><?php echo !empty($vo['status'])?'显示':'隐藏'; ?></td> -->
                         <td>
                             <a href="<?php echo url('AdminIndex/add', ['parent' => $vo['id']]); ?>">添加子分类</a>
                             <a href="<?php echo url('AdminIndex/edit',['id'=>$vo['id']]); ?>">编辑</a>
-                            <a class="js-ajax-delete" href="<?php echo url('AdminIndex/delete',['id'=>$vo['id']]); ?>">删除</a>
-                            <?php if(empty($vo['status']) || (($vo['status'] instanceof \think\Collection || $vo['status'] instanceof \think\Paginator ) && $vo['status']->isEmpty())): ?>
-                                <a class="js-ajax-dialog-btn" data-msg="您确定显示此分类吗"
-                                   href="<?php echo url('AdminIndex/toggle',['ids'=>$vo['id'],'display'=>1]); ?>">显示</a>
-                                <?php else: ?>
-                                <a class="js-ajax-dialog-btn" data-msg="您确定隐藏此分类吗"
-                                   href="<?php echo url('AdminIndex/toggle',['ids'=>$vo['id'],'hide'=>1]); ?>">隐藏</a>
-                            <?php endif; ?>
+                            <?php if($vo['id'] != 999): ?> <a class="js-ajax-delete" href="<?php echo url('AdminIndex/delete',['id'=>$vo['id']]); ?>">删除</a> <?php endif; ?>
+                            
                         </td>
                     </tr>
                 <?php endforeach; endif; else: echo "" ;endif; ?>
@@ -189,7 +183,7 @@
                     <th width="50">ID</th>
                     <th>分类名称</th>
                     <th>描述</th>
-                    <th>状态</th>
+                    <!-- <th>状态</th> -->
                     <th width="200">操作</th>
                 </tr>
                 </tfoot>

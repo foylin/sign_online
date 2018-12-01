@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:51:"themes/admin_simpleboot3/frame/admin_index/add.html";i:1543508240;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:51:"themes/admin_simpleboot3/frame/admin_index/add.html";i:1543676143;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,13 +103,13 @@
                             <label for="input-parent"><span class="form-required">*</span>上级</label>
                             <div>
                                 <select class="form-control" name="parent_id" id="input-parent">
-                                    <option value="0">作为一级分类</option>
+                                    <option value="0">作为一级组织架构</option>
                                     <?php echo $categories_tree; ?>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="input-name"><span class="form-required">*</span>分类名称</label>
+                            <label for="input-name"><span class="form-required">*</span>名称</label>
                             <div>
                                 <input type="text" class="form-control" id="input-name" name="name">
                             </div>
