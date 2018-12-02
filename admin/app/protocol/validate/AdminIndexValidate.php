@@ -20,7 +20,6 @@ class AdminIndexValidate extends Validate
     ];
     protected $message = [
         'protocol_category_id.require' => '请选择协议模板！',
-        'categories_seal.require' => '请指定行政公章！',
         'categories_user.require' => '请指定签约用户！',
         'post_title.require' => '协议标题不能为空！',
     ];

@@ -101,7 +101,7 @@ class ProtocolPostModel extends Model
      * @param array|string $categories 文章分类 id
      * @return $this
      */
-    public function adminAddArticle($data, $categories, $categories_seal, $categories_user, $categories_user_one)
+    public function adminAddArticle($data, $mode_type)
     {
         $data['user_id'] = cmf_get_current_admin_id();
         // $data['published_time'] = time();
@@ -122,17 +122,17 @@ class ProtocolPostModel extends Model
 
         // dump($save_id);
 
-        if (is_string($categories)) {
-            $categories = explode(',', $categories);
-        }
+        // if (is_string($categories)) {
+        //     $categories = explode(',', $categories);
+        // }
 
-        $this->categories()->save($categories);
+        // $this->categories()->save($categories);
 
         // 行政公章
-        if (is_string($categories_seal)) {
-            $categories_seal = explode(',', $categories_seal);
-        }
-        $this->categories_seal()->save($categories_seal);
+        // if (is_string($categories_seal)) {
+        //     $categories_seal = explode(',', $categories_seal);
+        // }
+        // $this->categories_seal()->save($categories_seal);
 
         // 承诺人或保证人
         // $frame_ids = $categories_user;
@@ -146,6 +146,29 @@ class ProtocolPostModel extends Model
         //     unset($key);
         //     unset($value);
         // }
+        $categories_user = $data['categories_user'];
+
+        // 员工保密承诺书  查找所选部门各自负责人
+        $categories_user_one = [];
+        if($mode_type == 2){
+            
+            $category_frame = Db::name('frame_category_post')->where(['post_id' => ['in', $categories_user]])->select();   
+            
+            foreach ($category_frame as $k_cf => $val_cf) {
+                $user_resp = Db::name('frame_category_post')->where(['category_id'=>$val_cf['category_id'], 'type' => 3])->value('post_id');
+                if($user_resp){
+                    $categories_user_one[] = $user_resp;
+                }
+            }
+            // dump($categories_user_one); exit();
+        }
+        // 部门负责人
+        // 负责人
+        if ($categories_user_one) {
+            // $categories_user_one = explode(',', $categories_user_one);
+            $this->categories_user()->attach($categories_user_one, ['place' => 1]);
+        }
+
         if (is_string($categories_user)) {
             $categories_user = explode(',', $categories_user);
         }
@@ -153,11 +176,7 @@ class ProtocolPostModel extends Model
         $this->categories_user()->save($categories_user);
 
 
-        // 负责人
-        if (is_string($categories_user_one) && $categories_user_one) {
-            $categories_user_one = explode(',', $categories_user_one);
-            $this->categories_user()->attach($categories_user_one, ['place' => 1]);
-        }
+        
 
         
 

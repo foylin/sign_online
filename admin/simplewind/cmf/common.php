@@ -2108,8 +2108,6 @@ function createpdf($id, $uid){
             $seal_sign = explode(',', $seal_data['sign']);
         }
 
-        // dump($seal_sign);exit();
-
         // 如果是承诺人签字,查找是否有负责人
         $user_post2 = null;
         if($user_post['place'] == 0){
@@ -2185,4 +2183,64 @@ function createpdf($id, $uid){
         $pdf->Output('F', $filename);
 
     }
+}
+
+/**
+ * word 生成 pdf
+ *
+ * @param [type] $url
+ * @param [type] $protocol_id
+ * @return void
+ */
+function word_to_pdf($url, $protocol_id){
+    $cd = "cd /var/www/sign_online/admin/public/jodconverter-2.2.2/lib && ";
+    $dir = " /var/www/sign_online/admin/public/protocol/".$protocol_id.".pdf";
+
+    $docdir = " /var/www/sign_online/admin/public/upload/".$url;
+    $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
+    $result = shell_exec($sh);
+}
+
+
+/**
+ * 编辑协议书 PDF 文档
+ *
+ * @param [type] $protocol  协议书id 
+ * @param [type] $data      需要插入数据 ['pic'=> '图片地址', 'page' => '插入页数', 'position' => '插入坐标']
+ * @param [type] $output    'F' 生成PDF文件
+ * @param [type] $filename  生成文件名,无法中文,原因不明   格式:协议书id_用户id.pdf
+ * @return void
+ */
+function edit_pdf($protocol_id, $data = [], $output = 'F', $filename = 'view.pdf'){
+    
+    // 指定字体路劲
+    define('FPDF_FONTPATH', ROOT_PATH . 'public/FPDI/font/');
+
+
+    Loader::import('FPDI.fpdf', EXTEND_PATH);
+    Loader::import('FPDI.fpdi', EXTEND_PATH);
+    $pdf = new \FPDI();
+
+    $pdf->AddGBFont('sinfang', '仿宋_GB2312');
+    $pdf->SetFont('sinfang', '', 16);
+
+    $pageCount = $pdf->setSourceFile(ROOT_PATH . '/public/protocol/' . $protocol_id . '.pdf');
+
+    $pic = $data['pic'];
+    $page = $data['page'];
+    $position = $data['position'];
+
+    for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+        $templateId = $pdf->importPage($pageNo);
+        $size = $pdf->getTemplateSize($templateId);
+        if ($size['w'] > $size['h'])
+            $pdf->AddPage('L', array($size['w'], $size['h']));
+        else
+            $pdf->AddPage('P', array($size['w'], $size['h']));
+        $pdf->useTemplate($templateId);
+        if($pageNo == $page){
+            $pdf->image($pic, $position[0], $position[1], 50);
+        }
+    }
+    $pdf->Output('F', $filename);
 }

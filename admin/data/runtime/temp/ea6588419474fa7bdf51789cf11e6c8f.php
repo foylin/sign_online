@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:56:"themes/admin_simpleboot3/protocol/admin_index/index.html";i:1542552444;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:56:"themes/admin_simpleboot3/protocol/admin_index/index.html";i:1543766267;s:77:"/var/www/sign_online/admin/public/themes/admin_simpleboot3/public/header.html";i:1540662485;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -128,9 +128,7 @@
                         <input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x">
                     </label>
                 </th>
-                <?php if(!(empty($category) || (($category instanceof \think\Collection || $category instanceof \think\Paginator ) && $category->isEmpty()))): ?>
-                    <th width="50"><?php echo lang('SORT'); ?></th>
-                <?php endif; ?>
+                
                 <th width="50">ID</th>
                 <th>标题</th>
                 <th>分类</th>
@@ -150,12 +148,7 @@
                         <input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]"
                                value="<?php echo $vo['id']; ?>" title="ID:<?php echo $vo['id']; ?>">
                     </td>
-                    <?php if(!(empty($category) || (($category instanceof \think\Collection || $category instanceof \think\Paginator ) && $category->isEmpty()))): ?>
-                        <td>
-                            <input name="list_orders[<?php echo $vo['post_category_id']; ?>]" class="input-order" type="text"
-                                   value="<?php echo $vo['list_order']; ?>">
-                        </td>
-                    <?php endif; ?>
+                    
                     <td><b><?php echo $vo['id']; ?></b></td>
                     <td>
                         <?php if(!(empty($category) || (($category instanceof \think\Collection || $category instanceof \think\Paginator ) && $category->isEmpty()))): ?>
@@ -163,15 +156,10 @@
                             <?php echo $vo['post_title']; endif; ?>
                     </td>
                     <td>
-                        <?php if(is_array($vo['categories']) || $vo['categories'] instanceof \think\Collection || $vo['categories'] instanceof \think\Paginator): if( count($vo['categories'])==0 ) : echo "" ;else: foreach($vo['categories'] as $key=>$voo): ?>
-                            <span class="label label-default">
-                                <!-- <a href="<?php echo cmf_url('portal/List/index',array('id'=>$voo['id'])); ?>"
-                                   style="color: #fff;"
-                                   target="_blank"
-                                ><?php echo $voo['name']; ?></a> -->
-                                <?php echo $voo['name']; ?>
-                            </span>&nbsp;
-                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                        <span class="label label-default">
+                            <?php echo $vo['protocol_category_name']; ?>
+                        </span>&nbsp;
+                        
                     </td>
                     <!-- <td><?php echo $vo['user_nickname']; ?></td> -->
                     <!-- <td><?php echo (isset($vo['post_hits']) && ($vo['post_hits'] !== '')?$vo['post_hits']:0); ?></td> -->
@@ -202,7 +190,7 @@
                         <b style="color:#18BC9C;"><?php echo $vo['un_sign']; ?></b> 个用户未审核
                             <?php else: ?>
                                 已全部审核
-                    <?php endif; ?>
+                        <?php endif; ?>
                     </td>
 
                     <td>
@@ -217,9 +205,7 @@
             <tr>
                 <th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x"
                                              data-checklist="js-check-x"></label></th>
-                <?php if(!(empty($category) || (($category instanceof \think\Collection || $category instanceof \think\Paginator ) && $category->isEmpty()))): ?>
-                    <th width="50"><?php echo lang('SORT'); ?></th>
-                <?php endif; ?>
+                
                 <th width="50">ID</th>
                 <th>标题</th>
                 <th>分类</th>

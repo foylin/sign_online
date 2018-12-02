@@ -30,7 +30,9 @@
 <div class="wrap js-check-wrap">
     <ul class="nav nav-tabs">
         <li><a href="{:url('AdminIndex/index')}">协议管理</a></li>
-        <li class="active"><a href="{:url('AdminIndex/add')}">添加协议</a></li>
+        <li>
+            <a class="active">添加协议</a>
+        </li>
     </ul>
     <form action="{:url('AdminIndex/addPost')}" method="post" class="form-horizontal js-ajax-form margin-top-20">
         <div class="row">
@@ -41,7 +43,7 @@
                         <th>标题<span class="form-required">*</span></th>
                         <td>
                             <input class="form-control" type="text" name="post[post_title]"
-                                   id="title" required value="" placeholder="请输入标题"/>
+                                   required value="" placeholder="请输入标题"/>
                         </td>
                     </tr>
 
@@ -49,39 +51,45 @@
                         <th width="100">协议模板<span class="form-required">*</span></th>
                         <td>
                             <div class="">
-                                <select class="form-control valid" name="post[categories]" id="categories-model-sel" aria-invalid="false">
-                                    <option value="0">请选择协议模板</option>
-                                    <volist name="categories_model" id="vo">
-                                    <option value="{$vo.id}" >{$vo.name}</option>
-                                    </volist>
+                                <select class="form-control valid" name="post[protocol_category_id]" id="protocol_category_id" aria-invalid="false">
+                                <option value="0">请选择协议模板</option>
+                                <volist name="categories_model" id="vo">
+                                    <option value="{$vo.id}" data-modetype="{$vo.mode_type}" >{$vo.name}</option>
+                                </volist>
                                 </select>
                             </div>
                         </td>
                     </tr>
-                    
-                    <tr>
+
+                    <tr style="display:none;">
                         <th width="100">行政公章<span class="form-required">*</span></th>
                         <td>
-                            <input class="form-control" type="text" style="width:400px;" required value=""
+                            <input class="form-control" type="text" style="width:400px;" required
+                                   value=""
                                    placeholder="请选择分类" onclick="doSelectCategory_seal();" id="js-categories-name-input-seal"
                                    readonly/>
-                            <input class="form-control" type="hidden" value="" name="post[categories_seal]"
+                            <input class="form-control" type="hidden" value=""
+                                   name="post[categories_seal]"
                                    id="js-categories-id-input-seal"/>
                         </td>
                     </tr>
-                    <tr>
-                        <th width="100">承诺人或保证人<span class="form-required">*</span></th>
+
+                    <tr id="protocol_user">
+                        <th class="protocol_user_name" width="100">承诺人或保证人</th>
                         <td>
-                            <input class="form-control" type="text" style="width:400px;" required value=""
+                            <input class="form-control" type="text" style="width:400px;" required
+                                   value=""
                                    placeholder="请选择分类" onclick="doSelectCategory_user();" id="js-categories-name-input-user"
                                    readonly/>
-                            <input class="form-control" type="hidden" value="" name="post[categories_user]"
+                            <input class="form-control" type="hidden" value=""
+                                   name="post[categories_user]"
                                    id="js-categories-id-input-user"/>
                         </td>
                     </tr>
-                    <tr>
-                        <th width="100">负责人</th>
-                        <td>
+
+                    <tr id="protocol_user_one">
+                        <th class="protocol_user_one_name" width="100">负责人</th>
+                        <td class="protocol_user_one_sel">
                             <input class="form-control" type="text" style="width:400px;" required
                                    value=""
                                    placeholder="请选择分类" onclick="doSelectCategory_user_one();" id="js-categories-name-input-user-one"
@@ -91,61 +99,19 @@
                                    id="js-categories-id-input-user-one"/>
                         </td>
                     </tr>
+                    
+                    
                 </table>
+
                 <hook name="portal_admin_article_edit_view_main"/>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
-                        <a class="btn btn-default" href="{:url('AdminIndex/index')}">{:lang('BACK')}</a>
-                    </div>
-                </div>
             </div>
-            <!-- <div class="col-md-3">
-                <table class="table table-bordered">
-                    <tr>
-                        <th><b>缩略图</b></th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="text-align: center;">
-                                <input type="hidden" name="post[more][thumbnail]" id="thumbnail" value="">
-                                <a href="javascript:uploadOneImage('图片上传','#thumbnail');">
-                                    <img src="__TMPL__/public/assets/images/default-thumbnail.png"
-                                         id="thumbnail-preview"
-                                         width="135" style="cursor: pointer"/>
-                                </a>
-                                <input type="button" class="btn btn-sm btn-cancel-thumbnail" value="取消图片">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><b>发布时间</b></th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input class="form-control js-bootstrap-datetime" type="text" name="post[published_time]"
-                                   value="{:date('Y-m-d H:i:s',time())}">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>文章模板</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <select class="form-control" name="post[more][template]" id="more-template-select">
-                                <option value="">请选择模板</option>
-                                <foreach name="article_theme_files" item="vo">
-                                    <php>$value=preg_replace('/^portal\//','',$vo['file']);</php>
-                                    <option value="{$value}">{$vo.name} {$vo.file}.html</option>
-                                </foreach>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
-
-                <hook name="portal_admin_article_edit_view_right_sidebar"/>
-            </div> -->
+            
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+            </div>
         </div>
     </form>
 </div>
@@ -156,22 +122,38 @@
 </script>
 <script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+
+<!-- <script src='__STATIC__/js/tinymce.min.js'></script> -->
+
 <script type="text/javascript">
+    var mode_type = 0;
     $(function () {
 
-        // editorcontent = new baidu.editor.ui.Editor();
+        // editorcontent = new baidu.editor.ui.Editor({
+        //     // initialFrameWidth: 600
+        // });
         // editorcontent.render('content');
         // try {
         //     editorcontent.sync();
+        //     // editorcontent.
         // } catch (err) {
         // }
+
 
         $('.btn-cancel-thumbnail').click(function () {
             $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
             $('#thumbnail').val('');
         });
 
-        // $('#categories-model-sel').change(function(){
+        $('#more-template-select').val("{$post.more.template|default=''}");
+        mode_type = $('#protocol_category_id').find("option:selected").data("modetype");
+        // console.log(mode_type);
+        show(mode_type);
+
+
+        $('#protocol_category_id').change(function(){
+            mode_type = $(this).find("option:selected").data("modetype");
+            show(mode_type);
         //     var model_seled = $(this).val();
         //     // console.log(model_seled);
         //     editorcontent.execCommand('cleardoc');
@@ -191,9 +173,39 @@
         //         }
         //     })
             
-        // })
-
+        })
     });
+
+    //  不同类型,页面显示不同
+    function show(type){
+        // 保密工作责任书
+        if(type == 1){
+            $('#protocol_user').show();
+            $('#protocol_user_one').hide();
+            $('#protocol_user .protocol_user_name').text('负责人');
+        }
+        // 员工保密承诺书
+        else if(type == 2){
+            $('#protocol_user').show();
+            $('#protocol_user .protocol_user_name').text('承诺人');
+            $('#protocol_user_one').show();
+            $('#protocol_user_one .protocol_user_one_sel').text('自动分配到所选部门负责人');
+        }
+        // 涉密人员保证书
+        else if(type == 3){
+            $('#protocol_user').show();
+            $('#protocol_user .protocol_user_name').text('保证人');
+            $('#protocol_user_one').hide();
+            // $('#protocol_user_one .protocol_user_one_sel').text('自动分配到所选部门负责人');
+        }
+        // 涉密人员离岗保密承诺书
+        else if(type == 4){
+
+        }else{
+            $('#protocol_user').hide();
+            $('#protocol_user_one').hide();
+        }
+    }
 
     function doSelectCategory() {
         var selectedCategoriesId = $('#js-categories-id-input').val();
@@ -219,7 +231,8 @@
 
     function doSelectCategory_seal() {
         var selectedCategoriesId = $('#js-categories-id-input-seal').val();
-        openIframeLayer("{:url('AdminCategory/select_seal')}?ids=" + selectedCategoriesId, '请选择分类', {
+        var selectedCategoriesPlaces = $('#js-categories-place-input-seal').val();
+        openIframeLayer("{:url('AdminCategory/select_seal')}?ids=" + selectedCategoriesId + '&places=' + selectedCategoriesPlaces, '请选择分类', {
             area: ['700px', '400px'],
             btn: ['确定', '取消'],
             yes: function (index, layero) {
@@ -227,12 +240,27 @@
 
                 var iframeWin          = window[layero.find('iframe')[0]['name']];
                 var selectedCategories = iframeWin.confirm();
+                console.log(selectedCategories);
                 if (selectedCategories.selectedCategoriesId.length == 0) {
                     layer.msg('请选择分类');
                     return;
                 }
+                // console.log(index);
+                // console.log(layero);
+                // console.log(selectedCategories.selectedCategoriesId);
+                var seal_place_arr = new Array();
+                $.each(selectedCategories.selectedCategoriesId,function(k,v){
+                    var seal_place = $("#layui-layer-iframe"+index).contents().find("input[name=seal_place_"+v+"]").val();
+                    
+                    seal_place_arr.push(seal_place);
+
+
+                })
+
+                console.log(seal_place_arr);
                 $('#js-categories-id-input-seal').val(selectedCategories.selectedCategoriesId.join(','));
                 $('#js-categories-name-input-seal').val(selectedCategories.selectedCategoriesName.join(' '));
+                // $('#js-categories-place-input-seal').val(seal_place_arr.join(','));
                 //console.log(layer.getFrameIndex(index));
                 layer.close(index); //如果设定了yes回调，需进行手工关闭
             }
@@ -241,7 +269,8 @@
 
     function doSelectCategory_user() {
         var selectedCategoriesId = $('#js-categories-id-input-user').val();
-        openIframeLayer("{:url('AdminCategory/select_user')}?ids=" + selectedCategoriesId, '请选择分类', {
+        var selectedCategoriesPlaces = $('#js-categories-place-input-user').val();
+        openIframeLayer("{:url('AdminCategory/select_user')}?ids=" + selectedCategoriesId + '&mode_type=' + mode_type, '请选择签约人员', {
             area: ['700px', '400px'],
             btn: ['确定', '取消'],
             yes: function (index, layero) {
@@ -250,13 +279,17 @@
                 var iframeWin          = window[layero.find('iframe')[0]['name']];
                 var selectedCategories = iframeWin.confirm();
                 if (selectedCategories.selectedCategoriesId.length == 0) {
-                    layer.msg('请选择分类');
+                    layer.msg('请选择签约人员');
                     return;
                 }
+
                 $('#js-categories-id-input-user').val(selectedCategories.selectedCategoriesId.join(','));
                 $('#js-categories-name-input-user').val(selectedCategories.selectedCategoriesName.join(' '));
+                // $('#js-categories-place-input-user').val(selectedCategories.selectedCategoriesPlace.join(','));
                 //console.log(layer.getFrameIndex(index));
                 layer.close(index); //如果设定了yes回调，需进行手工关闭
+
+               
             }
         });
     }
@@ -288,5 +321,110 @@
         });
     }
 </script>
+
+<script>
+
+    var publishYesUrl   = "{:url('AdminIndex/publish',array('yes'=>1))}";
+    var publishNoUrl    = "{:url('AdminIndex/publish',array('no'=>1))}";
+    var topYesUrl       = "{:url('AdminIndex/top',array('yes'=>1))}";
+    var topNoUrl        = "{:url('AdminIndex/top',array('no'=>1))}";
+    var recommendYesUrl = "{:url('AdminIndex/recommend',array('yes'=>1))}";
+    var recommendNoUrl  = "{:url('AdminIndex/recommend',array('no'=>1))}";
+
+    var postId = $('#post-id').val();
+
+    //发布操作
+    $("#post-status-checkbox").change(function () {
+        if ($('#post-status-checkbox').is(':checked')) {
+            //发布
+            $.ajax({
+                url: publishYesUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#post-status-checkbox').removeAttr("checked");
+                        $('#post-status-error').html(data.msg).show();
+
+                    } else {
+                        $('#post-status-error').hide();
+                    }
+                }
+            });
+        } else {
+            //取消发布
+            $.ajax({
+                url: publishNoUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#post-status-checkbox').prop("checked", 'true');
+                        $('#post-status-error').html(data.msg).show();
+                    } else {
+                        $('#post-status-error').hide();
+                    }
+                }
+            });
+        }
+    });
+
+    //置顶操作
+    $("#is-top-checkbox").change(function () {
+        if ($('#is-top-checkbox').is(':checked')) {
+            //置顶
+            $.ajax({
+                url: topYesUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#is-top-checkbox').removeAttr("checked");
+                        $('#is-top-error').html(data.msg).show();
+
+                    } else {
+                        $('#is-top-error').hide();
+                    }
+                }
+            });
+        } else {
+            //取消置顶
+            $.ajax({
+                url: topNoUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#is-top-checkbox').prop("checked", 'true');
+                        $('#is-top-error').html(data.msg).show();
+                    } else {
+                        $('#is-top-error').hide();
+                    }
+                }
+            });
+        }
+    });
+    //推荐操作
+    $("#recommended-checkbox").change(function () {
+        if ($('#recommended-checkbox').is(':checked')) {
+            //推荐
+            $.ajax({
+                url: recommendYesUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#recommended-checkbox').removeAttr("checked");
+                        $('#recommended-error').html(data.msg).show();
+
+                    } else {
+                        $('#recommended-error').hide();
+                    }
+                }
+            });
+        } else {
+            //取消推荐
+            $.ajax({
+                url: recommendNoUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#recommended-checkbox').prop("checked", 'true');
+                        $('#recommended-error').html(data.msg).show();
+                    } else {
+                        $('#recommended-error').hide();
+                    }
+                }
+            });
+        }
+    });
+
+
+</script>
+
+
 </body>
 </html>

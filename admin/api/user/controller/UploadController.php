@@ -91,7 +91,7 @@ class UploadController extends RestUserBaseController
             Db::name('protocol_category_user_post')->where($where)->update($signdata);
 
             // 生成预览PDF文件
-            createpdf($param['protocol_id'], $this->userId);
+            // createpdf($param['protocol_id'], $this->userId);
             // dump(Db::name('protocol_category_user_post')->getLastSql());
             $this->success("上传成功!", ['url' => $saveName]);
         } else {

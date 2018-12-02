@@ -34,18 +34,20 @@ class PostService
         ];
 
         $join = [
-            ['__USER__ u', 'a.user_id = u.id']
+            ['__USER__ u', 'a.user_id = u.id'],
+            ['__PROTOCOL_CATEGORY__ pc', 'a.protocol_category_id = pc.id']
         ];
 
-        $field = 'a.*,u.user_login,u.user_nickname,u.user_email';
+        $field = 'a.*,u.user_login,u.user_nickname,u.user_email,pc.name AS protocol_category_name';
 
         $category = empty($filter['category']) ? 0 : intval($filter['category']);
         if (!empty($category)) {
-            $where['b.category_id'] = ['eq', $category];
-            array_push($join, [
-                '__protocol_CATEGORY_POST__ b', 'a.id = b.post_id'
-            ]);
-            $field = 'a.*,b.id AS post_category_id,b.list_order,b.category_id,u.user_login,u.user_nickname,u.user_email';
+            // $where['b.category_id'] = ['eq', $category];
+            // array_push($join, [
+            //     '__protocol_CATEGORY_POST__ b', 'a.id = b.post_id'
+            // ]);
+            // $field = 'a.*,b.id AS post_category_id,b.list_order,b.category_id,u.user_login,u.user_nickname,u.user_email';
+            $where['a.protocol_category_id'] = $category;
         }
 
         $startTime = empty($filter['start_time']) ? 0 : strtotime($filter['start_time']);

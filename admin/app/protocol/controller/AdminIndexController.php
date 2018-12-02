@@ -31,17 +31,7 @@ use function Qiniu\json_decode;
 class AdminIndexController extends AdminBaseController
 {
     /**
-     * 文章列表
-     * @adminMenu(
-     *     'name'   => '文章管理',
-     *     'parent' => 'protocol/AdminIndex/default',
-     *     'display'=> true,
-     *     'hasView'=> true,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '文章列表',
-     *     'param'  => ''
-     * )
+     * 协议任务列表
      */
     public function index()
     {
@@ -85,17 +75,8 @@ class AdminIndexController extends AdminBaseController
     }
 
     /**
-     * 添加文章
-     * @adminMenu(
-     *     'name'   => '添加文章',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> true,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '添加文章',
-     *     'param'  => ''
-     * )
+     * 添加协议书
+     * 
      */
     public function add()
     {
@@ -107,7 +88,7 @@ class AdminIndexController extends AdminBaseController
 
         $protocolCategoryModel = new ProtocolCategoryModel();
         $where = ['delete_time' => 0];
-        $categories_model = $protocolCategoryModel->field('id, name')->where($where)->select();
+        $categories_model = $protocolCategoryModel->field('id, name, mode_type')->where($where)->select();
         $this->assign('categories_model', $categories_model);
 
         $themeModel = new ThemeModel();
@@ -117,17 +98,7 @@ class AdminIndexController extends AdminBaseController
     }
 
     /**
-     * 添加文章提交
-     * @adminMenu(
-     *     'name'   => '添加文章提交',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> false,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '添加文章提交',
-     *     'param'  => ''
-     * )
+     * 添加协议书提交
      */
     public function addPost()
     {
@@ -165,8 +136,9 @@ class AdminIndexController extends AdminBaseController
                 }
             }
 
+            $mode_type = Db::name('protocol_category')->where(['id'=>$post['protocol_category_id']])->value('mode_type');
 
-            $protocolPostModel->adminAddArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user'], $data['post']['categories_user_one']);
+            $protocolPostModel->adminAddArticle($data['post'], $mode_type);
             // dump($data['post']['categories_user']);
             // Db::name('protocol_category_user_post')->where('place = 0 and post_id = '.$protocolPostModel->id)
             // ->update(['frame' => $data['post']['categories_user']]);
@@ -183,19 +155,21 @@ class AdminIndexController extends AdminBaseController
             // shell_exec("xvfb-run wkhtmltopdf ". $url .$filename);
 
             // 生成 pdf
-            $mode_id = $post['categories'];
+            $mode_id = $post['protocol_category_id'];
             
             $model_data = Db::name('protocol_category')->where('id='.$mode_id)->find();
             // dump($model_data);
             $model_data['more'] = json_decode($model_data['more'], true);
             $url = $model_data['more']['files'][0]['url'];
             
-            $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
-            $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$protocolPostModel->id.".pdf";
+            word_to_pdf($url, $protocolPostModel->id);
+            
+            // $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
+            // $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$protocolPostModel->id.".pdf";
 
-            $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
-            $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
-            $result = shell_exec($sh);
+            // $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
+            // $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
+            // $result = shell_exec($sh);
 
 
             $this->success('添加成功!', url('AdminIndex/edit', ['id' => $protocolPostModel->id]));
@@ -390,17 +364,8 @@ class AdminIndexController extends AdminBaseController
     }
 
     /**
-     * 文章删除
-     * @adminMenu(
-     *     'name'   => '文章删除',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> false,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '文章删除',
-     *     'param'  => ''
-     * )
+     * 协议任务删除
+     * 
      */
     public function delete()
     {
