@@ -228,7 +228,7 @@ class AdminIndexController extends AdminBaseController
         // 协议模板数据
         $protocolCategoryModel = new ProtocolCategoryModel();
         $where = ['delete_time' => 0];
-        $categories_model = $protocolCategoryModel->field('id, name')->where($where)->select();
+        $categories_model = $protocolCategoryModel->field('id, name, mode_type')->where($where)->select();
         $this->assign('categories_model', $categories_model);
         // dump($categories_model);
 
@@ -277,9 +277,9 @@ class AdminIndexController extends AdminBaseController
         // $postCategoryIds_user_place = implode(',', $postCategories_user_place);
         // $this->assign('post_category_places_user', $postCategoryIds_user_place);
 
-        $themeModel = new ThemeModel();
-        $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
-        $this->assign('article_theme_files', $articleThemeFiles);
+        // $themeModel = new ThemeModel();
+        // $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
+        // $this->assign('article_theme_files', $articleThemeFiles);
         $this->assign('post', $post);
         
 
@@ -290,18 +290,20 @@ class AdminIndexController extends AdminBaseController
         // $this->assign('content', $content);
         
         // 不同协议模板类型,加载不同页面
-        $mode_type = $post->categories()->alias('a')->value('a.mode_type');
-        if($mode_type == 1){                    // 保密工作责任书
-            return $this->fetch('edit_1');
-        }elseif($mode_type == 2){               // 员工保密承诺书
-            return $this->fetch('edit_2');
-        }elseif($mode_type == 3){               // 涉密人员保证书
-            return $this->fetch('edit_3');
-        }elseif($mode_type == 4){               // 涉密人员离岗保密承诺书
-            return $this->fetch('edit_4');
-        }else{
-            return $this->fetch();
-        }
+        // $mode_type = $post->categories()->alias('a')->value('a.mode_type');
+        // if($mode_type == 1){                    // 保密工作责任书
+        //     return $this->fetch('edit_1');
+        // }elseif($mode_type == 2){               // 员工保密承诺书
+        //     return $this->fetch('edit_2');
+        // }elseif($mode_type == 3){               // 涉密人员保证书
+        //     return $this->fetch('edit_3');
+        // }elseif($mode_type == 4){               // 涉密人员离岗保密承诺书
+        //     return $this->fetch('edit_4');
+        // }else{
+        //     return $this->fetch();
+        // }
+
+        return $this->fetch();
         
     }
 
@@ -354,7 +356,7 @@ class AdminIndexController extends AdminBaseController
             }
             // dump($data['post']);exit();
             
-            $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user'], $data['post']['categories_user_one']);
+            $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories_seal'], $data['post']['categories_user'], $data['post']['categories_user_one']);
 
             $hookParam = [
                 'is_add' => false,
@@ -369,23 +371,19 @@ class AdminIndexController extends AdminBaseController
             // shell_exec("cd ".$cd_url." && xvfb-run wkhtmltopdf ". $url .$filename);
             
             // 生成 pdf
-            $mode_id = $post['categories'];
+            $mode_id = $post['protocol_category_id'];
             // dump($mode_id);
             $model_data = Db::name('protocol_category')->where('id='.$mode_id)->find();
             $model_data['more'] = json_decode($model_data['more'], true);
             $url = $model_data['more']['files'][0]['url'];
             
-                $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
-                $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$protocolPostModel->id.".pdf";
+            $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
+            $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$protocolPostModel->id.".pdf";
 
-                $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
-                $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
-                $result = shell_exec($sh);
-
+            $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
+            $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
+            $result = shell_exec($sh);
             $this->success('保存成功!');
-
-
-
         }
     }
 

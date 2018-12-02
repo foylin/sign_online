@@ -255,27 +255,26 @@ class UserModel extends Model
 
             $this->allowField(true)->data($data, true)->isUpdate(false)->save();
 
-            
-            $this->frame()->save($user['categories']);
+            $this->frame()->save($user['categories'], ['type' => $user['frame_type'], 'is_sec' => $user['is_sec']]);
 
             // 部门/单位负责人数据
-            if (is_string($user['categories_resp'])) {
-                $user['categories_resp'] = explode(',', $user['categories_resp']);
-            }
-            $this->frame_resp()->save($user['categories_resp']);
+            // if (is_string($user['categories_resp'])) {
+            //     $user['categories_resp'] = explode(',', $user['categories_resp']);
+            // }
+            // $this->frame_resp()->save($user['categories_resp']);
 
             // 部门/单位涉密人员数据
-            if (is_string($user['categories_secr'])) {
-                $user['categories_secr'] = explode(',', $user['categories_secr']);
-            }
-            $this->frame_secr()->save($user['categories_secr']);
+            // if (is_string($user['categories_secr'])) {
+            //     $user['categories_secr'] = explode(',', $user['categories_secr']);
+            // }
+            // $this->frame_secr()->save($user['categories_secr']);
 
             
             // 模糊岗位数据
-            if (is_string($user['categories_vague'])) {
-                $user['categories_vague'] = explode(',', $user['categories_vague']);
-            }
-            $this->vague()->save($user['categories_vague']);
+            // if (is_string($user['categories_vague'])) {
+            //     $user['categories_vague'] = explode(',', $user['categories_vague']);
+            // }
+            // $this->vague()->save($user['categories_vague']);
 
             // 员工身份
             if (is_string($user['categories_identity'])) {
@@ -284,10 +283,10 @@ class UserModel extends Model
             $this->identity()->save($user['categories_identity']);
 
             // 员工角色
-            if (is_string($user['categories_role'])) {
-                $user['categories_role'] = explode(',', $user['categories_role']);
-            }
-            $this->role()->save($user['categories_role']);
+            // if (is_string($user['categories_role'])) {
+            //     $user['categories_role'] = explode(',', $user['categories_role']);
+            // }
+            // $this->role()->save($user['categories_role']);
             
             // 添加到相应的协议签约
             
@@ -432,7 +431,7 @@ class UserModel extends Model
     /**
      * 
      */
-    public function adminEditUser($user, $frame = null, $vague = null, $identity = null, $role = null, $frame_resp = null, $frame_secr = null){
+    public function adminEditUser($user, $frame = null, $identity = null){
         $nowuser = Db::name("user")->where('id', $user['id'])->find();
         
         $result = Db::name("user")->where('mobile', $user['mobile'])->find();
@@ -487,52 +486,56 @@ class UserModel extends Model
         if (!empty($newCategoryIds)) {
             $this->frame()->attach(array_values($newCategoryIds));
         }
+        // 更新 是否涉密人员, 部门职位
+        Db::name('frame_category_post')->where(['post_id'=>$user['id']])
+        ->update(['is_sec'=>$user['is_sec'], 'type' => $user['frame_type']]);
+
 
         //部门负责人分类
-        if (is_string($frame_resp)) {
-            $frame_resp = explode(',', $frame_resp);
-        }
-        $oldCategoryIds        = $this->frame_resp()->column('category_id');
-        $sameCategoryIds       = array_intersect($frame_resp, $oldCategoryIds);
-        $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
-        $newCategoryIds        = array_diff($frame_resp, $sameCategoryIds);
-        if (!empty($needDeleteCategoryIds)) {
-            $this->frame_resp()->detach($needDeleteCategoryIds);
-        }
-        if (!empty($newCategoryIds)) {
-            $this->frame_resp()->attach(array_values($newCategoryIds));
-        }
+        // if (is_string($frame_resp)) {
+        //     $frame_resp = explode(',', $frame_resp);
+        // }
+        // $oldCategoryIds        = $this->frame_resp()->column('category_id');
+        // $sameCategoryIds       = array_intersect($frame_resp, $oldCategoryIds);
+        // $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
+        // $newCategoryIds        = array_diff($frame_resp, $sameCategoryIds);
+        // if (!empty($needDeleteCategoryIds)) {
+        //     $this->frame_resp()->detach($needDeleteCategoryIds);
+        // }
+        // if (!empty($newCategoryIds)) {
+        //     $this->frame_resp()->attach(array_values($newCategoryIds));
+        // }
 
         //部门涉密人员
-        if (is_string($frame_secr)) {
-            $frame_secr = explode(',', $frame_secr);
-        }
-        $oldCategoryIds        = $this->frame_secr()->column('category_id');
-        $sameCategoryIds       = array_intersect($frame_secr, $oldCategoryIds);
-        $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
-        $newCategoryIds        = array_diff($frame_secr, $sameCategoryIds);
-        if (!empty($needDeleteCategoryIds)) {
-            $this->frame_secr()->detach($needDeleteCategoryIds);
-        }
-        if (!empty($newCategoryIds)) {
-            $this->frame_secr()->attach(array_values($newCategoryIds));
-        }
+        // if (is_string($frame_secr)) {
+        //     $frame_secr = explode(',', $frame_secr);
+        // }
+        // $oldCategoryIds        = $this->frame_secr()->column('category_id');
+        // $sameCategoryIds       = array_intersect($frame_secr, $oldCategoryIds);
+        // $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
+        // $newCategoryIds        = array_diff($frame_secr, $sameCategoryIds);
+        // if (!empty($needDeleteCategoryIds)) {
+        //     $this->frame_secr()->detach($needDeleteCategoryIds);
+        // }
+        // if (!empty($newCategoryIds)) {
+        //     $this->frame_secr()->attach(array_values($newCategoryIds));
+        // }
 
 
         //模糊岗位分类
-        if (is_string($vague)) {
-            $vague = explode(',', $vague);
-        }
-        $oldCategoryIds        = $this->vague()->column('category_id');
-        $sameCategoryIds       = array_intersect($vague, $oldCategoryIds);
-        $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
-        $newCategoryIds        = array_diff($vague, $sameCategoryIds);
-        if (!empty($needDeleteCategoryIds)) {
-            $this->vague()->detach($needDeleteCategoryIds);
-        }
-        if (!empty($newCategoryIds)) {
-            $this->vague()->attach(array_values($newCategoryIds));
-        }
+        // if (is_string($vague)) {
+        //     $vague = explode(',', $vague);
+        // }
+        // $oldCategoryIds        = $this->vague()->column('category_id');
+        // $sameCategoryIds       = array_intersect($vague, $oldCategoryIds);
+        // $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
+        // $newCategoryIds        = array_diff($vague, $sameCategoryIds);
+        // if (!empty($needDeleteCategoryIds)) {
+        //     $this->vague()->detach($needDeleteCategoryIds);
+        // }
+        // if (!empty($newCategoryIds)) {
+        //     $this->vague()->attach(array_values($newCategoryIds));
+        // }
 
         // 身份分类
         if (is_string($identity)) {
@@ -552,20 +555,20 @@ class UserModel extends Model
         }
 
         // 角色分类
-        if (is_string($role)) {
-            $role = explode(',', $role);
-        }
-        $oldCategoryIds        = $this->role()->column('category_id');
-        $sameCategoryIds       = array_intersect($role, $oldCategoryIds);
-        $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
-        $newCategoryIds        = array_diff($role, $sameCategoryIds);
+        // if (is_string($role)) {
+        //     $role = explode(',', $role);
+        // }
+        // $oldCategoryIds        = $this->role()->column('category_id');
+        // $sameCategoryIds       = array_intersect($role, $oldCategoryIds);
+        // $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
+        // $newCategoryIds        = array_diff($role, $sameCategoryIds);
 
-        if (!empty($needDeleteCategoryIds)) {
-            $this->role()->detach($needDeleteCategoryIds);
-        }
+        // if (!empty($needDeleteCategoryIds)) {
+        //     $this->role()->detach($needDeleteCategoryIds);
+        // }
 
-        if (!empty($newCategoryIds)) {
-            $this->role()->attach(array_values($newCategoryIds));
-        }
+        // if (!empty($newCategoryIds)) {
+        //     $this->role()->attach(array_values($newCategoryIds));
+        // }
     }
 }

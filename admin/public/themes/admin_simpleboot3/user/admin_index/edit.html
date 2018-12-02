@@ -75,10 +75,11 @@
                         <tr>
                             <th width="100">模糊岗位</th>
                             <td>
-                                <input class="form-control" type="text" style="width:400px;"  value="{:implode(' ',$post_categories_vague)}"
-                                    placeholder="模糊岗位" onclick="doSelectCategory_vague();" id="js-categories-name-input-vague"
-                                    readonly />
-                                <input class="form-control" type="hidden" value="{$post_category_ids_vague}" name="post[categories_vague]" id="js-categories-id-input-vague" />
+                                <select class="form-control" name="post[frame_type]" id="frame_type">
+                                    <option value="1">员工</option>
+                                    <option value="2">部门副职</option>
+                                    <option value="3">部门正职</option>
+                                </select>
                             </td>
                         </tr>
 
@@ -95,32 +96,16 @@
                         <tr>
                             <th width="100">员工角色</th>
                             <td>
-                                <input class="form-control" type="text" style="width:400px;"  value="{:implode(' ',$post_categories_role)}"
-                                    placeholder="员工角色" onclick="doSelectCategory_role();" id="js-categories-name-input-role"
-                                    readonly />
-                                <input class="form-control" type="hidden" value="{$post_category_ids_role}" name="post[categories_role]" id="js-categories-id-input-role" />
+                                <select class="form-control" name="post[is_sec]" id="is_sec">
+                                    <option value="0">非涉密人员</option>
+                                    <option value="1">涉密人员</option>
+                                </select>
                             </td>
                         </tr>
 
-                        <tr>
-                            <th width="100">部门/单位负责人</th>
-                            <td>
-                                <input class="form-control" type="text" style="width:400px;" value="{:implode(' ',$post_categories_resp)}"
-                                    placeholder="请设置部门/单位负责人" onclick="doSelectCategory_resp();" id="js-categories-name-input-resp"
-                                    readonly />
-                                <input class="form-control" type="hidden" value="{$post_category_ids_resp}" name="post[categories_resp]" id="js-categories-id-input-resp" />
-                            </td>
-                        </tr>
+                        
 
-                        <tr>
-                            <th width="100">部门/单位涉密人员</th>
-                            <td>
-                                <input class="form-control" type="text" style="width:400px;" value="{:implode(' ',$post_categories_secr)}"
-                                    placeholder="请设置部门/单位" onclick="doSelectCategory_secr();" id="js-categories-name-input-secr"
-                                    readonly />
-                                <input class="form-control" type="hidden" value="{$post_category_ids_secr}" name="post[categories_secr]" id="js-categories-id-input-secr" />
-                            </td>
-                        </tr>
+                        
 
                         <tr>
                             <th>岗位调动详情</th>
@@ -220,6 +205,8 @@
             });
             
             $('#user-status-sel').val("{$post['user_status']}");
+            $('#is_sec').val("{$is_sec}");
+            $('#frame_type').val("{$frame_type}");
         });
 
         function doSelectCategory() {
@@ -233,7 +220,11 @@
                     var iframeWin = window[layero.find('iframe')[0]['name']];
                     var selectedCategories = iframeWin.confirm();
                     if (selectedCategories.selectedCategoriesId.length == 0) {
-                        layer.msg('请选择分类');
+                        layer.msg('请选择部门/单位');
+                        return;
+                    }
+                    if (selectedCategories.selectedCategoriesId.length > 1) {
+                        layer.msg('无法选择多个部门');
                         return;
                     }
                     $('#js-categories-id-input').val(selectedCategories.selectedCategoriesId.join(','));

@@ -177,7 +177,7 @@ class ProtocolPostModel extends Model
      * @param array|string $categories 文章分类 id
      * @return $this
      */
-    public function adminEditArticle($data, $categories, $categories_seal, $categories_user, $categories_user_one)
+    public function adminEditArticle($data, $categories_seal, $categories_user, $categories_user_one)
     {
 
         unset($data['user_id']);
@@ -197,46 +197,46 @@ class ProtocolPostModel extends Model
 
         $this->allowField(true)->isUpdate(true)->data($data, true)->save();
 
-        if (is_string($categories)) {
-            $categories = explode(',', $categories);
-        }
+        // if (is_string($categories)) {
+        //     $categories = explode(',', $categories);
+        // }
 
-        $oldCategoryIds        = $this->categories()->column('category_id');
-        $sameCategoryIds       = array_intersect($categories, $oldCategoryIds);
-        $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
-        $newCategoryIds        = array_diff($categories, $sameCategoryIds);
+        // $oldCategoryIds        = $this->categories()->column('category_id');
+        // $sameCategoryIds       = array_intersect($categories, $oldCategoryIds);
+        // $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
+        // $newCategoryIds        = array_diff($categories, $sameCategoryIds);
 
-        if (!empty($needDeleteCategoryIds)) {
-            $this->categories()->detach($needDeleteCategoryIds);
-        }
+        // if (!empty($needDeleteCategoryIds)) {
+        //     $this->categories()->detach($needDeleteCategoryIds);
+        // }
 
-        if (!empty($newCategoryIds)) {
-            $this->categories()->attach(array_values($newCategoryIds));
-        }
+        // if (!empty($newCategoryIds)) {
+        //     $this->categories()->attach(array_values($newCategoryIds));
+        // }
 
 
         // 行政公章
         // dump($categories_seal);
-        if (is_string($categories_seal)) {
-            $categories_seal = explode(',', $categories_seal);
-            // $categories_seal_place = explode(',', $categories_seal_place);
-        }
+        // if (is_string($categories_seal)) {
+        //     $categories_seal = explode(',', $categories_seal);
+        //     // $categories_seal_place = explode(',', $categories_seal_place);
+        // }
 
-        $oldCategoryIds_seal        = $this->categories_seal()->column('category_id');
-        $sameCategoryIds_seal       = array_intersect($categories_seal, $oldCategoryIds_seal);
-        $needDeleteCategoryIds_seal = array_diff($oldCategoryIds_seal, $sameCategoryIds_seal);
-        $newCategoryIds_seal        = array_diff($categories_seal, $sameCategoryIds_seal);
+        // $oldCategoryIds_seal        = $this->categories_seal()->column('category_id');
+        // $sameCategoryIds_seal       = array_intersect($categories_seal, $oldCategoryIds_seal);
+        // $needDeleteCategoryIds_seal = array_diff($oldCategoryIds_seal, $sameCategoryIds_seal);
+        // $newCategoryIds_seal        = array_diff($categories_seal, $sameCategoryIds_seal);
         
-        if (!empty($needDeleteCategoryIds_seal)) {
-            $this->categories_seal()->detach($needDeleteCategoryIds_seal);
-        }
+        // if (!empty($needDeleteCategoryIds_seal)) {
+        //     $this->categories_seal()->detach($needDeleteCategoryIds_seal);
+        // }
 
-        if (!empty($newCategoryIds_seal)) {
-        //     foreach ($categories_seal as $nk_seal => $nv_seal) {
-        //         $this->categories_seal()->attach($nv_seal, ['place'=> $categories_seal_place[$nk_seal]]);
-        //     }
-            $this->categories_seal()->attach(array_values($newCategoryIds_seal));
-        }
+        // if (!empty($newCategoryIds_seal)) {
+        // //     foreach ($categories_seal as $nk_seal => $nv_seal) {
+        // //         $this->categories_seal()->attach($nv_seal, ['place'=> $categories_seal_place[$nk_seal]]);
+        // //     }
+        //     $this->categories_seal()->attach(array_values($newCategoryIds_seal));
+        // }
 
 
         // 承诺人或保证人

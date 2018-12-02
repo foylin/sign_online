@@ -15,11 +15,11 @@ use think\Validate;
 class AdminIndexValidate extends Validate
 {
     protected $rule = [
-        'categories' => 'require',
+        'protocol_category_id' => 'require',
         'post_title' => 'require',
     ];
     protected $message = [
-        'categories.require' => '请指定协议分类！',
+        'protocol_category_id.require' => '请选择协议模板！',
         'categories_seal.require' => '请指定行政公章！',
         'categories_user.require' => '请指定签约用户！',
         'post_title.require' => '协议标题不能为空！',

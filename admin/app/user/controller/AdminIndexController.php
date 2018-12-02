@@ -298,23 +298,35 @@ class AdminIndexController extends AdminBaseController
         $this->assign('post_categories', $postCategories);
         $this->assign('post_category_ids', $postCategoryIds);
 
+        // 是否涉密人员
+        $is_sec = $post->frame()->alias('a')->value('pivot.is_sec');
+        $this->assign('is_sec', $is_sec);
+
+        // 部门职位
+        $frame_type = $post->frame()->alias('a')->value('pivot.type');
+        $this->assign('frame_type', $frame_type);
+
+        // dump($is_sec);
         // 部门/单位负责人
         $postCategories_resp  = $post->frame_resp()->alias('a')->column('a.name', 'a.id');
         $postCategoryIds_resp = implode(',', array_keys($postCategories_resp));
         $this->assign('post_categories_resp', $postCategories_resp);
         $this->assign('post_category_ids_resp', $postCategoryIds_resp);
 
-        // 部门/单位涉密人员
-        $postCategories_secr  = $post->frame_secr()->alias('a')->column('a.name', 'a.id');
-        $postCategoryIds_secr = implode(',', array_keys($postCategories_secr));
-        $this->assign('post_categories_secr', $postCategories_secr);
-        $this->assign('post_category_ids_secr', $postCategoryIds_secr);
+        // 用户角色(是否涉密人员)
+        // $postCategories_secr  = $post->frame_secr()->alias('a')->column('a.name', 'a.id');
+        // $postCategoryIds_secr = implode(',', array_keys($postCategories_secr));
+        // $this->assign('post_categories_secr', $postCategories_secr);
+        // $this->assign('post_category_ids_secr', $postCategoryIds_secr);
+        $roleCategoryModel = new RoleCategoryModel();
+        $where      = ['delete_time' => 0];
+        $categories_role = $roleCategoryModel->where($where)->select();
+        // dump($categories_role);
 
-
-        $postCategories_vague  = $post->vague()->alias('a')->column('a.name', 'a.id');
-        $postCategoryIds_vague = implode(',', array_keys($postCategories_vague));
-        $this->assign('post_categories_vague', $postCategories_vague);
-        $this->assign('post_category_ids_vague', $postCategoryIds_vague);
+        // $postCategories_vague  = $post->vague()->alias('a')->column('a.name', 'a.id');
+        // $postCategoryIds_vague = implode(',', array_keys($postCategories_vague));
+        // $this->assign('post_categories_vague', $postCategories_vague);
+        // $this->assign('post_category_ids_vague', $postCategoryIds_vague);
 
         $postCategories_identity  = $post->identity()->alias('a')->column('a.name', 'a.id');
         $postCategoryIds_identity = implode(',', array_keys($postCategories_identity));
@@ -384,7 +396,7 @@ class AdminIndexController extends AdminBaseController
                 $post['user_pass'] = cmf_password($post['user_pass']);
             }
             // dump($post);
-            $userModel->adminEditUser($post, $post['categories'], $post['categories_vague'], $post['categories_identity'], $post['categories_role'], $post['categories_resp'], $post['categories_secr']);
+            $userModel->adminEditUser($post, $post['categories'], $post['categories_identity']);
 
             $hookParam = [
                 'is_add'  => false,

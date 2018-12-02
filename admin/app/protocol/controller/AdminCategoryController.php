@@ -436,7 +436,9 @@ tpl;
         // $places                 = $this->request->param('places');
         // $selectedPlaces         = explode(',', $places);
 
-        $post_id                 = $this->request->param('post_id');
+        $post_id             = $this->request->param('post_id');
+
+        $mode_type           = $this->request->param('mode_type');
 
         // foreach ($selectedIds as $key => $value) {
         //     # code...
@@ -461,7 +463,7 @@ $tpl = " <tr id='node-\$id' \$parent_id_node style='' data-parent_id='\$parent_i
                         <td>\$spacer \$name</td>
                     </tr>";
 
-        $categoryTree = $userModel->adminCategoryTableTree($selectedIds, $tpl);
+        $categoryTree = $userModel->adminCategoryTableTree($selectedIds, $tpl, $mode_type);
 
         $where      = ['user_status' => 1];
         $categories = $userModel->where($where)->select();

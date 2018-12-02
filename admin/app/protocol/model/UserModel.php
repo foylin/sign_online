@@ -29,7 +29,7 @@ class UserModel extends Model
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function adminCategoryTableTree($currentIds = 0, $tpl = '', $one = false)
+    public function adminCategoryTableTree($currentIds = 0, $tpl = '', $mode_type = 0)
     {
         // if($one){
             // $where = ['user_status' => 1];
@@ -54,7 +54,12 @@ class UserModel extends Model
                 $categories[$key]['is_user'] = false;
                 $map['fcp.category_id'] = $value['id'];
                 $map['u.user_status'] = 1;
-                $map['u.user_type'] = 2;
+
+                // 保密工作责任书  查找各部门负责人
+                if($mode_type == 1){
+                    $map['fcp.type'] = 3;
+                }
+                // $map['u.user_type'] = 2;
                 $next_parent = Db::name('frame_category_post')->alias('fcp')->join('__USER__ u', 'fcp.post_id = u.id')
                 ->where($map)->field('u.*')->select()->toArray();
                 if($next_parent){
