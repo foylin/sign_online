@@ -354,10 +354,12 @@ class AdminIndexController extends AdminBaseController
                     array_push($data['post']['more']['files'], ["url" => $fileUrl, "name" => $data['file_names'][$key]]);
                 }
             }
-            // dump($data['post']);exit();
             
-            $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories_seal'], $data['post']['categories_user'], $data['post']['categories_user_one']);
+            $mode_type = Db::name('protocol_category')->where(['id'=>$post['protocol_category_id']])->value('mode_type');
+            // dump($mode_type);exit();
 
+            // $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories_seal'], $data['post']['categories_user'], $data['post']['categories_user_one']);
+            $protocolPostModel->adminEditArticle($data['post'], $mode_type);
             $hookParam = [
                 'is_add' => false,
                 'article' => $data['post']

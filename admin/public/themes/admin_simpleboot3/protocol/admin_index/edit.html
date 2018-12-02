@@ -104,7 +104,7 @@
 
                     <tr id="protocol_user_one">
                         <th class="protocol_user_one_name" width="100">负责人</th>
-                        <td>
+                        <td class="protocol_user_one_sel">
                             <input class="form-control" type="text" style="width:400px;" required
                                    value="{:implode(' ',$post_categories_user_one)}"
                                    placeholder="请选择分类" onclick="doSelectCategory_user_one();" id="js-categories-name-input-user-one"
@@ -217,10 +217,16 @@
         }
         // 员工保密承诺书
         else if(type == 2){
-
+            $('#protocol_user .protocol_user_name').text('承诺人');
+            $('#protocol_user_one').show();
+            $('#protocol_user_one .protocol_user_one_sel').text('自动分配到所选部门负责人');
         }
         // 涉密人员保证书
-
+        else if(type == 3){
+            $('#protocol_user .protocol_user_name').text('保证人');
+            $('#protocol_user_one').hide();
+            // $('#protocol_user_one .protocol_user_one_sel').text('自动分配到所选部门负责人');
+        }
         // 涉密人员离岗保密承诺书
         
     }
