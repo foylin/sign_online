@@ -2194,7 +2194,7 @@ function createpdf($id, $uid){
  */
 function word_to_pdf($url, $protocol_id){
     $cd = "cd /var/www/sign_online/admin/public/jodconverter-2.2.2/lib && ";
-    $dir = " /var/www/sign_online/admin/public/protocol/".$protocol_id.".pdf";
+    $dir = " /var/www/sign_online/admin/public/upload/protocol/pdf/".$protocol_id.".pdf";
 
     $docdir = " /var/www/sign_online/admin/public/upload/".$url;
     $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
@@ -2205,13 +2205,13 @@ function word_to_pdf($url, $protocol_id){
 /**
  * 编辑协议书 PDF 文档
  *
- * @param [type] $protocol  协议书id 
- * @param [type] $data      需要插入数据 ['pic'=> '图片地址', 'page' => '插入页数', 'position' => '插入坐标']
- * @param [type] $output    'F' 生成PDF文件
- * @param [type] $filename  生成文件名,无法中文,原因不明   格式:协议书id_用户id.pdf
+ * @param [type] $original_file  原始文件  绝对路劲
+ * @param [type] $data      需要插入数据 ['pic'=> '图片地址', 'page' => '插入页数', 'position' => [100, 200]]
+ * @param [type] $filename  生成文件名,无法中文,原因不明   
+ * @param [type] $picsize   图片尺寸,印章:30,签名:50
  * @return void
  */
-function edit_pdf($protocol_id, $data = [], $output = 'F', $filename = 'view.pdf'){
+function edit_pdf($original_file, $data = [], $filename = 'test.pdf', $picsize = 30){
     
     // 指定字体路劲
     define('FPDF_FONTPATH', ROOT_PATH . 'public/FPDI/font/');
@@ -2224,8 +2224,8 @@ function edit_pdf($protocol_id, $data = [], $output = 'F', $filename = 'view.pdf
     $pdf->AddGBFont('sinfang', '仿宋_GB2312');
     $pdf->SetFont('sinfang', '', 16);
 
-    $pageCount = $pdf->setSourceFile(ROOT_PATH . '/public/protocol/' . $protocol_id . '.pdf');
-
+    // $pageCount = $pdf->setSourceFile(ROOT_PATH . '/public/protocol/' . $protocol_id . '.pdf');
+    $pageCount = $pdf->setSourceFile($original_file);
     $pic = $data['pic'];
     $page = $data['page'];
     $position = $data['position'];
@@ -2239,8 +2239,12 @@ function edit_pdf($protocol_id, $data = [], $output = 'F', $filename = 'view.pdf
             $pdf->AddPage('P', array($size['w'], $size['h']));
         $pdf->useTemplate($templateId);
         if($pageNo == $page){
-            $pdf->image($pic, $position[0], $position[1], 50);
+            $pdf->image($pic, $position[0], $position[1], $picsize);
         }
     }
-    $pdf->Output('F', $filename);
+    $root = ROOT_PATH . 'public/upload/';
+    $filename = 'view/' . $filename;
+    $pdf->Output('F', $root.$filename);
+
+    return $filename;
 }

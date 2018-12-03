@@ -802,8 +802,58 @@ class AdminIndexController extends AdminBaseController
         }
     }
 
+    /**
+     * 预览
+     *
+     * @return void
+     */
     public function view()
     {
+
+        $protocol_id = $this->request->param('id', 0, 'intval');
+        $uid = $this->request->param('uid', 0, 'intval');
+        $user = Db::name('user')->where('id = '. $uid)->find();
+
+        // 协议书数据
+        $protocol_data = Db::name('protocol_post')->alias('pp')->join('__PROTOCOL_CATEGORY__ pc', 'pp.protocol_category_id = pc.id')
+        ->join('__PROTOCOL_CATEGORY_USER_POST__ pcup', 'pcup.post_id = pp.id')->where(['pp.id'=>$protocol_id, 'pcup.category_id' => $uid])
+        ->field('pp.id, pc.more, pc.mode_type, pcup.sign_status, pcup.place, pcup.sign_url')->find();
+        $protocol_data['more'] = json_decode($protocol_data['more'], true);
+
+        // 用户数据
+        $userframe_data = Db::name('frame_category')->alias('fc')->join('__FRAME_CATEGORY_POST__ fcp', 'fc.id = fcp.category_id')
+        ->where(['fcp.post_id' => $uid])->find();
+        $userframe_data['more'] = json_decode($userframe_data['more'], true);
+        
+        // dump($protocol_data);
+        // dump($userframe_data);exit();
+
+        // 保密工作责任书
+        if($protocol_data['mode_type'] == 1){
+            //待签约 添加部门印章
+            if($protocol_data['sign_status'] == 0){  
+                if(empty($userframe_data['more'])){
+                    $this->error('缺少所在部门印章图片');
+                }
+                $pdfdata['pic'] = cmf_get_image_preview_url($userframe_data['more']['thumbnail']);
+                $pdfdata['page'] = $protocol_data['more']['frame']['page'];
+                $position = explode(',', $protocol_data['more']['frame']['sign']);
+                $pdfdata['position'] = $position;
+
+                $filename = time() . '.pdf';
+
+                $original_file = ROOT_PATH . '/public/protocol/' . $protocol_id . '.pdf';
+                $result = edit_pdf($original_file, $pdfdata, $filename, 30);
+                dump($result);
+            }
+        }
+        exit();
+        $model_data = Db::name('protocol_category')->alias('pc')->field('pc.*')->join('__PROTOCOL_CATEGORY_POST__ pcp', 'pc.id = pcp.category_id')->where('pcp.post_id = '.$id)->find();
+
+
+
+
+
         // gettimeimg();exit();
         define('FPDF_FONTPATH',ROOT_PATH. 'public/FPDI/font/');
 
@@ -812,13 +862,6 @@ class AdminIndexController extends AdminBaseController
         Loader::import('FPDI.fpdi', EXTEND_PATH);
         $pdf = new \FPDI();
 
-        $id = $this->request->param('id', 0, 'intval');
-
-        $uid = $this->request->param('uid', 0, 'intval');
-        
-        $user = Db::name('user')->where('id = '. $uid)->find();
-
-        $model_data = Db::name('protocol_category')->alias('pc')->field('pc.*')->join('__PROTOCOL_CATEGORY_POST__ pcp', 'pc.id = pcp.category_id')->where('pcp.post_id = '.$id)->find();
         
         
         $model_data['more'] = json_decode($model_data['more'], true);

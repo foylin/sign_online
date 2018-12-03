@@ -64,6 +64,7 @@ class AdminCategoryController extends AdminBaseController
 
     ];
 
+    // 公章
     protected $mode_type_seal = [
         1 => [
                 'page' => 5,
@@ -80,6 +81,26 @@ class AdminCategoryController extends AdminBaseController
         4 =>[
                 'page' => 3,
                 'sign' => '72,215'
+        ]
+    ];
+
+    // 部门公章
+    protected $mode_type_frame = [
+        1 => [
+                'page' => 1,
+                'sign' => '90,196'
+        ],
+        2 => [
+                'page' => 1,
+                'sign' => '90,196'
+        ],
+        3 =>[
+                'page' => 1,
+                'sign' => '90,196'
+        ],
+        4 =>[
+                'page' => 1,
+                'sign' => '90,196'
         ]
     ];
 
@@ -197,6 +218,8 @@ class AdminCategoryController extends AdminBaseController
         if($data['mode_type']){
             $data['more']['axes'] = $this->mode_type[$data['mode_type']];
             $data['more']['seal'] = $this->mode_type_seal[$data['mode_type']];
+            $data['more']['frame']= $this->mode_type_frame[$data['mode_type']];
+
         }
         // dump($data);
         $result = $protocolCategoryModel->addCategory($data);
@@ -321,9 +344,9 @@ class AdminCategoryController extends AdminBaseController
         // dump($data); exit();
 
         
-        if($data['mode_type']){
-            $data['more']['axes'] = $this->mode_type[$data['mode_type']];
-        }
+        // if($data['mode_type']){
+        //     $data['more']['axes'] = $this->mode_type[$data['mode_type']];
+        // }
         
         $result = $protocolCategoryModel->editCategory($data);
 

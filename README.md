@@ -1,5 +1,9 @@
 在线签约系统
 
+>协议书任务原始PDF文件位置
+````
+admin/public/upload/protocol/pdf/ . $protocol_id. '.pdf';
+````
 
 >签约状态
 
