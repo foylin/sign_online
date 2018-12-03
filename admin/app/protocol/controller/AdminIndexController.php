@@ -593,7 +593,35 @@ class AdminIndexController extends AdminBaseController
         $this->assign('post_categories_seal', $postCategories_seal);
         $this->assign('post_category_ids_seal', $postCategoryIds_seal);
 
-        $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login, sign_status, sign_url, notes, a.id AS user_id, pivot.id AS protocol_id, pivot.update_time', 'a.id');
+        $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login, sign_status, sign_url, notes, a.id AS user_id, pivot.post_id AS protocol_id, pivot.update_time', 'a.id');
+        $sign_status_option = [];
+        foreach ($postCategories_user as &$val) {
+            if(!$val['sign_url']){
+                $val['update_time'] = '';
+            }else{
+                $val['update_time'] = date('Y-m-d H:i', $val['update_time']);
+            }
+            $mode_type = Db::name('protocol_category')->alias('pc')->join('__PROTOCOL_POST__ pp', 'pp.protocol_category_id = pc.id')->value('pc.mode_type');
+            // $val['mode_type'] = $mode_type;
+            if($mode_type == 1){
+                $sign_status_option[-1] = '审核失败';
+                $sign_status_option[0] = '待签约';
+                $sign_status_option[1] = '已签约';
+                $sign_status_option[2] = '已审核';
+                $sign_status_option[9] = '签约成功';
+            }elseif($mode_type == 2){
+                $sign_status_option[-1] = '审核失败';
+                $sign_status_option[0] = '待签约';
+                $sign_status_option[1] = '员工已签约';
+                $sign_status_option[2] = '负责已人签约';
+                $sign_status_option[9] = '签约成功';
+            }elseif($mode_type == 3){
+                $sign_status_option[-1] = '审核失败';
+                $sign_status_option[0] = '待签约';
+                $sign_status_option[1] = '已签约';
+                $sign_status_option[9] = '签约成功';
+            }
+        }
         // dump($postCategories_user);
         $postCategoryIds_user = implode(',', array_keys($postCategories_user));
         $this->assign('post_categories_user', $postCategories_user);
@@ -603,13 +631,7 @@ class AdminIndexController extends AdminBaseController
         $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
         $this->assign('article_theme_files', $articleThemeFiles);
         $this->assign('post', $post);
-        // dump($postCategories_user);
-
-        // $filename = '/home/lin/下载/四书模板/四书模板/xxxx保密工作责任书（通用部门）.doc';
-
-        // $content = shell_exec('/usr/local/bin/antiword -m UTF-8.txt '.$filename);  
-        // dump($post);
-        // $this->assign('content', $content);
+        $this->assign('sign_status_option', $sign_status_option);
         return $this->fetch();
     }
 

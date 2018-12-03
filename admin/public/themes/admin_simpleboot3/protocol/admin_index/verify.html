@@ -90,43 +90,38 @@
                     <tr class="sign-user">
                         <td>
                             <div class="col-md-2 name">
-                                    {$vo.user_login}
-                                    <if $vo.sign_status == 2><i class="fa fa-check name-icon"></i></if>
-                                    <if $vo.sign_status == -1><i class="fa fa-close name-icon-error"></i></if>
-                                </div>
-                            <if $vo.sign_url>
-                            <!-- <div class="col-md-2 sign-pic" onclick="parent.imagePreviewDialog('{:cmf_get_image_preview_url($vo.sign_url)}');">查看签约图片</div> -->
-                            <div class="col-md-2 sign-pic"><php>echo date('Y-m-d H:i', $vo['update_time'])</php></div>
-                            <else>
-                            <div class="col-md-2 sign-pic">未签约</div>
-                            </if>
+                                {$vo.user_login}
+                                <if $vo.sign_status==2><i class="fa fa-check name-icon"></i></if>
+                                <if $vo.sign_status==-1><i class="fa fa-close name-icon-error"></i></if>
+                            </div>
                             
+                    
                             <div class="col-md-2">
-                                    <select class="form-control valid" name="post[sign_status][]" id="categories-model-sel" aria-invalid="false">
-                                    <option value="0" <if $vo.sign_status == 0>selected=""</if> >待签约</option>
-                                    <option value="1" <if $vo.sign_status == 1>selected=""</if> >待审核</option>
-                                    <option value="2" <if $vo.sign_status == 2>selected=""</if> >签约成功</option>
-                                    <option value="-1" <if $vo.sign_status == -1>selected=""</if> >审核失败</option>
-                                    </select>
-
-                                    
-                                </div>
-
-                                
-
-                                <div class="col-md-4">
-                                        <input class="form-control" type="text" name="post[notes][]"
-                                         value="{$vo.notes}" placeholder="请输入备注"/>
-
-                                        <input type="hidden" name="post[id][]" value="{$vo.protocol_id}">
-                                </div>
-
-                                <div class="col-md-2">
-                                        <a href="{:url('AdminIndex/view', array('id' => $post['id'], 'uid' => $vo.user_id))}" class="export" target="_blank">预览</a>
-                                        <a href="{:url('AdminIndex/export', array('id' => $post['id'], 'uid' => $vo.user_id))}" class="export">导出pdf</a>
-                                    </div>
+                                <select class="form-control valid" name="post[sign_status][]" id="categories-model-sel" aria-invalid="false">
+                                    <option value="0" <if $vo.sign_status==0>selected=""</if> >待签约</option>
+                                    <option value="1" <if $vo.sign_status==1>selected=""</if> >待审核</option>
+                                    <option value="2" <if $vo.sign_status==2>selected=""</if> >签约成功</option>
+                                    <option value="-1" <if $vo.sign_status==-1>selected=""</if> >审核失败</option>
+                                </select>
+                    
+                    
+                            </div>
+                    
+                    
+                    
+                            <div class="col-md-5">
+                                <input class="form-control" type="text" name="post[notes][]" value="{$vo.notes}" placeholder="请输入备注" />
+                    
+                                <input type="hidden" name="post[id][]" value="{$vo.protocol_id}">
+                            </div>
+                    
+                            <div class="col-md-3">
+                                <a href="{:url('AdminIndex/view', array('id' => $post['id'], 'uid' => $vo.user_id))}" class="export" target="_blank">预览</a>
+                                <a href="{:url('AdminIndex/export', array('id' => $post['id'], 'uid' => $vo.user_id))}" class="export">导出pdf</a>
+                                <span>{$vo.update_time}</span>
+                            </div>
                         </td>
-                        
+                    
                     </tr>
                     </foreach>
                     
