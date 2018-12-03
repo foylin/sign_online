@@ -98,10 +98,11 @@
                     
                             <div class="col-md-2">
                                 <select class="form-control valid" name="post[sign_status][]" id="categories-model-sel" aria-invalid="false">
-                                    <option value="0" <if $vo.sign_status==0>selected=""</if> >待签约</option>
-                                    <option value="1" <if $vo.sign_status==1>selected=""</if> >待审核</option>
-                                    <option value="2" <if $vo.sign_status==2>selected=""</if> >签约成功</option>
-                                    <option value="-1" <if $vo.sign_status==-1>selected=""</if> >审核失败</option>
+                                   
+
+                                    <foreach name="sign_status_option" item="vo_sso" key="k_sso">
+                                        <option value="{$k_sso}" <if $vo.sign_status==$k_sso>selected=""</if> >{$vo_sso}</option>
+                                    </foreach>
                                 </select>
                     
                     

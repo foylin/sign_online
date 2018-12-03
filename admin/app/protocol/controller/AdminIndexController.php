@@ -622,7 +622,7 @@ class AdminIndexController extends AdminBaseController
                 $sign_status_option[9] = '签约成功';
             }
         }
-        // dump($postCategories_user);
+        // dump($mode_type);
         $postCategoryIds_user = implode(',', array_keys($postCategories_user));
         $this->assign('post_categories_user', $postCategories_user);
         $this->assign('post_category_ids_user', $postCategoryIds_user);
