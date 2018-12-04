@@ -40,6 +40,7 @@ class PostService
 
         $field = 'a.*,u.user_login,u.user_nickname,u.user_email,pc.name AS protocol_category_name';
 
+        
         $category = empty($filter['category']) ? 0 : intval($filter['category']);
         if (!empty($category)) {
             // $where['b.category_id'] = ['eq', $category];

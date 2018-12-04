@@ -162,15 +162,16 @@ class AdminIndexController extends AdminBaseController
             $model_data['more'] = json_decode($model_data['more'], true);
             $url = $model_data['more']['files'][0]['url'];
             
-            word_to_pdf($url, $protocolPostModel->id);
+            // word_to_pdf($url, $protocolPostModel->id);
             
-            // $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
-            // $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$protocolPostModel->id.".pdf";
+            $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
+            $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/upload/protocol/pdf/".$protocolPostModel->id.".pdf";
 
-            // $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
-            // $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
-            // $result = shell_exec($sh);
+            $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
+            $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
+            $result = shell_exec($sh);
 
+            // file_put_contents('sh.txt', $sh);
 
             $this->success('添加成功!', url('AdminIndex/edit', ['id' => $protocolPostModel->id]));
         }
