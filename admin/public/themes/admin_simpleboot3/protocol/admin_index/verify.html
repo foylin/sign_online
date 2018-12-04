@@ -97,7 +97,7 @@
                             
                     
                             <div class="col-md-2">
-                                <select class="form-control valid" name="post[sign_status][]" id="categories-model-sel" aria-invalid="false">
+                                <select class="form-control valid" name="post[sign_status][]" id="categories-model-sel" aria-invalid="false" <if $vo.sign_status == 9>disabled</if> >
                                    
 
                                     <foreach name="sign_status_option" item="vo_sso" key="k_sso">

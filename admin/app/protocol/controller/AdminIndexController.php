@@ -601,7 +601,10 @@ class AdminIndexController extends AdminBaseController
             }else{
                 $val['update_time'] = date('Y-m-d H:i', $val['update_time']);
             }
-            $mode_type = Db::name('protocol_category')->alias('pc')->join('__PROTOCOL_POST__ pp', 'pp.protocol_category_id = pc.id')->value('pc.mode_type');
+            $mode_type = Db::name('protocol_category')->alias('pc')
+            ->join('__PROTOCOL_POST__ pp', 'pp.protocol_category_id = pc.id')
+            ->where('pp.id = '.$val['protocol_id'])
+            ->value('pc.mode_type');
             // $val['mode_type'] = $mode_type;
             if($mode_type == 1){
                 $sign_status_option[-1] = '审核失败';
@@ -622,7 +625,6 @@ class AdminIndexController extends AdminBaseController
                 $sign_status_option[9] = '签约成功';
             }
         }
-        // dump($mode_type);
         $postCategoryIds_user = implode(',', array_keys($postCategories_user));
         $this->assign('post_categories_user', $postCategories_user);
         $this->assign('post_category_ids_user', $postCategoryIds_user);
@@ -662,7 +664,7 @@ class AdminIndexController extends AdminBaseController
                     $save['update_time'] = null;
                 }
 
-                if($post['sign_status'][$key] == 2){
+                if($post['sign_status'][$key] == 9){
                     $sign_url = Db::name('protocol_category_user_post')->where('id='.$value)->value('sign_url');
                     if(!$sign_url){
                         $this->error('未签约用户无法通过审核');
@@ -678,8 +680,47 @@ class AdminIndexController extends AdminBaseController
         }
     }
 
+    /**
+     * PDF 导出
+     *
+     * @return void
+     */
     public function export()
     {
+
+        $protocol_id = $this->request->param('id', 0, 'intval');
+        $uid = $this->request->param('uid', 0, 'intval');
+
+        $user = Db::name('user')->where('id = '. $uid)->find();
+        $model_data = Db::name('protocol_category')->alias('pc')->field('pc.*')
+        ->join('__PROTOCOL_POST__ pp', 'pc.id = pp.protocol_category_id')
+        ->where('pp.id = '.$protocol_id)->find();
+        // dump($model_data);exit();
+        $protocol_data = Db::name('protocol_category_user_post')->where(['post_id' => $protocol_id, 'category_id' => $uid])->find();
+        if($protocol_data['view_file']){
+            $rename = 'upload/'.$protocol_data['view_file'];
+        }else{
+            $rename = 'upload/protocol/pdf/'.$protocol_id.'.pdf';
+
+        }
+
+        $output_name = $user['user_login'].'_'.$model_data['name'].'.pdf';
+        // rename($filename, $rename);
+        // echo exec('whoami');
+        // dump($url);
+        // $rename = 'upload/protocol/pdf/'.$protocol_id.'.pdf';
+        if(file_exists($rename)){
+            header("Content-type:application/pdf");
+            header("Content-Disposition:attachment;filename=".$output_name);
+            echo file_get_contents($rename);
+            //echo "{$rename}.pdf";
+            // unlink($rename);
+        }else{
+            exit;
+        }
+
+        exit();
+
         
         // require_once(ROOT_PATH . 'public/FPDI/fpdf.php');
         // require_once(ROOT_PATH . 'public/FPDI/fpdi.php');
@@ -834,7 +875,16 @@ class AdminIndexController extends AdminBaseController
 
         $protocol_id = $this->request->param('id', 0, 'intval');
         $uid = $this->request->param('uid', 0, 'intval');
-        $user = Db::name('user')->where('id = '. $uid)->find();
+
+        $protocol_data = Db::name('protocol_category_user_post')->where(['post_id' => $protocol_id, 'category_id' => $uid])->find();
+        if($protocol_data['view_file']){
+            $this->redirect(cmf_get_domain().'/upload/'.$protocol_data['view_file']);
+        }else{
+            $this->redirect(cmf_get_domain().'/upload/protocol/pdf/'.$protocol_id.'.pdf');
+        }
+        exit();
+
+        // $user = Db::name('user')->where('id = '. $uid)->find();
 
         // 协议书数据
         $protocol_data = Db::name('protocol_post')->alias('pp')->join('__PROTOCOL_CATEGORY__ pc', 'pp.protocol_category_id = pc.id')
