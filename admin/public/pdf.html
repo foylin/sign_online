@@ -50,13 +50,13 @@
         var host = 'http://192.168.1.105/sign_online/admin/public/web/viewer.html';
         
         if(sign_status == 0){
-            $('iframe').attr('src', host1 + '?file=/protocol/'+protocol_id+'.pdf');
+            $('iframe').attr('src', host1 + '?file=/upload/protocol/pdf/'+protocol_id+'.pdf');
             // $('iframe').attr('src', host1 + '?file=/sign_online/admin/public/protocol/'+protocol_id+'.pdf');
         }else{
             $('iframe').attr('src', host1 + '?file=/upload/view/sign_'+protocol_id+'_'+uid+'.pdf');
         }
         
-        
+
         if(sign_status == 0) {
             count = 30;
             let interval = setInterval(function () {
