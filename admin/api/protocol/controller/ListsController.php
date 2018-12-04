@@ -12,6 +12,9 @@ use api\protocol\model\ProtocolCategoryModel;
 use api\protocol\model\ProtocolPostModel;
 use cmf\controller\RestBaseController;
 use cmf\controller\RestUserBaseController;
+use api\protocol\model\UserModel;
+use api\protocol\model\FrameCategoryModel;
+use think\Db;
 
 class ListsController extends RestUserBaseController
 {
@@ -29,34 +32,102 @@ class ListsController extends RestUserBaseController
      * 协议书任务
      */
     public function index(){
+
         $params                       = $this->request->get();
-        // $params['where']['post_type'] = 1;
-        $userId = $this->getUserId();
         
-        if($params['status'] == 1){
-            $where['tp.sign_status'] = 1;
-        }elseif($params['status'] == 2){
-            $where['tp.sign_status'] = 2;
+        $userId = $this->getUserId();
+
+        $user = UserModel::get($userId);
+
+        $page = $params['page']?$params['page']:1;
+        $limit = 10;
+        $p = ($page-1) * $limit;
+        $where = ['p.delete_time'=>0,'pu.status'=>1,'pu.place'=>0];
+        
+        $field = 'p.post_title,p.id,pu.sign_status,pu.id as pcup_id,pu.category_id as uid,pc.mode_type';
+        //type 1:保密工作责任书（通用部门);2:员工保密承诺书;3:涉密人员保证书;4:涉密人员离岗保密承诺书
+        
+        if($user['user_type'] == 3) {
+            //保密委 只查看负责人签约的保密工作责任书
+            $where['fc.type'] = 3;
+            $where['pu.sign_status'] = array('egt',1);
+            $where['pc.mode_type'] = 1;
+        } else if($user['user_type'] == 2) {
+            $staff_type = $user->frame_category_post->type;  //1一般员工 2副职  3正职负责人
+            $is_sec = $user->frame_category_post->is_sec;  //0涉密 1非涉密
+
+            $where['pu.category_id'] = $userId;
+            $where['pu.sign_status'] = array('egt',-1);
+
+            if(isset($params['status']) && $params['status']=='0') {
+                //待签约
+                $where['pu.sign_status'] = 0;
+            }
+            if(isset($params['status']) && $params['status']=='1') {
+                //待签约
+                $where['pu.sign_status'] = array('gt',0);
+            }
+
+
+            if($staff_type == 3 && $is_sec == 1) {
+                //正职负责人  涉密人员保证书&涉密人员离岗保密承诺书
+                $where['pc.mode_type'] = [ [ 'eq', 1 ],[ 'eq', 3 ] , 'or' ];
+            }else if($staff_type == 3 && $is_sec == 0) {
+                $where['pc.mode_type'] = 1;
+            }else if($staff_type != 3 && $is_sec == 1) {
+                $where['pc.mode_type'] = [ [ 'eq', 2 ],[ 'eq', 3 ] , 'or' ];
+            }else if($staff_type != 3 && $is_sec == 0) {
+                $where['pc.mode_type'] = 2;
+            }
+        } else {
+            $this->success('请求成功!', []);
         }
-        $where['a.post_status'] = 1;
-        $where['tp.category_id'] = $userId;
-        $data = $this->postModel->setCondition($params)->alias('a')
-        ->join('__PROTOCOL_CATEGORY_USER_POST__ tp', 'a.id = tp.post_id', 'LEFT')
-        ->field('a.id, a.post_title, tp.category_id AS uid, tp.sign_status, tp.notes')
-        ->where($where)->select();
+        
+        $data = Db::name('protocol_category_user_post')->alias('pu')
+                ->field($field)
+                ->join('__PROTOCOL_POST__ p','pu.post_id = p.id')
+                ->join('__PROTOCOL_CATEGORY__ pc','p.protocol_category_id = pc.id')
+                ->join('__FRAME_CATEGORY_POST__ fc','pu.category_id = fc.post_id')
+                ->where($where)
+                ->order("pu.id DESC")
+                ->limit($p,$limit)
+                ->select()->toArray();
+        // $data['sql'] = Db::name('')->getLastSql();
 
-        // $articles = $postModel->setCondition($params)->alias('a')->join('__PORTAL_TAG_POST__ tp', 'a.id = tp.post_id')
-        //         ->where(['post_status' => 1])->select();
+        if($data) {
+            foreach($data as $k=>$v) {
 
-        // dump($userId);
+                $status = $this->getStatus($v['mode_type']);
+                $data[$k]['sign_status_desc'] = (!empty($status[$v['sign_status']]))?$status[$v['sign_status']]:'';
+            }
+        }
+
         if (isset($this->apiVersion)) {
             $response = ['list' => $data];
         } else {
             $response = $data;
         }
-
-        // dump($response);
         $this->success('请求成功!', $response);
+        
+        // if($params['status'] == 1){
+        //     $where['tp.sign_status'] = 1;
+        // }elseif($params['status'] == 2){
+        //     $where['tp.sign_status'] = 2;
+        // }
+        // $where['a.post_status'] = 1;
+        // $where['tp.category_id'] = $userId;
+        // $data = $this->postModel->setCondition($params)->alias('a')
+        // ->join('__PROTOCOL_CATEGORY_USER_POST__ tp', 'a.id = tp.post_id', 'LEFT')
+        // ->field('a.id, a.post_title, tp.category_id AS uid, tp.sign_status, tp.notes')
+        // ->where($where)->select();
+
+        // if (isset($this->apiVersion)) {
+        //     $response = ['list' => $data];
+        // } else {
+        //     $response = $data;
+        // }
+
+        // $this->success('请求成功!', $response);
     }
 
     /**
@@ -109,6 +180,94 @@ class ListsController extends RestUserBaseController
         }
 
         $this->success('ok', ['list' => $articles]);
+    }
+
+    //查看负责人管辖部门下员工签约列表
+    public function fz_sign() {
+
+        $userId = $this->getUserId();
+    
+        $where = ['p.delete_time'=>0,'pu.place'=>1,'pu.category_id'=>$userId];
+        $data = Db::name('protocol_category_user_post')->alias('pu')
+                    ->field('p.post_title,pu.post_id')
+                    ->join('__PROTOCOL_POST__ p','pu.post_id = p.id','left')
+                    ->where($where)
+                    ->group('pu.post_id')
+                    ->select()->toArray();
+        
+        if (isset($this->apiVersion)) {
+            $response = ['list' => $data];
+        } else {
+            $response = $data;
+        }
+        $this->success('请求成功!', $response);
+        // $this->success('ok', ['data'=>$data,'sql'=>Db::name('')->getLastSql()]);
+    }
+
+    //员工签约情况
+    public function fz_sign_list() {
+
+
+        $post_id = $this->request->param('post_id', 0, 'intval');
+        if(!$post_id) $this->error('签约书不存在');
+        
+        $userId = $this->getUserId();
+        $category_id = Db::name('frame_category_post')->where('post_id',$userId)->value('category_id');
+
+        $user_ids = Db::name('frame_category_post')
+                ->where('category_id',$category_id)
+                ->where('status',1)
+                ->where('post_id','<>',$userId)
+                ->column('post_id');
+        $data = Db::name('protocol_category_user_post')->alias('pu')
+                ->field('p.post_title,pu.post_id,pu.sign_status,u.user_login,pu.category_id as uid,pu.id as pcup_id')
+                ->join('__PROTOCOL_POST__ p','pu.post_id = p.id','left')
+                // ->join('__PROTOCOL_CATEGORY__ pc','p.protocol_category_id = pc.id','left')
+                // ->join('__FRAME_CATEGORY_POST__ fc','pu.category_id = fc.post_id','left')
+                ->join('__USER__ u','pu.category_id = u.id','left')
+                ->where('pu.category_id','in',$user_ids)
+                ->where('pu.place',0)
+                ->where('pu.post_id',$post_id)
+                ->order('pu.sign_status asc')
+                ->select();
+        $this->success('ok', ['list'=>$data,'sql'=>Db::name('')->getLastSql()]);
+        
+    }
+
+    function getStatus($type) {
+        $sta = [
+            '1' => ['0'=>'待签约','1'=>'已签约,待保密委审核','2'=>'保密委已审核,待后台管理员审核','9'=>'签约完成,无法修改'],
+            '2' => ['0'=>'待签约','1'=>'员工已签约,待部门负责人签约','2'=>'部门负责人已签约,已添加保密委印章,待后台管理员审核','9'=>'签约完成,无法修改'],
+            '3' => ['0'=>'待签约','1'=>'涉密人员已签约,已添加保密委印章,待后台管理员审核','9'=>'签约完成,无法修改']
+        ];
+        return (!empty($sta[$type]))?$sta[$type]:[];
+    }
+
+    //保密委审批盖章
+    public function sec_through() {
+
+        $post_id = $this->request->param('post_id', 0, 'intval');
+        $pcup_id = $this->request->param('pcup_id', 0, 'intval');
+
+        $pro_user = Db::name('protocol_category_user_post')->where('id',$pcup_id)->find();
+
+        if(!$post_id) $this->error('签约书不存在');
+        $frame = FrameCategoryModel::get(999);
+        if(!$frame || empty($frame['more']['thumbnail'])) {
+            $this->error('保密委公章未设置');
+        }
+        $seal_url = ROOT_PATH . '/public/upload/' . $frame['more']['thumbnail'];
+        if(!file_exists($seal_url)) $this->error('保密委公章未设置');
+
+        //生成
+        $origin_pdf_url = ROOT_PATH .'/public/upload/' . $pro_user['view_file'];
+        $res = seal($post_id, $pro_user['category_id'], 1, $seal_url, $origin_pdf_url);
+        if(!$res) $this->error('网络出错,请重试');
+
+        //更新状态
+        Db::name('protocol_category_user_post')->update(['id'=>$pcup_id,'sign_status'=>2,'view_file'=>$res]);
+
+        $this->success('ok');
     }
 
 }

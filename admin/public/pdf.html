@@ -41,21 +41,23 @@
         var sign_status = GetQueryString('sign_status');
         var protocol_id = GetQueryString('protocol_id');
         var uid = GetQueryString('uid');
+        var type = GetQueryString('type');  //固定协议类型,1:保密工作责任书（通用部门);2:员工保密承诺书;3:涉密人员保证书;4:涉密人员离岗保密承诺书
+        var usertype = GetQueryString('usertype');  //3保密委
+        var pcup_id = GetQueryString('pcup_id');  //对应user_post的ID
+        var desc = '';
         var count = 0;
+        var host1 = 'https://sscx.karles.com.cn/web/viewer.html';
+        var host = 'http://192.168.1.105/sign_online/admin/public/web/viewer.html';
         
         if(sign_status == 0){
-            $('iframe').attr('src', 'https://sscx.karles.com.cn/web/viewer.html?file=/protocol/'+protocol_id+'.pdf');
+            $('iframe').attr('src', host1 + '?file=/protocol/'+protocol_id+'.pdf');
+            // $('iframe').attr('src', host1 + '?file=/sign_online/admin/public/protocol/'+protocol_id+'.pdf');
         }else{
-            $('iframe').attr('src', 'https://sscx.karles.com.cn/web/viewer.html?file=/upload/view/'+protocol_id+'_'+uid+'.pdf');
+            $('iframe').attr('src', host1 + '?file=/upload/view/sign_'+protocol_id+'_'+uid+'.pdf');
         }
         
-
-        if(sign_status == 1){
-            $('.footer').html('待审核');
-            
-        }else if(sign_status == 2){
-            $('.footer').html('已签约');
-        }else{
+        
+        if(sign_status == 0) {
             count = 30;
             let interval = setInterval(function () {
                 count--;
@@ -68,14 +70,41 @@
                     $('.footer').html('签约');
                 }
             }, 1000)
+        }else {
+            if(type == 1 && sign_status == 1) {
+                desc = '已签约,待保密委审核';
+            }else if(type == 1 && sign_status == 2) {
+                desc = '保密委已审核,待后台管理员审核';
+            }else if(type == 1 && sign_status == 9) {
+                desc = '签约完成';
+            }else if(type == 2 && sign_status == 1) {
+                desc = '待部门负责人签约';
+            }else if(type == 2 && sign_status == 2) {
+                desc = '待后台管理员审核';
+            }else if(type == 2 && sign_status == 9) {
+                desc = '签约完成';
+            }else if(type == 3 && sign_status == 1) {
+                desc = '待后台管理员审核';
+            }else if(type == 3 && sign_status == 9) {
+                desc = '签约完成';
+            }
+            $('.footer').html(desc);
         }
 
         $('.footer').click(function(){
             if(count > 0) return ;
-            if(sign_status == 2 || sign_status == 1) return ;
-            wx.miniProgram.navigateTo({
-                url: '/pages/sign/sign?protocol_id='+protocol_id
-            })
+            // if(sign_status == 2 || sign_status == 1) return ;
+            if(sign_status == 0) {
+                wx.miniProgram.navigateTo({
+                    url: '/pages/sign/sign?protocol_id='+protocol_id
+                })
+            }
+            if(usertype == 3 && sign_status == 1) {
+                wx.miniProgram.navigateTo({
+                    url: '/pages/sign/sign2?post_id='+protocol_id+'&pcup_id='+pcup_id
+                })
+            }
+            
         })
 
     });

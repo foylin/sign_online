@@ -6,10 +6,12 @@
 // +----------------------------------------------------------------------
 // | Author: wuwu <15093565100@163.com>
 // +----------------------------------------------------------------------
-namespace api\portal\controller;
+namespace api\protocol\controller;
 
 use api\portal\model\PortalPostModel;
 use cmf\controller\RestBaseController;
+use api\protocol\model\UserModel;
+use api\protocol\model\FrameCategoryPostModel;
 
 class UserController extends RestBaseController
 {
