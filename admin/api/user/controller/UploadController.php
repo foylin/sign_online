@@ -83,8 +83,25 @@ class UploadController extends RestUserBaseController
             // ]);
 
             $pic_url = ROOT_PATH . '/public/upload/' . $saveName;
-            $res = seal($findFile['post_id'], $findFile['category_id'], 0, $pic_url, '', $findFile['place']);
-            if(!$res) $this->error('网络出错,请重试');
+            // $res = seal($findFile['post_id'], $findFile['category_id'], 0, $pic_url, '', $findFile['place']);
+            // if(!$res) $this->error('网络出错,请重试');
+
+            $protocol = ProtocolPostModel::get($findFile['post_id']);
+            $more = $protocol->categories->more;
+            $_w = [];
+            //签名
+            if($findFile['place'] == 0) {
+                $res = $more['axes'][0];
+            }else if($findFile['place'] == 1) {
+                $res = $more['axes'][1];
+            }
+            $write_data1 = [
+                'pic'       => $pic_url,
+                'page'      => $res['page'],
+                'position'  => explode(',',$res['sign']),
+                'size'      => 50
+            ];
+            array_push($_w,$write_data1);
 
             //检查是否为涉密文件 涉密文件自动添加保密委章
             $protocol2 = ProtocolPostModel::get($findFile['post_id']);
@@ -97,25 +114,34 @@ class UploadController extends RestUserBaseController
                 if(!file_exists($seal_url)) $this->error('保密委公章未设置');
 
                 //生成
-                $origin_pdf_url2 = ROOT_PATH .'/public/upload/' . $res;
-                $res2 = seal($findFile['post_id'], $findFile['category_id'], 1, $seal_url, $origin_pdf_url2);
-                if(!$res2) $this->error('网络出错，请重试');
+                // $origin_pdf_url2 = ROOT_PATH .'/public/upload/' . $res;
+                // $res2 = seal($findFile['post_id'], $findFile['category_id'], 1, $seal_url, $origin_pdf_url2);
+                // if(!$res2) $this->error('网络出错，请重试');
+                $write_data2 = [
+                    'pic'       => $seal_url,
+                    'page'      => $more['seal']['page'],
+                    'position'  => explode(',', $more['seal']['sign']),
+                    'size'      => 30
+                ];
+                array_push($_w, $write_data2);
             }
 
+            $file = 'sign_'.$findFile['post_id'].'_'.$findFile['category_id'].'.pdf';
+            $origin_pdf_url = ROOT_PATH .'/public/upload/protocol/pdf/' . $findFile['post_id'] . '.pdf';
+            $result = edit_pdf($origin_pdf_url, $_w, $file);
 
-            $signdata = array(
-                'sign_status' => 1,
-                'sign_url'    => $saveName,
-                'update_time' => time()
-            );
-            if($protocol2->categories->mode_type == 3) {
-                $signdata['view_file'] = $res2;
-            }else {
-                $signdata['view_file'] = $res;
+            if($result) {
+                $signdata = array(
+                    'sign_status' => 1,
+                    'sign_url'    => $saveName,
+                    'update_time' => time(),
+                    'view_file'   => $result
+                );
+                
+                $where['post_id'] = $param['protocol_id'];
+                $where['category_id'] = $this->userId;
+                Db::name('protocol_category_user_post')->where($where)->update($signdata);
             }
-            $where['post_id'] = $param['protocol_id'];
-            $where['category_id'] = $this->userId;
-            Db::name('protocol_category_user_post')->where($where)->update($signdata);
 
 
 
@@ -195,10 +221,40 @@ class UploadController extends RestUserBaseController
                 ->where('pu.sign_status', 1)
                 ->where('pu.post_id', $findFile['post_id'])
                 ->select();
+
+            $frame = FrameCategoryModel::get(999);
+            if(!$frame || empty($frame['more']['thumbnail'])) {
+                $this->error('保密委公章未设置');
+            }
+            $seal_url = ROOT_PATH . '/public/upload/' . $frame['more']['thumbnail'];
+            if(!file_exists($seal_url)) $this->error('保密委公章未设置');
             
             foreach($data as $k=>$v) {
                 $origin_pdf_url = ROOT_PATH .'/public/upload/' . $v['view_file'];
-                $result = seal($findFile['post_id'], $v['category_id'], 0, $pic_url, $origin_pdf_url, 1);
+                //签名
+                // $result = seal($findFile['post_id'], $v['category_id'], 0, $pic_url, $origin_pdf_url, 1);
+                //盖章
+                // $result2 = seal($findFile['post_id'], $v['category_id'], 1, $seal_url, $origin_pdf_url, 1);
+                //负责人签名参数
+                $protocol = ProtocolPostModel::get($findFile['post_id']);
+                $more = $protocol->categories->more;
+                
+                $_w = [
+                    [
+                        'pic'       => $pic_url,
+                        'page'      => $more['axes'][1]['page'],
+                        'position'  => explode(',',$more['axes'][1]['sign']),
+                        'size'      => 50
+                    ],
+                    [
+                        'pic'       => $seal_url,
+                        'page'      => $more['seal']['page'],
+                        'position'  => explode(',',$more['seal']['sign']),
+                        'size'      => 30
+                    ]
+                ];
+                $file = 'sign_'.$findFile['post_id'].'_'.$v['category_id'].'.pdf';
+                $result = edit_pdf($origin_pdf_url, $_w, $file);
                 if($result) {
                     Db::name('protocol_category_user_post')->update(['id'=>$v['id'],'sign_status'=>2,'view_file'=>$result]);
                 }
@@ -215,6 +271,41 @@ class UploadController extends RestUserBaseController
             // 上传失败获取错误信息
             $this->error($file->getError());
         }
+    }
+
+    public function test() {
+
+        $where['post_id'] = 47;
+        $where['category_id'] = $this->userId;
+        $findFile = Db::name('protocol_category_user_post')->where($where)->find();
+        $frame = FrameCategoryModel::get(999);
+            if(!$frame || empty($frame['more']['thumbnail'])) {
+                $this->error('保密委公章未设置');
+            }
+            $seal_url = ROOT_PATH . '/public/upload/' . $frame['more']['thumbnail'];
+        $origin_pdf_url = ROOT_PATH .'/public/upload/view/sign_47_16.pdf';
+        $pic_url = ROOT_PATH . '/public/upload/1544033074.png';
+        // $result2 = seal($findFile['post_id'], 16, 1, $seal_url, $origin_pdf_url);
+        $protocol = ProtocolPostModel::get($findFile['post_id']);
+                $more = $protocol->categories->more;
+                
+                $_w = [
+                    [
+                        'pic'       => $pic_url,
+                        'page'      => $more['axes'][1]['page'],
+                        'position'  => explode(',',$more['axes'][1]['sign']),
+                        'size'      => 50
+                    ],
+                    [
+                        'pic'       => $seal_url,
+                        'page'      => $more['seal']['page'],
+                        'position'  => explode(',',$more['seal']['sign']),
+                        'size'      => 30
+                    ]
+                ];
+                $file = 'sign_'.$findFile['post_id'].'_16.pdf';
+                $result = edit_pdf($origin_pdf_url, $_w, $file);
+        $this->success('ok', $result);
     }
 
 }

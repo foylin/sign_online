@@ -261,7 +261,18 @@ class ListsController extends RestUserBaseController
 
         //生成
         $origin_pdf_url = ROOT_PATH .'/public/upload/' . $pro_user['view_file'];
-        $res = seal($post_id, $pro_user['category_id'], 1, $seal_url, $origin_pdf_url);
+        // $res = seal($post_id, $pro_user['category_id'], 1, $seal_url, $origin_pdf_url);
+        $protocol = ProtocolPostModel::get($post_id);
+        $more = $protocol->categories->more;
+        $_w = [];
+        $_w = [
+            'pic'       => $seal_url,
+            'page'      => $more['seal']['page'],
+            'position'  => explode(',', $more['seal']['sign']),
+            'size'      => 30
+        ];
+        $file = 'sign_'.$pro_user['post_id'].'_'.$pro_user['category_id'].'.pdf';
+        $res = edit_pdf($origin_pdf_url, $_w, $file);
         if(!$res) $this->error('网络出错,请重试');
 
         //更新状态

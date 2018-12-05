@@ -2227,9 +2227,6 @@ function edit_pdf($original_file, $data = [], $filename = 'test.pdf', $picsize =
     $protocol_id = 31;
     // $pageCount = $pdf->setSourceFile(ROOT_PATH . '/public/upload/protocol/pdf/' . $protocol_id . '.pdf');
     $pageCount = $pdf->setSourceFile($original_file);
-    $pic = $data['pic'];
-    $page = $data['page'];
-    $position = $data['position'];
 
     for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
         $templateId = $pdf->importPage($pageNo);
@@ -2239,13 +2236,40 @@ function edit_pdf($original_file, $data = [], $filename = 'test.pdf', $picsize =
         else
             $pdf->AddPage('P', array($size['w'], $size['h']));
         $pdf->useTemplate($templateId);
-        if($pageNo == $page){
-            $pdf->image($pic, $position[0], $position[1], $picsize);
+
+        foreach($data as $k=>$v) {
+            $pic = $v['pic'];
+            $page = $v['page'];
+            $position = $v['position'];
+            $fsize = $v['size'];
+            if($pageNo == $page) {
+                $pdf->image($pic, $position[0], $position[1], $fsize);
+            }
         }
+
     }
+
+    // $pic = $data['pic'];
+    // $page = $data['page'];
+    // $position = $data['position'];
+
+    // for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+    //     $templateId = $pdf->importPage($pageNo);
+    //     $size = $pdf->getTemplateSize($templateId);
+    //     if ($size['w'] > $size['h'])
+    //         $pdf->AddPage('L', array($size['w'], $size['h']));
+    //     else
+    //         $pdf->AddPage('P', array($size['w'], $size['h']));
+    //     $pdf->useTemplate($templateId);
+    //     if($pageNo == $page){
+    //         $pdf->image($pic, $position[0], $position[1], $picsize);
+    //     }
+    // }
     $root = ROOT_PATH . 'public/upload/';
     $filename = 'view/' . $filename;
-    $pdf->Output('F', $root.$filename);
+    $pdf->Output($root.$filename,"F");
+    // 結束 FPDI 剖析器  
+    $pdf->cleanUp();
 
     return $filename;
 }
@@ -2285,6 +2309,7 @@ function seal($post_id, $uid, $type=0, $pic_url='', $origin_pdf_url='',$place=0)
         'page'          => $res['page'],
         'position'      => $sign2
     ];
+
     $file_name = 'sign_'.$post_id.'_'.$uid.'.pdf';
     try {
         return edit_pdf($origin_pdf_url, $write_data, $file_name, $size);
