@@ -1,0 +1,23 @@
+
+<view class="list-view">
+
+    <block wx:for="{{list}}" wx:key="id">
+
+        <view class="weui-panel__ft">
+            <view class="weui-cell weui-cell_access weui-cell_link" data-post="{{item.post_id}}" bindtap="toleading">
+                <view class="weui-cell__bd">
+                    {{item.post_title}}
+                    <!--
+                    <view class="weui-media-box__desc mt6">
+                        <span class="weui-badge">
+                        {{item.status}}
+                        </span>
+                    </view>
+                    -->
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+        </view>
+    </block>
+    <include src="../../components/loading_more.wxml"/>
+</view>

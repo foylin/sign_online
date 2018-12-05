@@ -1,0 +1,31 @@
+
+<view class="list-view">
+
+    <block wx:for="{{list}}" wx:key="id">
+
+        <view class="weui-panel__ft">
+            <view class="weui-cell weui-cell_access weui-cell_link" data-post="{{item.post_id}}">
+                <view class="weui-cell__bd">
+                    {{item.post_title}}
+                    
+                    <view class="weui-media-box__desc mt6">
+
+                        <span wx:if="{{item.sign_status == -1}}" class="weui-badge ">审核失败</span>
+                        <span wx:elif="{{item.sign_status == 1}}" class="weui-badge ">已签约,待部门负责人签约</span>
+                        <span wx:elif="{{item.sign_status >= 2}}" class="weui-badge sign-status">部门负责人已签约</span>
+                        <span wx:else class="weui-badge">待签约</span>
+                        <span wx:if="{{item.user_login}}" class="notes" style="margin-left:4px;">员工：{{item.user_login}}</span>
+                    </view>
+                    
+                </view>
+                <view class="weui-cell__ft " wx:if="{{item.sign_status > 0}}" data-id="{{item.id}}" data-status="{{item.sign_status}}" data-uid="{{item.uid}}" data-type="2" data-usertype="{{user.user_type}}" data-pcup_id="{{item.pcup_id}}" bindtap="onListItemTap">查看</view>
+            </view>
+        </view>
+    </block>
+
+    <view class="signv" bindtap="subsign" data-id="{{post_id}}">
+        <view class="" style="text-align:center;color:#fff;">统一签名</view>
+        
+    </view>
+    
+</view>

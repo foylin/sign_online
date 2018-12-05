@@ -48,10 +48,20 @@
                 <view class="weui-cell__bd">协议下载</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access"></view>
             </navigator>
+
+            <block wx:if="{{user.staff_type==3}}">
+                <navigator url="/pages/leading/leading" class="weui-cell weui-cell_access">
+                    <view class="weui-cell__bd">部门员工签约审批</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+            </block>
         </view>
 
-        
+
         <view class="weui-btn-area">
+            <button class="weui-btn" type="success" bindtap="changepwd">修改密码</button>
+        </view>        
+        <view class="weui-btn-area weui-top0">
             <button class="weui-btn" type="warn" bindtap="logout">退出</button>
         </view>
        

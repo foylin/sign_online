@@ -1,0 +1,36 @@
+.user-nickname{
+    font-size: 14px;
+    /* line-height: 30px; */
+    display: block;
+    margin: 50rpx 0 50rpx 0;
+}
+
+.weui-cells:before{
+    /*border-top: none;*/
+}
+.weui-btn-area{
+    margin-top: 100px;
+}
+
+.weui-btn{
+    margin-top: 30rpx;
+    font-size: 28rpx;
+    display: block;
+}
+.weui-top0 {
+	margin-top: 40rpx;
+}
+.weui-cell_link:active {
+    background-color: #fff !important;
+}
+.mt6 {
+    margin-top:6px;
+}
+.signv{
+    position:absolute;
+    bottom:0;
+    height:40px;
+    line-height:40px;
+    background:#1AAD19;
+    width:100%;
+}

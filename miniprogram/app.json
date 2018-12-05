@@ -13,7 +13,11 @@
         "pages/sign/sign",
         "pages/verify/verify",
         "pages/pass/pass",
-        "pages/download/download"
+        "pages/download/download",
+        "pages/password/reset",
+        "pages/leading/leading",
+        "pages/sign/sign2",
+        "pages/leading/leading2"
     ],
     "window": {
         "backgroundTextStyle": "white",
@@ -28,7 +32,7 @@
                 "pagePath": "pages/index/index",
                 "iconPath": "images/icons/home.png"
             },{
-                "text": "待审核",
+                "text": "待签约",
                 "pagePath": "pages/verify/verify",
                 "iconPath": "images/icons/security.png"
             },{

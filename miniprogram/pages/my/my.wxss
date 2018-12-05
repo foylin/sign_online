@@ -17,3 +17,6 @@
     font-size: 28rpx;
     display: block;
 }
+.weui-top0 {
+	margin-top: 40rpx;
+}
