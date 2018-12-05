@@ -23,6 +23,26 @@ Page({
 
     },
     onShow() {
+
+        let isLogin = wx.getStorageSync('login');
+        if (!isLogin) {
+            wx.navigateTo({
+                url: '/pages/login/login'
+            });
+            return;
+        }
+
+        wx.getStorage({
+          key: 'user',
+          success: (res) => {
+            console.log(res);
+            this.setData({ user: res.data });
+          },
+          fail: (res) => {
+            console.log(res);
+          }
+        });
+
         console.log(app.pagesNeedUpdate);
         if (app.pagesNeedUpdate['pages/index/index'] == 1) {
             let newItems = api.updatePageList('id');
@@ -39,7 +59,6 @@ Page({
 
         api.pageNeedUpdate('pages/index/index', 0);
     },
-
     /**
      * 下拉刷新
      */
@@ -52,6 +71,7 @@ Page({
         api.get({
             url: 'protocol/lists',
             data: {
+                page: this.currentPageNumber,
                 order:'-published_time',
                 token: wx.getStorageSync('token'),
                 status: 'all'
@@ -141,8 +161,11 @@ Page({
         let id = e.currentTarget.dataset.id;
         let status = e.currentTarget.dataset.status;
         let uid = e.currentTarget.dataset.uid;
+        let type = e.currentTarget.dataset.type;
+        let usertype = e.currentTarget.dataset.usertype; 
+        let pcup_id = e.currentTarget.dataset.pcup_id;
         wx.navigateTo({
-            url: '/pages/protocol/protocol?id=' + id + '&status=' + status + '&uid=' + uid
+          url: '/pages/protocol/protocol?id=' + id + '&status=' + status + '&uid=' + uid + '&type=' + type + '&usertype=' + usertype + '&pcup_id=' + pcup_id
         });
 
     },

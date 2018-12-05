@@ -26,7 +26,7 @@ Page({
         // let height = wx.getSystemInfoSync().windowHeight;
         // let sign_status = this.data.sign_status;
         this.setData({
-            view_url: 'https://sscx.karles.com.cn/pdf.html?width='+width+'&height='+height+'&sign_status='+params.status+'&protocol_id='+params.id+'&uid='+params.uid
+          view_url: api.HOST + '/pdf.html?width=' + width + '&height=' + height + '&sign_status=' + params.status + '&protocol_id=' + params.id + '&uid=' + params.uid + '&type=' + params.type + '&usertype=' + params.usertype + '&pcup_id=' + params.pcup_id
         })
 
         console.log(this.data.view_url);
@@ -177,6 +177,7 @@ Page({
         }
     },
     onsign(){
+        console.log(this.data.sign_status)
         if (this.data.countdown || this.data.sign_status == 2) return !1
 
         console.log(this.data.countdown);
@@ -184,6 +185,9 @@ Page({
         wx.navigateTo({
             url: '/pages/sign/sign?protocol_id='+params.id
         });
+    },
+    dd(e) {
+      console.log(e.data)
     }
 
 });

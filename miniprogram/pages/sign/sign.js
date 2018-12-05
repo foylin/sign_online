@@ -141,7 +141,7 @@ Page({
       }).exec();
 
       this.params = params;
-      console.log(params);
+      console.log(params.type);
     },
     retDraw () {
       this.ctx.clearRect(0, 0, 700, 730)
@@ -341,8 +341,16 @@ Page({
       return Math.round(Math.max(0, Math.min(value, 100)) / 25) * 25;
     },
     subCanvas() {
+      wx.showLoading({title: '加载中...',})
         // let ctx = wx.createCanvasContext('handwriting');
         var params = this.params;
+        var _url = '';
+        if(params.type) {
+          _url = 'user/upload/more';
+        }else {
+          _url = 'user/upload/one';
+        }
+        
         console.log(params);
         this.ctx.rotate(Math.PI/2);
         this.ctx.draw(true, function () {
@@ -355,13 +363,14 @@ Page({
                     // this.imageTempPath = res.tempFilePath;
                     // console.log(res);
                     api.uploadFile({
-                        url: 'user/upload/one',
+                        url: _url,
                         filePath: res.tempFilePath,
                         name: 'file',
                         formData: {
                           'protocol_id': params.protocol_id
                         },
                         success : data => {
+                          wx.hideLoading()
                             // console.log(data);
                             if(data.code == 0){
                               wx.showToast({
@@ -391,6 +400,7 @@ Page({
                     })
                 },
                 fail: function (err) {
+                    wx.hideLoading()
                     console.log(err);
                     wx.showToast({
                         title: '保存失败',

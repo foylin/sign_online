@@ -4,11 +4,33 @@
         <view class="weui-cells">
             <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__bd">
+                    <input class="weui-input" name="new_password" bindinput="onNewPassword" placeholder="新密码" password="{{true}}"/>
+                </view>
+            </view>
+        </view>
+
+        <view class="weui-cells">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__bd">
+                    <input class="weui-input" name="again_password" bindinput="onAgainPassword" placeholder="重复新密码" password="{{true}}"/>
+                </view>
+            </view>
+        </view>
+
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" formType="submit">确认修改</button>
+        </view>
+
+        <!--
+        <view class="weui-cells">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__bd">
                     <input class="weui-input" name="Username" bindinput="onAccountInput" placeholder="手机号 / 邮箱"/>
                 </view>
             </view>
         </view>
 
+        
         <view class="weui-cells">
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__bd">
@@ -32,6 +54,7 @@
         <view class="weui-btn-area">
             <button class="weui-btn" type="primary" formType="submit">找回密码</button>
         </view>
+        -->
 
     </form>
 </view>

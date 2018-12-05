@@ -32,5 +32,10 @@ Page({
         wx.navigateTo({
             url: '/pages/login/login'
         });
+    },
+    changepwd(){
+        wx.navigateTo({
+            url: '/pages/password/reset'
+        });
     }
 });
