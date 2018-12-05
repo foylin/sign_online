@@ -18,6 +18,7 @@ use app\vague\model\VagueCategoryModel;
 use app\identity\model\IdentityCategoryModel;
 use app\role\model\RoleCategoryModel;
 use app\user\model\UserModel;
+
 /**
  * Class AdminIndexController
  * @package app\user\controller
@@ -70,24 +71,79 @@ class AdminIndexController extends AdminBaseController
         $request = input('request.');
 
         if (!empty($request['uid'])) {
-            $where['id'] = intval($request['uid']);
+            $where['u.id'] = intval($request['uid']);
         }
         $keywordComplex = [];
         if (!empty($request['keyword'])) {
             $keyword = $request['keyword'];
 
-            $keywordComplex['user_login|user_nickname|user_email|mobile']    = ['like', "%$keyword%"];
+            $keywordComplex['u.user_login|u.user_nickname|u.user_email|u.mobile']    = ['like', "%$keyword%"];
         }
+
+        $whereor_frame_name = [];
+        $frame_id = 0;
+        if(!empty($request['frame_name'])){
+            $frame_id = $request['frame_name'];
+            $whereor_frame_name['fc.id'] = $frame_id;
+        }
+
+        $whereor_frame_type = [];
+        if(!empty($request['frame_type'])){
+            $whereor_frame_type['fcp.type'] = $request['frame_type'];
+        }
+
+        $whereor_is_sec = [];
+        $request['is_sec'] = isset($request['is_sec']) ? $request['is_sec'] : -1;
+        if($request['is_sec'] != -1){
+            $whereor_is_sec['fcp.is_sec'] = $request['is_sec'];
+        }
+        // dump($whereor_is_sec);
         $usersQuery = Db::name('user');
 
-        $list = $usersQuery->whereOr($keywordComplex)->where($where)->order("create_time DESC")->paginate(10);
-        foreach ($list as $value) {
-            
-        }
+        $list = $usersQuery->alias('u')->join('__FRAME_CATEGORY_POST__ fcp', 'u.id = fcp.post_id')
+        ->join('__FRAME_CATEGORY__ fc', 'fc.id = fcp.category_id')->field('u.*, fcp.type AS frame_type, fcp.is_sec, fc.name AS frame_name')
+        ->whereOr($keywordComplex)->whereOr($whereor_frame_name)->whereOr($whereor_frame_type)
+        ->whereOr($whereor_is_sec)->where($where)
+        ->order("create_time DESC")->paginate(10)->each(function($item, $key){
+            if($item['frame_type'] == 1){
+                $item['frame_type'] = '员工';
+            }elseif($item['frame_type'] == 2){
+                $item['frame_type'] = '部门副职';
+            }elseif($item['frame_type'] == 3){
+                $item['frame_type'] = '部门正职';
+            }else{
+                $item['frame_type'] = '未设置岗位';
+            }
+
+            if($item['is_sec'] == 0){
+                $item['is_sec'] = '非涉密';
+            }elseif($item['is_sec'] == 1){
+                $item['is_sec'] = '涉密';
+            }else{
+                $item['is_sec'] = '未设置角色';
+            }
+            return $item;
+        });
+
+        $frameCategoryModel = new FrameCategoryModel();
+        $framecategory = $frameCategoryModel->adminCategoryTree($frame_id);
+        $this->assign('framecategory', $framecategory);
+
+        $vagueCategoryModel = new VagueCategoryModel();
+        $vaguecategory = $vagueCategoryModel->adminCategoryTree();
+        $this->assign('vaguecategory', $vaguecategory);
+
+        // $roleCategoryModel = new RoleCategoryModel();
+        // $rolecategory = $roleCategoryModel->adminCategoryTree();
+        // $this->assign('rolecategory', $rolecategory);
+
+        // dump($framecategory);
         // 获取分页显示
         $page = $list->render();
         $this->assign('list', $list);
         $this->assign('page', $page);
+
+        
         // 渲染模板输出
         return $this->fetch();
     }

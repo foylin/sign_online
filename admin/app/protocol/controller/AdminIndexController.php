@@ -348,18 +348,18 @@ class AdminIndexController extends AdminBaseController
             // shell_exec("cd ".$cd_url." && xvfb-run wkhtmltopdf ". $url .$filename);
             
             // 生成 pdf
-            $mode_id = $post['protocol_category_id'];
-            // dump($mode_id);
-            $model_data = Db::name('protocol_category')->where('id='.$mode_id)->find();
-            $model_data['more'] = json_decode($model_data['more'], true);
-            $url = $model_data['more']['files'][0]['url'];
+            // $mode_id = $post['protocol_category_id'];
+            // // dump($mode_id);
+            // $model_data = Db::name('protocol_category')->where('id='.$mode_id)->find();
+            // $model_data['more'] = json_decode($model_data['more'], true);
+            // $url = $model_data['more']['files'][0]['url'];
             
-            $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
-            $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$protocolPostModel->id.".pdf";
+            // $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
+            // $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$protocolPostModel->id.".pdf";
 
-            $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
-            $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
-            $result = shell_exec($sh);
+            // $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
+            // $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
+            // $result = shell_exec($sh);
             $this->success('保存成功!');
         }
     }

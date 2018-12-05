@@ -66,7 +66,7 @@ class UserModel extends Model
                 }
 
                 // 涉密人员保证书 查找各部门涉密人员
-                elseif($mode_type == 2){
+                elseif($mode_type == 3){
                     $map['fcp.is_sec'] = 1;
                 }
 
