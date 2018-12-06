@@ -18,7 +18,7 @@
                     </view>
                     
                 </view>
-                <view class="weui-cell__ft " wx:if="{{item.sign_status > 0}}" data-id="{{item.id}}" data-status="{{item.sign_status}}" data-uid="{{item.uid}}" data-type="2" data-usertype="{{user.user_type}}" data-pcup_id="{{item.pcup_id}}" bindtap="onListItemTap">查看</view>
+                <view class="weui-cell__ft " wx:if="{{item.sign_status > 0}}" data-id="{{item.post_id}}" data-status="{{item.sign_status}}" data-uid="{{item.uid}}" data-type="2" data-usertype="{{user.user_type}}" data-pcup_id="{{item.pcup_id}}" bindtap="onListItemTap">查看</view>
             </view>
         </view>
     </block>

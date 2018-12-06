@@ -195,7 +195,6 @@ Page({
         wx.navigateTo({
           url: '/pages/protocol/protocol?id=' + id + '&status=' + status + '&uid=' + uid + '&type=' + type + '&usertype=' + usertype + '&pcup_id=' + pcup_id
         });
-
     },
     subsign(e) {
         let protocol_id = e.currentTarget.dataset.id;

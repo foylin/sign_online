@@ -76,7 +76,7 @@ class AdminCategoryController extends AdminBaseController
         ],
         3 =>[
                 'page' => 6,
-                'sign' => '160,35'
+                'sign' => '80,35'
         ],
         4 =>[
                 'page' => 3,
