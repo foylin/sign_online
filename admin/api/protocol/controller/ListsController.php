@@ -236,9 +236,9 @@ class ListsController extends RestUserBaseController
 
     function getStatus($type) {
         $sta = [
-            '1' => ['0'=>'待签约','1'=>'已签约,待保密委审核','2'=>'保密委已审核,待后台管理员审核','9'=>'签约完成,无法修改'],
-            '2' => ['0'=>'待签约','1'=>'员工已签约,待部门负责人签约','2'=>'部门负责人已签约,已添加保密委印章,待后台管理员审核','9'=>'签约完成,无法修改'],
-            '3' => ['0'=>'待签约','1'=>'涉密人员已签约,已添加保密委印章,待后台管理员审核','9'=>'签约完成,无法修改']
+            '1' => ['-1'=>'审核失败，重新签约','0'=>'待签约','1'=>'已签约,待保密委审核','2'=>'保密委已审核,待后台管理员审核','9'=>'签约完成,无法修改'],
+            '2' => ['-1'=>'审核失败，重新签约','0'=>'待签约','1'=>'员工已签约,待部门负责人签约','2'=>'部门负责人已签约,已添加保密委印章,待后台管理员审核','9'=>'签约完成,无法修改'],
+            '3' => ['-1'=>'审核失败，重新签约','0'=>'待签约','1'=>'涉密人员已签约,已添加保密委印章,待后台管理员审核','9'=>'签约完成,无法修改']
         ];
         return (!empty($sta[$type]))?$sta[$type]:[];
     }
@@ -289,7 +289,15 @@ class ListsController extends RestUserBaseController
         $uid = $this->request->param('uid', 0, 'intval');
 
         $user_protocol = Db::name('protocol_category_user_post')->where(['post_id'=>$post_id,'category_id'=>$uid])->find();
-        if($user_protocol['is_add_sign'] == 0 ) {
+        //如果审核失败，清除原有的状态和文件地址
+        // if($user_protocol['sign_status'] == -1) {
+        //     Db::name('protocol_category_user_post')->update([
+        //         'id'            => $user_protocol['id'],
+        //         'is_add_sign'   => 0,
+        //         'sign_status'   => 
+        //     ]);
+        // }
+        if($user_protocol['is_add_sign'] == 0 || $user_protocol['sign_status'] == -1) {
             //添加部门印章
             $category_id = Db::name('frame_category_post')->where('post_id',$this->userId)->value('category_id');
             $frame = FrameCategoryModel::get($category_id);
