@@ -322,19 +322,19 @@ tpl;
         $findCategory = $frameCategoryModel->where('id', $id)->find();
 
         if (empty($findCategory)) {
-            $this->error('分类不存在!');
+            $this->error('部门不存在!');
         }
 //判断此分类有无子分类（不算被删除的子分类）
         $categoryChildrenCount = $frameCategoryModel->where(['parent_id' => $id,'delete_time' => 0])->count();
 
         if ($categoryChildrenCount > 0) {
-            $this->error('此分类有子类无法删除!');
+            $this->error('存在下属部门无法删除!');
         }
 
         $categoryPostCount = Db::name('frame_category_post')->where('category_id', $id)->count();
 
         if ($categoryPostCount > 0) {
-            $this->error('此分类有文章无法删除!');
+            $this->error('该部门存在员工无法删除!');
         }
 
         $data   = [
@@ -343,9 +343,10 @@ tpl;
             'table_name'  => 'frame_category',
             'name'        => $findCategory['name']
         ];
-        $result = $frameCategoryModel
-            ->where('id', $id)
-            ->update(['delete_time' => time()]);
+        // $result = $frameCategoryModel
+        //     ->where('id', $id)
+        //     ->update(['delete_time' => time()]);
+        $result = $frameCategoryModel->where('id', $id)->delete();
         if ($result) {
             Db::name('recycleBin')->insert($data);
             $this->success('删除成功!');

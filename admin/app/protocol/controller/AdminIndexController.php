@@ -661,7 +661,7 @@ class AdminIndexController extends AdminBaseController
                 $save['sign_status'] = $post['sign_status'][$key];
                 $save['notes'] = $post['notes'][$key];
 
-                if($post['sign_status'][$key] == 0){
+                if($post['sign_status'][$key] == -1){
                     $save['sign_url'] = '';
                     $save['update_time'] = null;
                 }

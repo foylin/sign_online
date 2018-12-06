@@ -146,11 +146,14 @@ class Tree
                 $parentId == 0 && $str_group ? eval("\$nstr = \"$str_group\";") : eval("\$nstr = \"$str\";");
 
                 $this->ret .= $nstr;
+
+                // unset($nstr);
                 $nbsp      = $this->nbsp;
                 $this->getTree($id, $str, $sid, $adds . $k . $nbsp, $str_group);
                 $number++;
             }
         }
+        // dump($this->ret);
         return $this->ret;
     }
 

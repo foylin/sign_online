@@ -88,7 +88,9 @@ class AdminIndexController extends AdminBaseController
         }
 
         $whereor_frame_type = [];
+        $frame_type_id = 0;
         if(!empty($request['frame_type'])){
+            $frame_type_id = $request['frame_type'];
             $whereor_frame_type['fcp.type'] = $request['frame_type'];
         }
 
@@ -130,7 +132,7 @@ class AdminIndexController extends AdminBaseController
         $this->assign('framecategory', $framecategory);
 
         $vagueCategoryModel = new VagueCategoryModel();
-        $vaguecategory = $vagueCategoryModel->adminCategoryTree();
+        $vaguecategory = $vagueCategoryModel->adminCategoryTree($frame_type_id);
         $this->assign('vaguecategory', $vaguecategory);
 
         // $roleCategoryModel = new RoleCategoryModel();
