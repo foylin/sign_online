@@ -30,13 +30,14 @@ class ArticlesController extends RestUserBaseController
      */
     public function index()
     {
+
         $params                       = $this->request->get();
         
         $params['where']['post_type'] = 1;
         $data                         = $this->postModel->getDatas($params);
-
+        // $this->success('请求成功!', $data);
         if (isset($this->apiVersion)) {
-            $response = ['list' => $data,];
+            $response = ['list' => $data];
         } else {
             $response = $data;
         }

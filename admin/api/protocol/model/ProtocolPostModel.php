@@ -67,7 +67,8 @@ class ProtocolPostModel extends CommonModel
      */
     public function categories()
     {
-        return $this->belongsToMany('api\protocol\model\ProtocolCategoryModel', 'protocol_category_post', 'category_id', 'post_id');
+        // return $this->belongsToMany('api\protocol\model\ProtocolCategoryModel', 'protocol_category_post', 'category_id', 'post_id');`
+        return $this->hasOne('ProtocolCategoryModel','id','protocol_category_id');
     }
 
     /**

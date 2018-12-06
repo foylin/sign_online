@@ -1,0 +1,442 @@
+<include file="public@header"/>
+<style type="text/css">
+    .pic-list li {
+        margin-bottom: 5px;
+    }
+</style>
+<script type="text/html" id="photos-item-tpl">
+    <li id="saved-image{id}">
+        <input id="photo-{id}" type="hidden" name="photo_urls[]" value="{filepath}">
+        <input class="form-control" id="photo-{id}-name" type="text" name="photo_names[]" value="{name}"
+               style="width: 200px;" title="图片名称">
+        <img id="photo-{id}-preview" src="{url}" style="height:36px;width: 36px;"
+             onclick="imagePreviewDialog(this.src);">
+        <a href="javascript:uploadOneImage('图片上传','#photo-{id}');">替换</a>
+        <a href="javascript:(function(){$('#saved-image{id}').remove();})();">移除</a>
+    </li>
+</script>
+<script type="text/html" id="files-item-tpl">
+    <li id="saved-file{id}">
+        <input id="file-{id}" type="hidden" name="file_urls[]" value="{filepath}">
+        <input class="form-control" id="file-{id}-name" type="text" name="file_names[]" value="{name}"
+               style="width: 200px;" title="文件名称">
+        <a id="file-{id}-preview" href="{preview_url}" target="_blank">下载</a>
+        <a href="javascript:uploadOne('文件上传','#file-{id}','file');">替换</a>
+        <a href="javascript:(function(){$('#saved-file{id}').remove();})();">移除</a>
+    </li>
+</script>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('AdminIndex/index')}">协议管理</a></li>
+        <li>
+            <a href="{:url('AdminIndex/add')}">添加协议</a>
+        </li>
+        <li class="active"><a href="#">编辑协议</a></li>
+    </ul>
+    <form action="{:url('AdminIndex/editPost')}" method="post" class="form-horizontal js-ajax-form margin-top-20">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    
+                    <tr>
+                        <th>标题<span class="form-required">*</span></th>
+                        <td>
+                            <input id="post-id" type="hidden" name="post[id]" value="{$post.id}">
+                            <input class="form-control" type="text" name="post[post_title]"
+                                   required value="{$post.post_title}" placeholder="请输入标题"/>
+                        </td>
+                    </tr>
+
+                    <!-- <tr>
+                        <th width="100">协议模板<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="text" style="width:400px;" required
+                                   value="{:implode(' ',$post_categories)}"
+                                   placeholder="请选择分类" onclick="doSelectCategory();" id="js-categories-name-input"
+                                   readonly/>
+                            <input class="form-control" type="hidden" value="{$post_category_ids}"
+                                   name="post[categories]"
+                                   id="js-categories-id-input"/>
+                        </td>
+                    </tr> -->
+
+                    <tr>
+                        <th width="100">协议模板<span class="form-required">*</span></th>
+                        <td>
+                            <div class="">
+                                <select class="form-control valid" name="post[categories]" id="categories-model-sel" aria-invalid="false">
+                                <volist name="categories_model" id="vo">
+                                    <option value="{$vo.id}" <if $vo.id == $post_category_ids>selected=""</if> >{$vo.name}</option>
+                                </volist>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th width="100">行政公章<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="text" style="width:400px;" required
+                                   value="{:implode(' ',$post_categories_seal)}"
+                                   placeholder="请选择分类" onclick="doSelectCategory_seal();" id="js-categories-name-input-seal"
+                                   readonly/>
+                            <input class="form-control" type="hidden" value="{$post_category_ids_seal}"
+                                   name="post[categories_seal]"
+                                   id="js-categories-id-input-seal"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th width="100">承诺人<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="text" style="width:400px;" required
+                                   value="{:implode(' ',$post_categories_user)}"
+                                   placeholder="请选择分类" onclick="doSelectCategory_user();" id="js-categories-name-input-user"
+                                   readonly/>
+                            <input class="form-control" type="hidden" value="{$post_category_ids_user}"
+                                   name="post[categories_user]"
+                                   id="js-categories-id-input-user"/>
+                        </td>
+                    </tr>
+
+                    <tr style="display:none;">
+                        <th width="100">负责人</th>
+                        <td>
+                            <input class="form-control" type="text" style="width:400px;" required
+                                   value="{:implode(' ',$post_categories_user_one)}"
+                                   placeholder="请选择分类" onclick="doSelectCategory_user_one();" id="js-categories-name-input-user-one"
+                                   readonly/>
+                            <input class="form-control" type="hidden" value="{$post_category_ids_user_one}"
+                                   name="post[categories_user_one]"
+                                   id="js-categories-id-input-user-one"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th width="100">负责人</th>
+                        <td>
+                            自动分发到所选部门的负责人
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <th>签名位置</th>
+                        <td>
+                            <input class="form-control" type="text" name="post[post_count]"
+                                   value="{$post['post_count']}" placeholder="协议中需要签名的位置个数">
+                            <p class="help-block"></p>
+                        </td>
+                    </tr> -->
+                
+
+                    <!-- <tr>
+                        <th>协议内容</th>
+                        <td>
+                            <script type="text/plain" id="content" name="post[post_content]">{$post['post_content']}</script>
+                            <textarea name="" id="content">{$post['post_content']}</textarea>
+                        </td>
+                    </tr> -->
+                    
+                </table>
+
+                <hook name="portal_admin_article_edit_view_main"/>
+            </div>
+            
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    //编辑器路径定义
+    var editorURL = GV.WEB_ROOT;
+</script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+
+<!-- <script src='__STATIC__/js/tinymce.min.js'></script> -->
+
+<script type="text/javascript">
+    $(function () {
+
+        // editorcontent = new baidu.editor.ui.Editor({
+        //     // initialFrameWidth: 600
+        // });
+        // editorcontent.render('content');
+        // try {
+        //     editorcontent.sync();
+        //     // editorcontent.
+        // } catch (err) {
+        // }
+
+        
+
+        $('.btn-cancel-thumbnail').click(function () {
+            $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
+            $('#thumbnail').val('');
+        });
+
+        $('#more-template-select').val("{$post.more.template|default=''}");
+
+        // $('#categories-model-sel').change(function(){
+        //     var model_seled = $(this).val();
+        //     // console.log(model_seled);
+        //     editorcontent.execCommand('cleardoc');
+        //     $.ajax({
+        //         method: 'POST',
+        //         url: "{:url('AdminCategory/getmodel')}",
+        //         data: {
+        //             id: model_seled
+        //         },
+        //         success: function(data, status){
+        //             console.log(data);
+        //             if(data.code == 200){
+        //                 editorcontent.execCommand('inserthtml', data.data.description);
+        //             }else{
+        //                 alert(data.msg);
+        //             }
+        //         }
+        //     })
+            
+        // })
+    });
+
+    function doSelectCategory() {
+        var selectedCategoriesId = $('#js-categories-id-input').val();
+        openIframeLayer("{:url('AdminCategory/select')}?ids=" + selectedCategoriesId, '请选择分类', {
+            area: ['700px', '400px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //do something
+
+                var iframeWin          = window[layero.find('iframe')[0]['name']];
+                var selectedCategories = iframeWin.confirm();
+                if (selectedCategories.selectedCategoriesId.length == 0) {
+                    layer.msg('请选择分类');
+                    return;
+                }
+                $('#js-categories-id-input').val(selectedCategories.selectedCategoriesId.join(','));
+                $('#js-categories-name-input').val(selectedCategories.selectedCategoriesName.join(' '));
+                //console.log(layer.getFrameIndex(index));
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            }
+        });
+    }
+
+    function doSelectCategory_seal() {
+        var selectedCategoriesId = $('#js-categories-id-input-seal').val();
+        var selectedCategoriesPlaces = $('#js-categories-place-input-seal').val();
+        openIframeLayer("{:url('AdminCategory/select_seal')}?ids=" + selectedCategoriesId + '&places=' + selectedCategoriesPlaces, '请选择分类', {
+            area: ['700px', '400px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //do something
+
+                var iframeWin          = window[layero.find('iframe')[0]['name']];
+                var selectedCategories = iframeWin.confirm();
+                console.log(selectedCategories);
+                if (selectedCategories.selectedCategoriesId.length == 0) {
+                    layer.msg('请选择分类');
+                    return;
+                }
+                // console.log(index);
+                // console.log(layero);
+                // console.log(selectedCategories.selectedCategoriesId);
+                var seal_place_arr = new Array();
+                $.each(selectedCategories.selectedCategoriesId,function(k,v){
+                    var seal_place = $("#layui-layer-iframe"+index).contents().find("input[name=seal_place_"+v+"]").val();
+                    
+                    seal_place_arr.push(seal_place);
+
+
+                })
+
+                console.log(seal_place_arr);
+                $('#js-categories-id-input-seal').val(selectedCategories.selectedCategoriesId.join(','));
+                $('#js-categories-name-input-seal').val(selectedCategories.selectedCategoriesName.join(' '));
+                // $('#js-categories-place-input-seal').val(seal_place_arr.join(','));
+                //console.log(layer.getFrameIndex(index));
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            }
+        });
+    }
+
+    function doSelectCategory_user() {
+        var selectedCategoriesId = $('#js-categories-id-input-user').val();
+        var selectedCategoriesPlaces = $('#js-categories-place-input-user').val();
+        openIframeLayer("{:url('AdminCategory/select_user')}?ids=" + selectedCategoriesId + '&places=' + selectedCategoriesPlaces + '&post_id=' + '{$post.id}', '请选择分类', {
+            area: ['700px', '400px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //do something
+
+                var iframeWin          = window[layero.find('iframe')[0]['name']];
+                var selectedCategories = iframeWin.confirm();
+                if (selectedCategories.selectedCategoriesId.length == 0) {
+                    layer.msg('请选择分类');
+                    return;
+                }
+
+                $('#js-categories-id-input-user').val(selectedCategories.selectedCategoriesId.join(','));
+                $('#js-categories-name-input-user').val(selectedCategories.selectedCategoriesName.join(' '));
+                // $('#js-categories-place-input-user').val(selectedCategories.selectedCategoriesPlace.join(','));
+                //console.log(layer.getFrameIndex(index));
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+
+                // $.ajax({
+                //     url: "{:url('AdminCategory/update_user')}", 
+                //     type: "post", 
+                //     dataType: "json", 
+                //     data: {
+                //         post_id: "{$post.id}",
+                //         user_ids: selectedCategories.selectedCategoriesId.join(','),
+                //         user_places: selectedCategories.selectedCategoriesPlace.join(',')
+                //     }, 
+                //     success: function (data) {
+                //         console.log(data);
+                //     }
+                // });
+            }
+        });
+    }
+
+    function doSelectCategory_user_one() {
+        var selectedCategoriesId_one = $('#js-categories-id-input-user-one').val();
+        var selectedCategoriesPlaces_one = $('#js-categories-place-input-user-one').val();
+        openIframeLayer("{:url('AdminCategory/select_user_one')}?ids=" + selectedCategoriesId_one + '&post_id=' + '{$post.id}', '请选择分类', {
+            area: ['700px', '400px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //do something
+
+                var iframeWin          = window[layero.find('iframe')[0]['name']];
+                var selectedCategories = iframeWin.confirm();
+                // if (selectedCategories.selectedCategoriesId.length == 0) {
+                //     layer.msg('请选择分类');
+                //     return;
+                // }else if (selectedCategories.selectedCategoriesId.length > 1) {
+                //     layer.msg('只能存在一个协议负责人');
+                //     return;
+                // }
+
+                $('#js-categories-id-input-user-one').val(selectedCategories.selectedCategoriesId.join(','));
+                $('#js-categories-name-input-user-one').val(selectedCategories.selectedCategoriesName.join(' '));
+                //console.log(layer.getFrameIndex(index));
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            }
+        });
+    }
+</script>
+
+<script>
+
+    var publishYesUrl   = "{:url('AdminIndex/publish',array('yes'=>1))}";
+    var publishNoUrl    = "{:url('AdminIndex/publish',array('no'=>1))}";
+    var topYesUrl       = "{:url('AdminIndex/top',array('yes'=>1))}";
+    var topNoUrl        = "{:url('AdminIndex/top',array('no'=>1))}";
+    var recommendYesUrl = "{:url('AdminIndex/recommend',array('yes'=>1))}";
+    var recommendNoUrl  = "{:url('AdminIndex/recommend',array('no'=>1))}";
+
+    var postId = $('#post-id').val();
+
+    //发布操作
+    $("#post-status-checkbox").change(function () {
+        if ($('#post-status-checkbox').is(':checked')) {
+            //发布
+            $.ajax({
+                url: publishYesUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#post-status-checkbox').removeAttr("checked");
+                        $('#post-status-error').html(data.msg).show();
+
+                    } else {
+                        $('#post-status-error').hide();
+                    }
+                }
+            });
+        } else {
+            //取消发布
+            $.ajax({
+                url: publishNoUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#post-status-checkbox').prop("checked", 'true');
+                        $('#post-status-error').html(data.msg).show();
+                    } else {
+                        $('#post-status-error').hide();
+                    }
+                }
+            });
+        }
+    });
+
+    //置顶操作
+    $("#is-top-checkbox").change(function () {
+        if ($('#is-top-checkbox').is(':checked')) {
+            //置顶
+            $.ajax({
+                url: topYesUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#is-top-checkbox').removeAttr("checked");
+                        $('#is-top-error').html(data.msg).show();
+
+                    } else {
+                        $('#is-top-error').hide();
+                    }
+                }
+            });
+        } else {
+            //取消置顶
+            $.ajax({
+                url: topNoUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#is-top-checkbox').prop("checked", 'true');
+                        $('#is-top-error').html(data.msg).show();
+                    } else {
+                        $('#is-top-error').hide();
+                    }
+                }
+            });
+        }
+    });
+    //推荐操作
+    $("#recommended-checkbox").change(function () {
+        if ($('#recommended-checkbox').is(':checked')) {
+            //推荐
+            $.ajax({
+                url: recommendYesUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#recommended-checkbox').removeAttr("checked");
+                        $('#recommended-error').html(data.msg).show();
+
+                    } else {
+                        $('#recommended-error').hide();
+                    }
+                }
+            });
+        } else {
+            //取消推荐
+            $.ajax({
+                url: recommendNoUrl, type: "post", dataType: "json", data: {ids: postId}, success: function (data) {
+                    if (data.code != 1) {
+                        $('#recommended-checkbox').prop("checked", 'true');
+                        $('#recommended-error').html(data.msg).show();
+                    } else {
+                        $('#recommended-error').hide();
+                    }
+                }
+            });
+        }
+    });
+
+
+</script>
+
+
+</body>
+</html>

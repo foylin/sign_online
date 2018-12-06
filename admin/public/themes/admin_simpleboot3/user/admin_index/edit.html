@@ -75,10 +75,11 @@
                         <tr>
                             <th width="100">模糊岗位</th>
                             <td>
-                                <input class="form-control" type="text" style="width:400px;"  value="{:implode(' ',$post_categories_vague)}"
-                                    placeholder="模糊岗位" onclick="doSelectCategory_vague();" id="js-categories-name-input-vague"
-                                    readonly />
-                                <input class="form-control" type="hidden" value="{$post_category_ids_vague}" name="post[categories_vague]" id="js-categories-id-input-vague" />
+                                <select class="form-control" name="post[frame_type]" id="frame_type" required>
+                                    <option value="1">员工</option>
+                                    <option value="2">部门副职</option>
+                                    <option value="3">部门正职</option>
+                                </select>
                             </td>
                         </tr>
 
@@ -95,12 +96,17 @@
                         <tr>
                             <th width="100">员工角色</th>
                             <td>
-                                <input class="form-control" type="text" style="width:400px;"  value="{:implode(' ',$post_categories_role)}"
-                                    placeholder="员工角色" onclick="doSelectCategory_role();" id="js-categories-name-input-role"
-                                    readonly />
-                                <input class="form-control" type="hidden" value="{$post_category_ids_role}" name="post[categories_role]" id="js-categories-id-input-role" />
+                                <select class="form-control" name="post[is_sec]" id="is_sec" required>
+                                    <option value="0">非涉密人员</option>
+                                    <option value="1">涉密人员</option>
+                                </select>
                             </td>
                         </tr>
+
+                        
+
+                        
+
                         <tr>
                             <th>岗位调动详情</th>
                             <td>
@@ -199,11 +205,13 @@
             });
             
             $('#user-status-sel').val("{$post['user_status']}");
+            $('#is_sec').val("{$is_sec}");
+            $('#frame_type').val("{$frame_type}");
         });
 
         function doSelectCategory() {
             var selectedCategoriesId = $('#js-categories-id-input').val();
-            openIframeLayer("{:url('AdminIndex/select')}?ids=" + selectedCategoriesId, '请选择分类', {
+            openIframeLayer("{:url('AdminIndex/select')}?ids=" + selectedCategoriesId, '请选择部门/单位', {
                 area: ['700px', '400px'],
                 btn: ['确定', '取消'],
                 yes: function (index, layero) {
@@ -212,11 +220,61 @@
                     var iframeWin = window[layero.find('iframe')[0]['name']];
                     var selectedCategories = iframeWin.confirm();
                     if (selectedCategories.selectedCategoriesId.length == 0) {
-                        layer.msg('请选择分类');
+                        layer.msg('请选择部门/单位');
+                        return;
+                    }
+                    if (selectedCategories.selectedCategoriesId.length > 1) {
+                        layer.msg('无法选择多个部门');
                         return;
                     }
                     $('#js-categories-id-input').val(selectedCategories.selectedCategoriesId.join(','));
                     $('#js-categories-name-input').val(selectedCategories.selectedCategoriesName.join(' '));
+                    //console.log(layer.getFrameIndex(index));
+                    layer.close(index); //如果设定了yes回调，需进行手工关闭
+                }
+            });
+        }
+        
+        // 设置部门/单位负责人
+        function doSelectCategory_resp() {
+            var selectedCategoriesId = $('#js-categories-id-input-resp').val();
+            openIframeLayer("{:url('AdminIndex/select')}?ids=" + selectedCategoriesId, '请选择部门/单位', {
+                area: ['700px', '400px'],
+                btn: ['确定', '取消'],
+                yes: function (index, layero) {
+                    //do something
+
+                    var iframeWin = window[layero.find('iframe')[0]['name']];
+                    var selectedCategories = iframeWin.confirm();
+                    // if (selectedCategories.selectedCategoriesId.length == 0) {
+                    //     layer.msg('请选择部门/单位');
+                    //     return;
+                    // }
+                    $('#js-categories-id-input-resp').val(selectedCategories.selectedCategoriesId.join(','));
+                    $('#js-categories-name-input-resp').val(selectedCategories.selectedCategoriesName.join(' '));
+                    //console.log(layer.getFrameIndex(index));
+                    layer.close(index); //如果设定了yes回调，需进行手工关闭
+                }
+            });
+        }
+
+        // 设置部门/单位涉密人员
+        function doSelectCategory_secr() {
+            var selectedCategoriesId = $('#js-categories-id-input-secr').val();
+            openIframeLayer("{:url('AdminIndex/select')}?ids=" + selectedCategoriesId, '请选择部门/单位', {
+                area: ['700px', '400px'],
+                btn: ['确定', '取消'],
+                yes: function (index, layero) {
+                    //do something
+
+                    var iframeWin = window[layero.find('iframe')[0]['name']];
+                    var selectedCategories = iframeWin.confirm();
+                    // if (selectedCategories.selectedCategoriesId.length == 0) {
+                    //     layer.msg('请选择部门/单位');
+                    //     return;
+                    // }
+                    $('#js-categories-id-input-secr').val(selectedCategories.selectedCategoriesId.join(','));
+                    $('#js-categories-name-input-secr').val(selectedCategories.selectedCategoriesName.join(' '));
                     //console.log(layer.getFrameIndex(index));
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
                 }

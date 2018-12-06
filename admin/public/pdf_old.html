@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>协议内容</title>
+    <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <style>
+        body {
+            margin: 0;
+        }
+        .footer{
+            
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: white;
+            text-align: center;
+            height: 50px;
+            line-height: 48px;
+            color: #00796a;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <iframe src="" id="iframe1" frameborder="0"></iframe>
+
+    <div class="footer">请阅读协议内容 30</div>
+</body>
+
+<script>
+    $(function () {
+        changeWH();
+        // alert(GetQueryString('width'));
+        // alert(GetQueryString('protocol_id'));
+        var sign_status = GetQueryString('sign_status');
+        var protocol_id = GetQueryString('protocol_id');
+        var uid = GetQueryString('uid');
+        var count = 0;
+        
+        if(sign_status == 0){
+            $('iframe').attr('src', 'https://sscx.karles.com.cn/web/viewer.html?file=/protocol/'+protocol_id+'.pdf');
+        }else{
+            $('iframe').attr('src', 'https://sscx.karles.com.cn/web/viewer.html?file=/upload/view/'+protocol_id+'_'+uid+'.pdf');
+        }
+        
+
+        if(sign_status == 1){
+            $('.footer').html('待审核');
+            
+        }else if(sign_status == 2){
+            $('.footer').html('已签约');
+        }else{
+            count = 30;
+            let interval = setInterval(function () {
+                count--;
+                // console.log(count);
+                // that.setData({ countdown: count });
+                $('.footer').html('请阅读协议内容 '+count);
+                if (count <= 0) {
+                    clearInterval(interval);
+                    // that.setData({ countdowndes: '' });
+                    $('.footer').html('签约');
+                }
+            }, 1000)
+        }
+
+        $('.footer').click(function(){
+            if(count > 0) return ;
+            if(sign_status == 2 || sign_status == 1) return ;
+            wx.miniProgram.navigateTo({
+                url: '/pages/sign/sign?protocol_id='+protocol_id
+            })
+        })
+
+    });
+
+    function changeWH() {
+
+        $("#iframe1").height(GetQueryString('height'));
+        $("#iframe1").width(GetQueryString('width'));
+    }
+
+    function GetQueryString(name) { 
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); 
+        var r = window.location.search.substr(1).match(reg);
+        //search,查询？后面的参数，并匹配正则 
+        if(r!=null)
+            return unescape(r[2]); 
+        return null; 
+    }
+
+
+    window.onresize = function () {
+        changeWH();
+    } 
+</script>
+
+</html>

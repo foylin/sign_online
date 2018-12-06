@@ -125,6 +125,16 @@ class PublicController extends RestBaseController
             $this->error("请求错误,未知设备!");
         }
 
+        unset($findUser['user_pass']);
+        if($findUser['user_type'] == 2) {
+            $fData = Db::name('frame_category_post')->field('type,is_sec')->where('post_id',$findUser['id'])->find();
+            $findUser['staff_type'] = $fData['type'];
+            $findUser['is_sec'] = $fData['is_sec'];
+        } else {
+            $findUser['staff_type'] = -1;
+            $findUser['is_sec'] = -1;
+        }
+
         $userTokenQuery = Db::name("user_token")
             ->where('user_id', $findUser['id'])
             ->where('device_type', $data['device_type']);
@@ -207,6 +217,35 @@ class PublicController extends RestBaseController
         }
 
         $userPass = cmf_password($data['password']);
+        Db::name("user")->where($userWhere)->update(['user_pass' => $userPass]);
+
+        $this->success("密码重置成功,请使用新密码登录!");
+
+    }
+
+    // 用户密码重置
+    public function newPasswordReset()
+    {
+        $validate = new Validate([
+            'new_password'          => 'require',
+            'again_password'          => 'require'
+        ]);
+
+        $validate->message([
+            'new_password.require'          => '请输入新密码!',
+            'again_password.require'          => '请输入重复新密码!'
+        ]);
+
+        $data = $this->request->param();
+        if (!$validate->check($data)) {
+            $this->error($validate->getError());
+        }
+
+        $userId = $this->getUserId();
+
+        if(!$userId) $this->error('操作失败');
+        $userWhere['id'] = $userId;
+        $userPass = cmf_password($data['new_password']);
         Db::name("user")->where($userWhere)->update(['user_pass' => $userPass]);
 
         $this->success("密码重置成功,请使用新密码登录!");

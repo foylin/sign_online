@@ -7,8 +7,9 @@
 // | Author: pl125 <xskjs888@163.com>
 // +----------------------------------------------------------------------
 
-namespace api\portal\model;
+namespace api\protocol\model;
 use api\common\model\CommonModel;
+use api\protocol\model\FrameCategoryPostModel;
 
 class UserModel extends CommonModel
 {
@@ -18,6 +19,11 @@ class UserModel extends CommonModel
 //    ];
     //模型关联方法
     protected $relationFilter = ['user'];
+
+    public function FrameCategoryPost()
+    {
+        return $this->hasOne('FrameCategoryPostModel', 'post_id', 'id');
+    }
 
     /**
      * 基础查询

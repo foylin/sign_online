@@ -66,16 +66,17 @@
                         <th width="100">协议模板<span class="form-required">*</span></th>
                         <td>
                             <div class="">
-                                <select class="form-control valid" name="post[categories]" id="categories-model-sel" aria-invalid="false">
+                                <select class="form-control valid" name="post[protocol_category_id]" id="protocol_category_id" aria-invalid="false">
+                                <option value="0">请选择协议模板</option>
                                 <volist name="categories_model" id="vo">
-                                    <option value="{$vo.id}" <if $vo.id == $post_category_ids>selected=""</if> >{$vo.name}</option>
+                                    <option value="{$vo.id}" data-modetype="{$vo.mode_type}" <if $vo.id == $post['protocol_category_id']> selected="" </if> >{$vo.name}</option>
                                 </volist>
                                 </select>
                             </div>
                         </td>
                     </tr>
 
-                    <tr>
+                    <tr style="display:none;">
                         <th width="100">行政公章<span class="form-required">*</span></th>
                         <td>
                             <input class="form-control" type="text" style="width:400px;" required
@@ -88,8 +89,8 @@
                         </td>
                     </tr>
 
-                    <tr>
-                        <th width="100">承诺人或保证人<span class="form-required">*</span></th>
+                    <tr id="protocol_user">
+                        <th class="protocol_user_name" width="100">承诺人或保证人</th>
                         <td>
                             <input class="form-control" type="text" style="width:400px;" required
                                    value="{:implode(' ',$post_categories_user)}"
@@ -101,9 +102,9 @@
                         </td>
                     </tr>
 
-                    <tr>
-                        <th width="100">负责人</th>
-                        <td>
+                    <tr id="protocol_user_one">
+                        <th class="protocol_user_one_name" width="100">负责人</th>
+                        <td class="protocol_user_one_sel">
                             <input class="form-control" type="text" style="width:400px;" required
                                    value="{:implode(' ',$post_categories_user_one)}"
                                    placeholder="请选择分类" onclick="doSelectCategory_user_one();" id="js-categories-name-input-user-one"
@@ -156,6 +157,7 @@
 <!-- <script src='__STATIC__/js/tinymce.min.js'></script> -->
 
 <script type="text/javascript">
+    var mode_type = 0;
     $(function () {
 
         // editorcontent = new baidu.editor.ui.Editor({
@@ -168,7 +170,7 @@
         // } catch (err) {
         // }
 
-        
+        // $('#protocol_category_id').val("{$post['protocol_category_id']}");
 
         $('.btn-cancel-thumbnail').click(function () {
             $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
@@ -176,8 +178,14 @@
         });
 
         $('#more-template-select').val("{$post.more.template|default=''}");
+        mode_type = $('#protocol_category_id').find("option:selected").data("modetype");
+        // console.log(mode_type);
+        show(mode_type);
 
-        // $('#categories-model-sel').change(function(){
+
+        $('#protocol_category_id').change(function(){
+            mode_type = $(this).find("option:selected").data("modetype");
+            show(mode_type);
         //     var model_seled = $(this).val();
         //     // console.log(model_seled);
         //     editorcontent.execCommand('cleardoc');
@@ -197,8 +205,31 @@
         //         }
         //     })
             
-        // })
+        })
     });
+
+    //  不同类型,页面显示不同
+    function show(type){
+        // 保密工作责任书
+        if(type == 1){
+            $('#protocol_user_one').hide();
+            $('#protocol_user .protocol_user_name').text('负责人');
+        }
+        // 员工保密承诺书
+        else if(type == 2){
+            $('#protocol_user .protocol_user_name').text('承诺人');
+            $('#protocol_user_one').show();
+            $('#protocol_user_one .protocol_user_one_sel').text('自动分配到所选部门负责人');
+        }
+        // 涉密人员保证书
+        else if(type == 3){
+            $('#protocol_user .protocol_user_name').text('保证人');
+            $('#protocol_user_one').hide();
+            // $('#protocol_user_one .protocol_user_one_sel').text('自动分配到所选部门负责人');
+        }
+        // 涉密人员离岗保密承诺书
+        
+    }
 
     function doSelectCategory() {
         var selectedCategoriesId = $('#js-categories-id-input').val();
@@ -263,7 +294,7 @@
     function doSelectCategory_user() {
         var selectedCategoriesId = $('#js-categories-id-input-user').val();
         var selectedCategoriesPlaces = $('#js-categories-place-input-user').val();
-        openIframeLayer("{:url('AdminCategory/select_user')}?ids=" + selectedCategoriesId + '&places=' + selectedCategoriesPlaces + '&post_id=' + '{$post.id}', '请选择分类', {
+        openIframeLayer("{:url('AdminCategory/select_user')}?ids=" + selectedCategoriesId + '&mode_type=' + mode_type + '&post_id=' + '{$post.id}', '请选择签约人员', {
             area: ['700px', '400px'],
             btn: ['确定', '取消'],
             yes: function (index, layero) {
@@ -272,7 +303,7 @@
                 var iframeWin          = window[layero.find('iframe')[0]['name']];
                 var selectedCategories = iframeWin.confirm();
                 if (selectedCategories.selectedCategoriesId.length == 0) {
-                    layer.msg('请选择分类');
+                    layer.msg('请选择签约人员');
                     return;
                 }
 

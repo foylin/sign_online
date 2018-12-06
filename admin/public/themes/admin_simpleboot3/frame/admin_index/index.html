@@ -17,13 +17,13 @@
     <form method="post" class="js-ajax-form" action="{:url('AdminIndex/listOrder')}">
         <div class="table-actions">
             <button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
-            <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
+            <!-- <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
                     data-action="{:url('AdminIndex/toggle',array('display'=>'1'))}" data-subcheck="true">
                 {:lang('DISPLAY')}
             </button>
             <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
                     data-action="{:url('AdminIndex/toggle',array('hide'=>1))}" data-subcheck="true">{:lang('HIDE')}
-            </button>
+            </button> -->
         </div>
         <empty name="keyword">
             <table class="table table-hover table-bordered table-list" id="menus-table">
@@ -36,7 +36,7 @@
                     <th width="50">ID</th>
                     <th>分类名称</th>
                     <th>描述</th>
-                    <th>状态</th>
+                    <!-- <th>状态</th> -->
                     <th width="200">操作</th>
                 </tr>
                 </thead>
@@ -52,7 +52,7 @@
                     <th width="50">ID</th>
                     <th>分类名称</th>
                     <th>描述</th>
-                    <th>状态</th>
+                    <!-- <th>状态</th> -->
                     <th width="200">操作</th>
                 </tr>
                 </tfoot>
@@ -68,7 +68,7 @@
                     <th width="50">ID</th>
                     <th>分类名称</th>
                     <th>描述</th>
-                    <th>状态</th>
+                    <!-- <th>状态</th> -->
                     <th width="200">操作</th>
                 </tr>
                 </thead>
@@ -83,18 +83,12 @@
                         <td>{$vo.id}</td>
                         <td>{$vo.name}</td>
                         <td>{$vo.description}</td>
-                        <td>{$vo.status?'显示':'隐藏'}</td>
+                        <!-- <td>{$vo.status?'显示':'隐藏'}</td> -->
                         <td>
                             <a href="{:url('AdminIndex/add', ['parent' => $vo.id])}">添加子分类</a>
                             <a href="{:url('AdminIndex/edit',['id'=>$vo.id])}">编辑</a>
-                            <a class="js-ajax-delete" href="{:url('AdminIndex/delete',['id'=>$vo.id])}">删除</a>
-                            <empty name="vo.status">
-                                <a class="js-ajax-dialog-btn" data-msg="您确定显示此分类吗"
-                                   href="{:url('AdminIndex/toggle',['ids'=>$vo.id,'display'=>1])}">显示</a>
-                                <else/>
-                                <a class="js-ajax-dialog-btn" data-msg="您确定隐藏此分类吗"
-                                   href="{:url('AdminIndex/toggle',['ids'=>$vo.id,'hide'=>1])}">隐藏</a>
-                            </empty>
+                            <if $vo['id'] != 999> <a class="js-ajax-delete" href="{:url('AdminIndex/delete',['id'=>$vo.id])}">删除</a> </if>
+                            
                         </td>
                     </tr>
                 </foreach>
@@ -108,7 +102,7 @@
                     <th width="50">ID</th>
                     <th>分类名称</th>
                     <th>描述</th>
-                    <th>状态</th>
+                    <!-- <th>状态</th> -->
                     <th width="200">操作</th>
                 </tr>
                 </tfoot>

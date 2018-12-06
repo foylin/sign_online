@@ -18,6 +18,7 @@ use app\vague\model\VagueCategoryModel;
 use app\identity\model\IdentityCategoryModel;
 use app\role\model\RoleCategoryModel;
 use app\user\model\UserModel;
+
 /**
  * Class AdminIndexController
  * @package app\user\controller
@@ -70,24 +71,79 @@ class AdminIndexController extends AdminBaseController
         $request = input('request.');
 
         if (!empty($request['uid'])) {
-            $where['id'] = intval($request['uid']);
+            $where['u.id'] = intval($request['uid']);
         }
         $keywordComplex = [];
         if (!empty($request['keyword'])) {
             $keyword = $request['keyword'];
 
-            $keywordComplex['user_login|user_nickname|user_email|mobile']    = ['like', "%$keyword%"];
+            $keywordComplex['u.user_login|u.user_nickname|u.user_email|u.mobile']    = ['like', "%$keyword%"];
         }
+
+        $whereor_frame_name = [];
+        $frame_id = 0;
+        if(!empty($request['frame_name'])){
+            $frame_id = $request['frame_name'];
+            $whereor_frame_name['fc.id'] = $frame_id;
+        }
+
+        $whereor_frame_type = [];
+        if(!empty($request['frame_type'])){
+            $whereor_frame_type['fcp.type'] = $request['frame_type'];
+        }
+
+        $whereor_is_sec = [];
+        $request['is_sec'] = isset($request['is_sec']) ? $request['is_sec'] : -1;
+        if($request['is_sec'] != -1){
+            $whereor_is_sec['fcp.is_sec'] = $request['is_sec'];
+        }
+        // dump($whereor_is_sec);
         $usersQuery = Db::name('user');
 
-        $list = $usersQuery->whereOr($keywordComplex)->where($where)->order("create_time DESC")->paginate(10);
-        foreach ($list as $value) {
-            
-        }
+        $list = $usersQuery->alias('u')->join('__FRAME_CATEGORY_POST__ fcp', 'u.id = fcp.post_id')
+        ->join('__FRAME_CATEGORY__ fc', 'fc.id = fcp.category_id')->field('u.*, fcp.type AS frame_type, fcp.is_sec, fc.name AS frame_name')
+        ->whereOr($keywordComplex)->whereOr($whereor_frame_name)->whereOr($whereor_frame_type)
+        ->whereOr($whereor_is_sec)->where($where)
+        ->order("create_time DESC")->paginate(10)->each(function($item, $key){
+            if($item['frame_type'] == 1){
+                $item['frame_type'] = '员工';
+            }elseif($item['frame_type'] == 2){
+                $item['frame_type'] = '部门副职';
+            }elseif($item['frame_type'] == 3){
+                $item['frame_type'] = '部门正职';
+            }else{
+                $item['frame_type'] = '未设置岗位';
+            }
+
+            if($item['is_sec'] == 0){
+                $item['is_sec'] = '非涉密';
+            }elseif($item['is_sec'] == 1){
+                $item['is_sec'] = '涉密';
+            }else{
+                $item['is_sec'] = '未设置角色';
+            }
+            return $item;
+        });
+
+        $frameCategoryModel = new FrameCategoryModel();
+        $framecategory = $frameCategoryModel->adminCategoryTree($frame_id);
+        $this->assign('framecategory', $framecategory);
+
+        $vagueCategoryModel = new VagueCategoryModel();
+        $vaguecategory = $vagueCategoryModel->adminCategoryTree();
+        $this->assign('vaguecategory', $vaguecategory);
+
+        // $roleCategoryModel = new RoleCategoryModel();
+        // $rolecategory = $roleCategoryModel->adminCategoryTree();
+        // $this->assign('rolecategory', $rolecategory);
+
+        // dump($framecategory);
         // 获取分页显示
         $page = $list->render();
         $this->assign('list', $list);
         $this->assign('page', $page);
+
+        
         // 渲染模板输出
         return $this->fetch();
     }
@@ -291,33 +347,54 @@ class AdminIndexController extends AdminBaseController
         
         // $portalPostModel = new PortalPostModel();
         $post            = $userModel->where('id', $id)->find();
-        // var_dump($post);
+        
+        // 所属部门/单位
         $postCategories  = $post->frame()->alias('a')->column('a.name', 'a.id');
         $postCategoryIds = implode(',', array_keys($postCategories));
-        
         $this->assign('post_categories', $postCategories);
         $this->assign('post_category_ids', $postCategoryIds);
 
-        $postCategories_vague  = $post->vague()->alias('a')->column('a.name', 'a.id');
-        $postCategoryIds_vague = implode(',', array_keys($postCategories_vague));
-        
-        $this->assign('post_categories_vague', $postCategories_vague);
-        $this->assign('post_category_ids_vague', $postCategoryIds_vague);
+        // 是否涉密人员
+        $is_sec = $post->frame()->alias('a')->value('pivot.is_sec');
+        $this->assign('is_sec', $is_sec);
+
+        // 部门职位
+        $frame_type = $post->frame()->alias('a')->value('pivot.type');
+        $this->assign('frame_type', $frame_type);
+
+        // dump($is_sec);
+        // 部门/单位负责人
+        $postCategories_resp  = $post->frame_resp()->alias('a')->column('a.name', 'a.id');
+        $postCategoryIds_resp = implode(',', array_keys($postCategories_resp));
+        $this->assign('post_categories_resp', $postCategories_resp);
+        $this->assign('post_category_ids_resp', $postCategoryIds_resp);
+
+        // 用户角色(是否涉密人员)
+        // $postCategories_secr  = $post->frame_secr()->alias('a')->column('a.name', 'a.id');
+        // $postCategoryIds_secr = implode(',', array_keys($postCategories_secr));
+        // $this->assign('post_categories_secr', $postCategories_secr);
+        // $this->assign('post_category_ids_secr', $postCategoryIds_secr);
+        $roleCategoryModel = new RoleCategoryModel();
+        $where      = ['delete_time' => 0];
+        $categories_role = $roleCategoryModel->where($where)->select();
+        // dump($categories_role);
+
+        // $postCategories_vague  = $post->vague()->alias('a')->column('a.name', 'a.id');
+        // $postCategoryIds_vague = implode(',', array_keys($postCategories_vague));
+        // $this->assign('post_categories_vague', $postCategories_vague);
+        // $this->assign('post_category_ids_vague', $postCategoryIds_vague);
 
         $postCategories_identity  = $post->identity()->alias('a')->column('a.name', 'a.id');
         $postCategoryIds_identity = implode(',', array_keys($postCategories_identity));
-        
         $this->assign('post_categories_identity', $postCategories_identity);
         $this->assign('post_category_ids_identity', $postCategoryIds_identity);
 
         $postCategories_role  = $post->role()->alias('a')->column('a.name', 'a.id');
         $postCategoryIds_role = implode(',', array_keys($postCategories_role));
-        
         $this->assign('post_categories_role', $postCategories_role);
         $this->assign('post_category_ids_role', $postCategoryIds_role);
         
         $this->assign('post', $post);
-
         return $this->fetch();
     }
 
@@ -370,13 +447,12 @@ class AdminIndexController extends AdminBaseController
             //     }
             // }
             if(empty($post['user_pass'])){
-                // $user['user_pass'] = '123456';
                 unset($post['user_pass']);
             }else{
                 $post['user_pass'] = cmf_password($post['user_pass']);
             }
             // dump($post);
-            $userModel->adminEditUser($post, $post['categories'], $post['categories_vague'], $post['categories_identity'], $post['categories_role']);
+            $userModel->adminEditUser($post, $post['categories'], $post['categories_identity']);
 
             $hookParam = [
                 'is_add'  => false,

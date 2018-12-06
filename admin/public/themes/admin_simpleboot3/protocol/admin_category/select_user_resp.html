@@ -1,0 +1,130 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <form method="post" class="js-ajax-form" action="{:url('AdminCategory/listorders')}">
+        <table class="table table-hover table-bordered table-list"  id="menus-table">
+            <thead>
+            <tr>
+                <th width="16">
+                    <label>
+                        <input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x">
+                    </label>
+                </th>
+                <th width="50">ID</th>
+                <th>单位负责人</th>
+            </tr>
+            </thead>
+            <tbody>
+                {$categories_tree}
+            
+           
+            </tbody>
+        </table>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+
+    $(document).ready(function () {
+        Wind.css('treeTable');
+        Wind.use('treeTable', function () {
+            $("#menus-table").treeTable({
+                indent: 20,
+                initialState: 'expanded'
+            });
+        });
+    });
+
+    $('#menus-table tbody tr').click(function (e) {
+
+        console.log(e);
+
+        var $this = $(this);
+        if ($(e.target).is('input')) {
+            return;
+        }
+
+        var $input = $this.find('input');
+        var this_id = $this.data('id');
+
+        if ($input.is(':checked')) {
+            $input.prop('checked', false);
+            statustree(this_id, false);
+        } else {
+            $input.prop('checked', true);
+            statustree(this_id, true);
+        }
+    });
+
+    $('#menus-table tbody tr input').click(function (e) {
+
+        // console.log(e);
+        e.stopPropagation();  // 阻止事件冒泡
+        var $this = $(this).parent().parent();
+        
+        // if ($(e.target).is('input')) {
+        //     return;
+        // }
+
+        var $input = $this.find('input');
+        // console.log($input);
+        var this_id = $this.data('id');
+
+        if ($input.is(':checked')) {
+            $input.prop('checked', true);
+            statustree(this_id, true);
+        } else {
+            $input.prop('checked', false);
+            statustree(this_id, false);
+        }
+    });
+
+    // 设置树形状态
+    function statustree(id, checked){
+        if($("#menus-table tbody tr[data-parent_id='"+id+"']").length > 0){
+            if(checked == true){
+                $("#menus-table tbody tr[data-parent_id='"+id+"']").find('input').prop('checked', true);
+            }else{
+                $("#menus-table tbody tr[data-parent_id='"+id+"']").find('input').prop('checked', false);
+            }
+            var nextid = $("#menus-table tbody tr[data-parent_id='"+id+"']").data('id');
+            statustree(nextid, checked);
+        }
+    }
+
+    function confirm() {
+        var selectedCategoriesId   = [];
+        var selectedCategoriesName = [];
+        var selectedCategories     = [];
+        var selectedCategoriesPlace= [];
+        $('.js-check:checked').each(function () {
+            var $this = $(this);
+
+            if($this.hasClass('user')){
+                selectedCategoriesId.push($this.val());
+                selectedCategoriesName.push($this.data('name'));
+
+                selectedCategories.push({
+                    id: $this.val(),
+                    name: $this.data('name')
+                });
+
+                var place_val = $this.closest('tr').find('select').val();
+                // console.log($this.closest('tr'));
+                // console.log(place_val);
+                selectedCategoriesPlace.push(place_val);
+            }
+            
+        });
+
+        return {
+            selectedCategories: selectedCategories,
+            selectedCategoriesId: selectedCategoriesId,
+            selectedCategoriesName: selectedCategoriesName,
+            selectedCategoriesPlace: selectedCategoriesPlace
+        };
+    }
+</script>
+</body>
+</html>

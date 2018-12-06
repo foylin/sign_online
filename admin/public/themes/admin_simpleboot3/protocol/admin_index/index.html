@@ -47,9 +47,7 @@
                         <input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x">
                     </label>
                 </th>
-                <notempty name="category">
-                    <th width="50">{:lang('SORT')}</th>
-                </notempty>
+                
                 <th width="50">ID</th>
                 <th>标题</th>
                 <th>分类</th>
@@ -69,12 +67,7 @@
                         <input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]"
                                value="{$vo.id}" title="ID:{$vo.id}">
                     </td>
-                    <notempty name="category">
-                        <td>
-                            <input name="list_orders[{$vo.post_category_id}]" class="input-order" type="text"
-                                   value="{$vo.list_order}">
-                        </td>
-                    </notempty>
+                    
                     <td><b>{$vo.id}</b></td>
                     <td>
                         <notempty name="category">
@@ -84,15 +77,10 @@
                         </notempty>
                     </td>
                     <td>
-                        <foreach name="vo.categories" item="voo">
-                            <span class="label label-default">
-                                <!-- <a href="{:cmf_url('portal/List/index',array('id'=>$voo['id']))}"
-                                   style="color: #fff;"
-                                   target="_blank"
-                                >{$voo.name}</a> -->
-                                {$voo.name}
-                            </span>&nbsp;
-                        </foreach>
+                        <span class="label label-default">
+                            {$vo.protocol_category_name}
+                        </span>&nbsp;
+                        
                     </td>
                     <!-- <td>{$vo.user_nickname}</td> -->
                     <!-- <td>{$vo.post_hits|default=0}</td> -->
@@ -126,7 +114,7 @@
                         <b style="color:#18BC9C;">{$vo['un_sign']}</b> 个用户未审核
                             <else>
                                 已全部审核
-                    </if>
+                        </if>
                     </td>
 
                     <td>
@@ -141,9 +129,7 @@
             <tr>
                 <th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x"
                                              data-checklist="js-check-x"></label></th>
-                <notempty name="category">
-                    <th width="50">{:lang('SORT')}</th>
-                </notempty>
+                
                 <th width="50">ID</th>
                 <th>标题</th>
                 <th>分类</th>

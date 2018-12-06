@@ -31,17 +31,7 @@ use function Qiniu\json_decode;
 class AdminIndexController extends AdminBaseController
 {
     /**
-     * 文章列表
-     * @adminMenu(
-     *     'name'   => '文章管理',
-     *     'parent' => 'protocol/AdminIndex/default',
-     *     'display'=> true,
-     *     'hasView'=> true,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '文章列表',
-     *     'param'  => ''
-     * )
+     * 协议任务列表
      */
     public function index()
     {
@@ -85,17 +75,8 @@ class AdminIndexController extends AdminBaseController
     }
 
     /**
-     * 添加文章
-     * @adminMenu(
-     *     'name'   => '添加文章',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> true,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '添加文章',
-     *     'param'  => ''
-     * )
+     * 添加协议书
+     * 
      */
     public function add()
     {
@@ -107,7 +88,7 @@ class AdminIndexController extends AdminBaseController
 
         $protocolCategoryModel = new ProtocolCategoryModel();
         $where = ['delete_time' => 0];
-        $categories_model = $protocolCategoryModel->field('id, name')->where($where)->select();
+        $categories_model = $protocolCategoryModel->field('id, name, mode_type')->where($where)->select();
         $this->assign('categories_model', $categories_model);
 
         $themeModel = new ThemeModel();
@@ -117,17 +98,7 @@ class AdminIndexController extends AdminBaseController
     }
 
     /**
-     * 添加文章提交
-     * @adminMenu(
-     *     'name'   => '添加文章提交',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> false,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '添加文章提交',
-     *     'param'  => ''
-     * )
+     * 添加协议书提交
      */
     public function addPost()
     {
@@ -165,8 +136,9 @@ class AdminIndexController extends AdminBaseController
                 }
             }
 
+            $mode_type = Db::name('protocol_category')->where(['id'=>$post['protocol_category_id']])->value('mode_type');
 
-            $protocolPostModel->adminAddArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user'], $data['post']['categories_user_one']);
+            $protocolPostModel->adminAddArticle($data['post'], $mode_type);
             // dump($data['post']['categories_user']);
             // Db::name('protocol_category_user_post')->where('place = 0 and post_id = '.$protocolPostModel->id)
             // ->update(['frame' => $data['post']['categories_user']]);
@@ -183,20 +155,23 @@ class AdminIndexController extends AdminBaseController
             // shell_exec("xvfb-run wkhtmltopdf ". $url .$filename);
 
             // 生成 pdf
-            $mode_id = $post['categories'];
+            $mode_id = $post['protocol_category_id'];
             
             $model_data = Db::name('protocol_category')->where('id='.$mode_id)->find();
             // dump($model_data);
             $model_data['more'] = json_decode($model_data['more'], true);
             $url = $model_data['more']['files'][0]['url'];
             
-                $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
-                $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$protocolPostModel->id.".pdf";
+            // word_to_pdf($url, $protocolPostModel->id);
+            
+            $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
+            $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/upload/protocol/pdf/".$protocolPostModel->id.".pdf";
 
-                $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
-                $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
-                $result = shell_exec($sh);
+            $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
+            $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
+            $result = shell_exec($sh);
 
+            // file_put_contents('sh.txt', $sh);
 
             $this->success('添加成功!', url('AdminIndex/edit', ['id' => $protocolPostModel->id]));
         }
@@ -204,16 +179,7 @@ class AdminIndexController extends AdminBaseController
     }
 
     /**
-     * 编辑文章
-     * @adminMenu(
-     *     'name'   => '编辑文章',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> true,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '编辑文章',
-     *     'param'  => ''
+     * 编辑协议
      * )
      */
     public function edit()
@@ -232,10 +198,12 @@ class AdminIndexController extends AdminBaseController
         $postCategoryIds = implode(',', array_keys($postCategories));
         $this->assign('post_categories', $postCategories);
         $this->assign('post_category_ids', $postCategoryIds);
-        // dump($postCategoryIds);
+        // dump($postCategories);
+
+        // 协议模板数据
         $protocolCategoryModel = new ProtocolCategoryModel();
         $where = ['delete_time' => 0];
-        $categories_model = $protocolCategoryModel->field('id, name')->where($where)->select();
+        $categories_model = $protocolCategoryModel->field('id, name, mode_type')->where($where)->select();
         $this->assign('categories_model', $categories_model);
         // dump($categories_model);
 
@@ -284,9 +252,9 @@ class AdminIndexController extends AdminBaseController
         // $postCategoryIds_user_place = implode(',', $postCategories_user_place);
         // $this->assign('post_category_places_user', $postCategoryIds_user_place);
 
-        $themeModel = new ThemeModel();
-        $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
-        $this->assign('article_theme_files', $articleThemeFiles);
+        // $themeModel = new ThemeModel();
+        // $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
+        // $this->assign('article_theme_files', $articleThemeFiles);
         $this->assign('post', $post);
         
 
@@ -295,24 +263,23 @@ class AdminIndexController extends AdminBaseController
         // $content = shell_exec('/usr/local/bin/antiword -m UTF-8.txt '.$filename);  
         // dump($content);
         // $this->assign('content', $content);
+        
+        // 不同协议模板类型,加载不同页面
+        // $mode_type = $post->categories()->alias('a')->value('a.mode_type');
+        // if($mode_type == 1){                    // 保密工作责任书
+        //     return $this->fetch('edit_1');
+        // }elseif($mode_type == 2){               // 员工保密承诺书
+        //     return $this->fetch('edit_2');
+        // }elseif($mode_type == 3){               // 涉密人员保证书
+        //     return $this->fetch('edit_3');
+        // }elseif($mode_type == 4){               // 涉密人员离岗保密承诺书
+        //     return $this->fetch('edit_4');
+        // }else{
+        //     return $this->fetch();
+        // }
+
         return $this->fetch();
-
-        // reference the Dompdf namespace
-            
-
-            // // instantiate and use the dompdf class
-            // $dompdf = new Dompdf();
-
-            // $header = "<style>* {font-family: simsun!important}</style>";
-
-            // $html = $header.$post['post_content'];
-
-            // $dompdf->loadHtml($html);
-
-            // // Render the HTML as PDF
-            // $dompdf->render();
-            // // Output the generated PDF to Browser
-            // $dompdf->stream();
+        
     }
 
     /**
@@ -362,10 +329,12 @@ class AdminIndexController extends AdminBaseController
                     array_push($data['post']['more']['files'], ["url" => $fileUrl, "name" => $data['file_names'][$key]]);
                 }
             }
-            // dump($data['post']);exit();
             
-            $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user'], $data['post']['categories_user_one']);
+            $mode_type = Db::name('protocol_category')->where(['id'=>$post['protocol_category_id']])->value('mode_type');
+            // dump($mode_type);exit();
 
+            // $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories_seal'], $data['post']['categories_user'], $data['post']['categories_user_one']);
+            $protocolPostModel->adminEditArticle($data['post'], $mode_type);
             $hookParam = [
                 'is_add' => false,
                 'article' => $data['post']
@@ -379,38 +348,25 @@ class AdminIndexController extends AdminBaseController
             // shell_exec("cd ".$cd_url." && xvfb-run wkhtmltopdf ". $url .$filename);
             
             // 生成 pdf
-            $mode_id = $post['categories'];
-            // dump($mode_id);
-            $model_data = Db::name('protocol_category')->where('id='.$mode_id)->find();
-            $model_data['more'] = json_decode($model_data['more'], true);
-            $url = $model_data['more']['files'][0]['url'];
+            // $mode_id = $post['protocol_category_id'];
+            // // dump($mode_id);
+            // $model_data = Db::name('protocol_category')->where('id='.$mode_id)->find();
+            // $model_data['more'] = json_decode($model_data['more'], true);
+            // $url = $model_data['more']['files'][0]['url'];
             
-                $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
-                $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$protocolPostModel->id.".pdf";
+            // $cd = "cd /www/wwwroot/wwfnba01/sign_online/admin/public/jodconverter-2.2.2/lib && ";
+            // $dir = " /www/wwwroot/wwfnba01/sign_online/admin/public/protocol/".$protocolPostModel->id.".pdf";
 
-                $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
-                $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
-                $result = shell_exec($sh);
-
+            // $docdir = "/www/wwwroot/wwfnba01/sign_online/admin/public/upload/".$url;
+            // $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
+            // $result = shell_exec($sh);
             $this->success('保存成功!');
-
-
-
         }
     }
 
     /**
-     * 文章删除
-     * @adminMenu(
-     *     'name'   => '文章删除',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> false,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '文章删除',
-     *     'param'  => ''
-     * )
+     * 协议任务删除
+     * 
      */
     public function delete()
     {
@@ -638,8 +594,38 @@ class AdminIndexController extends AdminBaseController
         $this->assign('post_categories_seal', $postCategories_seal);
         $this->assign('post_category_ids_seal', $postCategoryIds_seal);
 
-        $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login, sign_status, sign_url, notes, a.id AS user_id, pivot.id AS protocol_id, pivot.update_time', 'a.id');
-        // dump($postCategories_user);
+        $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login, sign_status, sign_url, notes, a.id AS user_id, pivot.post_id AS protocol_id, pivot.update_time', 'a.id');
+        $sign_status_option = [];
+        foreach ($postCategories_user as &$val) {
+            if(!$val['sign_url']){
+                $val['update_time'] = '';
+            }else{
+                $val['update_time'] = date('Y-m-d H:i', $val['update_time']);
+            }
+            $mode_type = Db::name('protocol_category')->alias('pc')
+            ->join('__PROTOCOL_POST__ pp', 'pp.protocol_category_id = pc.id')
+            ->where('pp.id = '.$val['protocol_id'])
+            ->value('pc.mode_type');
+            // $val['mode_type'] = $mode_type;
+            if($mode_type == 1){
+                $sign_status_option[-1] = '审核失败';
+                $sign_status_option[0] = '待签约';
+                $sign_status_option[1] = '已签约';
+                $sign_status_option[2] = '已审核';
+                $sign_status_option[9] = '签约成功';
+            }elseif($mode_type == 2){
+                $sign_status_option[-1] = '审核失败';
+                $sign_status_option[0] = '待签约';
+                $sign_status_option[1] = '员工已签约';
+                $sign_status_option[2] = '负责已人签约';
+                $sign_status_option[9] = '签约成功';
+            }elseif($mode_type == 3){
+                $sign_status_option[-1] = '审核失败';
+                $sign_status_option[0] = '待签约';
+                $sign_status_option[1] = '已签约';
+                $sign_status_option[9] = '签约成功';
+            }
+        }
         $postCategoryIds_user = implode(',', array_keys($postCategories_user));
         $this->assign('post_categories_user', $postCategories_user);
         $this->assign('post_category_ids_user', $postCategoryIds_user);
@@ -648,13 +634,7 @@ class AdminIndexController extends AdminBaseController
         $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
         $this->assign('article_theme_files', $articleThemeFiles);
         $this->assign('post', $post);
-        // dump($postCategories_user);
-
-        // $filename = '/home/lin/下载/四书模板/四书模板/xxxx保密工作责任书（通用部门）.doc';
-
-        // $content = shell_exec('/usr/local/bin/antiword -m UTF-8.txt '.$filename);  
-        // dump($post);
-        // $this->assign('content', $content);
+        $this->assign('sign_status_option', $sign_status_option);
         return $this->fetch();
     }
 
@@ -669,36 +649,7 @@ class AdminIndexController extends AdminBaseController
             unset($data['post']['recommended']);
 
             $post = $data['post'];
-            // $result = $this->validate($post, 'AdminIndex');
-            // if ($result !== true) {
-            //     $this->error($result);
-            // }
-
-            // $protocolPostModel = new ProtocolPostModel();
-
-            // if (!empty($data['photo_names']) && !empty($data['photo_urls'])) {
-            //     $data['post']['more']['photos'] = [];
-            //     foreach ($data['photo_urls'] as $key => $url) {
-            //         $photoUrl = cmf_asset_relative_url($url);
-            //         array_push($data['post']['more']['photos'], ["url" => $photoUrl, "name" => $data['photo_names'][$key]]);
-            //     }
-            // }
-
-            // if (!empty($data['file_names']) && !empty($data['file_urls'])) {
-            //     $data['post']['more']['files'] = [];
-            //     foreach ($data['file_urls'] as $key => $url) {
-            //         $fileUrl = cmf_asset_relative_url($url);
-            //         array_push($data['post']['more']['files'], ["url" => $fileUrl, "name" => $data['file_names'][$key]]);
-            //     }
-            // }
-
-            // $protocolPostModel->adminEditArticle($data['post'], $data['post']['categories'], $data['post']['categories_seal'], $data['post']['categories_user']);
-
-            // $hookParam = [
-            //     'is_add'  => false,
-            //     'article' => $data['post']
-            // ];
-            // hook('protocol_admin_after_save_article', $hookParam);
+            
 
             $update_id = $post['id'];
 
@@ -714,7 +665,7 @@ class AdminIndexController extends AdminBaseController
                     $save['update_time'] = null;
                 }
 
-                if($post['sign_status'][$key] == 2){
+                if($post['sign_status'][$key] == 9){
                     $sign_url = Db::name('protocol_category_user_post')->where('id='.$value)->value('sign_url');
                     if(!$sign_url){
                         $this->error('未签约用户无法通过审核');
@@ -730,8 +681,47 @@ class AdminIndexController extends AdminBaseController
         }
     }
 
+    /**
+     * PDF 导出
+     *
+     * @return void
+     */
     public function export()
     {
+
+        $protocol_id = $this->request->param('id', 0, 'intval');
+        $uid = $this->request->param('uid', 0, 'intval');
+
+        $user = Db::name('user')->where('id = '. $uid)->find();
+        $model_data = Db::name('protocol_category')->alias('pc')->field('pc.*')
+        ->join('__PROTOCOL_POST__ pp', 'pc.id = pp.protocol_category_id')
+        ->where('pp.id = '.$protocol_id)->find();
+        // dump($model_data);exit();
+        $protocol_data = Db::name('protocol_category_user_post')->where(['post_id' => $protocol_id, 'category_id' => $uid])->find();
+        if($protocol_data['view_file']){
+            $rename = 'upload/'.$protocol_data['view_file'];
+        }else{
+            $rename = 'upload/protocol/pdf/'.$protocol_id.'.pdf';
+
+        }
+
+        $output_name = $user['user_login'].'_'.$model_data['name'].'.pdf';
+        // rename($filename, $rename);
+        // echo exec('whoami');
+        // dump($url);
+        // $rename = 'upload/protocol/pdf/'.$protocol_id.'.pdf';
+        if(file_exists($rename)){
+            header("Content-type:application/pdf");
+            header("Content-Disposition:attachment;filename=".$output_name);
+            echo file_get_contents($rename);
+            //echo "{$rename}.pdf";
+            // unlink($rename);
+        }else{
+            exit;
+        }
+
+        exit();
+
         
         // require_once(ROOT_PATH . 'public/FPDI/fpdf.php');
         // require_once(ROOT_PATH . 'public/FPDI/fpdi.php');
@@ -876,8 +866,67 @@ class AdminIndexController extends AdminBaseController
         }
     }
 
+    /**
+     * 预览
+     *
+     * @return void
+     */
     public function view()
     {
+
+        $protocol_id = $this->request->param('id', 0, 'intval');
+        $uid = $this->request->param('uid', 0, 'intval');
+
+        $protocol_data = Db::name('protocol_category_user_post')->where(['post_id' => $protocol_id, 'category_id' => $uid])->find();
+        if($protocol_data['view_file']){
+            $this->redirect(cmf_get_domain().'/upload/'.$protocol_data['view_file']);
+        }else{
+            $this->redirect(cmf_get_domain().'/upload/protocol/pdf/'.$protocol_id.'.pdf');
+        }
+        exit();
+
+        // $user = Db::name('user')->where('id = '. $uid)->find();
+
+        // 协议书数据
+        $protocol_data = Db::name('protocol_post')->alias('pp')->join('__PROTOCOL_CATEGORY__ pc', 'pp.protocol_category_id = pc.id')
+        ->join('__PROTOCOL_CATEGORY_USER_POST__ pcup', 'pcup.post_id = pp.id')->where(['pp.id'=>$protocol_id, 'pcup.category_id' => $uid])
+        ->field('pp.id, pc.more, pc.mode_type, pcup.sign_status, pcup.place, pcup.sign_url')->find();
+        $protocol_data['more'] = json_decode($protocol_data['more'], true);
+
+        // 用户数据
+        $userframe_data = Db::name('frame_category')->alias('fc')->join('__FRAME_CATEGORY_POST__ fcp', 'fc.id = fcp.category_id')
+        ->where(['fcp.post_id' => $uid])->find();
+        $userframe_data['more'] = json_decode($userframe_data['more'], true);
+        
+        // dump($protocol_data);
+        // dump($userframe_data);exit();
+
+        // 保密工作责任书
+        if($protocol_data['mode_type'] == 1){
+            //待签约 添加部门印章
+            if($protocol_data['sign_status'] == 0){  
+                if(empty($userframe_data['more'])){
+                    $this->error('缺少所在部门印章图片');
+                }
+                $pdfdata['pic'] = cmf_get_image_preview_url($userframe_data['more']['thumbnail']);
+                $pdfdata['page'] = $protocol_data['more']['frame']['page'];
+                $position = explode(',', $protocol_data['more']['frame']['sign']);
+                $pdfdata['position'] = $position;
+
+                $filename = time() . '.pdf';
+
+                $original_file = ROOT_PATH . '/public/protocol/' . $protocol_id . '.pdf';
+                $result = edit_pdf($original_file, $pdfdata, $filename, 30);
+                dump($result);
+            }
+        }
+        exit();
+        $model_data = Db::name('protocol_category')->alias('pc')->field('pc.*')->join('__PROTOCOL_CATEGORY_POST__ pcp', 'pc.id = pcp.category_id')->where('pcp.post_id = '.$id)->find();
+
+
+
+
+
         // gettimeimg();exit();
         define('FPDF_FONTPATH',ROOT_PATH. 'public/FPDI/font/');
 
@@ -886,13 +935,6 @@ class AdminIndexController extends AdminBaseController
         Loader::import('FPDI.fpdi', EXTEND_PATH);
         $pdf = new \FPDI();
 
-        $id = $this->request->param('id', 0, 'intval');
-
-        $uid = $this->request->param('uid', 0, 'intval');
-        
-        $user = Db::name('user')->where('id = '. $uid)->find();
-
-        $model_data = Db::name('protocol_category')->alias('pc')->field('pc.*')->join('__PROTOCOL_CATEGORY_POST__ pcp', 'pc.id = pcp.category_id')->where('pcp.post_id = '.$id)->find();
         
         
         $model_data['more'] = json_decode($model_data['more'], true);
@@ -929,7 +971,27 @@ class AdminIndexController extends AdminBaseController
                 $seal_sign = explode(',', $seal_data['sign']);
             }
 
-            // dump($seal_sign);exit();
+            // 部门公章坐标数据
+            $frame_page = 0;
+            $frame_sign = [0 => 0, 1 => 1];
+            $frame_img = '';
+            $frame_user_post = Db::name('frame_category')->alias('fc')->join('__FRAME_CATEGORY_POST__ fcp', 'fcp.category_id = fc.id')
+            ->where(['fcp.post_id' => $uid])->field('fc.*')->find();
+            if($frame_user_post){
+                $frame_data = $model_data['more']['frame'];
+                // if($frame_data){
+                    $frame_page = $frame_data['page'];
+                    $frame_sign = explode(',', $frame_data['sign']);
+                // }
+                
+                $frame_img_arr = json_decode($frame_user_post['more'], true);
+                $frame_img = !empty($frame_img_arr['thumbnail']) ? cmf_get_image_preview_url($frame_img_arr['thumbnail']) : '';
+
+            }
+
+            
+
+            // dump($frame_user_post);exit();
 
             // 如果是承诺人签字,查找是否有负责人
             $user_post2 = null;
@@ -1004,7 +1066,12 @@ class AdminIndexController extends AdminBaseController
                     }
                 }
 
-                
+                // 插入部门公章
+                if($frame_page && $frame_img){
+                    if($pageNo == $frame_page){
+                        $pdf->image($frame_img, $frame_sign[0], $frame_sign[1], 30);
+                    }
+                }   
                 
             }
             $pdf->Output('F', $filename);

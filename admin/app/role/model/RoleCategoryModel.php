@@ -37,7 +37,7 @@ class RoleCategoryModel extends Model
             $where['id'] = ['neq', $currentCid];
         }
         $categories = $this->order("list_order ASC")->where($where)->select()->toArray();
-
+        // dump($categories);
         $tree       = new Tree();
         $tree->icon = ['&nbsp;&nbsp;│', '&nbsp;&nbsp;├─', '&nbsp;&nbsp;└─'];
         $tree->nbsp = '&nbsp;&nbsp;';

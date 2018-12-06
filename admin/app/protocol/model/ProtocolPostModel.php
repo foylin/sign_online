@@ -101,7 +101,7 @@ class ProtocolPostModel extends Model
      * @param array|string $categories 文章分类 id
      * @return $this
      */
-    public function adminAddArticle($data, $categories, $categories_seal, $categories_user, $categories_user_one)
+    public function adminAddArticle($data, $mode_type)
     {
         $data['user_id'] = cmf_get_current_admin_id();
         // $data['published_time'] = time();
@@ -122,17 +122,17 @@ class ProtocolPostModel extends Model
 
         // dump($save_id);
 
-        if (is_string($categories)) {
-            $categories = explode(',', $categories);
-        }
+        // if (is_string($categories)) {
+        //     $categories = explode(',', $categories);
+        // }
 
-        $this->categories()->save($categories);
+        // $this->categories()->save($categories);
 
         // 行政公章
-        if (is_string($categories_seal)) {
-            $categories_seal = explode(',', $categories_seal);
-        }
-        $this->categories_seal()->save($categories_seal);
+        // if (is_string($categories_seal)) {
+        //     $categories_seal = explode(',', $categories_seal);
+        // }
+        // $this->categories_seal()->save($categories_seal);
 
         // 承诺人或保证人
         // $frame_ids = $categories_user;
@@ -146,6 +146,29 @@ class ProtocolPostModel extends Model
         //     unset($key);
         //     unset($value);
         // }
+        $categories_user = $data['categories_user'];
+
+        // 员工保密承诺书  查找所选部门各自负责人
+        $categories_user_one = [];
+        if($mode_type == 2){
+            
+            $category_frame = Db::name('frame_category_post')->where(['post_id' => ['in', $categories_user]])->select();   
+            
+            foreach ($category_frame as $k_cf => $val_cf) {
+                $user_resp = Db::name('frame_category_post')->where(['category_id'=>$val_cf['category_id'], 'type' => 3])->value('post_id');
+                if($user_resp){
+                    $categories_user_one[] = $user_resp;
+                }
+            }
+            // dump($categories_user_one); exit();
+        }
+        // 部门负责人
+        // 负责人
+        if ($categories_user_one) {
+            // $categories_user_one = explode(',', $categories_user_one);
+            $this->categories_user()->attach($categories_user_one, ['place' => 1]);
+        }
+
         if (is_string($categories_user)) {
             $categories_user = explode(',', $categories_user);
         }
@@ -153,11 +176,7 @@ class ProtocolPostModel extends Model
         $this->categories_user()->save($categories_user);
 
 
-        // 负责人
-        if (is_string($categories_user_one) && $categories_user_one) {
-            $categories_user_one = explode(',', $categories_user_one);
-            $this->categories_user()->attach($categories_user_one, ['place' => 1]);
-        }
+        
 
         
 
@@ -177,9 +196,10 @@ class ProtocolPostModel extends Model
      * @param array|string $categories 文章分类 id
      * @return $this
      */
-    public function adminEditArticle($data, $categories, $categories_seal, $categories_user, $categories_user_one)
+    public function adminEditArticle($data, $mode_type)
     {
-
+        // $data = $post['post'];
+        $categories_user = $data['categories_user'];
         unset($data['user_id']);
 
         if (!empty($data['more']['thumbnail'])) {
@@ -197,113 +217,95 @@ class ProtocolPostModel extends Model
 
         $this->allowField(true)->isUpdate(true)->data($data, true)->save();
 
-        if (is_string($categories)) {
-            $categories = explode(',', $categories);
-        }
+        // if (is_string($categories)) {
+        //     $categories = explode(',', $categories);
+        // }
 
-        $oldCategoryIds        = $this->categories()->column('category_id');
-        $sameCategoryIds       = array_intersect($categories, $oldCategoryIds);
-        $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
-        $newCategoryIds        = array_diff($categories, $sameCategoryIds);
+        // $oldCategoryIds        = $this->categories()->column('category_id');
+        // $sameCategoryIds       = array_intersect($categories, $oldCategoryIds);
+        // $needDeleteCategoryIds = array_diff($oldCategoryIds, $sameCategoryIds);
+        // $newCategoryIds        = array_diff($categories, $sameCategoryIds);
 
-        if (!empty($needDeleteCategoryIds)) {
-            $this->categories()->detach($needDeleteCategoryIds);
-        }
+        // if (!empty($needDeleteCategoryIds)) {
+        //     $this->categories()->detach($needDeleteCategoryIds);
+        // }
 
-        if (!empty($newCategoryIds)) {
-            $this->categories()->attach(array_values($newCategoryIds));
-        }
+        // if (!empty($newCategoryIds)) {
+        //     $this->categories()->attach(array_values($newCategoryIds));
+        // }
 
 
         // 行政公章
         // dump($categories_seal);
-        if (is_string($categories_seal)) {
-            $categories_seal = explode(',', $categories_seal);
-            // $categories_seal_place = explode(',', $categories_seal_place);
-        }
+        // if (is_string($categories_seal)) {
+        //     $categories_seal = explode(',', $categories_seal);
+        //     // $categories_seal_place = explode(',', $categories_seal_place);
+        // }
 
-        $oldCategoryIds_seal        = $this->categories_seal()->column('category_id');
-        $sameCategoryIds_seal       = array_intersect($categories_seal, $oldCategoryIds_seal);
-        $needDeleteCategoryIds_seal = array_diff($oldCategoryIds_seal, $sameCategoryIds_seal);
-        $newCategoryIds_seal        = array_diff($categories_seal, $sameCategoryIds_seal);
+        // $oldCategoryIds_seal        = $this->categories_seal()->column('category_id');
+        // $sameCategoryIds_seal       = array_intersect($categories_seal, $oldCategoryIds_seal);
+        // $needDeleteCategoryIds_seal = array_diff($oldCategoryIds_seal, $sameCategoryIds_seal);
+        // $newCategoryIds_seal        = array_diff($categories_seal, $sameCategoryIds_seal);
         
-        if (!empty($needDeleteCategoryIds_seal)) {
-            $this->categories_seal()->detach($needDeleteCategoryIds_seal);
-        }
+        // if (!empty($needDeleteCategoryIds_seal)) {
+        //     $this->categories_seal()->detach($needDeleteCategoryIds_seal);
+        // }
 
-        if (!empty($newCategoryIds_seal)) {
-        //     foreach ($categories_seal as $nk_seal => $nv_seal) {
-        //         $this->categories_seal()->attach($nv_seal, ['place'=> $categories_seal_place[$nk_seal]]);
-        //     }
-            $this->categories_seal()->attach(array_values($newCategoryIds_seal));
-        }
+        // if (!empty($newCategoryIds_seal)) {
+        // //     foreach ($categories_seal as $nk_seal => $nv_seal) {
+        // //         $this->categories_seal()->attach($nv_seal, ['place'=> $categories_seal_place[$nk_seal]]);
+        // //     }
+        //     $this->categories_seal()->attach(array_values($newCategoryIds_seal));
+        // }
 
+        // 员工保密承诺书  查找所选部门各自负责人
+        $categories_user_one = [];
+        if($mode_type == 2){
+            
+            $category_frame = Db::name('frame_category_post')->where(['post_id' => ['in', $categories_user]])->select();   
+            
+            foreach ($category_frame as $k_cf => $val_cf) {
+                $user_resp = Db::name('frame_category_post')->where(['category_id'=>$val_cf['category_id'], 'type' => 3])->value('post_id');
+                if($user_resp){
+                    $categories_user_one[] = $user_resp;
+                }
+            }
+            // dump($categories_user_one); exit();
+        }
+        // 部门负责人
+        if ($categories_user_one) {
+            // $categories_user_one = explode(',', $categories_user_one);
+            $oldCategoryIds_user_one = $this->categories_user()->where('pivot.place = 1')->column('category_id');
+            $sameCategoryIds_user_one = array_intersect($categories_user_one, $oldCategoryIds_user_one);
+            $needDeleteCategoryIds_user_one = array_diff($oldCategoryIds_user_one, $sameCategoryIds_user_one);
+            $newCategoryIds_user_one = array_diff($categories_user_one, $sameCategoryIds_user_one);
+            if (!empty($needDeleteCategoryIds_user_one)) {
+                $this->categories_user()->detach($needDeleteCategoryIds_user_one);
+            }
+            if (!empty($newCategoryIds_user_one)) {
+                $this->categories_user()->attach(array_values($newCategoryIds_user_one), ['place' => 1]);
+            }
+        }else{
+            Db::name('protocol_category_user_post')->where('place = 1 and post_id = ' . $data['id'])->delete();
+        }
 
         // 承诺人或保证人
-        
-        
-        // $frame_ids = $categories_user;
         if (is_string($categories_user)) {
             $categories_user = explode(',', $categories_user);
-            // $categories_user = Db::name('frame_category_post')->where('category_id in ('.$categories_user.')')->group('post_id')->field('post_id, category_id')->select()->toArray();
-            // foreach ($categories_user as $key => $value) {
-            //     $categories_user_arr[] = $value['post_id'];
-                
-            // }
-            // $categories_user = $categories_user_arr;
-            // unset($key);
-            // unset($value);
         }
-        // dump($categories_user);
-        
 
         $oldCategoryIds_user        = $this->categories_user()->where('pivot.place = 0')->column('category_id');
-        // dump($oldCategoryIds_user);
         $sameCategoryIds_user       = array_intersect($categories_user, $oldCategoryIds_user);
         $needDeleteCategoryIds_user = array_diff($oldCategoryIds_user, $sameCategoryIds_user);
         $newCategoryIds_user        = array_diff($categories_user, $sameCategoryIds_user);
-
-        // dump($newCategoryIds_user);
         if (!empty($needDeleteCategoryIds_user)) {
             $this->categories_user()->detach($needDeleteCategoryIds_user);
         }
-
         if (!empty($newCategoryIds_user)) {
-            // foreach ($newCategoryIds_user as $key => $value) {
-                // $frame_id = Db::name('frame_category_post')->where('post_id = '.$value)->find();
-                // dump(Db::name('frame_category_post')->getLastSql());
-                // dump($frame_id);
-                // $this->categories_user()->attach($value, ['frame'=>$frame_ids]); 
-            // }
             $this->categories_user()->attach(array_values($newCategoryIds_user));
         }
         // Db::name('protocol_category_user_post')->where('place = 0 and post_id = '.$data['id'])
         // ->update(['frame'=>$frame_ids]);
-
-        // 负责人
-        
-        if (is_string($categories_user_one) && $categories_user_one) {
-            $categories_user_one = explode(',', $categories_user_one);
-            // dump($categories_user_one);
-            $oldCategoryIds_user_one        = $this->categories_user()->where('pivot.place = 1')->column('category_id');
-            $sameCategoryIds_user_one       = array_intersect($categories_user_one, $oldCategoryIds_user_one);
-            $needDeleteCategoryIds_user_one = array_diff($oldCategoryIds_user_one, $sameCategoryIds_user_one);
-            $newCategoryIds_user_one        = array_diff($categories_user_one, $sameCategoryIds_user_one);
-            if (!empty($needDeleteCategoryIds_user_one)) {
-                $this->categories_user()->detach($needDeleteCategoryIds_user_one);
-            }
-
-            if (!empty($newCategoryIds_user_one)) {
-                $this->categories_user()->attach(array_values($newCategoryIds_user_one), ['place'=>1]);
-            }
-        }
-        // dump($data);
-        if(empty($categories_user_one)){
-            Db::name('protocol_category_user_post')->where('place = 1 and post_id = '.$data['id'])->delete();
-        }
-
-        
-
 
 
         return $this;
