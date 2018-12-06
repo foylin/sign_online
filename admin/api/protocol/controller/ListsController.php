@@ -294,10 +294,10 @@ class ListsController extends RestUserBaseController
             $category_id = Db::name('frame_category_post')->where('post_id',$this->userId)->value('category_id');
             $frame = FrameCategoryModel::get($category_id);
             if(!$frame || empty($frame['more']['thumbnail'])) {
-                $this->error('请先设置相关部门印章未设置');
+                $this->error('部门印章未设置');
             }
             $seal_url = ROOT_PATH . '/public/upload/' . $frame['more']['thumbnail'];
-            if(!file_exists($seal_url)) $this->error('请先设置相关部门印章未设置');
+            if(!file_exists($seal_url)) $this->error('部门印章未设置');
 
             $origin_pdf_url = ROOT_PATH .'/public/upload/protocol/pdf/' . $post_id . '.pdf';
             $protocol = ProtocolPostModel::get($post_id);
@@ -317,6 +317,7 @@ class ListsController extends RestUserBaseController
             if(!$res) $this->error('网络出错');
             Db::name('protocol_category_user_post')->update(['is_add_sign'=>1,'view_file'=>$res,'id'=>$user_protocol['id']]);
         }
+        $_w = [];
         $this->success('ok');
     }
 

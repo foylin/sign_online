@@ -874,6 +874,21 @@ class AdminIndexController extends AdminBaseController
      */
     public function view()
     {
+        // $post_id = 81;
+        // $seal_url = ROOT_PATH . '/public/upload/frame/20181206/c5931e20a7d5e10f36eb9a0ded2bba59.png';
+        // $origin_pdf_url = ROOT_PATH .'/public/upload/protocol/pdf/' . $post_id . '.pdf';
+        
+        //     $_w = [
+        //         [
+        //             'pic'       => $seal_url,
+        //             'page'      => 1,
+        //             'position'  => explode(',', '100,100'),
+        //             'size'      => 30
+        //         ]
+        //     ];
+        //     $file = 'sign_'.$post_id.'_1234.pdf';
+        //     $res = edit_pdf($origin_pdf_url, $_w, $file);
+        //     exit();
 
         $protocol_id = $this->request->param('id', 0, 'intval');
         $uid = $this->request->param('uid', 0, 'intval');

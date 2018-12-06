@@ -250,13 +250,15 @@ class UploadController extends RestUserBaseController
                         'page'      => $more['axes'][1]['page'],
                         'position'  => explode(',',$more['axes'][1]['sign']),
                         'size'      => 50
-                    ],
-                    [
-                        'pic'       => $seal_url,
-                        'page'      => $more['seal']['page'],
-                        'position'  => explode(',',$more['seal']['sign']),
-                        'size'      => 30
                     ]
+                    // ,
+                    // [
+                    //     'pic'       => $seal_url,
+                    //     'page'      => $more['seal']['page'],
+                    //     'position'  => explode(',',$more['seal']['sign']),
+                    //     'size'      => 30
+                    // ]
+                    
                 ];
                 $file = 'sign_'.$findFile['post_id'].'_'.$v['category_id'].'.pdf';
                 $result = edit_pdf($origin_pdf_url, $_w, $file);

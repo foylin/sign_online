@@ -9,6 +9,7 @@ return [
     // 服务器地址
     // 'hostname' => '47.105.138.160',
     'hostname' => 'localhost',
+    
     // 数据库名
     'database' => 'wwfnba01',
     // 'database' => 'sign_online',
