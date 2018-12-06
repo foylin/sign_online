@@ -1,6 +1,6 @@
 <import src="../../wxParse/wxParse.wxml"/>
 
-<web-view src="{{view_url}}"></web-view>
+<web-view src="{{view_url}}" bindmessage="dd"></web-view>
 
 <view class="page">
     <!-- <view class="page__bd_spacing">

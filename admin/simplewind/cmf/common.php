@@ -16,6 +16,7 @@ use think\Route;
 use think\Loader;
 use think\Request;
 use cmf\lib\Storage;
+use api\protocol\model\ProtocolPostModel;
 
 // 应用公共文件
 
@@ -2108,8 +2109,6 @@ function createpdf($id, $uid){
             $seal_sign = explode(',', $seal_data['sign']);
         }
 
-        // dump($seal_sign);exit();
-
         // 如果是承诺人签字,查找是否有负责人
         $user_post2 = null;
         if($user_post['place'] == 0){
@@ -2184,5 +2183,137 @@ function createpdf($id, $uid){
         }
         $pdf->Output('F', $filename);
 
+    }
+}
+
+/**
+ * word 生成 pdf
+ *
+ * @param [type] $url
+ * @param [type] $protocol_id
+ * @return void
+ */
+function word_to_pdf($url, $protocol_id){
+    $cd = "cd /var/www/sign_online/admin/public/jodconverter-2.2.2/lib && ";
+    $dir = " /var/www/sign_online/admin/public/upload/protocol/pdf/".$protocol_id.".pdf";
+
+    $docdir = " /var/www/sign_online/admin/public/upload/".$url;
+    $sh = $cd . " java -jar jodconverter-cli-2.2.2.jar ".$docdir.$dir;
+    $result = shell_exec($sh);
+}
+
+
+/**
+ * 编辑协议书 PDF 文档
+ *
+ * @param [type] $original_file  原始文件  绝对路劲
+ * @param [type] $data      需要插入数据 ['pic'=> '图片地址', 'page' => '插入页数', 'position' => [100, 200]]
+ * @param [type] $filename  生成文件名,无法中文,原因不明   
+ * @param [type] $picsize   图片尺寸,印章:30,签名:50
+ * @return void
+ */
+function edit_pdf($original_file, $data = [], $filename = 'test.pdf', $picsize = 30){
+    
+    // 指定字体路劲
+    define('FPDF_FONTPATH', ROOT_PATH . 'public/FPDI/font/');
+
+
+    Loader::import('FPDI.fpdf', EXTEND_PATH);
+    Loader::import('FPDI.fpdi', EXTEND_PATH);
+    $pdf = new \FPDI();
+
+    $pdf->AddGBFont('sinfang', '仿宋_GB2312');
+    $pdf->SetFont('sinfang', '', 16);
+    $protocol_id = 31;
+    // $pageCount = $pdf->setSourceFile(ROOT_PATH . '/public/upload/protocol/pdf/' . $protocol_id . '.pdf');
+    $pageCount = $pdf->setSourceFile($original_file);
+
+    for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+        $templateId = $pdf->importPage($pageNo);
+        $size = $pdf->getTemplateSize($templateId);
+        if ($size['w'] > $size['h'])
+            $pdf->AddPage('L', array($size['w'], $size['h']));
+        else
+            $pdf->AddPage('P', array($size['w'], $size['h']));
+        $pdf->useTemplate($templateId);
+
+        foreach($data as $k=>$v) {
+            $pic = $v['pic'];
+            $page = $v['page'];
+            $position = $v['position'];
+            $fsize = $v['size'];
+            if($pageNo == $page) {
+                $pdf->image($pic, $position[0], $position[1], $fsize);
+            }
+        }
+
+    }
+
+    // $pic = $data['pic'];
+    // $page = $data['page'];
+    // $position = $data['position'];
+
+    // for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+    //     $templateId = $pdf->importPage($pageNo);
+    //     $size = $pdf->getTemplateSize($templateId);
+    //     if ($size['w'] > $size['h'])
+    //         $pdf->AddPage('L', array($size['w'], $size['h']));
+    //     else
+    //         $pdf->AddPage('P', array($size['w'], $size['h']));
+    //     $pdf->useTemplate($templateId);
+    //     if($pageNo == $page){
+    //         $pdf->image($pic, $position[0], $position[1], $picsize);
+    //     }
+    // }
+    $root = ROOT_PATH . 'public/upload/';
+    $filename = 'view/' . $filename;
+    $pdf->Output($root.$filename,"F");
+    // 結束 FPDI 剖析器  
+    $pdf->cleanUp();
+
+    return $filename;
+}
+
+
+//pu_id: 对应protocol_category_user_post的ID
+function seal($post_id, $uid, $type=0, $pic_url='', $origin_pdf_url='',$place=0) {
+
+    $size = 30;
+    if(!$post_id) return 0;
+    $protocol = ProtocolPostModel::get($post_id);
+    $more = $protocol->categories->more;
+    if($type == 0) {
+        //生成签名
+        
+        if($place == 0) {
+            $res = $more['axes'][0];
+        }else if($place == 1) {
+            $res = $more['axes'][1];
+        }
+        
+        $size = 50;
+    }else if($type == 1) {
+        //保密委
+        $res = $more['seal'];
+    }else if($type == 2) {
+        //部门盖章
+        $res = $more['frame'];
+    }
+    if($origin_pdf_url == '') {
+        $origin_pdf_url = ROOT_PATH .'/public/upload/protocol/pdf/' . $post_id . '.pdf';
+    }
+    
+    $sign2 = explode(',',$res['sign']);
+    $write_data = [
+        'pic'           => $pic_url,
+        'page'          => $res['page'],
+        'position'      => $sign2
+    ];
+
+    $file_name = 'sign_'.$post_id.'_'.$uid.'.pdf';
+    try {
+        return edit_pdf($origin_pdf_url, $write_data, $file_name, $size);
+    }catch (\Exception $e) {
+        return 0;
     }
 }

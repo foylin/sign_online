@@ -52,9 +52,10 @@ Page({
         api.get({
             url: 'protocol/lists',
             data: {
+                page: this.currentPageNumber,
                 order:'-published_time',
                 token: wx.getStorageSync('token'),
-                status: 2
+                status: 1
             },
             success: data => {
                 let newItems = api.updatePageList('id', data.data.list, this.formatListItem, true);
@@ -98,7 +99,7 @@ Page({
                 page: this.currentPageNumber,
                 order:'-published_time',
                 token: wx.getStorageSync('token'),
-                status: 2
+                status: 1
             },
             success: data => {
                 let newItems = api.updatePageList('id', data.data.list, this.formatListItem);
@@ -141,8 +142,11 @@ Page({
         let id = e.currentTarget.dataset.id;
         let status = e.currentTarget.dataset.status;
         let uid = e.currentTarget.dataset.uid;
+        let type = e.currentTarget.dataset.type;
+        let usertype = e.currentTarget.dataset.usertype; 
+        let pcup_id = e.currentTarget.dataset.pcup_id;
         wx.navigateTo({
-            url: '/pages/protocol/protocol?id=' + id + '&status=' + status + '&uid=' + uid
+          url: '/pages/protocol/protocol?id=' + id + '&status=' + status + '&uid=' + uid + '&type=' + type + '&usertype=' + usertype + '&pcup_id=' + pcup_id
         });
 
     },
