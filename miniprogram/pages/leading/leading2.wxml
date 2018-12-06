@@ -9,7 +9,6 @@
                     {{item.post_title}}
                     
                     <view class="weui-media-box__desc mt6">
-
                         <span wx:if="{{item.sign_status == -1}}" class="weui-badge ">审核失败</span>
                         <span wx:elif="{{item.sign_status == 1}}" class="weui-badge ">已签约,待部门负责人签约</span>
                         <span wx:elif="{{item.sign_status >= 2}}" class="weui-badge sign-status">部门负责人已签约</span>
@@ -25,7 +24,6 @@
 
     <view class="signv" bindtap="subsign" data-id="{{post_id}}">
         <view class="" style="text-align:center;color:#fff;">统一签名</view>
-        
     </view>
     
 </view>

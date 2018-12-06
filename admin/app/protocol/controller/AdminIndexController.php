@@ -594,7 +594,8 @@ class AdminIndexController extends AdminBaseController
         $this->assign('post_categories_seal', $postCategories_seal);
         $this->assign('post_category_ids_seal', $postCategoryIds_seal);
 
-        $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login, sign_status, sign_url, notes, a.id AS user_id, pivot.post_id AS protocol_id, pivot.update_time', 'a.id');
+        $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login, sign_status, sign_url, notes, a.id AS user_id, pivot.post_id AS protocol_id, pivot.update_time, pivot.id AS protocol_user_post_id', 'a.id');
+        // dump($postCategories_user);
         $sign_status_option = [];
         foreach ($postCategories_user as &$val) {
             if(!$val['sign_url']){
@@ -650,9 +651,9 @@ class AdminIndexController extends AdminBaseController
 
             $post = $data['post'];
             
-
+            
             $update_id = $post['id'];
-
+            // dump($update_id);
             foreach ($update_id as $key => $value) {
                 # code...
                 $save['id'] = $value;
@@ -667,6 +668,7 @@ class AdminIndexController extends AdminBaseController
 
                 if($post['sign_status'][$key] == 9){
                     $sign_url = Db::name('protocol_category_user_post')->where('id='.$value)->value('sign_url');
+                    // dump($sign_url);
                     if(!$sign_url){
                         $this->error('未签约用户无法通过审核');
                     }
