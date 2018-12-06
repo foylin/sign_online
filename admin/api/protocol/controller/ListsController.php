@@ -264,12 +264,14 @@ class ListsController extends RestUserBaseController
         // $res = seal($post_id, $pro_user['category_id'], 1, $seal_url, $origin_pdf_url);
         $protocol = ProtocolPostModel::get($post_id);
         $more = $protocol->categories->more;
-        $_w = [];
+        
         $_w = [
-            'pic'       => $seal_url,
-            'page'      => $more['seal']['page'],
-            'position'  => explode(',', $more['seal']['sign']),
-            'size'      => 30
+            [
+                'pic'       => $seal_url,
+                'page'      => $more['seal']['page'],
+                'position'  => explode(',', $more['seal']['sign']),
+                'size'      => 30
+            ]
         ];
         $file = 'sign_'.$pro_user['post_id'].'_'.$pro_user['category_id'].'.pdf';
         $res = edit_pdf($origin_pdf_url, $_w, $file);
@@ -278,6 +280,43 @@ class ListsController extends RestUserBaseController
         //更新状态
         Db::name('protocol_category_user_post')->update(['id'=>$pcup_id,'sign_status'=>2,'view_file'=>$res]);
 
+        $this->success('ok');
+    }
+
+    public function checkSign() {
+
+        $post_id = $this->request->param('post_id', 0, 'intval');
+        $uid = $this->request->param('uid', 0, 'intval');
+
+        $user_protocol = Db::name('protocol_category_user_post')->where(['post_id'=>$post_id,'category_id'=>$uid])->find();
+        if($user_protocol['is_add_sign'] == 0 ) {
+            //添加部门印章
+            $category_id = Db::name('frame_category_post')->where('post_id',$this->userId)->value('category_id');
+            $frame = FrameCategoryModel::get($category_id);
+            if(!$frame || empty($frame['more']['thumbnail'])) {
+                $this->error('请先设置相关部门印章未设置');
+            }
+            $seal_url = ROOT_PATH . '/public/upload/' . $frame['more']['thumbnail'];
+            if(!file_exists($seal_url)) $this->error('请先设置相关部门印章未设置');
+
+            $origin_pdf_url = ROOT_PATH .'/public/upload/protocol/pdf/' . $post_id . '.pdf';
+            $protocol = ProtocolPostModel::get($post_id);
+            $more = $protocol->categories->more;
+            // $_w = [];
+            $_w = [
+                [
+                    'pic'       => $seal_url,
+                    'page'      => $more['frame']['page'],
+                    'position'  => explode(',', $more['frame']['sign']),
+                    'size'      => 30
+                ]
+            ];
+            // $this->success('ok',$_w);
+            $file = 'sign_'.$post_id.'_'.$uid.'.pdf';
+            $res = edit_pdf($origin_pdf_url, $_w, $file);
+            if(!$res) $this->error('网络出错');
+            Db::name('protocol_category_user_post')->update(['is_add_sign'=>1,'view_file'=>$res,'id'=>$user_protocol['id']]);
+        }
         $this->success('ok');
     }
 

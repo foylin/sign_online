@@ -127,7 +127,12 @@ class UploadController extends RestUserBaseController
             }
 
             $file = 'sign_'.$findFile['post_id'].'_'.$findFile['category_id'].'.pdf';
-            $origin_pdf_url = ROOT_PATH .'/public/upload/protocol/pdf/' . $findFile['post_id'] . '.pdf';
+            if(!empty($findFile['view_file'])) {
+                $origin_pdf_url = ROOT_PATH .'/public/upload/' . $findFile['view_file'];
+            }else {
+                $origin_pdf_url = ROOT_PATH .'/public/upload/protocol/pdf/' . $findFile['post_id'] . '.pdf';
+            }
+            
             $result = edit_pdf($origin_pdf_url, $_w, $file);
 
             if($result) {

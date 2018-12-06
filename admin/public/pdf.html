@@ -47,13 +47,14 @@
         var desc = '';
         var count = 0;
         var host1 = 'https://sscx.karles.com.cn/web/viewer.html';
-        var host = 'http://192.168.1.105/sign_online/admin/public/web/viewer.html';
+        var host = 'http://192.168.1.124/sign_online/admin/public/web/viewer.html';
         
         if(sign_status == 0){
-            $('iframe').attr('src', host1 + '?file=/upload/protocol/pdf/'+protocol_id+'.pdf');
+            // $('iframe').attr('src', host1 + '?file=/upload/protocol/pdf/'+protocol_id+'.pdf');
+            $('iframe').attr('src', host + '?file=/upload/view/sign_'+protocol_id+'_'+uid+'.pdf');
             // $('iframe').attr('src', host1 + '?file=/sign_online/admin/public/protocol/'+protocol_id+'.pdf');
         }else{
-            $('iframe').attr('src', host1 + '?file=/upload/view/sign_'+protocol_id+'_'+uid+'.pdf');
+            $('iframe').attr('src', host + '?file=/upload/view/sign_'+protocol_id+'_'+uid+'.pdf');
         }
         
         // id=undefined&status=2&uid=12&type=2&usertype=2&pcup_id=230

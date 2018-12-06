@@ -164,9 +164,46 @@ Page({
         let type = e.currentTarget.dataset.type;
         let usertype = e.currentTarget.dataset.usertype; 
         let pcup_id = e.currentTarget.dataset.pcup_id;
-        wx.navigateTo({
-          url: '/pages/protocol/protocol?id=' + id + '&status=' + status + '&uid=' + uid + '&type=' + type + '&usertype=' + usertype + '&pcup_id=' + pcup_id
-        });
+        
+        //检查是否已添加部门盖章
+        if(this.data.user.user_type == 2) {
+            wx.showLoading({title: '加载中...',})
+            api.get({
+                url: 'protocol/lists/checkSign',
+                data: {
+                    post_id: id,
+                    uid: uid
+                },
+                success: data => {
+                    wx.hideLoading()
+                    
+                    if(data.code == 0) {
+                        wx.showToast({
+                            title: data.msg,
+                            icon: 'loading',
+                            duration:1000
+                        });
+                        return !1;
+                    }else if(data.code == 1) {
+                        wx.navigateTo({
+                            url: '/pages/protocol/protocol?id=' + id + '&status=' + status + '&uid=' + uid + '&type=' + type + '&usertype=' + usertype + '&pcup_id=' + pcup_id
+                        });
+                    }
+                },
+                complete: () => {
+                    wx.hideLoading()
+                    this.setData({
+                        loadingMore: false
+                    });
+                    wx.hideNavigationBarLoading();
+                }
+            });
+        }else {
+            wx.navigateTo({
+                url: '/pages/protocol/protocol?id=' + id + '&status=' + status + '&uid=' + uid + '&type=' + type + '&usertype=' + usertype + '&pcup_id=' + pcup_id
+            });
+        }
+        
 
     },
     onListItemMoreTap(e) {
