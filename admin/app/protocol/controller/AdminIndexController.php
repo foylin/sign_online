@@ -594,7 +594,7 @@ class AdminIndexController extends AdminBaseController
         $this->assign('post_categories_seal', $postCategories_seal);
         $this->assign('post_category_ids_seal', $postCategoryIds_seal);
 
-        $postCategories_user = $post->categories_user()->alias('a')->column('a.user_login, sign_status, sign_url, notes, a.id AS user_id, pivot.post_id AS protocol_id, pivot.update_time, pivot.id AS protocol_user_post_id', 'a.id');
+        $postCategories_user = $post->categories_user()->alias('a')->where('pivot.place = 0')->column('a.user_login, sign_status, sign_url, notes, a.id AS user_id, pivot.post_id AS protocol_id, pivot.update_time, pivot.id AS protocol_user_post_id', 'a.id');
         // dump($postCategories_user);
         $sign_status_option = [];
         foreach ($postCategories_user as &$val) {
