@@ -35,9 +35,6 @@ Page({
         this.getData(params.post_id);
     },
     onShow() {
-        
-
-        
 
     },
     getData(post_id) {
@@ -202,4 +199,6 @@ Page({
             url: '/pages/sign/sign?protocol_id='+protocol_id+'&type=1'
         })
     }
+
+    
 });
