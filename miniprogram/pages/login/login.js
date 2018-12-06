@@ -1,7 +1,10 @@
 var api = require('../../utils/api.js')
 var app = getApp()
 Page({
-    data: {},
+    data: {
+        username: '',
+        password: ''
+    },
 
     onLoad() {
         // console.log(wx.getStorageSync('token'));
@@ -10,11 +13,20 @@ Page({
     },
     formSubmit: function (e) {
         //console.log(api.json2Form(e.detail.value));
-        console.log(e.detail.value);
-        e.detail.value.device_type = 'wxapp';
+        // console.log(e.detail.value);
+
+        // e.detail.value.device_type = 'wxapp';
+        let {username, password} = this.data;
+        let d = {
+            username:username, 
+            password:password, 
+            device_type: 'wxapp'
+        }
+        console.log(d);
         api.post({
             url: 'user/public/login',
-            data: e.detail.value,
+            // data: e.detail.value,
+            data: d,
             success: data => {
                 if (data.code == 0) {
                     wx.showModal({
@@ -60,5 +72,17 @@ Page({
     },
     handleGetUserInfo(){
         api.login();
+    },
+    keyName :function(e) {
+        let { value } = e.detail;
+        this.setData({
+            username:value
+        })
+    },
+    keyPwd :function(e) {
+        let { value } = e.detail;
+        this.setData({
+            password:value
+        })
     }
 })

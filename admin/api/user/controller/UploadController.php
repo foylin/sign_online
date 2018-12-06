@@ -273,7 +273,7 @@ class UploadController extends RestUserBaseController
             // createpdf($param['protocol_id'], $this->userId);
             // dump(Db::name('protocol_category_user_post')->getLastSql());
 
-            $this->success("上传成功!", ['url' => $saveName]);
+            $this->success("上传成功!", ['url' => $saveName,'data'=>$data]);
         } else {
             // 上传失败获取错误信息
             $this->error($file->getError());
