@@ -13,7 +13,7 @@ var tryingLogin = false;
 
 module.exports = {
     HOST: host,
-    API_ROOT: host + '/api/index.php/',
+    API_ROOT: host + '/api/',
     API_VERSION: '1.1.0',
     post(options) {
         this.request(options);
