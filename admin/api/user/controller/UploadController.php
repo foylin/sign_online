@@ -121,7 +121,7 @@ class UploadController extends RestUserBaseController
                     'pic'       => $seal_url,
                     'page'      => $more['seal']['page'],
                     'position'  => explode(',', $more['seal']['sign']),
-                    'size'      => 30
+                    'size'      => 40
                 ];
                 array_push($_w, $write_data2);
             }

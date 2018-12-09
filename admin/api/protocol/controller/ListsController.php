@@ -270,7 +270,7 @@ class ListsController extends RestUserBaseController
                 'pic'       => $seal_url,
                 'page'      => $more['seal']['page'],
                 'position'  => explode(',', $more['seal']['sign']),
-                'size'      => 30
+                'size'      => 40
             ]
         ];
         $file = 'sign_'.$pro_user['post_id'].'_'.$pro_user['category_id'].'.pdf';
@@ -316,7 +316,7 @@ class ListsController extends RestUserBaseController
                     'pic'       => $seal_url,
                     'page'      => $more['frame']['page'],
                     'position'  => explode(',', $more['frame']['sign']),
-                    'size'      => 30
+                    'size'      => 40
                 ]
             ];
             // $this->success('ok',$_w);

@@ -80,7 +80,7 @@
                     </tr>
 
                     <tr>
-                        <th width="100" rowspan="{$sign_user_count}">签约用户</th>
+                        <th width="100" rowspan="{$sign_user_count+1}">签约用户</th>
                         
                     </tr>
 
@@ -126,63 +126,6 @@
                     </tr>
                     </foreach>
                     
-                    
-                    <!-- <tr>
-                        <th>协议书</th>
-                        <td>
-                            <ul id="files" class="pic-list list-unstyled form-inline">
-                                <notempty name="post.more.files">
-                                    <foreach name="post.more.files" item="vo">
-                                        <php>$file_url=cmf_get_file_download_url($vo['url']);</php>
-                                        <li id="saved-file{$key}">
-                                            <input id="file-{$key}" type="hidden" name="file_urls[]"
-                                                   value="{$vo.url}">
-                                            <input class="form-control" id="file-{$key}-name" type="text"
-                                                   name="file_names[]"
-                                                   value="{$vo.name}" style="width: 200px;" title="图片名称">
-                                            <a id="file-{$key}-preview" href="{$file_url}" target="_blank">下载</a>
-                                            <a href="javascript:uploadOne('文件上传','#file-{$key}','file');">替换</a>
-                                            <a href="javascript:(function(){$('#saved-file{$key}').remove();})();">移除</a>
-                                        </li>
-                                    </foreach>
-                                </notempty>
-                            </ul>
-                            <a href="javascript:uploadMultiFile('附件上传','#files','files-item-tpl','file');"
-                               class="btn btn-sm btn-default">选择文件</a>
-                        </td>
-                    </tr> -->
-
-                    <!-- <tr>
-                        <th>协议内容</th>
-                        <td>
-                            <script type="text/plain" id="content" name="post[post_content]">{$post['post_content']}</script>
-                        </td>
-                    </tr> -->
-                    <!-- <tr>
-                        <th>音频</th>
-                        <td class="form-inline">
-                            <input id="file-audio" class="form-control" type="text" name="post[more][audio]"
-                                   value="{$post.more.audio|default=''}" placeholder="请上传音频文件" style="width: 200px;">
-                            <notempty name="post.more.audio">
-                                <a id="file-audio-preview" href="{:cmf_get_file_download_url($post.more.audio)}"
-                                   target="_blank">下载</a>
-                            </notempty>
-
-                            <a href="javascript:uploadOne('文件上传','#file-audio','audio');">上传</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>视频</th>
-                        <td class="form-inline">
-                            <input id="file-video" class="form-control" type="text" name="post[more][video]"
-                                   value="{$post.more.video|default=''}" placeholder="请上传视频文件" style="width: 200px;">
-                            <notempty name="post.more.video">
-                                <a id="file-video-preview" href="{:cmf_get_file_download_url($post.more.video)}"
-                                   target="_blank">下载</a>
-                            </notempty>
-                            <a href="javascript:uploadOne('文件上传','#file-video','video');">上传</a>
-                        </td>
-                    </tr> -->
                 </table>
 
                 <hook name="portal_admin_article_edit_view_main"/>
@@ -193,6 +136,7 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
                 <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+                <a id="check_all" class="btn btn-success" href="javascript:;">批量审核</a>
             </div>
         </div>
     </form>
@@ -319,7 +263,7 @@
     var topNoUrl        = "{:url('AdminIndex/top',array('no'=>1))}";
     var recommendYesUrl = "{:url('AdminIndex/recommend',array('yes'=>1))}";
     var recommendNoUrl  = "{:url('AdminIndex/recommend',array('no'=>1))}";
-
+    
     var postId = $('#post-id').val();
 
     //发布操作
@@ -410,6 +354,23 @@
             });
         }
     });
+
+    $('#check_all').click(function () {
+        $.ajax({
+            url: "{:url('AdminIndex/checkall',array())}", 
+            type: "post", 
+            dataType: "json", 
+            data: { 
+                protocol_id: postId,
+                user_count: "{$sign_user_count}"
+            }, 
+            success: function (data) {
+                if(data.code == 0){
+                    alert(data.msg);
+                }
+            }
+        });
+    })
 
 
 </script>
