@@ -11,9 +11,10 @@ Page({
         searchInputShowed: false,
         searchInputVal: "",
         searchingResult: false,
-        searchKeyword: ""
+        searchKeyword: "",
+        currentPageNumber: 1,
     },
-    currentPageNumber: 1,
+    
     onLoad() {
         // api.checkLogin();
 
@@ -111,16 +112,17 @@ Page({
             loadingMore: true
         });
         wx.showNavigationBarLoading();
-
+        console.log('pullUpLoad',this.data.currentPageNumber)
         api.get({
             url: 'protocol/lists',
             data: {
-                page: this.currentPageNumber,
+                page: this.data.currentPageNumber,
                 order:'-published_time',
                 token: wx.getStorageSync('token'),
                 status: 'all'
             },
             success: data => {
+                // api.deletePageListItem('id');
                 let newItems = api.updatePageList('id', data.data.list, this.formatListItem);
                 console.log(newItems);
                 this.setData({
