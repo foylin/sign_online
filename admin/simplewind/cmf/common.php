@@ -2215,7 +2215,7 @@ function word_to_pdf($url, $protocol_id){
 function edit_pdf($original_file, $data = [], $filename = 'test.pdf', $picsize = 30){
     
     // 指定字体路劲
-    define('FPDF_FONTPATH', ROOT_PATH . 'public/FPDI/font/');
+    // define('FPDF_FONTPATH', ROOT_PATH . 'public/FPDI/font/');
 
 
     Loader::import('FPDI.fpdf', EXTEND_PATH);
@@ -2224,7 +2224,7 @@ function edit_pdf($original_file, $data = [], $filename = 'test.pdf', $picsize =
 
     $pdf->AddGBFont('sinfang', '仿宋_GB2312');
     $pdf->SetFont('sinfang', '', 16);
-    $protocol_id = 31;
+    // $protocol_id = 31;
     // $pageCount = $pdf->setSourceFile(ROOT_PATH . '/public/upload/protocol/pdf/' . $protocol_id . '.pdf');
     $pageCount = $pdf->setSourceFile($original_file);
 

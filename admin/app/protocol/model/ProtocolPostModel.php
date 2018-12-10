@@ -14,6 +14,7 @@ use app\admin\model\RouteModel;
 use think\Model;
 use think\Db;
 // use App\Controller\Db;
+use app\frame\model\FrameCategoryModel;
 
 class ProtocolPostModel extends Model
 {
@@ -39,9 +40,11 @@ class ProtocolPostModel extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany('protocolCategoryModel', 'protocol_category_post', 'category_id', 'post_id');
+        // return $this->belongsToMany('protocolCategoryModel', 'protocol_category_post', 'category_id', 'post_id');
+        return $this->hasOne('ProtocolCategoryModel','id','protocol_category_id');
     }
 
+    
     public function categories_seal()
     {
         return $this->belongsToMany('SealCategoryModel', 'protocol_category_seal_post', 'category_id', 'post_id');
@@ -504,4 +507,47 @@ class ProtocolPostModel extends Model
         return $this;
     }
 
+
+    /**
+     * 添加保密委印章
+     *
+     * @param [type] $protocol_id
+     * @param [type] $userid
+     * @return void
+     */
+    public function add_bmw($protocol_id, $userid)
+    {
+        $where['post_id'] = $protocol_id;
+        $where['category_id'] = $userid;
+        $findFile = Db::name('protocol_category_user_post')->where($where)->find();
+        $protocol = $this::get($findFile['post_id']);
+        // dump($protocol);
+        $more = $protocol->categories->more;
+
+        $frame = FrameCategoryModel::get(999);
+        if (!$frame || empty($frame['more']['thumbnail'])) {
+            $this->error('保密委公章未设置');
+        }
+        $seal_url = ROOT_PATH . '/public/upload/' . $frame['more']['thumbnail'];
+        if (!file_exists($seal_url)) $this->error('保密委公章未设置');
+
+        $_w = [[
+            'pic' => $seal_url,
+            'page' => $more['seal']['page'],
+            'position' => explode(',', $more['seal']['sign']),
+            'size' => 40
+        ]];
+                // array_push($_w, $write_data2);
+        $file = 'sign_' . $findFile['post_id'] . '_' . $findFile['category_id'] . '.pdf';
+        if (!empty($findFile['view_file'])) {
+            $origin_pdf_url = ROOT_PATH . '/public/upload/' . $findFile['view_file'];
+        } else {
+            $origin_pdf_url = ROOT_PATH . '/public/upload/protocol/pdf/' . $findFile['post_id'] . '.pdf';
+        }
+
+        // dump($file);
+        // exit();
+        $result = edit_pdf($origin_pdf_url, $_w, $file);
+        return $result;
+    }
 }
