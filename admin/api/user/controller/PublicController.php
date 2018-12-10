@@ -162,6 +162,9 @@ class PublicController extends RestBaseController
                 ]);
         }
 
+        $frame_data = Db::name('frame_category')->alias('fc')->join('__FRAME_CATEGORY_POST__ fcp', 'fc.id = fcp.category_id')
+        ->where(['fcp.post_id'=>$findUser['id']])->find();
+        $findUser['frame'] = $frame_data['name'];
 
         if (empty($result)) {
             $this->error("登录失败!");
