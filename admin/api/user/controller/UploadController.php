@@ -121,7 +121,7 @@ class UploadController extends RestUserBaseController
                     'pic'       => $seal_url,
                     'page'      => $more['seal']['page'],
                     'position'  => explode(',', $more['seal']['sign']),
-                    'size'      => 30
+                    'size'      => 40
                 ];
                 array_push($_w, $write_data2);
             }
@@ -282,37 +282,24 @@ class UploadController extends RestUserBaseController
 
     public function test() {
 
-        $where['post_id'] = 47;
+        $where['post_id'] = 92;
         $where['category_id'] = $this->userId;
         $findFile = Db::name('protocol_category_user_post')->where($where)->find();
-        $frame = FrameCategoryModel::get(999);
-            if(!$frame || empty($frame['more']['thumbnail'])) {
-                $this->error('保密委公章未设置');
-            }
-            $seal_url = ROOT_PATH . '/public/upload/' . $frame['more']['thumbnail'];
-        $origin_pdf_url = ROOT_PATH .'/public/upload/view/sign_47_16.pdf';
-        $pic_url = ROOT_PATH . '/public/upload/1544033074.png';
-        // $result2 = seal($findFile['post_id'], 16, 1, $seal_url, $origin_pdf_url);
-        $protocol = ProtocolPostModel::get($findFile['post_id']);
-                $more = $protocol->categories->more;
-                
-                $_w = [
-                    [
-                        'pic'       => $pic_url,
-                        'page'      => $more['axes'][1]['page'],
-                        'position'  => explode(',',$more['axes'][1]['sign']),
-                        'size'      => 50
-                    ],
-                    [
-                        'pic'       => $seal_url,
-                        'page'      => $more['seal']['page'],
-                        'position'  => explode(',',$more['seal']['sign']),
-                        'size'      => 30
-                    ]
-                ];
-                $file = 'sign_'.$findFile['post_id'].'_16.pdf';
-                $result = edit_pdf($origin_pdf_url, $_w, $file);
-        $this->success('ok', $result);
+        $category_id = Db::name('frame_category_post')->where('post_id',$this->userId)->value('category_id');
+        $user_ids = Db::name('frame_category_post')
+                ->where('category_id',$category_id)
+                ->where('status',1)
+                ->where('post_id','<>',$this->userId)
+                ->column('post_id');
+        $data = Db::name('protocol_category_user_post')->alias('pu')
+            ->field('pu.id,pu.category_id,pu.view_file,pu.place')
+            ->join('__PROTOCOL_POST__ p','pu.post_id = p.id','left')
+            ->where('pu.category_id','in',$user_ids)
+            ->where('pu.place',0)
+            ->where('pu.sign_status', 1)
+            ->where('pu.post_id', $findFile['post_id'])
+            ->select();
+        $this->success('ok',$data);
     }
 
 }

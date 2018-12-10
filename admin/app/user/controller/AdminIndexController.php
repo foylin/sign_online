@@ -19,30 +19,6 @@ use app\identity\model\IdentityCategoryModel;
 use app\role\model\RoleCategoryModel;
 use app\user\model\UserModel;
 
-/**
- * Class AdminIndexController
- * @package app\user\controller
- *
- * @adminMenuRoot(
- *     'name'   =>'用户管理',
- *     'action' =>'default',
- *     'parent' =>'',
- *     'display'=> true,
- *     'order'  => 10,
- *     'icon'   =>'group',
- *     'remark' =>'用户管理'
- * )
- *
- * @adminMenuRoot(
- *     'name'   =>'用户组',
- *     'action' =>'default1',
- *     'parent' =>'user/AdminIndex/default',
- *     'display'=> true,
- *     'order'  => 10000,
- *     'icon'   =>'',
- *     'remark' =>'用户组'
- * )
- */
 class AdminIndexController extends AdminBaseController
 {
 
@@ -218,104 +194,17 @@ class AdminIndexController extends AdminBaseController
 
     public function addPost(){
         if ($this->request->isPost()) {
-            // $data = $this->request->param();
-
-            //状态只能设置默认值。未发布、未置顶、未推荐
-            // $data['post']['post_status'] = 0;
-            // $data['post']['is_top']      = 0;
-            // $data['post']['recommended'] = 0;
-
-            // $post = $data['post'];
-
-            // $result = $this->validate($post, 'AdminArticle');
-            // if ($result !== true) {
-            //     $this->error($result);
-            // }
-
-            // $portalPostModel = new PortalPostModel();
-
-            // if (!empty($data['photo_names']) && !empty($data['photo_urls'])) {
-            //     $data['post']['more']['photos'] = [];
-            //     foreach ($data['photo_urls'] as $key => $url) {
-            //         $photoUrl = cmf_asset_relative_url($url);
-            //         array_push($data['post']['more']['photos'], ["url" => $photoUrl, "name" => $data['photo_names'][$key]]);
-            //     }
-            // }
-
-            // if (!empty($data['file_names']) && !empty($data['file_urls'])) {
-            //     $data['post']['more']['files'] = [];
-            //     foreach ($data['file_urls'] as $key => $url) {
-            //         $fileUrl = cmf_asset_relative_url($url);
-            //         array_push($data['post']['more']['files'], ["url" => $fileUrl, "name" => $data['file_names'][$key]]);
-            //     }
-            // }
-
-
-            // $portalPostModel->adminAddArticle($data['post'], $data['post']['categories']);
-
-            // $data['post']['id'] = $portalPostModel->id;
-            // $hookParam          = [
-            //     'is_add'  => true,
-            //     'article' => $data['post']
-            // ];
-            // hook('portal_admin_after_save_article', $hookParam);
-
-
-            // $this->success('添加成功!', url('AdminArticle/edit', ['id' => $portalPostModel->id]));
-
-            // $rules = [
-            //     'captcha'  => 'require',
-            //     'code'     => 'require',
-            //     'password' => 'require|min:6|max:32',
-            // ];
-
-            // $isOpenRegistration = cmf_is_open_registration();
-
-            // if ($isOpenRegistration) {
-            //     unset($rules['code']);
-            // }
-
-            // $validate = new Validate($rules);
-            // $validate->message([
-            //     'code.require'     => '验证码不能为空',
-            //     'password.require' => '密码不能为空',
-            //     'password.max'     => '密码不能超过32个字符',
-            //     'password.min'     => '密码不能小于6个字符',
-            //     'captcha.require'  => '验证码不能为空',
-            // ]);
+            
 
             $data = $this->request->post();
-            // if (!$validate->check($data)) {
-            //     $this->error($validate->getError());
-            // }
-
-            // $captchaId = empty($data['_captcha_id']) ? '' : $data['_captcha_id'];
-            // if (!cmf_captcha_check($data['captcha'], $captchaId)) {
-            //     $this->error('验证码错误');
-            // }
-
-            // if (!$isOpenRegistration) {
-            //     $errMsg = cmf_check_verification_code($data['username'], $data['code']);
-            //     if (!empty($errMsg)) {
-            //         $this->error($errMsg);
-            //     }
-            // }
+            
             $user = $data['post'];
             
             $register          = new UserModel();
             if(empty($user['user_pass'])){
                 $user['user_pass'] = '123456';
             }
-            // $user['user_pass'] = $data['password'];
-            // if (Validate::is($data['username'], 'email')) {
-            //     $user['user_email'] = $data['username'];
-            //     $log                = $register->register($user, 3);
-            // } else if (cmf_check_mobile($data['username'])) {
-            //     $user['mobile'] = $data['username'];
-            //     $log            = $register->register($user, 2);
-            // } else {
-            //     $log = 2;
-            // }
+            
             $log            = $register->register($user, 2);
             // $sessionLoginHttpReferer = session('login_http_referer');
             // $redirect                = empty($sessionLoginHttpReferer) ? cmf_get_root() . '/' : $sessionLoginHttpReferer;
@@ -328,7 +217,7 @@ class AdminIndexController extends AdminBaseController
                     $this->error("您的账户已注册过");
                     break;
                 case 2:
-                    $this->error("您输入的账号格式错误");
+                    $this->error("员工工号已注册过");
                     break;
                 default :
                     $this->error('未受理的请求');
@@ -454,8 +343,13 @@ class AdminIndexController extends AdminBaseController
                 $post['user_pass'] = cmf_password($post['user_pass']);
             }
             // dump($post);
-            $userModel->adminEditUser($post, $post['categories'], $post['categories_identity']);
+            $result = $userModel->adminEditUser($post, $post['categories'], $post['categories_identity']);
 
+            if($result == 1){
+                $this->error('修改的手机号已存在');
+            }elseif($result == 2){
+                $this->error('工号已存在');
+            }
             $hookParam = [
                 'is_add'  => false,
                 'article' => $data['post']

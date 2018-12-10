@@ -233,5 +233,32 @@ class ProtocolCategoryModel extends Model
         return $result;
     }
 
+    /**
+     * 获取协议固定分类
+     *
+     * @return void
+     */
+    public function get_protocol_mode($protocol_id){
+        $mode_type = $this->alias('pc')
+            ->join('__PROTOCOL_POST__ pp', 'pp.protocol_category_id = pc.id')
+            ->where('pp.id = '.$protocol_id)
+            ->value('pc.mode_type');
 
+        return $mode_type;
+            
+    }
+
+    /**
+     * 检查用户签约状态
+     *
+     * @param [type] $protocol_id
+     * @param [type] $sign_status
+     * @return void
+     */
+    public function check_userall($protocol_id, $sign_status, $userid = null){
+        $map['post_id'] = $protocol_id;
+        $map['sign_status'] = $sign_status;
+        $count = Db::name('protocol_category_user_post')->where($map)->count();
+        return $count;
+    }
 }

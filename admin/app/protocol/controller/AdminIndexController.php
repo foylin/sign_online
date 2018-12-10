@@ -630,7 +630,7 @@ class AdminIndexController extends AdminBaseController
         $postCategoryIds_user = implode(',', array_keys($postCategories_user));
         $this->assign('post_categories_user', $postCategories_user);
         $this->assign('post_category_ids_user', $postCategoryIds_user);
-        $this->assign('sign_user_count', count($postCategories_user) + 1);
+        $this->assign('sign_user_count', count($postCategories_user));
         $themeModel = new ThemeModel();
         $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
         $this->assign('article_theme_files', $articleThemeFiles);
@@ -678,6 +678,36 @@ class AdminIndexController extends AdminBaseController
 
             // dump(Db::name('protocol_category_user_post')->getLastSql());
             $this->success('保存成功!');
+
+        }
+    }
+
+    /**
+     * 批量审核
+     *
+     * @return void
+     */
+    public function checkall(){
+        if ($this->request->isPost()) {
+            $data = $this->request->param();
+
+            $protocol_id = $data['protocol_id'];
+
+            if(empty($protocol_id)){
+                $this->error('协议不存在');
+            }
+
+            $protocolCategoryModel = new ProtocolCategoryModel();
+            $mode_type = $protocolCategoryModel->get_protocol_mode($protocol_id);
+
+            if($mode_type == 1){
+                
+            }elseif($mode_type == 2){
+
+            }elseif($mode_type == 3){
+                
+            }
+            $this->success('保存成功!', null, $data);
 
         }
     }
