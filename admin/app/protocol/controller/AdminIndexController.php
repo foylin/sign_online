@@ -692,22 +692,39 @@ class AdminIndexController extends AdminBaseController
             $data = $this->request->param();
 
             $protocol_id = $data['protocol_id'];
-
+            $user_count = $data['user_count'];
             if(empty($protocol_id)){
                 $this->error('协议不存在');
             }
 
             $protocolCategoryModel = new ProtocolCategoryModel();
             $mode_type = $protocolCategoryModel->get_protocol_mode($protocol_id);
-
+            $is_all_check = 0;
             if($mode_type == 1){
-                
+                $check_users = $protocolCategoryModel->check_userall($protocol_id, 1);
+                if($check_users != $user_count){
+                    $is_all_check = 1;
+                }
             }elseif($mode_type == 2){
-
+                $check_users = $protocolCategoryModel->check_userall($protocol_id, 2);
+                if($check_users != $user_count){
+                    $is_all_check = 1;
+                }
             }elseif($mode_type == 3){
-                
+                $check_users = $protocolCategoryModel->check_userall($protocol_id, 1);
+                if($check_users != $user_count){
+                    $is_all_check = 1;
+                }
             }
-            $this->success('保存成功!', null, $data);
+
+            if($is_all_check){
+                $this->error('存在未签约用户,审核失败');
+            }else{
+                $map['post_id'] = $protocol_id;
+                Db::name('protocol_category_user_post')->where($map)->update(['sign_status'=>9]);
+                $this->success('保存成功!');
+            }
+            
 
         }
     }

@@ -367,6 +367,8 @@
             success: function (data) {
                 if(data.code == 0){
                     alert(data.msg);
+                }else{
+                    reloadPage(window);
                 }
             }
         });

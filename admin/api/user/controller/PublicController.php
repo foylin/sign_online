@@ -98,7 +98,8 @@ class PublicController extends RestBaseController
         } else if (preg_match('/(^(13\d|15[^4\D]|17[013678]|18\d)\d{8})$/', $data['username'])) {
             $userQuery = $userQuery->where('mobile', $data['username']);
         } else {
-            $userQuery = $userQuery->where('user_login', $data['username']);
+            // $userQuery = $userQuery->where('user_login', $data['username']);
+            $userQuery = $userQuery->where('user_sn', $data['username']);
         }
 
         $findUser = $userQuery->find();

@@ -1,7 +1,7 @@
 <view class="login-container">
     <form bindsubmit="formSubmit">
         <view style="margin: 20px 0;">
-            <input class="input" bindinput="keyName" placeholder="用户名 / 手机号" placeholder-class="input-placeholder"/>
+            <input class="input" bindinput="keyName" placeholder="工号 / 手机号" placeholder-class="input-placeholder"/>
         </view>
         <view style="margin: 20px 0;">
             <input class="input" bindinput="keyPwd" placeholder="请输入密码" placeholder-class="input-placeholder" password/>
