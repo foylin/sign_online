@@ -1,5 +1,7 @@
 var api = require('../../utils/api.js')
 
+var app = getApp();
+
 Page({
     data: {
         list: [],
@@ -29,6 +31,8 @@ Page({
     },
     logout(){
         wx.clearStorageSync();
+        api.deletePageListItemByPage('pages/index/index','id')
+        console.log(app.pagesData)
         wx.navigateTo({
             url: '/pages/login/login'
         });

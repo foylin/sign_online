@@ -24,7 +24,7 @@ class PublicController extends RestBaseController
         ]);
 
         $validate->message([
-            'username.require'          => '请输入手机号,邮箱!',
+            'username.require'          => '请输入手机号',
             'password.require'          => '请输入您的密码!',
             'verification_code.require' => '请输入数字验证码!'
         ]);
@@ -38,14 +38,15 @@ class PublicController extends RestBaseController
 
         $userQuery = Db::name("user");
 
-        if (Validate::is($data['username'], 'email')) {
-            $user['user_email'] = $data['username'];
-            $userQuery          = $userQuery->where('user_email', $data['username']);
-        } else if (preg_match('/(^(13\d|15[^4\D]|17[013678]|18\d)\d{8})$/', $data['username'])) {
+        // if (Validate::is($data['username'], 'email')) {
+        //     $user['user_email'] = $data['username'];
+        //     $userQuery          = $userQuery->where('user_email', $data['username']);
+        // } else 
+        if (preg_match('/(^(13\d|15[^4\D]|17[013678]|18\d)\d{8})$/', $data['username'])) {
             $user['mobile'] = $data['username'];
             $userQuery      = $userQuery->where('mobile', $data['username']);
         } else {
-            $this->error("请输入正确的手机或者邮箱格式!");
+            $this->error("请输入正确的手机");
         }
 
         $errMsg = cmf_check_verification_code($data['username'], $data['verification_code']);
@@ -83,7 +84,7 @@ class PublicController extends RestBaseController
             'password' => 'require'
         ]);
         $validate->message([
-            'username.require' => '请输入手机号或者用户名!',
+            'username.require' => '请输入手机号或者工号',
             'password.require' => '请输入您的密码!'
         ]);
 
@@ -93,9 +94,10 @@ class PublicController extends RestBaseController
         }
 
         $userQuery = Db::name("user");
-        if (Validate::is($data['username'], 'email')) {
-            $userQuery = $userQuery->where('user_email', $data['username']);
-        } else if (preg_match('/(^(13\d|15[^4\D]|17[013678]|18\d)\d{8})$/', $data['username'])) {
+        // if (Validate::is($data['username'], 'email')) {
+        //     $userQuery = $userQuery->where('user_email', $data['username']);
+        // } else 
+        if (preg_match('/(^(13\d|15[^4\D]|17[013678]|18\d)\d{8})$/', $data['username'])) {
             $userQuery = $userQuery->where('mobile', $data['username']);
         } else {
             // $userQuery = $userQuery->where('user_login', $data['username']);

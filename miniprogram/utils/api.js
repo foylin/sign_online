@@ -289,11 +289,11 @@ module.exports = {
         if (!app.pagesData.hasOwnProperty(page)) {
             app.pagesData[page] = {};
         }
-
+        console.log(app.pagesData[page])
         if (!app.pagesData[page][listKey] || replace) {
             app.pagesData[page][listKey] = {};
         }
-
+        console.log(app.pagesData[page])
         if (newItems) {
             newItems.forEach(item => {
                 let uniqueValue = '_' + item[itemKey];
