@@ -653,7 +653,7 @@ class AdminIndexController extends AdminBaseController
             
             
             $update_id = $post['id'];
-            // dump($update_id);
+            // dump($post);
             foreach ($update_id as $key => $value) {
                 # code...
                 $save['id'] = $value;
@@ -698,44 +698,50 @@ class AdminIndexController extends AdminBaseController
             }
 
             $protocolCategoryModel = new ProtocolCategoryModel();
+            $protocolPostModel = new ProtocolPostModel();
             $mode_type = $protocolCategoryModel->get_protocol_mode($protocol_id);
-            $is_all_check = 0;
             if($mode_type == 1){
-                $check_users = $protocolCategoryModel->check_userall($protocol_id, 1);
-                if($check_users != $user_count){
-                    $is_all_check = 1;
-                }
-
-                $protocolPostModel = new ProtocolPostModel();
                 // 保密工作责任书  添加保密委印章
                 $map_userpost['post_id'] = $protocol_id;
-                $map_userpost['sign_status'] = ['<>', 9];
+                $map_userpost['sign_status'] = 1;
                 $sign_users = Db::name('protocol_category_user_post')->where($map_userpost)->select();
                 foreach ($sign_users as $value) {
                     $protocolPostModel->add_bmw($protocol_id, $value['category_id']);
+                    $map['post_id'] = $protocol_id;
+                    $map['category_id'] = $value['category_id'];
+                    Db::name('protocol_category_user_post')->where($map)->update(['sign_status'=>9]);
                 }
-                // dump($sign_users);
-                // exit();
-
             }elseif($mode_type == 2){
-                $check_users = $protocolCategoryModel->check_userall($protocol_id, 2);
-                if($check_users != $user_count){
-                    $is_all_check = 1;
+                $map_userpost['post_id'] = $protocol_id;
+                $map_userpost['sign_status'] = 2;
+                $sign_users = Db::name('protocol_category_user_post')->where($map_userpost)->select();
+                foreach ($sign_users as $value) {
+                    $map['post_id'] = $protocol_id;
+                    $map['category_id'] = $value['category_id'];
+                    Db::name('protocol_category_user_post')->where($map)->update(['sign_status'=>9]);
                 }
+
             }elseif($mode_type == 3){
-                $check_users = $protocolCategoryModel->check_userall($protocol_id, 1);
-                if($check_users != $user_count){
-                    $is_all_check = 1;
+                $map_userpost['post_id'] = $protocol_id;
+                $map_userpost['sign_status'] = 1;
+                $sign_users = Db::name('protocol_category_user_post')->where($map_userpost)->select();
+                foreach ($sign_users as $value) {
+                    $map['post_id'] = $protocol_id;
+                    $map['category_id'] = $value['category_id'];
+                    Db::name('protocol_category_user_post')->where($map)->update(['sign_status'=>9]);
+
                 }
             }
 
-            if($is_all_check){
-                $this->error('存在未签约用户,审核失败');
-            }else{
-                $map['post_id'] = $protocol_id;
-                Db::name('protocol_category_user_post')->where($map)->update(['sign_status'=>9]);
-                $this->success('保存成功!');
-            }
+            // if($is_all_check){
+            //     $this->error('存在未签约用户,审核失败');
+            // }else{
+            //     $map['post_id'] = $protocol_id;
+            //     Db::name('protocol_category_user_post')->where($map)->update(['sign_status'=>9]);
+            //     $this->success('保存成功!');
+            // }
+
+            $this->success('保存成功!');
             
 
         }
