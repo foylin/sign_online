@@ -13,6 +13,7 @@ namespace app\protocol\model;
 use app\admin\model\RouteModel;
 use think\Model;
 use tree\Tree;
+use think\Db;
 
 class ProtocolCategoryModel extends Model
 {
@@ -257,7 +258,7 @@ class ProtocolCategoryModel extends Model
      */
     public function check_userall($protocol_id, $sign_status, $userid = null){
         $map['post_id'] = $protocol_id;
-        $map['sign_status'] = $sign_status;
+        $map['sign_status'] = ['>=', $sign_status];
         $count = Db::name('protocol_category_user_post')->where($map)->count();
         return $count;
     }

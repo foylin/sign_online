@@ -8,7 +8,7 @@
 </view>
 
 <view class="weui-loadmore weui-loadmore_line" wx:if="{{noMoreData && !noData}}">
-    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">就这些儿了</view>
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">END</view>
 </view>
 
 <view class="weui-loadmore weui-loadmore_line" wx:if="{{noData}}">

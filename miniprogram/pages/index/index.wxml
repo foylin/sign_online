@@ -47,7 +47,8 @@
                 <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
                     <view class="weui-media-box__title">{{item.post_title}}</view>
                     <view class="weui-media-box__desc">
-                        <span class="weui-badge">{{item.sign_status_desc}}</span>
+                        <span class="weui-badge" wx:if="{{item.sign_status==9}}" style="background-color:green;">{{item.sign_status_desc}}</span>
+                        <span class="weui-badge" wx:else>{{item.sign_status_desc}}</span>
                     </view>
                 </view>
                 <!-- <block wx:if="{{item.more.thumbnail}}">

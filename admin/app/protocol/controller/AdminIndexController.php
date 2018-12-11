@@ -692,22 +692,51 @@ class AdminIndexController extends AdminBaseController
             $data = $this->request->param();
 
             $protocol_id = $data['protocol_id'];
-
+            $user_count = $data['user_count'];
             if(empty($protocol_id)){
                 $this->error('协议不存在');
             }
 
             $protocolCategoryModel = new ProtocolCategoryModel();
             $mode_type = $protocolCategoryModel->get_protocol_mode($protocol_id);
-
+            $is_all_check = 0;
             if($mode_type == 1){
-                
-            }elseif($mode_type == 2){
+                $check_users = $protocolCategoryModel->check_userall($protocol_id, 1);
+                if($check_users != $user_count){
+                    $is_all_check = 1;
+                }
 
+                $protocolPostModel = new ProtocolPostModel();
+                // 保密工作责任书  添加保密委印章
+                $map_userpost['post_id'] = $protocol_id;
+                $map_userpost['sign_status'] = ['<>', 9];
+                $sign_users = Db::name('protocol_category_user_post')->where($map_userpost)->select();
+                foreach ($sign_users as $value) {
+                    $protocolPostModel->add_bmw($protocol_id, $value['category_id']);
+                }
+                // dump($sign_users);
+                // exit();
+
+            }elseif($mode_type == 2){
+                $check_users = $protocolCategoryModel->check_userall($protocol_id, 2);
+                if($check_users != $user_count){
+                    $is_all_check = 1;
+                }
             }elseif($mode_type == 3){
-                
+                $check_users = $protocolCategoryModel->check_userall($protocol_id, 1);
+                if($check_users != $user_count){
+                    $is_all_check = 1;
+                }
             }
-            $this->success('保存成功!', null, $data);
+
+            if($is_all_check){
+                $this->error('存在未签约用户,审核失败');
+            }else{
+                $map['post_id'] = $protocol_id;
+                Db::name('protocol_category_user_post')->where($map)->update(['sign_status'=>9]);
+                $this->success('保存成功!');
+            }
+            
 
         }
     }
@@ -904,8 +933,8 @@ class AdminIndexController extends AdminBaseController
      */
     public function view()
     {
-        // $post_id = 81;
-        // $seal_url = ROOT_PATH . '/public/upload/frame/20181206/c5931e20a7d5e10f36eb9a0ded2bba59.png';
+        // $post_id = 98;
+        // $seal_url = ROOT_PATH . '/public/upload/frame/20181207/4db3e7801d7c286a61b63b78cbc90a89.gif';
         // $origin_pdf_url = ROOT_PATH .'/public/upload/protocol/pdf/' . $post_id . '.pdf';
         
         //     $_w = [
