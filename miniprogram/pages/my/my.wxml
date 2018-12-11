@@ -2,7 +2,9 @@
     <view class="page__bd">
         <view class="text-center">
             <!-- <image src="{{user.avatar}}" style="width: 60px;height: 60px;" class="img-circle"></image> -->
-            <view class="user-nickname">{{user.user_login}}</view>
+            <view class="user-item">{{user.user_login}}</view>
+            <view class="user-item">工号:{{user.user_sn}}</view>
+            <view class="user-item">部门:{{user.frame}}</view>
         </view>
         <view class="weui-cells weui-cells_after-title">
             <!-- <navigator url="/pages/favorite/index" class="weui-cell weui-cell_access"

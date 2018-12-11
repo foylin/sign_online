@@ -2,7 +2,16 @@
     font-size: 14px;
     /* line-height: 30px; */
     display: block;
-    margin: 50rpx 0 50rpx 0;
+    margin: 50rpx 0 30rpx 0;
+}
+.text-center{
+    padding: 30rpx 0;
+}
+.user-item{
+    font-size: 14px;
+    /* line-height: 30px; */
+    display: block;
+    margin: 10rpx 0;
 }
 
 .weui-cells:before{

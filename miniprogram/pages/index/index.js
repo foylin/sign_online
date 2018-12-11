@@ -44,19 +44,21 @@ Page({
           }
         });
 
-        console.log(app.pagesNeedUpdate);
-        if (app.pagesNeedUpdate['pages/index/index'] == 1) {
-            let newItems = api.updatePageList('id');
-            console.log(newItems);
-            this.setData({
-                list: newItems
-            });
-        }
+        // console.log(app.pagesNeedUpdate);
+        // if (app.pagesNeedUpdate['pages/index/index'] == 1) {
+        //     let newItems = api.updatePageList('id');
+        //     console.log(newItems);
+        //     this.setData({
+        //         list: newItems
+        //     });
+        // }
 
-        if (app.pagesNeedUpdate['pages/index/index'] == 'refresh') {
-            this.onPullDownRefresh();
-        }
-        this.pullUpLoad();
+        // if (app.pagesNeedUpdate['pages/index/index'] == 'refresh') {
+        //     this.onPullDownRefresh();
+        // }
+        // this.pullUpLoad();
+
+        this.onPullDownRefresh();
 
         api.pageNeedUpdate('pages/index/index', 0);
     },

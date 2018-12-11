@@ -59,7 +59,7 @@ Page({
                         // Do something when catch error
                     }
 
-                    wx.navigateTo({
+                    wx.reLaunch({
                         url: '/pages/index/index'
                     });
 
