@@ -194,6 +194,25 @@ class ListsController extends RestUserBaseController
                     ->where($where)
                     ->group('pu.post_id')
                     ->select()->toArray();
+        if($data) {
+            $category_id = Db::name('frame_category_post')->where('post_id',$userId)->value('category_id');
+
+            $user_ids = Db::name('frame_category_post')
+                    ->where('category_id',$category_id)
+                    ->where('status',1)
+                    ->where('post_id','<>',$userId)
+                    ->column('post_id');
+            foreach($data as $k=>$v) {
+                $count = Db::name('protocol_category_user_post')
+                    ->where('post_id',$v['post_id'])
+                    ->where('category_id','in',$user_ids)
+                    ->where('sign_status','lt',2)
+                    ->count();
+                if($count>0) {
+                    $data[$k]['sign'] = 1;
+                }else $data[$k]['sign'] = 0;
+            }
+        }
         
         if (isset($this->apiVersion)) {
             $response = ['list' => $data];
@@ -234,11 +253,33 @@ class ListsController extends RestUserBaseController
         
     }
 
+    //负责人是否可以签约
+    function isCanSign() {
+
+        $protocol_id = $this->request->param('protocol_id', 0, 'intval');
+        $userId = $this->getUserId();
+        $category_id = Db::name('frame_category_post')->where('post_id',$userId)->value('category_id');
+        $user_ids = Db::name('frame_category_post')
+                ->where('category_id',$category_id)
+                ->where('status',1)
+                ->where('post_id','<>',$userId)
+                ->column('post_id');
+        $count = Db::name('protocol_category_user_post')
+                    ->where('post_id',$protocol_id)
+                    ->where('category_id','in',$user_ids)
+                    ->where('sign_status',0)
+                    ->count();
+        if($count>0) {
+            $this->error('部门有人未签约，无法操作');
+        }
+        $this->success('ok');
+    }
+
     function getStatus($type) {
         $sta = [
-            '1' => ['-1'=>'审核失败，重新签约','0'=>'待签约','1'=>'已签约,待保密委审核','2'=>'保密委已审核,待后台管理员审核','9'=>'签约成功,无法修改'],
-            '2' => ['-1'=>'审核失败，重新签约','0'=>'待签约','1'=>'员工已签约,待部门负责人签约','2'=>'部门负责人已签约,已添加保密委印章,待后台管理员审核','9'=>'签约成功,无法修改'],
-            '3' => ['-1'=>'审核失败，重新签约','0'=>'待签约','1'=>'涉密人员已签约,已添加保密委印章,待后台管理员审核','9'=>'签约成功,无法修改']
+            '1' => ['-1'=>'审核失败','0'=>'待签约','1'=>'已签约','2'=>'已审核','9'=>'签约成功'],
+            '2' => ['-1'=>'审核失败','0'=>'待签约','1'=>'已签约','2'=>'已审核','9'=>'签约成功'],
+            '3' => ['-1'=>'审核失败','0'=>'待签约','1'=>'已签约','9'=>'签约成功,无法修改']
         ];
         return (!empty($sta[$type]))?$sta[$type]:[];
     }
