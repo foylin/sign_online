@@ -212,12 +212,21 @@ class UploadController extends RestUserBaseController
             $pic_url = ROOT_PATH . '/public/upload/' . $saveName;  //负责人签名图片
             //循环签名
             $category_id = Db::name('frame_category_post')->where('post_id',$this->userId)->value('category_id');
-
+            //部门员工ids，除正职外
             $user_ids = Db::name('frame_category_post')
                     ->where('category_id',$category_id)
                     ->where('status',1)
                     ->where('post_id','<>',$this->userId)
                     ->column('post_id');
+            $count = Db::name('protocol_category_user_post')
+                    ->where('post_id',$param['protocol_id'])
+                    ->where('category_id','in',$user_ids)
+                    ->where('sign_status',0)
+                    ->count();
+            if($count>0) {
+                $this->error('部门有人未签约，无法操作');
+            }
+
             $data = Db::name('protocol_category_user_post')->alias('pu')
                 ->field('pu.id,pu.category_id,pu.view_file,pu.place')
                 ->join('__PROTOCOL_POST__ p','pu.post_id = p.id','left')

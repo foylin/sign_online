@@ -195,9 +195,40 @@ Page({
     },
     subsign(e) {
         let protocol_id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: '/pages/sign/sign?protocol_id='+protocol_id+'&type=1'
-        })
+        //判断是否有未签约的
+        wx.showLoading({title: '加载中...',})
+        api.get({
+            url: 'protocol/lists/isCanSign',
+            data: {
+                protocol_id: protocol_id
+            },
+            success: data => {
+                wx.hideLoading()
+                
+                if(data.code == 0) {
+                    wx.showModal({
+                        content: data.msg,
+                        showCancel: false,
+                        success: function (res) {
+                            if (res.confirm) {
+                                console.log('用户点击确定')
+                            }
+                        }
+                    })
+                    return !1;
+                }else if(data.code == 1) {
+                    wx.navigateTo({
+                        url: '/pages/sign/sign?protocol_id='+protocol_id+'&type=1'
+                    })
+                }
+            },
+            complete: () => {
+                wx.hideLoading()
+            }
+        });
+        // wx.navigateTo({
+        //     url: '/pages/sign/sign?protocol_id='+protocol_id+'&type=1'
+        // })
     }
 
     
