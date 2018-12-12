@@ -210,7 +210,12 @@ class UserModel extends Model
                 $result = Db::name("user")->where('user_login', $user['user_login'])->find();
                 break;
             case 2:
-                $result = Db::name("user")->where('mobile', $user['mobile'])->find();
+                if($user['mobile']){
+                    $result = Db::name("user")->where('mobile', $user['mobile'])->find();
+                }else{
+                    $result = 0;
+                }
+                
                 break;
             case 3:
                 $result = Db::name("user")->where('user_email', $user['user_email'])->find();
@@ -218,13 +223,13 @@ class UserModel extends Model
             default:
                 $result = 0;
         }
-
+        // dump($result);
         $is_sn = Db::name("user")->where('user_sn', $user['user_sn'])->find();
         if($is_sn){
             return 2;
         }
 
-        $userStatus = 1;
+        $userStatus = 2;
 
         // if (cmf_is_open_registration()) {
         //     $userStatus = 2;

@@ -78,6 +78,66 @@
                                    required value="{$post.post_title}" placeholder="请输入标题"/>
                         </td>
                     </tr>
+
+                    <tr>
+                        <th width="100" rowspan="{$sign_user_count+1}">签约用户</th>
+                        
+                    </tr>
+
+                    
+
+                    <foreach name="list" item="vo">
+                    <tr class="sign-user">
+                        <td>
+                            <div class="col-md-2 name">
+                                {$vo.user_login}
+                                <if $vo.sign_status==2><i class="fa fa-check name-icon"></i></if>
+                                <if $vo.sign_status==-1><i class="fa fa-close name-icon-error"></i></if>
+                            </div>
+                            
+                    
+                            <div class="col-md-2">
+                                <if $vo.sign_status == 9>
+                                <select class="form-control valid" name="post[sign_status_disabled][]" id="categories-model-sel" aria-invalid="false" disabled >
+                                    <foreach name="sign_status_option" item="vo_sso" key="k_sso">
+                                        <option value="{$k_sso}" <if $vo.sign_status==$k_sso>selected=""</if> >{$vo_sso}</option>
+                                    </foreach>
+                                </select>
+
+                                <select style="display:none;" class="form-control valid" name="post[sign_status][]" id="categories-model-sel" aria-invalid="false" >
+                                        <foreach name="sign_status_option" item="vo_sso" key="k_sso">
+                                            <option value="{$k_sso}" <if $vo.sign_status==$k_sso>selected=""</if> >{$vo_sso}</option>
+                                        </foreach>
+                                    </select>
+
+                                <else>
+                                    <select class="form-control valid" name="post[sign_status][]" id="categories-model-sel" aria-invalid="false" >
+                                        <foreach name="sign_status_option" item="vo_sso" key="k_sso">
+                                            <option value="{$k_sso}" <if $vo.sign_status==$k_sso>selected=""</if> >{$vo_sso}</option>
+                                        </foreach>
+                                    </select>
+                                </if>
+                    
+                    
+                            </div>
+                    
+                    
+                    
+                            <div class="col-md-5">
+                                <input class="form-control" type="text" name="post[notes][]" value="{$vo.notes}" placeholder="请输入备注" />
+                    
+                                <input type="hidden" name="post[id][]" value="{$vo.protocol_user_post_id}">
+                            </div>
+                    
+                            <div class="col-md-3">
+                                <a href="{:url('AdminIndex/view', array('id' => $post['id'], 'uid' => $vo.user_id))}" class="export" target="_blank">预览</a>
+                                <a href="{:url('AdminIndex/export', array('id' => $post['id'], 'uid' => $vo.user_id))}" class="export">导出pdf</a>
+                                <span>{$vo.update_time}</span>
+                            </div>
+                        </td>
+                    
+                    </tr>
+                    </foreach>
                     
                 </table>
 
@@ -372,7 +432,8 @@
             type: "post", 
             dataType: "json", 
             data: { 
-                protocol_id: postId
+                protocol_id: postId,
+                user_count: "{$sign_user_count}"
             }, 
             success: function (data) {
                 if(data.code == 0){

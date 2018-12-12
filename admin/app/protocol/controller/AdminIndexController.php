@@ -578,34 +578,27 @@ class AdminIndexController extends AdminBaseController
 
         $protocolPostModel = new ProtocolPostModel();
         $post = $protocolPostModel->where('id', $id)->find();
-        $postCategories = $post->categories()->alias('a')->column('a.name', 'a.id');
-        $postCategoryIds = implode(',', array_keys($postCategories));
-        $this->assign('post_categories', $postCategories);
-        $this->assign('post_category_ids', $postCategoryIds);
-        // dump($postCategoryIds);
-        $protocolCategoryModel = new ProtocolCategoryModel();
-        $where = ['delete_time' => 0];
-        $categories_model = $protocolCategoryModel->field('id, name')->where($where)->select();
-        $this->assign('categories_model', $categories_model);
-        // dump($categories);
+        
 
-        $postCategories_seal = $post->categories_seal()->alias('a')->column('a.name', 'a.id');
-        $postCategoryIds_seal = implode(',', array_keys($postCategories_seal));
-        $this->assign('post_categories_seal', $postCategories_seal);
-        $this->assign('post_category_ids_seal', $postCategoryIds_seal);
-
-        $postCategories_user = $post->categories_user()->alias('a')->where('pivot.place = 0')->column('a.user_login, sign_status, sign_url, notes, a.id AS user_id, pivot.post_id AS protocol_id, pivot.update_time, pivot.id AS protocol_user_post_id', 'a.id');
-        // dump($postCategories_user);
-        $sign_status_option = [];
-        foreach ($postCategories_user as &$val) {
-            if(!$val['sign_url']){
-                $val['update_time'] = '';
+        $list = $post->categories_user()->paginate(3);
+        // dump($post->getLastSql());
+        // dump($list);
+        foreach ($list as &$value) {
+            // dump($value);
+            $value['sign_status'] = $value['pivot']['sign_status'];
+            $value['notes'] = $value['pivot']['notes'];
+            $value['protocol_user_post_id'] = $value['pivot']['id'];
+            $value['user_id'] = $value['id'];
+            $value['protocol_id'] = $value['pivot']['post_id'];
+            if(empty($value['sign_url'])){
+                $value['update_time'] = '';
             }else{
-                $val['update_time'] = date('Y-m-d H:i', $val['update_time']);
+                $value['update_time'] = date('Y-m-d H:i', $value['update_time']);
             }
+
             $mode_type = Db::name('protocol_category')->alias('pc')
             ->join('__PROTOCOL_POST__ pp', 'pp.protocol_category_id = pc.id')
-            ->where('pp.id = '.$val['protocol_id'])
+            ->where('pp.id = '.$value['protocol_id'])
             ->value('pc.mode_type');
             // $val['mode_type'] = $mode_type;
             if($mode_type == 1){
@@ -626,14 +619,15 @@ class AdminIndexController extends AdminBaseController
                 $sign_status_option[1] = '已签约';
                 $sign_status_option[9] = '签约成功';
             }
+
         }
-        $postCategoryIds_user = implode(',', array_keys($postCategories_user));
-        $this->assign('post_categories_user', $postCategories_user);
-        $this->assign('post_category_ids_user', $postCategoryIds_user);
-        $this->assign('sign_user_count', count($postCategories_user));
-        $themeModel = new ThemeModel();
-        $articleThemeFiles = $themeModel->getActionThemeFiles('protocol/Article/index');
-        $this->assign('article_theme_files', $articleThemeFiles);
+
+        // 获取分页显示
+        $page = $list->render();
+        $this->assign('list', $list);
+        $this->assign('page', $page);
+
+
         $this->assign('post', $post);
         $this->assign('sign_status_option', $sign_status_option);
         return $this->fetch();
@@ -692,7 +686,7 @@ class AdminIndexController extends AdminBaseController
             $data = $this->request->param();
 
             $protocol_id = $data['protocol_id'];
-            $user_count = $data['user_count'];
+            // $user_count = $data['user_count'];
             if(empty($protocol_id)){
                 $this->error('协议不存在');
             }

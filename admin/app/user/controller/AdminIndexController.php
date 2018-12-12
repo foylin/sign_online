@@ -47,7 +47,7 @@ class AdminIndexController extends AdminBaseController
         $request = input('request.');
 
         if (!empty($request['uid'])) {
-            $where['u.id'] = intval($request['uid']);
+            $where['u.user_sn'] = intval($request['uid']);
         }
         $keywordComplex = [];
         if (!empty($request['keyword'])) {
@@ -102,6 +102,8 @@ class AdminIndexController extends AdminBaseController
             }
             return $item;
         });
+
+        // dump($usersQuery->getLastSql());
 
         $frameCategoryModel = new FrameCategoryModel();
         $framecategory = $frameCategoryModel->adminCategoryTree($frame_id);
