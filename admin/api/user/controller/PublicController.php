@@ -113,8 +113,8 @@ class PublicController extends RestBaseController
             switch ($findUser['user_status']) {
                 case 0:
                     $this->error('您已被拉黑!');
-                case 2:
-                    $this->error('账户还没有验证成功!');
+                // case 2:
+                //     $this->error('账户还没有验证成功!');
             }
 
             if (!cmf_compare_password($data['password'], $findUser['user_pass'])) {
@@ -256,5 +256,33 @@ class PublicController extends RestBaseController
 
         $this->success("密码重置成功,请使用新密码登录!");
 
+    }
+
+    public function toVerify() {
+
+        $validate = new Validate([
+            'account'          => 'require',
+            'code'          => 'require'
+        ]);
+
+        $validate->message([
+            'account.require'          => '请输入手机号',
+            'code.require' => '请输入数字验证码!'
+        ]);
+
+        $data = $this->request->param();
+        if (!$validate->check($data)) {
+            $this->error($validate->getError());
+        }
+
+        if($data['code'] != '1234') $this->error('验证码错误');
+        $user = Db::name('user')->where('id',$data['id'])->find();
+        if(!$user) $this->error('用户不存在，请联系管理员');
+        $update = ['id'=>$data['id'],'user_status'=>1];
+        if(empty($user['mobile'])) {
+            $update['mobile'] = $data['account'];
+        }
+        Db::name('user')->update($update);
+        $this->success('ok');
     }
 }

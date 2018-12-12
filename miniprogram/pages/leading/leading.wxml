@@ -6,8 +6,9 @@
         <view class="weui-panel__ft">
             <view class="weui-cell weui-cell_access weui-cell_link" data-post="{{item.post_id}}" bindtap="toleading" style="position:relative;">
                 <view class="weui-cell__bd">
-                    <span style="display:block;background:#f00;border-radius:50%;width:0.4em;height:0.4em;top:1.2em;position:absolute;"></span>
-                    {{item.post_title}}
+                    <view style="display:block;background:#f00;border-radius:50%;width:0.4em;height:0.4em;display:inline-block;margin-right:5px;"></view>
+                    <view style="display:inline-block;">{{item.post_title}}</view>
+                    
                     <!--
                     <view class="weui-media-box__desc mt6">
                         <span class="weui-badge">

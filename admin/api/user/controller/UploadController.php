@@ -14,6 +14,7 @@ use think\Validate;
 use think\Image;
 use api\protocol\model\ProtocolPostModel;
 use api\protocol\model\FrameCategoryModel;
+use api\protocol\model\FrameCategoryPostModel;
 
 class UploadController extends RestUserBaseController
 {
@@ -83,8 +84,6 @@ class UploadController extends RestUserBaseController
             // ]);
 
             $pic_url = ROOT_PATH . '/public/upload/' . $saveName;
-            // $res = seal($findFile['post_id'], $findFile['category_id'], 0, $pic_url, '', $findFile['place']);
-            // if(!$res) $this->error('网络出错,请重试');
 
             $protocol = ProtocolPostModel::get($findFile['post_id']);
             $more = $protocol->categories->more;
@@ -124,6 +123,24 @@ class UploadController extends RestUserBaseController
                     'size'      => 40
                 ];
                 array_push($_w, $write_data2);
+            }
+
+            //检查是否为保密协议书 自动添加部门章
+            if($protocol2->categories->mode_type == 1) {
+                //部门章
+                $category_id = Db::name('frame_category_post')->where('post_id',$this->userId)->value('category_id');
+                $frame = FrameCategoryModel::get($category_id);
+                if($frame || !empty($frame['more']['thumbnail'])) {
+                    $part_url = ROOT_PATH . '/public/upload/' . $frame['more']['thumbnail'];
+                    $sec_write_data = [
+                        'pic'       => $part_url,
+                        'page'      => $res['page'],
+                        'position'  => explode(',',$res['sign']),
+                        'size'      => 30
+                    ];
+                    array_push($_w,$sec_write_data);
+                }
+                
             }
 
             $file = 'sign_'.$findFile['post_id'].'_'.$findFile['category_id'].'.pdf';
@@ -211,13 +228,7 @@ class UploadController extends RestUserBaseController
 
             $pic_url = ROOT_PATH . '/public/upload/' . $saveName;  //负责人签名图片
             //循环签名
-            $category_id = Db::name('frame_category_post')->where('post_id',$this->userId)->value('category_id');
-            //部门员工ids，除正职外
-            $user_ids = Db::name('frame_category_post')
-                    ->where('category_id',$category_id)
-                    ->where('status',1)
-                    ->where('post_id','<>',$this->userId)
-                    ->column('post_id');
+            $user_ids = $this->fcModel->getChildStaff($this->userId);
             $count = Db::name('protocol_category_user_post')
                     ->where('post_id',$param['protocol_id'])
                     ->where('category_id','in',$user_ids)

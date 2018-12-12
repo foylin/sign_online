@@ -2,8 +2,6 @@ import "./date";
 
 var app = getApp();
 
-// var host = "https://sscx.karles.com.cn";
-
 // var host = "http://168.168.4.20/sign_online/admin/public";
 var host = "https://sscx.karles.com.cn";
 // var host = "http://192.168.1.105/sign_online/admin/public";
@@ -13,7 +11,7 @@ var tryingLogin = false;
 
 module.exports = {
     HOST: host,
-    API_ROOT: host + '/api/index.php/',
+    API_ROOT: host + '/api/',
     API_VERSION: '1.1.0',
     post(options) {
         this.request(options);

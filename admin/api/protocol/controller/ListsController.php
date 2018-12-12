@@ -14,6 +14,7 @@ use cmf\controller\RestBaseController;
 use cmf\controller\RestUserBaseController;
 use api\protocol\model\UserModel;
 use api\protocol\model\FrameCategoryModel;
+use api\protocol\model\FrameCategoryPostModel;
 use think\Db;
 
 class ListsController extends RestUserBaseController
@@ -25,6 +26,7 @@ class ListsController extends RestUserBaseController
     {
         parent::__construct();
         $this->postModel = $postModel;
+        $this->fcModel = new FrameCategoryPostModel();
     }
 
 
@@ -195,13 +197,8 @@ class ListsController extends RestUserBaseController
                     ->group('pu.post_id')
                     ->select()->toArray();
         if($data) {
-            $category_id = Db::name('frame_category_post')->where('post_id',$userId)->value('category_id');
-
-            $user_ids = Db::name('frame_category_post')
-                    ->where('category_id',$category_id)
-                    ->where('status',1)
-                    ->where('post_id','<>',$userId)
-                    ->column('post_id');
+            
+            $user_ids = $this->fcModel->getChildStaff($userId);
             foreach($data as $k=>$v) {
                 $count = Db::name('protocol_category_user_post')
                     ->where('post_id',$v['post_id'])
@@ -231,13 +228,7 @@ class ListsController extends RestUserBaseController
         if(!$post_id) $this->error('签约书不存在');
         
         $userId = $this->getUserId();
-        $category_id = Db::name('frame_category_post')->where('post_id',$userId)->value('category_id');
-
-        $user_ids = Db::name('frame_category_post')
-                ->where('category_id',$category_id)
-                ->where('status',1)
-                ->where('post_id','<>',$userId)
-                ->column('post_id');
+        $user_ids = $this->fcModel->getChildStaff($userId);
         $data = Db::name('protocol_category_user_post')->alias('pu')
                 ->field('p.post_title,pu.post_id,pu.sign_status,u.user_login,pu.category_id as uid,pu.id as pcup_id')
                 ->join('__PROTOCOL_POST__ p','pu.post_id = p.id','left')
@@ -258,12 +249,7 @@ class ListsController extends RestUserBaseController
 
         $protocol_id = $this->request->param('protocol_id', 0, 'intval');
         $userId = $this->getUserId();
-        $category_id = Db::name('frame_category_post')->where('post_id',$userId)->value('category_id');
-        $user_ids = Db::name('frame_category_post')
-                ->where('category_id',$category_id)
-                ->where('status',1)
-                ->where('post_id','<>',$userId)
-                ->column('post_id');
+        $user_ids = $this->fcModel->getChildStaff($userId);
         $count = Db::name('protocol_category_user_post')
                     ->where('post_id',$protocol_id)
                     ->where('category_id','in',$user_ids)
