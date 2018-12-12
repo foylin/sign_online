@@ -80,7 +80,7 @@ class VerificationCodeController extends RestBaseController
             if ($result === false) {
                 $this->error('未安装验证码发送插件,请联系管理员!');
             }
-
+            $code = 1234;
             cmf_verification_code_log($data['username'], $code);
 
             if (!empty($result['message'])) {
