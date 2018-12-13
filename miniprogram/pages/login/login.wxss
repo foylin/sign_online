@@ -1,5 +1,7 @@
-page{
-    background: white;
+
+page {
+    background-image: url('http://sscx.karles.com.cn/upload/lobg.png');
+    background-size: 100% 100%;
 }
 .login-container {
     padding: 20px;
@@ -35,9 +37,37 @@ page{
 }
 
 .login_bg{
-    width: 100px;
-    height: 100px;
+    width: 65px;
+    height: 65px;
     align-content: center;
     margin: 40px auto 40px auto;
     display: block;
 }
+.tab_item_active {
+    font-weight: bold;
+    color: #333333;
+}
+.btn {
+    width: 90%;
+    margin: auto;
+    height: 40px;
+    background-color: #f58790;
+    border-radius: 20px;
+    color: white;
+    margin-top: 30px;
+}
+.pwd_yan {
+    width: 18px;
+    height: 11px;
+}
+.center {display: -webkit-box;display: -moz-box;display: -ms-flexbox;display: -webkit-flex;display: flex;align-items: center;justify-content: center;}
+.h_center {display: -webkit-box;display: -moz-box;display: -ms-flexbox;display: -webkit-flex;display: flex;align-items: center;}
+.box{width: 90%;margin: auto;}
+.botom{border-bottom:1px solid #E6E6E6}
+.mgto10{margin-top: 10px}
+.pdzy15{padding:0 15px}
+.font12{font-size:12px}
+.color333{color:#333}
+.f_grow {flex-grow: 1;}
+.login_phone {width:15px;height:25px;}
+.login_sock {width:18px;height:22px;}
