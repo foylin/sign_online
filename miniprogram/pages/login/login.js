@@ -55,7 +55,7 @@ Page({
                         if(_u.user_status == 2) {
                             //未验证
                             wx.reLaunch({
-                                url: '/pages/password/reset2?id=' + _u.id
+                                url: '/pages/password/reset2?id=' + _u.id + '&phone=' + _u.mobile
                             });
                             return !1;
                         }

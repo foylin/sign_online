@@ -55,7 +55,7 @@
                         <tr>
                             <th>手机号码</th>
                             <td>
-                                <input class="form-control" type="text" name="post[mobile]" id="title" value=""
+                                <input class="form-control" type="text" name="post[mobile]" id="title" required value=""
                                     placeholder="请输入手机号码" />
                             </td>
                         </tr>
@@ -69,7 +69,7 @@
                         </tr>
 
                         <tr>
-                            <th width="100">所属部门/单位</th>
+                            <th width="100">部门/单位</th>
                             <td>
                                 <input class="form-control" type="text" style="width:400px;" required value=""
                                     placeholder="请选择部门/单位" onclick="doSelectCategory();" id="js-categories-name-input"
@@ -79,7 +79,7 @@
                         </tr>
 
                         <tr>
-                            <th width="100">模糊岗位</th>
+                            <th width="100">岗位</th>
                             <td>
                                 <select class="form-control" name="post[frame_type]" id="frame_type">
                                     <option value="1">员工</option>
@@ -89,7 +89,7 @@
                             </td>
                         </tr>
 
-                        <tr>
+                        <tr style="display:none;">
                             <th width="100">员工身份</th>
                             <td>
                                 <input class="form-control" type="text" style="width:400px;"  value=""

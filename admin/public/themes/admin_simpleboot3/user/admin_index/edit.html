@@ -58,7 +58,7 @@
                         <tr>
                             <th>手机号码<span class="form-required">*</span></th>
                             <td>
-                                <input class="form-control" type="text" name="post[mobile]" id="title" value="{$post['mobile']}"
+                                <input class="form-control" type="text" name="post[mobile]" id="title" required value="{$post['mobile']}"
                                     placeholder="请输入手机号码" />
                             </td>
                         </tr>
@@ -82,7 +82,7 @@
                         </tr>
 
                         <tr>
-                            <th width="100">模糊岗位</th>
+                            <th width="100">岗位</th>
                             <td>
                                 <select class="form-control" name="post[frame_type]" id="frame_type" required>
                                     <option value="1">员工</option>
@@ -92,7 +92,7 @@
                             </td>
                         </tr>
 
-                        <tr>
+                        <tr style="display:none;">
                             <th width="100">员工身份</th>
                             <td>
                                 <input class="form-control" type="text" style="width:400px;"  value="{:implode(' ',$post_categories_identity)}"

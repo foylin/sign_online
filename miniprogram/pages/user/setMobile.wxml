@@ -8,7 +8,7 @@
                         <view class="weui-label">手机号</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <input class="weui-input" name="mobile" placeholder="请输入手机号" bindinput="onMobileInput"/>
+                        <input class="weui-input" name="mobile" placeholder="请输入手机号" bindinput="onMobileInput" value="{{mobile}}"/>
                     </view>
                     <view class="weui-cell__ft">
                         <view class="weui-vcode-btn" bindtap="onGetVerificationCode">获取验证码</view>

@@ -1,10 +1,15 @@
 var api = require('../../utils/api.js')
 
 Page({
-    data: {},
+    data: {
+        mobile: ''
+    },
     onLoad (params) {
         //console.log(options);
         this.params = params;
+        this.setData({
+            mobile: this.params.mobile
+        });
     },
 
     formSubmit(e){
