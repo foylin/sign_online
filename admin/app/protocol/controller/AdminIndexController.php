@@ -701,6 +701,20 @@ class AdminIndexController extends AdminBaseController
                 $this->error('协议不存在');
             }
 
+            if (isset($data['ids'])) {
+                $ids = $this->request->param('ids/a');
+                
+                // dump($ids);
+                // $protocolPostModel = new ProtocolPostModel();
+                // $protocolPostModel->where(['id' => ['in', $ids]])->update(['recommended' => 1]);
+                // dump($protocolPostModel->getLastSql());
+                // $this->success("推荐成功！", '');
+
+                $map_userpost['id'] = ['in', $ids];
+            }
+            // exit();
+            
+
             $protocolCategoryModel = new ProtocolCategoryModel();
             $protocolPostModel = new ProtocolPostModel();
             $mode_type = $protocolCategoryModel->get_protocol_mode($protocol_id);
@@ -710,7 +724,7 @@ class AdminIndexController extends AdminBaseController
                 $map_userpost['sign_status'] = 1;
                 $sign_users = Db::name('protocol_category_user_post')->where($map_userpost)->select();
                 foreach ($sign_users as $value) {
-                    $protocolPostModel->add_bmw($protocol_id, $value['category_id']);
+                    // $protocolPostModel->add_bmw($protocol_id, $value['category_id']);
                     $map['post_id'] = $protocol_id;
                     $map['category_id'] = $value['category_id'];
                     Db::name('protocol_category_user_post')->where($map)->update(['sign_status'=>9]);
@@ -777,13 +791,13 @@ class AdminIndexController extends AdminBaseController
 
             // $map_userpost['sign_status'] = 1;
             $sign_users = Db::name('protocol_category_user_post')->where($map_userpost)->find();
-            // if(empty($sign_url)){
-            //     $this->error('未签约协议无法审核');
-            // }
-            // 保密工作责任书  添加保密委印章
-            if($mode_type == 1){    
-                $protocolPostModel->add_bmw($protocol_id, $sign_users['category_id']);
+            if(empty($sign_users['sign_url'])){
+                $this->error('未签约协议无法审核');
             }
+            // 保密工作责任书  添加保密委印章
+            // if($mode_type == 1){    
+            //     $protocolPostModel->add_bmw($protocol_id, $sign_users['category_id']);
+            // }
 
             Db::name('protocol_category_user_post')->where($map_userpost)->update(['sign_status'=>$sign_status]);
             // dump(Db::name('protocol_category_user_post')->getLastSql());

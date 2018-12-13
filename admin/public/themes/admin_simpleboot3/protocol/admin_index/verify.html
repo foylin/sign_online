@@ -85,7 +85,8 @@
                         <thead>
                         <tr>
                             
-                            
+                            <th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x"
+                                    data-checklist="js-check-x"></label></th>
                             <th width="100">名称</th>
                             <th width="150">状态</th>
                             <th>备注</th>
@@ -95,6 +96,10 @@
                         </thead>
                         <foreach name="list" item="vo">
                             <tr>
+                                <td>
+                                    <input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]"
+                                                   value="{$vo.protocol_user_post_id}" title="ID:{$vo.protocol_user_post_id}">
+                                </td>
                                 <td>{$vo.user_login}</td>
                                 <td>
                                         <if $vo.sign_status == 9>
@@ -129,9 +134,12 @@
                                 
             
                                 <td>
-                                    
+                                    <if $vo.sign_status == 9>
+                                    <span>签约成功,无法修改</span>
+                                    <else>
                                     <a href="javascript:;" class="export passyes" data-user_post_id="{$vo.protocol_user_post_id}">审核通过</a>
                                     <a href="javascript:;" class="export passno" data-user_post_id="{$vo.protocol_user_post_id}">审核失败</a>
+                                    </if>
                                     <a href="{:url('AdminIndex/view', array('id' => $post['id'], 'uid' => $vo.user_id))}" class="export" target="_blank">预览</a>
                                     <a href="{:url('AdminIndex/export', array('id' => $post['id'], 'uid' => $vo.user_id))}" class="export">导出PDF</a>
                                 </td>
@@ -370,18 +378,29 @@
     });
 
     $('#check_all').click(function () {
+
+        // $("input:[name='ck']:checked");
+        // var checkboxed = $("input:[type='checkbox']:checked");
+
+        var checkID = [];//定义一个空数组
+ 
+        $("input[name='ids[]']:checked").each(function(i){
+            checkID[i] =$(this).val();
+        });
+        console.log(checkID);
         $.ajax({
             url: "{:url('AdminIndex/checkall',array())}", 
             type: "post", 
             dataType: "json", 
             data: { 
-                protocol_id: postId
+                protocol_id: postId,
+                ids: checkID
             }, 
             success: function (data) {
                 if(data.code == 0){
                     alert(data.msg);
                 }else{
-                    alert('审核成功');
+                    alert('所有已签约协议已审核成功');
                     reloadPage(window);
                 }
             }

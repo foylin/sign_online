@@ -61,9 +61,14 @@ Page({
                         let _u = data.data.user;
                         if(_u.user_status == 2) {
                             //未验证
+                            // wx.reLaunch({
+                            //     url: '/pages/password/reset2?id=' + _u.id + '&phone=' + _u.mobile
+                            // });
+
                             wx.reLaunch({
-                                url: '/pages/password/reset2?id=' + _u.id + '&phone=' + _u.mobile
+                                url: '/pages/user/setMobile?id=' + _u.id + '&phone=' + _u.mobile
                             });
+
                             return !1;
                         }
                         wx.navigateBack({

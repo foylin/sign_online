@@ -224,10 +224,13 @@ class UserModel extends Model
                 $result = 0;
         }
         // dump($result);
-        $is_sn = Db::name("user")->where('user_sn', $user['user_sn'])->find();
-        if($is_sn){
-            return 2;
+        if($user['user_sn']){
+            $is_sn = Db::name("user")->where('user_sn', $user['user_sn'])->find();
+            if($is_sn){
+                return 2;
+            }
         }
+        
 
         $userStatus = 2;
 
@@ -420,11 +423,14 @@ class UserModel extends Model
             return 1;
         }
 
-        $result = Db::name("user")->where('user_sn', $user['user_sn'])->find();
-        // 修改的员工姓名已存在
-        if($result && $result['user_sn'] != $nowuser['user_sn']){
-            return 2;
+        if($user['user_sn']){
+            $result = Db::name("user")->where('user_sn', $user['user_sn'])->find();
+            // 修改的员工姓名已存在
+            if($result && $result['user_sn'] != $nowuser['user_sn']){
+                return 2;
+            }
         }
+        
 
         // $data   = [
         //     'user_login'      => $user['user_login'],

@@ -18,6 +18,17 @@ use api\protocol\model\FrameCategoryPostModel;
 
 class UploadController extends RestUserBaseController
 {
+
+    protected $postModel;
+
+    public function __construct(ProtocolPostModel $postModel)
+    {
+        parent::__construct();
+        $this->postModel = $postModel;
+        $this->fcModel = new FrameCategoryPostModel();
+    }
+    
+
     // 签名图片上传
     public function one()
     {
@@ -127,6 +138,7 @@ class UploadController extends RestUserBaseController
 
             //检查是否为保密协议书 自动添加部门章
             if($protocol2->categories->mode_type == 1) {
+
                 //部门章
                 $category_id = Db::name('frame_category_post')->where('post_id',$this->userId)->value('category_id');
                 $frame = FrameCategoryModel::get($category_id);
@@ -135,11 +147,27 @@ class UploadController extends RestUserBaseController
                     $sec_write_data = [
                         'pic'       => $part_url,
                         'page'      => $res['page'],
-                        'position'  => explode(',',$res['sign']),
-                        'size'      => 30
+                        'position'  => [140,50],
+                        'size'      => 40
                     ];
                     array_push($_w,$sec_write_data);
                 }
+
+                // 保密委章
+                $frame = FrameCategoryModel::get(999);
+                if(!$frame || empty($frame['more']['thumbnail'])) {
+                    $this->error('保密委公章未设置');
+                }
+                $seal_url = ROOT_PATH . '/public/upload/' . $frame['more']['thumbnail'];
+                if(!file_exists($seal_url)) $this->error('保密委公章未设置');
+
+                $write_data2 = [
+                    'pic'       => $seal_url,
+                    'page'      => $more['seal']['page'],
+                    'position'  => explode(',', $more['seal']['sign']),
+                    'size'      => 40
+                ];
+                array_push($_w, $write_data2);
                 
             }
 
