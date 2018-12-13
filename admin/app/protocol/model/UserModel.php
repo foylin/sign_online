@@ -33,7 +33,7 @@ class UserModel extends Model
     {
         $where = ['fc.status' => 1];
         $where = ['fc.delete_time' => 0];
-        $categories = Db::name('frame_category')->alias('fc')->where($where)->limit(3)->select()->toArray();
+        $categories = Db::name('frame_category')->alias('fc')->where($where)->select()->toArray();
             // dump($categories);exit();
         foreach ($categories as $key => $value) {
             $categories[$key]['is_user'] = false;
