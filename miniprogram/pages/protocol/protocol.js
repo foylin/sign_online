@@ -6,7 +6,7 @@ var app     = getApp();
 Page({
 
     data: {
-        'countdown': 30,
+        'countdown': 10,
         'countdowndes': '请阅读协议内容',
         'sign_status': 0,
         'sign': '签约',
@@ -25,9 +25,15 @@ Page({
         let height = wx.getSystemInfoSync().windowHeight;
         // let height = wx.getSystemInfoSync().windowHeight;
         // let sign_status = this.data.sign_status;
+
+        let timestamp = Date.parse(new Date());  
+        timestamp = timestamp / 1000;  
+
         this.setData({
-          view_url: api.HOST + '/pdf.html?width=' + width + '&height=' + height + '&sign_status=' + params.status + '&protocol_id=' + params.id + '&uid=' + params.uid + '&type=' + params.type + '&usertype=' + params.usertype + '&pcup_id=' + params.pcup_id
+          view_url: api.HOST + '/pdf.html?width=' + width + '&height=' + height + '&sign_status=' + params.status + '&protocol_id=' + params.id + '&uid=' + params.uid + '&type=' + params.type + '&usertype=' + params.usertype + '&pcup_id=' + params.pcup_id + '&v=' + timestamp
         })
+
+
 
         console.log(this.data.view_url);
         

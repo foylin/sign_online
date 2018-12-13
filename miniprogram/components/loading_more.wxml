@@ -4,7 +4,7 @@
 </view>
 
 <view class="weui-loadmore weui-loadmore_line" wx:if="{{!loadingMore && !noMoreData}}">
-    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">上拉加载</view>
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">下拉加载</view>
 </view>
 
 <view class="weui-loadmore weui-loadmore_line" wx:if="{{noMoreData && !noData}}">

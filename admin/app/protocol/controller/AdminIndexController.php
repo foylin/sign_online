@@ -566,6 +566,11 @@ class AdminIndexController extends AdminBaseController
 
     }
 
+    /**
+     * 协议审核
+     *
+     * @return void
+     */
     public function verify()
     {
         $content = hook_one('protocol_admin_article_edit_view');
@@ -580,7 +585,7 @@ class AdminIndexController extends AdminBaseController
         $post = $protocolPostModel->where('id', $id)->find();
         
 
-        $list = $post->categories_user()->paginate(3);
+        $list = $post->categories_user()->where('pivot.place=0')->paginate(10);
         // dump($post->getLastSql());
         // dump($list);
         foreach ($list as &$value) {
@@ -633,6 +638,11 @@ class AdminIndexController extends AdminBaseController
         return $this->fetch();
     }
 
+    /**
+     * 审核保存
+     *
+     * @return void
+     */
     public function verifyPost()
     {
         if ($this->request->isPost()) {
@@ -726,6 +736,89 @@ class AdminIndexController extends AdminBaseController
 
                 }
             }
+
+            // if($is_all_check){
+            //     $this->error('存在未签约用户,审核失败');
+            // }else{
+            //     $map['post_id'] = $protocol_id;
+            //     Db::name('protocol_category_user_post')->where($map)->update(['sign_status'=>9]);
+            //     $this->success('保存成功!');
+            // }
+
+            $this->success('保存成功!');
+            
+
+        }
+    }
+
+    /**
+     * 单个审核
+     *
+     * @return void
+     */
+    public function checkone(){
+        if ($this->request->isPost()) {
+            $data = $this->request->param();
+            // dump($data);exit();
+            $protocol_id = $data['protocol_id'];
+            $user_post_id = $data['user_post_id'];
+            $sign_status = $data['sign_status'];
+            // $user_count = $data['user_count'];
+            if(empty($protocol_id)){
+                $this->error('协议不存在');
+            }
+
+            $protocolCategoryModel = new ProtocolCategoryModel();
+            $protocolPostModel = new ProtocolPostModel();
+            $mode_type = $protocolCategoryModel->get_protocol_mode($protocol_id);
+
+            $map_userpost['post_id'] = $protocol_id;
+            $map_userpost['id'] = $user_post_id;
+
+            // $map_userpost['sign_status'] = 1;
+            $sign_users = Db::name('protocol_category_user_post')->where($map_userpost)->find();
+            // if(empty($sign_url)){
+            //     $this->error('未签约协议无法审核');
+            // }
+            // 保密工作责任书  添加保密委印章
+            if($mode_type == 1){    
+                $protocolPostModel->add_bmw($protocol_id, $sign_users['category_id']);
+            }
+
+            Db::name('protocol_category_user_post')->where($map_userpost)->update(['sign_status'=>$sign_status]);
+            // dump(Db::name('protocol_category_user_post')->getLastSql());
+            // if($mode_type == 1){
+            //     // 保密工作责任书  添加保密委印章
+            //     $map_userpost['post_id'] = $protocol_id;
+            //     $map_userpost['sign_status'] = 1;
+            //     $sign_users = Db::name('protocol_category_user_post')->where($map_userpost)->select();
+            //     foreach ($sign_users as $value) {
+            //         $protocolPostModel->add_bmw($protocol_id, $value['category_id']);
+            //         $map['post_id'] = $protocol_id;
+            //         $map['category_id'] = $value['category_id'];
+            //         Db::name('protocol_category_user_post')->where($map)->update(['sign_status'=>9]);
+            //     }
+            // }elseif($mode_type == 2){
+            //     $map_userpost['post_id'] = $protocol_id;
+            //     $map_userpost['sign_status'] = 2;
+            //     $sign_users = Db::name('protocol_category_user_post')->where($map_userpost)->select();
+            //     foreach ($sign_users as $value) {
+            //         $map['post_id'] = $protocol_id;
+            //         $map['category_id'] = $value['category_id'];
+            //         Db::name('protocol_category_user_post')->where($map)->update(['sign_status'=>9]);
+            //     }
+
+            // }elseif($mode_type == 3){
+            //     $map_userpost['post_id'] = $protocol_id;
+            //     $map_userpost['sign_status'] = 1;
+            //     $sign_users = Db::name('protocol_category_user_post')->where($map_userpost)->select();
+            //     foreach ($sign_users as $value) {
+            //         $map['post_id'] = $protocol_id;
+            //         $map['category_id'] = $value['category_id'];
+            //         Db::name('protocol_category_user_post')->where($map)->update(['sign_status'=>9]);
+
+            //     }
+            // }
 
             // if($is_all_check){
             //     $this->error('存在未签约用户,审核失败');
@@ -956,7 +1049,7 @@ class AdminIndexController extends AdminBaseController
         if($protocol_data['view_file']){
             $this->redirect(cmf_get_domain().'/upload/'.$protocol_data['view_file']);
         }else{
-            $this->redirect(cmf_get_domain().'/upload/protocol/pdf/'.$protocol_id.'.pdf');
+            $this->redirect(cmf_get_domain().'/upload/protocol/pdf/'.$protocol_id.'.pdf?v='.time());
         }
         exit();
 

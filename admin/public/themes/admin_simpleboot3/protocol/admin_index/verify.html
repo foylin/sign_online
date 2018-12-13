@@ -86,11 +86,11 @@
                         <tr>
                             
                             
-                            <th>名称</th>
-                            <th>状态</th>
+                            <th width="100">名称</th>
+                            <th width="150">状态</th>
                             <th>备注</th>
                             <th>签约时间</th>
-                            <th width="150">操作</th>
+                            <th width="250">操作</th>
                         </tr>
                         </thead>
                         <foreach name="list" item="vo">
@@ -111,7 +111,7 @@
                                                     </select>
                 
                                                 <else>
-                                                    <select class="form-control valid" name="post[sign_status][]" id="categories-model-sel" aria-invalid="false" >
+                                                    <select class="form-control valid" name="post[sign_status][]" id="categories-model-sel" aria-invalid="false" disabled>
                                                         <foreach name="sign_status_option" item="vo_sso" key="k_sso">
                                                             <option value="{$k_sso}" <if $vo.sign_status==$k_sso>selected=""</if> >{$vo_sso}</option>
                                                         </foreach>
@@ -129,8 +129,11 @@
                                 
             
                                 <td>
-                                        <a href="{:url('AdminIndex/view', array('id' => $post['id'], 'uid' => $vo.user_id))}" class="export" target="_blank">预览</a>
-                                        <a href="{:url('AdminIndex/export', array('id' => $post['id'], 'uid' => $vo.user_id))}" class="export">导出PDF</a>
+                                    
+                                    <a href="javascript:;" class="export passyes" data-user_post_id="{$vo.protocol_user_post_id}">审核通过</a>
+                                    <a href="javascript:;" class="export passno" data-user_post_id="{$vo.protocol_user_post_id}">审核失败</a>
+                                    <a href="{:url('AdminIndex/view', array('id' => $post['id'], 'uid' => $vo.user_id))}" class="export" target="_blank">预览</a>
+                                    <a href="{:url('AdminIndex/export', array('id' => $post['id'], 'uid' => $vo.user_id))}" class="export">导出PDF</a>
                                 </td>
                             </tr>
                         </foreach>
@@ -145,7 +148,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <!-- <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button> -->
                 <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
                 <a id="check_all" class="btn btn-success" href="javascript:;">批量审核</a>
             </div>
@@ -378,13 +381,54 @@
                 if(data.code == 0){
                     alert(data.msg);
                 }else{
+                    alert('审核成功');
                     reloadPage(window);
                 }
             }
         });
     })
 
+    $('.passyes').click(function(){
+        var user_post_id = $(this).data('user_post_id');
+        $.ajax({
+            url: "{:url('AdminIndex/checkone',array())}", 
+            type: "post", 
+            dataType: "json", 
+            data: { 
+                protocol_id: postId,
+                user_post_id: user_post_id,
+                sign_status: 9
+            }, 
+            success: function (data) {
+                if(data.code == 0){
+                    alert(data.msg);
+                }else{
+                    reloadPage(window);
+                }
+            }
+        });
+    })
 
+    $('.passno').click(function(){
+        var user_post_id = $(this).data('user_post_id');
+        $.ajax({
+            url: "{:url('AdminIndex/checkone',array())}", 
+            type: "post", 
+            dataType: "json", 
+            data: { 
+                protocol_id: postId,
+                user_post_id: user_post_id,
+                sign_status: -1
+            }, 
+            success: function (data) {
+                if(data.code == 0){
+                    alert(data.msg);
+                }else{
+                    reloadPage(window);
+                }
+            }
+        });
+    })
 </script>
 
 
