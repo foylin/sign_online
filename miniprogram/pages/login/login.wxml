@@ -1,6 +1,31 @@
 <view class="login-container">
     <view > <image class="login_bg" src="/images/login_bg.jpeg"></image> </view>
     <form bindsubmit="formSubmit">
+
+        <view class="box botom mgto10">
+            <view class="h_center" style="height: 45px;">
+                <view class="font12 color333">
+                    <image class="login_phone" src="/images/phone.png"></image>
+                </view>
+                <view class="pdzy15 font12 color333">|</view>
+                <view class="f_grow"><input type="number" value="{{username}}" placeholder="请输入工号 / 手机号" class="font12" maxlength="11" bindinput="keyName" focus='{{isfocus}}'/></view>
+                <view class="pdzy15" bindtap="onClear" wx:if="{{close}}"><image src="{{res.src2}}" class="pwd_yan" style="width:16px;height:16px;"></image></view>
+            </view>
+        </view>
+        <view class="box botom ">
+            <view class="h_center jc_sb" style="height: 45px;">
+                <view class="font12 color333">
+                    <image class="login_sock" src="/images/sock.png"></image>
+                </view>
+                <view class="pdzy15 font12 color333"></view>
+                <view class="f_grow"><input type="text" placeholder="请输入登录密码" class="font12" password="{{res.pwd}}" bindinput="keyPwd" /></view>
+                <view class="pdzy15" bindtap="onLook"><image src="{{res.src}}" class="pwd_yan"></image></view>
+            </view>
+        </view>
+
+        <button formType="submit" class="btn font14 center" style="background-color:#33776a;margin-top:40px;">登录</button>
+
+        <!--
         <view style="margin: 20px 0;">
             <input class="input" bindinput="keyName" placeholder="工号 / 手机号" placeholder-class="input-placeholder"/>
         </view>
@@ -12,6 +37,7 @@
                     hover-class="btn-hover">登 录
             </button>
         </view>
+        -->
         <!-- <view>
             <button open-type="getUserInfo" size="mini" plain="true" class="login-btn" hover-class="other-button-hover"
                     hover-class="btn-hover" bindgetuserinfo="handleGetUserInfo"><i class="fa fa-wechat"></i>微信登录

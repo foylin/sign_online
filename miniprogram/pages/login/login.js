@@ -3,7 +3,14 @@ var app = getApp()
 Page({
     data: {
         username: '',
-        password: ''
+        password: '',
+        res:{
+            pwd:true,
+            src:"../../images/nolook.png",
+            src2:"../../images/close.png"
+        },
+        close: false,
+        isfocus: true
     },
 
     onLoad() {
@@ -87,11 +94,40 @@ Page({
         this.setData({
             username:value
         })
+        if(value.length > 0) {
+            this.setData({
+                close: true
+            })
+        }
     },
     keyPwd :function(e) {
         let { value } = e.detail;
         this.setData({
             password:value
+        })
+    },
+    onLook: function(e) {
+        const _k1 = `res.pwd`
+        const _k2 = `res.src`
+        if(!this.data.res.pwd) {
+            console.log('e');
+            this.setData({
+                [_k1]: true,
+                [_k2]: '../../images/nolook.png'
+            })
+        }else {
+            console.log('ee');
+            
+            this.setData({
+                [_k1]: false,
+                [_k2]: '../../images/eye.png'
+            })
+        }
+        
+    },
+    onClear: function(e) {
+        this.setData({
+            username: ''
         })
     }
 })
