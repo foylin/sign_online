@@ -7,9 +7,9 @@
         <li><a href="{:url('admin_index/add')}">新增员工</a></li>
     </ul>
     <form class="well form-inline margin-top-20" method="post" action="{:url('user/adminIndex/index')}">
-        员工ID：
+        员工工号：
         <input class="form-control" type="text" name="uid" style="width: 150px;" value="{:input('request.uid')}"
-               placeholder="请输入员工ID">
+               placeholder="请输入工号">
         关键字：
         <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
                placeholder="名称/手机">
@@ -34,7 +34,7 @@
         <table class="table table-hover table-bordered">
             <thead>
             <tr>
-                <th>ID</th>
+                <th>工号</th>
                 <th>名称</th>
                 <!-- <th>{:lang('NICENAME')}</th> -->
                 <!-- <th>{:lang('AVATAR')}</th> -->
@@ -55,7 +55,7 @@
             </php>
             <foreach name="list" item="vo">
                 <tr>
-                    <td>{$vo.id}</td>
+                    <td>{$vo.user_sn}</td>
                     <td>{$vo['user_login']?$vo['user_login']:($vo['mobile']?$vo['mobile']:lang('THIRD_PARTY_USER'))}
                     </td>
                     <!-- <td>{$vo['user_nickname']?$vo['user_nickname']:lang('NOT_FILLED')}</td> -->

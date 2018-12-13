@@ -1,4 +1,5 @@
 <view class="login-container">
+    <view > <image class="login_bg" src="/images/login_bg.jpeg"></image> </view>
     <form bindsubmit="formSubmit">
         <view style="margin: 20px 0;">
             <input class="input" bindinput="keyName" placeholder="工号 / 手机号" placeholder-class="input-placeholder"/>

@@ -51,15 +51,24 @@ Page({
                         wx.setStorageSync('login', '1');
                         wx.setStorageSync('token', data.data.token);
                         wx.setStorageSync('user', data.data.user);
+                        let _u = data.data.user;
+                        if(_u.user_status == 2) {
+                            //未验证
+                            wx.reLaunch({
+                                url: '/pages/password/reset2?id=' + _u.id
+                            });
+                            return !1;
+                        }
                         wx.navigateBack({
                             delta: 1
                         });
+                        
                     } catch (e) {
                         console.log(e);
                         // Do something when catch error
                     }
 
-                    wx.navigateTo({
+                    wx.reLaunch({
                         url: '/pages/index/index'
                     });
 

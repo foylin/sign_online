@@ -33,3 +33,11 @@ page{
 .btn-hover {
     background-color: #eee !important;
 }
+
+.login_bg{
+    width: 100px;
+    height: 100px;
+    align-content: center;
+    margin: 40px auto 40px auto;
+    display: block;
+}

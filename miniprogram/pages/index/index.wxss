@@ -1,9 +1,17 @@
+
+
+
+page {
+    background-image: url('http://sscx.karles.com.cn/upload/miniprogram_bg.jpg');
+    background-size: 100% 100%;
+}
 .weui-cell_link:active {
     background: transparent;
 }
 
 .list-view{
 padding-top: 22rpx;
+
 }
 /*weui-search-bar*/
 

@@ -33,7 +33,7 @@ Page({
         wx.clearStorageSync();
         api.deletePageListItemByPage('pages/index/index','id')
         console.log(app.pagesData)
-        wx.navigateTo({
+        wx.reLaunch({
             url: '/pages/login/login'
         });
     },

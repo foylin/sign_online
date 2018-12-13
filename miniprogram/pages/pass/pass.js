@@ -32,10 +32,12 @@ Page({
             });
         }
 
-        if (app.pagesNeedUpdate['pages/index/index'] == 'refresh') {
-            this.onPullDownRefresh();
-        }
-        this.pullUpLoad();
+        // if (app.pagesNeedUpdate['pages/index/index'] == 'refresh') {
+        //     this.onPullDownRefresh();
+        // }
+        // this.pullUpLoad();
+
+        this.onPullDownRefresh();
 
         api.pageNeedUpdate('pages/index/index', 0);
     },

@@ -17,7 +17,8 @@
         "pages/password/reset",
         "pages/leading/leading",
         "pages/sign/sign2",
-        "pages/leading/leading2"
+        "pages/leading/leading2",
+        "pages/password/reset2"
     ],
     "window": {
         "backgroundTextStyle": "white",

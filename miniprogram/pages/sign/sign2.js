@@ -15,7 +15,7 @@ Page({
       // return;
       if (params.post_id) {
         // wx.showNavigationBarLoading();
-        wx.showLoading({title: '印章生成中...'})
+        wx.showLoading({title: '生成中...'})
         api.get({
             url: 'protocol/lists/sec_through?post_id=' + params.post_id + '&pcup_id=' + params.pcup_id,
             data: {},
