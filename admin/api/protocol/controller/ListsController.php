@@ -196,6 +196,8 @@ class ListsController extends RestUserBaseController
                     ->where($where)
                     ->group('pu.post_id')
                     ->select()->toArray();
+
+                    $sql = Db::name('protocol_category_user_post')->getLastSql();
         if($data) {
             
             $user_ids = $this->fcModel->getChildStaff($userId);
@@ -205,6 +207,7 @@ class ListsController extends RestUserBaseController
                     ->where('category_id','in',$user_ids)
                     ->where('sign_status','lt',2)
                     ->count();
+                
                 if($count>0) {
                     $data[$k]['sign'] = 1;
                 }else $data[$k]['sign'] = 0;
@@ -216,6 +219,7 @@ class ListsController extends RestUserBaseController
         } else {
             $response = $data;
         }
+        $response['sql'] = $sql;
         $this->success('请求成功!', $response);
         // $this->success('ok', ['data'=>$data,'sql'=>Db::name('')->getLastSql()]);
     }
