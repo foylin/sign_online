@@ -15,7 +15,8 @@ Page({
     formSubmit(e){
         
         api.post({
-            url: 'user/profile/bindingMobile',
+            // url: 'user/profile/bindingMobile',
+            url: 'user/public/toverify',
             data: e.detail.value,
             success: data => {
                 if (data.code == 1) {
@@ -51,8 +52,9 @@ Page({
         console.log(this);
         let that = this;
         api.post({
-            url: 'user/verification_code/send',
-            data: {username: that.data.mobile},
+            // url: 'user/verification_code/send',
+            url: 'user/msg/send',
+            data: {mobile: that.data.mobile},
             success: data => {
                 if (data.code == 1) {
                     wx.showModal({
