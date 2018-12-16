@@ -402,6 +402,7 @@ class AdminIndexController extends AdminBaseController
             // }
             Db::name('user')->where('id = '.$id)->delete();
             Db::name('protocol_category_user_post')->where('category_id = '.$id)->delete();
+            Db::name('frame_category_post')->where('post_id = '.$id)->delete();
             $this->success("删除成功！", '');
 
         }
@@ -441,7 +442,7 @@ class AdminIndexController extends AdminBaseController
                value='\$id' data-name='\$name' \$checked>
     </td>
     <td>\$id</td>
-    <td>\$spacer <a href='\$url' target='_blank'>\$name</a></td>
+    <td>\$spacer \$name</td>
 </tr>
 tpl;
 

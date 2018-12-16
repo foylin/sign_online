@@ -161,6 +161,7 @@ class ProtocolPostModel extends Model
                 $user_resp = Db::name('frame_category_post')->where(['category_id'=>$val_cf['category_id'], 'type' => 3])->value('post_id');
                 if($user_resp){
                     $categories_user_one[] = $user_resp;
+                    break;
                 }
             }
             // dump($categories_user_one); exit();
