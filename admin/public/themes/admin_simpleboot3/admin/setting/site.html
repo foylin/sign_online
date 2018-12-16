@@ -4,11 +4,12 @@
 <div class="wrap js-check-wrap">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#A" data-toggle="tab">{:lang('WEB_SITE_INFOS')}</a></li>
-        <li><a href="#B" data-toggle="tab">{:lang('SEO_SETTING')}</a></li>
+        <!-- <li><a href="#B" data-toggle="tab">{:lang('SEO_SETTING')}</a></li> -->
         <!--<li><a href="#C" data-toggle="tab">{:lang('URL_SETTING')}</a></li>-->
         <!--<li><a href="#E" data-toggle="tab">{:lang('COMMENT_SETTING')}</a></li>-->
-        <li><a href="#F" data-toggle="tab">用户注册设置</a></li>
-        <li><a href="#G" data-toggle="tab">CDN设置</a></li>
+        <!-- <li><a href="#F" data-toggle="tab">用户注册设置</a></li> -->
+        <!-- <li><a href="#G" data-toggle="tab">CDN设置</a></li> -->
+        <li><a href="#H" data-toggle="tab">短信设置</a></li>
     </ul>
     <form class="form-horizontal js-ajax-form margin-top-20" role="form" action="{:url('setting/sitePost')}"
           method="post">
@@ -200,6 +201,27 @@
                                     themes/simplebootx/public/assets<br>
                                     例如未设置cdn前：jquery的访问地址是/static/js/jquery.js, <br>
                                     设置cdn是后它的访问地址就是：静态资源cdn地址/static/js/jquery.js
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="H">
+                        <div class="form-group">
+                            <label for="input-message_appid" class="col-sm-2 control-label">APPID</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="input-message_appid"
+                                       name="options[message_appid]"
+                                       value="{$site_info.message_appid|default=''}">
+                                <p class="help-block">
+                                    短信接口APPID
                                 </p>
                             </div>
                         </div>
