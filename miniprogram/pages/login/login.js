@@ -16,7 +16,6 @@ Page({
     onLoad() {
         // console.log(wx.getStorageSync('token'));
         // let token = wx.getStorageSync('token');
-        
     },
     formSubmit: function (e) {
         //console.log(api.json2Form(e.detail.value));
@@ -58,7 +57,11 @@ Page({
                         wx.setStorageSync('login', '1');
                         wx.setStorageSync('token', data.data.token);
                         wx.setStorageSync('user', data.data.user);
+                        
                         let _u = data.data.user;
+
+                        
+
                         if(_u.user_status == 2) {
                             //未验证
                             wx.reLaunch({

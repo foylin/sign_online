@@ -63,10 +63,10 @@ class ListsController extends RestUserBaseController
 
             if(isset($params['status']) && $params['status']=='0') {
                 //待签约
-                $where['pu.sign_status'] = 0;
+                $where['pu.sign_status'] = array('elt', 0);
             }
             if(isset($params['status']) && $params['status']=='1') {
-                //待签约
+                //已签约
                 $where['pu.sign_status'] = array('gt',0);
             }
 

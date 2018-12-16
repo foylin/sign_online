@@ -11,7 +11,8 @@ Page({
         searchInputShowed: false,
         searchInputVal: "",
         searchingResult: false,
-        searchKeyword: ""
+        searchKeyword: "",
+        listcount: 0
     },
     currentPageNumber: 1,
     onLoad() {
@@ -81,6 +82,31 @@ Page({
                 }
 
                 wx.stopPullDownRefresh();
+            }
+        });
+
+        // 待签约
+        api.get({
+            url: 'protocol/lists',
+            data: {
+                page: this.currentPageNumber,
+                order:'-published_time',
+                token: wx.getStorageSync('token'),
+                status: '0'
+            },
+            success: data => {
+                let count = data.data.list.length;
+                console.log(count);
+                if(count > 0){
+                    wx.setTabBarBadge({
+                        index: 1,
+                        text: ''+count+''
+                      })
+                }else{
+                    wx.hideTabBarRedDot({
+                        index: 1
+                    })
+                }   
             }
         });
     },
