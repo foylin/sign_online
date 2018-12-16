@@ -275,9 +275,17 @@ class PublicController extends RestBaseController
             $this->error($validate->getError());
         }
 
-        if($data['code'] != '1234') $this->error('验证码错误');
         $user = Db::name('user')->where('id',$data['id'])->find();
         if(!$user) $this->error('用户不存在，请联系管理员');
+
+        //新增短信验证
+        $sms = DB::name('sms')->where('mobile',$data['account'])->order('id desc')->find();
+        if(!$sms || $sms['code']!=$data['code']) {
+            $this->error('验证码错误');
+        } 
+
+        // if($data['code'] != '1234') $this->error('验证码错误');
+
         $update = ['id'=>$data['id'],'user_status'=>1];
         if(empty($user['mobile'])) {
             $update['mobile'] = $data['account'];
