@@ -397,11 +397,44 @@
                 ids: checkID
             }, 
             success: function (data) {
-                if(data.code == 0){
-                    alert(data.msg);
+                if (data.code == 0) {
+                    // alert(data.msg);
+                    noty({
+                        text: data.msg,
+                        type: 'error',
+                        layout: 'topCenter',
+                        modal: true,
+                        // animation: {
+                        //     open: 'animated bounceInDown', // Animate.css class names
+                        //     close: 'animated bounceOutUp', // Animate.css class names
+                        // },
+                        timeout: 800,
+                        callback: {
+                            afterClose: function () {
+                                // _refresh();
+                                reloadPage(window);
+                            }
+                        }
+                    }).show();
                 }else{
-                    alert('所有已签约协议已审核成功');
-                    reloadPage(window);
+                    // alert('审核成功');
+                    // reloadPage(window);
+
+                    noty({
+                        text: data.msg,
+                        type: 'success',
+                        layout: 'topCenter',
+                        modal: true,
+                        timeout: 800,
+                        callback: {
+                            afterClose: function () {
+                                // if ($btn.data('refresh') == undefined || $btn.data('refresh')) {
+                                //     _refresh();
+                                // }
+                                reloadPage(window);
+                            }
+                        }
+                    }).show();
                 }
             }
         });

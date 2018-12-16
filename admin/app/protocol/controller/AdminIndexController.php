@@ -759,7 +759,7 @@ class AdminIndexController extends AdminBaseController
             //     $this->success('保存成功!');
             // }
 
-            $this->success('保存成功!');
+            $this->success('审核成功!');
             
 
         }
