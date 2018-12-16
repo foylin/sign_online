@@ -13,6 +13,7 @@ Page({
     },
 
     formSubmit(e){
+        
         api.post({
             url: 'user/profile/bindingMobile',
             data: e.detail.value,
@@ -24,7 +25,6 @@ Page({
                         duration: 1000
                     })
                 }
-
                 if (data.code == 0) {
                     wx.showModal({
                         content: data.msg,
@@ -36,20 +36,23 @@ Page({
                         }
                     })
                 }
-
-
                 console.log(data);
             }
         });
         //console.log(e);
     },
     onMobileInput(e){
-        this.mobile = e.detail.value;
+        this.setData({
+            mobile: e.detail.value
+        });
+        // this.mobile = e.detail.value;
     },
     onGetVerificationCode(){
+        console.log(this);
+        let that = this;
         api.post({
             url: 'user/verification_code/send',
-            data: {username: this.mobile},
+            data: {username: that.data.mobile},
             success: data => {
                 if (data.code == 1) {
                     wx.showModal({
