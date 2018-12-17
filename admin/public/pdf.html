@@ -8,6 +8,8 @@
     <title>协议内容</title>
     <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <script src="./static/js/layer/layer.js"></script>
+    <!-- <link rel="stylesheet" href="./static/js/layer/mobile/need/layer.css"> -->
     <style>
         body {
             margin: 0;
@@ -46,11 +48,13 @@
         var type = GetQueryString('type');  //固定协议类型,1:保密工作责任书（通用部门);2:员工保密承诺书;3:涉密人员保证书;4:涉密人员离岗保密承诺书
         var usertype = GetQueryString('usertype');  //3保密委
         var pcup_id = GetQueryString('pcup_id');  //对应user_post的ID
+        // var post_title = GetQueryString('post_title');
         var desc = '';
         var count = 0;
         var host1 = 'https://sscx.karles.com.cn/web/viewer.html';
         var host = 'http://192.168.1.124/sign_online/admin/public/web/viewer.html';
         // alert(sign_status);
+        // console.log(post_title);
 
         if(sign_status == 0 || sign_status == -1){
             // $('iframe').attr('src', host1 + '?file=/upload/protocol/pdf/'+protocol_id+'.pdf');
@@ -73,6 +77,8 @@
                     clearInterval(interval);
                     // that.setData({ countdowndes: '' });
                     $('.footer').html('签约');
+
+                    navigateTo(protocol_id, sign_status, usertype, pcup_id);
                 }
             }, 1000)
         }else {
@@ -99,19 +105,23 @@
         $('.footer').click(function(){
             if(count > 0) return ;
             // if(sign_status == 2 || sign_status == 1) return ;
-            if(sign_status == 0 || sign_status == -1) {
-                wx.miniProgram.navigateTo({
-                    url: '/pages/sign/sign?protocol_id='+protocol_id
-                })
-            }
+            // if(sign_status == 0 || sign_status == -1) {
+            //     wx.miniProgram.navigateTo({
+            //         url: '/pages/sign/sign?protocol_id='+protocol_id
+            //     })
+            // }
 
-            if(usertype == 3 && sign_status == 1) {
-                wx.miniProgram.navigateTo({
-                    url: '/pages/sign/sign2?post_id='+protocol_id+'&pcup_id='+pcup_id
-                })
-            }
+            // if(usertype == 3 && sign_status == 1) {
+            //     wx.miniProgram.navigateTo({
+            //         url: '/pages/sign/sign2?post_id='+protocol_id+'&pcup_id='+pcup_id
+            //     })
+            // }
+
+            navigateTo(protocol_id, sign_status, usertype, pcup_id);
             
         })
+
+        
 
     });
 
@@ -119,6 +129,9 @@
 
         $("#iframe1").height(GetQueryString('height'));
         $("#iframe1").width(GetQueryString('width'));
+
+        // $("#iframe1").height('1000px');
+        // $("#iframe1").width('1200px');
     }
 
     function GetQueryString(name) { 
@@ -128,6 +141,63 @@
         if(r!=null)
             return unescape(r[2]); 
         return null; 
+    }
+
+    function get_protocol_title(protocol_id){
+        var title = '';
+        $.ajax({
+            url:'https://sscx.karles.com.cn/api/user/public/get_protocol_title',
+            type: "post", 
+            dataType: "json", 
+            async : false,
+            cache: false, 
+            data: {protocol_id: protocol_id}, 
+            success: function(data){
+                // console.log(data.code);
+                if(data.code == 1){
+                    title = data.data.post_title;
+                    // console.log(title);
+                    // return data.data.post_title;
+                }
+
+            }
+        })
+        // title = 456;
+        return title;
+    }
+
+    function navigateTo(protocol_id, sign_status, usertype, pcup_id) {
+
+        var post_title = get_protocol_title(protocol_id);
+        var confirm_msg = '本人已阅读并充分准确无误的理解《' + post_title + '》上所有条款';
+        layer.confirm(confirm_msg, {
+            closeBtn: 0,
+            btn: ['确定', '继续阅读']
+        }, function (index, layero) {
+            // alert(123);
+
+            // if(count > 0) return ;
+
+            // navigateTo(sign_status);
+
+            if (sign_status == 0 || sign_status == -1) {
+                wx.miniProgram.navigateTo({
+                    url: '/pages/sign/sign?protocol_id=' + protocol_id
+                })
+            }
+
+            if (usertype == 3 && sign_status == 1) {
+                wx.miniProgram.navigateTo({
+                    url: '/pages/sign/sign2?post_id=' + protocol_id + '&pcup_id=' + pcup_id
+                })
+            }
+
+
+        }, function(index){
+            
+        });
+
+        
     }
 
 

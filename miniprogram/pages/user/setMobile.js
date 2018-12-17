@@ -23,7 +23,12 @@ Page({
                     wx.showToast({
                         title: data.msg,
                         icon: 'success',
-                        duration: 1000
+                        duration: 1000,
+                        success: function(res){
+                            wx.reLaunch({
+                                url: '/pages/index/index'
+                            });
+                        }
                     })
                 }
                 if (data.code == 0) {
@@ -61,6 +66,7 @@ Page({
                         content: data.msg,
                         showCancel: false,
                         success: function (res) {
+                            
                         }
                     });
                 }

@@ -30,7 +30,7 @@ Page({
         timestamp = timestamp / 1000;  
 
         this.setData({
-          view_url: api.HOST + '/pdf.html?width=' + width + '&height=' + height + '&sign_status=' + params.status + '&protocol_id=' + params.id + '&uid=' + params.uid + '&type=' + params.type + '&usertype=' + params.usertype + '&pcup_id=' + params.pcup_id + '&v=' + timestamp
+          view_url: api.HOST + '/pdf.html?width=' + width + '&height=' + height + '&sign_status=' + params.status + '&protocol_id=' + params.id + '&uid=' + params.uid + '&type=' + params.type + '&usertype=' + params.usertype + '&pcup_id=' + params.pcup_id + '&post_title=' + params.post_title + '&v=' + timestamp
         })
 
 
