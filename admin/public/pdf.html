@@ -169,7 +169,7 @@
     function navigateTo(protocol_id, sign_status, usertype, pcup_id) {
 
         var post_title = get_protocol_title(protocol_id);
-        var confirm_msg = '本人已阅读并充分准确无误的理解《' + post_title + '》上所有条款';
+        var confirm_msg = '<div class=\'confirm_msg\'><input type=\'checkbox\'>本人已阅读并充分准确无误的理解《' + post_title + '》上所有条款<p style=\'display:none;color:red;\'>请确认并勾选</p></div>';
         layer.confirm(confirm_msg, {
             closeBtn: 0,
             btn: ['确定', '继续阅读']
@@ -179,6 +179,11 @@
             // if(count > 0) return ;
 
             // navigateTo(sign_status);
+            
+            if(!$('input[type="checkbox"]').prop('checked')){
+                $('.confirm_msg p').show();
+                return;
+            }
 
             if (sign_status == 0 || sign_status == -1) {
                 wx.miniProgram.navigateTo({
