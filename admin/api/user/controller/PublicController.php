@@ -286,11 +286,25 @@ class PublicController extends RestBaseController
 
         // if($data['code'] != '1234') $this->error('验证码错误');
 
-        $update = ['mobile'=>$data['mobile'],'user_status'=>1];
+        $update = ['user_status'=>1];
         if(empty($user['mobile'])) {
             $update['mobile'] = $data['mobile'];
         }
-        Db::name('user')->update($update);
+        $map['mobile'] = $data['mobile'];
+        Db::name('user')->where($map)->update($update);
         $this->success('ok');
+    }
+
+
+    public function get_protocol_title(){
+        $data = $this->request->param();
+        $protocol_id = isset($data['protocol_id']) ? $data['protocol_id'] : 0;
+        $post_title = Db::name('protocol_post')->alias('pp')->join('__PROTOCOL_CATEGORY__ pc', 'pp.protocol_category_id = pc.id')
+        ->where('pp.id='.$protocol_id)->value('pc.name');
+        if($post_title){
+            $this->success('success', ['post_title'=>$post_title]);
+        }else{
+            $this->error('协议书不存在');
+        }
     }
 }

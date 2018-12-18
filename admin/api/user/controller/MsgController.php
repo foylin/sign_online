@@ -22,8 +22,8 @@ class MsgController extends RestBaseController
     
     public function _initialize()
     {
-        
-        $this->appid = '00000000-0000-0000-0000-000000000000';
+        $site_info = cmf_get_option('site_info');
+        $this->appid = $site_info['message_appid'];
     }
 
     public function demo()

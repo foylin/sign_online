@@ -82,7 +82,8 @@ padding-top: 22rpx;
 .weui-media-box__desc .sign-status{
     background: #00796a;
 }
-
-
+.weui-panel{
+    background: none;
+}
 
 

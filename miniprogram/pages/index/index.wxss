@@ -87,6 +87,9 @@ page {
     background: #00796a;
 }
 
+.weui-panel{
+    background: none;
+}
 
 
 
