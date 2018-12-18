@@ -56,7 +56,9 @@ padding-top: 22rpx;
   margin-right: 0;
   margin-left: .8em;
 }
-
+.weui-panel{
+    background: none;
+}
 .weui-panel:after{
     border-bottom: none;
 }

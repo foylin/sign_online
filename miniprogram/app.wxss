@@ -79,3 +79,11 @@ page {
 .weui-article .wxParse{
   margin: 0;
 }
+
+.weui-loadmore{
+    background: none;
+}
+
+.weui-loadmore__tips{
+    /* background: none; */
+}
